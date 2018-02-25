@@ -37,12 +37,12 @@ public class SecondActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.second_activity);
 
-        text = (TextView) findViewById(R.id.text);
+        text = findViewById(R.id.text);
         Intent intent = new Intent()
                 .setType("*/*")
                .setAction(Intent.ACTION_GET_CONTENT);
 
-        startActivityForResult(Intent.createChooser(intent, "Select a file"), 123);
+        startActivityForResult(Intent.createChooser(intent, "Выберите файл"), 123);
     }
 
     @Override
@@ -50,12 +50,12 @@ public class SecondActivity extends Activity{
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode==123 && resultCode==RESULT_OK) {
-            Uri selectedfile = data.getData(); //The uri with the location of the file
+            Uri selectedFile = data.getData(); //The uri with the location of the file
 
             try {
                 final BufferedReader br = new BufferedReader(
                         new InputStreamReader(
-                                new FileInputStream(getRealPathFromURI(selectedfile)), "Cp1251"));
+                                new FileInputStream(getRealPathFromURI(selectedFile)), "Cp1251"));
 
                 String nextString;
                 String finalString = "";

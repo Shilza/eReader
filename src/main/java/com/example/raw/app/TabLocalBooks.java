@@ -11,10 +11,12 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,8 @@ import java.util.List;
 public class TabLocalBooks extends Fragment {
 
     private  List<Book> books;
-    private RecyclerView rv;
+    private RecyclerView recycleView;
+    private RVAdapter adapter;
 
     private void initializeData(){
         books = new ArrayList<>();
@@ -64,10 +67,9 @@ public class TabLocalBooks extends Fragment {
     }
 
     private void initializeAdapter(){
-        RVAdapter adapter = new RVAdapter(books);
-        rv.setAdapter(adapter);
+        adapter = new RVAdapter(books, getActivity());
+        recycleView.setAdapter(adapter);
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -80,10 +82,10 @@ public class TabLocalBooks extends Fragment {
 
         View v = inflater.inflate(R.layout.recycleview_activivty, null);
 
-        rv = v.findViewById(R.id.rv);
+        recycleView = v.findViewById(R.id.recycleView);
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-        rv.setLayoutManager(llm);
+        recycleView.setLayoutManager(llm);
 
         initializeData();
         initializeAdapter();
@@ -100,4 +102,11 @@ public class TabLocalBooks extends Fragment {
     public void onDetach() {
         super.onDetach();
     }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item){
+        adapter.getItemSelected(item);
+        return  super.onContextItemSelected(item);
+    }
+
 }
