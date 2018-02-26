@@ -24,7 +24,7 @@ import java.util.List;
 
 public class TabLocalBooks extends Fragment {
 
-    private  List<Book> books;
+    private List<Book> books;
     private RecyclerView recycleView;
     private RVAdapter adapter;
 
@@ -62,7 +62,6 @@ public class TabLocalBooks extends Fragment {
                     }
                 } while (cursor.moveToNext());
             }
-
         }
     }
 
@@ -80,7 +79,7 @@ public class TabLocalBooks extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.recycleview_activivty, null);
+        View v = inflater.inflate(R.layout.tab_local_books, null);
 
         recycleView = v.findViewById(R.id.recycleView);
 
@@ -89,6 +88,9 @@ public class TabLocalBooks extends Fragment {
 
         initializeData();
         initializeAdapter();
+
+        if(books.isEmpty())
+            ((TextView)v.findViewById(R.id.tab_local_books_text)).setText("Локальные");
 
         return v;
     }

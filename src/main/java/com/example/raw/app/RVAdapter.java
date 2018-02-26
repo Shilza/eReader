@@ -112,7 +112,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewHolder> {
             case CONTEXT_MENU_OPEN_ID:
                 Intent intent = new Intent(context, ContextMenuProperties.class);
                 for(Book a : books){
-                    if(a.name == headerTitleName)
+                    if(a.name.equals(headerTitleName))
                         intent.putExtra("Book", a);
                 }
                 context.startActivity(intent);
