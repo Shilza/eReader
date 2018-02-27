@@ -1,4 +1,3 @@
 <resources>
-    <string name="app_name">App</string>
-    <string name="title_activity_third">ThirdActivity</string>
+    <string name="app_name">eReader</string>
 </resources>

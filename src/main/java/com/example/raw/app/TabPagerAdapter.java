@@ -4,32 +4,30 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-public class TabPagerAdapter extends FragmentStatePagerAdapter {
+public class TabPagerAdapter extends FragmentStatePagerAdapter{
 
-    int mNoOfTabs;
+    private int mNoOfTabs;
 
-    public TabPagerAdapter(FragmentManager fm, int numberOfTabs) {
+    TabPagerAdapter(FragmentManager fm, int numberOfTabs){
         super(fm);
         this.mNoOfTabs = numberOfTabs;
     }
 
 
     @Override
-    public Fragment getItem(int position) {
-        switch(position) {
+    public Fragment getItem(int position){
+        switch(position){
             case 0:
-                TabRecentBooks tabRecentBooks = new TabRecentBooks();
-                return tabRecentBooks;
+                return new TabRecentBooks();
             case 1:
-                TabLocalBooks tabLocalBooks = new TabLocalBooks();
-                return  tabLocalBooks;
+                return new TabLocalBooks();
             default:
                 return null;
         }
     }
 
     @Override
-    public int getCount() {
+    public int getCount(){
         return mNoOfTabs;
     }
 }

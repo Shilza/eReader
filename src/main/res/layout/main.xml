@@ -10,17 +10,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/toolbar"
-            android:background="@android:color/black"
-            />
-            <!--
-            android:background="@android:color/black"
-            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"-->
-
-
         <android.support.design.widget.TabLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

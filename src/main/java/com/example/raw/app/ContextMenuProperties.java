@@ -1,11 +1,18 @@
 package com.example.raw.app;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ContextMenuProperties extends AppCompatActivity {
+import org.json.JSONObject;
+
+public class ContextMenuProperties extends AppCompatActivity{
 
     private ImageView ivCover;
     private TextView tvName;
@@ -28,11 +35,21 @@ public class ContextMenuProperties extends AppCompatActivity {
         tvFilePath = findViewById(R.id.properties_file_path);
 
         book = (Book)getIntent().getSerializableExtra("Book");
-        ivCover.setImageResource(book.coverId);
-        tvName.setText(book.name);
-        tvSize.setText(book.size);
-        tvTotalRead.setText("0%");
-        tvLastActivity.setText("0:00:00");
-        tvFilePath.setText(book.filePath);
+        ivCover.setImageResource(book.getCoverId());
+        tvName.setText(book.getName());
+        tvSize.setText(book.getSize());
+        tvTotalRead.setText(book.getTotalRead());
+        tvLastActivity.setText(book.getLastActivity());
+        tvFilePath.setText(book.getFilePath());
+
+        /*
+        tvFilePath.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE, Uri.parse(Environment.getExternalStorageDirectory ()+"/eReader"));
+                startActivityForResult(myIntent, 2);
+            }
+        });
+        */
     }
 }

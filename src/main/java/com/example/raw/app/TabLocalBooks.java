@@ -28,43 +28,6 @@ public class TabLocalBooks extends Fragment {
     private RecyclerView recycleView;
     private RVAdapter adapter;
 
-    private void initializeData(){
-        books = new ArrayList<>();
-
-        ContentResolver cr = getActivity().getContentResolver();
-
-        Uri uri = MediaStore.Files.getContentUri("external");
-
-        String[] projection = null;
-
-        String sortOrder = null; // unordered
-
-        String selectionMimeType = MediaStore.Files.FileColumns.MIME_TYPE + "=?";
-        //+ MediaStore.Files.FileColumns.MEDIA_TYPE_NONE;
-        String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension("pdf");
-        String[] selectionArgsPdf = new String[]{ mimeType };
-        Cursor cursor = cr.query(uri, projection, selectionMimeType, selectionArgsPdf, sortOrder);// cursor -- allPDFFiles
-
-        if (cursor != null){
-            if (cursor.moveToFirst()) {
-                do {
-                    if(cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns.DISPLAY_NAME)) != null){
-                        String name = cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns.DISPLAY_NAME));
-                        String path = cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns.DATA));
-                        float size = cursor.getFloat(cursor.getColumnIndex(MediaStore.Files.FileColumns.SIZE)) / (1024*1024);
-
-                        String extension = ".pdf";
-                        if(name.contains(extension))
-                            name = name.substring(0, name.indexOf(extension));
-
-                        Book book = new Book(name, path, size, R.drawable.e);
-                        books.add(book);
-                    }
-                } while (cursor.moveToNext());
-            }
-        }
-    }
-
     private void initializeAdapter(){
         adapter = new RVAdapter(books, getActivity());
         recycleView.setAdapter(adapter);
@@ -86,7 +49,7 @@ public class TabLocalBooks extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         recycleView.setLayoutManager(llm);
 
-        initializeData();
+        books = FileWorker.initializeLocalBooksData(getActivity().getContentResolver());
         initializeAdapter();
 
         if(books.isEmpty())

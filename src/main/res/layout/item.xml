@@ -42,7 +42,6 @@
             android:id="@+id/book_path"
             android:layout_toRightOf="@+id/book_cover"
             android:layout_alignParentBottom="true"
-            android:paddingBottom="4dp"
             />
 
     </RelativeLayout>

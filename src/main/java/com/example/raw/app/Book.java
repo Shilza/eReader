@@ -4,10 +4,13 @@ import java.io.Serializable;
 import java.text.DecimalFormat;
 
 public class Book implements Serializable{
-    String name;
-    String filePath;
-    String size;
-    int coverId;
+
+    private String name;
+    private String filePath;
+    private String size;
+    private String totalRead;
+    private String lastActivity;
+    private int coverId;
 
     Book(String name, String filePath, float size, int coverId){
         this.name = name;
@@ -20,5 +23,31 @@ public class Book implements Serializable{
         this.size = String.valueOf(strSize) + " Мб";
 
         this.coverId = coverId;
+        this.totalRead = "0%";
+        this.lastActivity = "0:00:00";
+    }
+
+    String getName(){
+        return name;
+    }
+
+    String getFilePath(){
+        return filePath;
+    }
+
+    String getSize(){
+        return size;
+    }
+
+    String getTotalRead(){
+        return totalRead;
+    }
+
+    String getLastActivity(){
+        return lastActivity;
+    }
+
+    int getCoverId(){
+        return coverId;
     }
 }

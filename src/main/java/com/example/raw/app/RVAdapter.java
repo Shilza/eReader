@@ -1,8 +1,10 @@
 package com.example.raw.app;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -18,7 +20,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewHolder> {
 
     private List<Book> books;
     private Context context;
-    private String headerTitleName;
+    private String contextMenuHeaderTitleName;
 
     private final byte CONTEXT_MENU_OPEN_ID = 0;
     private final byte CONTEXT_MENU_FIX = 3;
@@ -54,7 +56,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewHolder> {
         public void onCreateContextMenu(ContextMenu menu, View view,
                                         ContextMenu.ContextMenuInfo menuInfo) {
 
-            menu.setHeaderTitle(headerTitleName);
+            menu.setHeaderTitle(contextMenuHeaderTitleName);
             menu.add(0, CONTEXT_MENU_OPEN_ID, 0, "Открыть");
             if(context.equals(TabRecentBooks.class)){
                 menu.add(0, CONTEXT_MENU_FIX, 0, "Закрепить");
@@ -82,21 +84,20 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewHolder> {
     @Override
     public BookViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item, viewGroup, false);
-        BookViewHolder pvh = new BookViewHolder(view);
-        return pvh;
+        return new BookViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final BookViewHolder bookViewHolder, int i) {
-        bookViewHolder.bookName.setText(books.get(i).name);
-        bookViewHolder.bookSize.setText(books.get(i).size);
-        bookViewHolder.bookCover.setImageResource(books.get(i).coverId);
+        bookViewHolder.bookName.setText(books.get(i).getName());
+        bookViewHolder.bookSize.setText(books.get(i).getSize());
+        bookViewHolder.bookCover.setImageResource(books.get(i).getCoverId());
 
         bookViewHolder.setOnLongClickListener(new LongClickListener() {
             @Override
             public void onItemViewClick(int pos) {
-                headerTitleName = books.get(pos).name;
-                Toast.makeText(context, headerTitleName, Toast.LENGTH_SHORT).show();
+                contextMenuHeaderTitleName = books.get(pos).getName();
+                Toast.makeText(context, contextMenuHeaderTitleName, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -107,19 +108,23 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewHolder> {
     }
 
     public void getItemSelected(MenuItem item){
-        Toast.makeText(context, headerTitleName + " : " + String.valueOf(item.getItemId()), Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, contextMenuHeaderTitleName + " : " + String.valueOf(item.getItemId()), Toast.LENGTH_SHORT).show();
         switch (item.getItemId()){
             case CONTEXT_MENU_OPEN_ID:
                 Intent intent = new Intent(context, ContextMenuProperties.class);
                 for(Book a : books){
-                    if(a.name.equals(headerTitleName))
+                    if(a.getName().equals(contextMenuHeaderTitleName))
                         intent.putExtra("Book", a);
                 }
                 context.startActivity(intent);
                 break;
+            case CONTEXT_MENU_DELETE:
+                for(Book a : books){
+                    if(a.getName().equals(contextMenuHeaderTitleName))
+                        FileWorker.JSONWorker.exportToJSON(a);
+                }
             default:
                 break;
         }
-
     }
 }
