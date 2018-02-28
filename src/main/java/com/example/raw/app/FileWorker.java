@@ -5,18 +5,21 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
 class FileWorker{
-    private static final String APP_DIRECTORY = Environment.getExternalStorageDirectory ()+"eReader";
+    private static final String APP_DIRECTORY = Environment.getExternalStorageDirectory ()+"/eReader";
 
     static void checkAppFolder(){
         File directory = new File(APP_DIRECTORY);
@@ -59,33 +62,36 @@ class FileWorker{
 
     static class JSONWorker {
 
-        private static final String LIST_RECENT_BOOKS = APP_DIRECTORY +"/DATA.json";
+        private static final String LIST_RECENT_BOOKS = APP_DIRECTORY + "/recent_books.json";
         static ArrayList<Book> books;
 
         static{
-            Gson gson = new Gson();
             try{
-                books = gson.fromJson(new FileReader(LIST_RECENT_BOOKS), new TypeToken<ArrayList<Book>>(){}.getType());
+                books = new Gson().fromJson(new BufferedReader(new FileReader(LIST_RECENT_BOOKS)),
+                        new TypeToken<ArrayList<Book>>(){}.getType());
             }catch (Exception ex){
+                books = new ArrayList<>();
                 ex.printStackTrace();
             }
         }
 
-        static void exportToJSON(Book book){
+        static ArrayList<Book> getBooks(){
+            return books;
+        }
 
+        static void exportToJSON(Book book){
             if(!isBookExist(book.getName())){
                 books.add(book);
-
-                Gson gson = new Gson();
-                String jsonString = gson.toJson(book);
+                String jsonString = new Gson().toJson(books);
 
                 try {
-                    FileWriter writer = new FileWriter(LIST_RECENT_BOOKS);
+                    BufferedWriter writer = new BufferedWriter(new FileWriter(LIST_RECENT_BOOKS));
                     writer.write(jsonString);
                     writer.close();
                 }catch (Exception e){
                     e.printStackTrace();
                 }
+                TabRecentBooks.addBook();
             }
         }
 

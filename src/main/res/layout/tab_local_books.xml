@@ -5,7 +5,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tab_local_books_text"
+        android:id="@+id/local_books_text"
         android:layout_centerInParent="true"
         />
 
@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:layout_marginTop="4dp"
-        android:id="@+id/recycleView"
+        android:id="@+id/local_books_recycler_view"
         android:scrollbars="vertical"
         >
     </android.support.v7.widget.RecyclerView>

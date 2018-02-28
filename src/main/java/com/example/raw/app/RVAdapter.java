@@ -1,6 +1,5 @@
 package com.example.raw.app;
 
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -13,22 +12,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.List;
+import java.util.ArrayList;
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewHolder> {
 
-    private List<Book> books;
+    private ArrayList<Book> books;
     private Context context;
     private String contextMenuHeaderTitleName;
 
     private final byte CONTEXT_MENU_OPEN_ID = 0;
-    private final byte CONTEXT_MENU_FIX = 3;
-    private final byte CONTEXT_MENU_PROPERTIES = 2;
     private final byte CONTEXT_MENU_DELETE = 1;
+    private final byte CONTEXT_MENU_PROPERTIES = 2;
+    private final byte CONTEXT_MENU_FIX = 3;
 
-
-    RVAdapter(List<Book> books, Context context){
+    RVAdapter(ArrayList<Book> books, Context context){
         this.books = books;
         this.context = context;
     }
@@ -58,10 +55,8 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewHolder> {
 
             menu.setHeaderTitle(contextMenuHeaderTitleName);
             menu.add(0, CONTEXT_MENU_OPEN_ID, 0, "Открыть");
-            if(context.equals(TabRecentBooks.class)){
-                menu.add(0, CONTEXT_MENU_FIX, 0, "Закрепить");
-                menu.add(0, CONTEXT_MENU_PROPERTIES, 0, "Свойства");
-            }
+            menu.add(0, CONTEXT_MENU_FIX, 0, "Закрепить");
+            menu.add(0, CONTEXT_MENU_PROPERTIES, 0, "Свойства");
             menu.add(0, CONTEXT_MENU_DELETE, 0, "Удалить");
         }
 
@@ -108,7 +103,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewHolder> {
     }
 
     public void getItemSelected(MenuItem item){
-        Toast.makeText(context, contextMenuHeaderTitleName + " : " + String.valueOf(item.getItemId()), Toast.LENGTH_SHORT).show();
         switch (item.getItemId()){
             case CONTEXT_MENU_OPEN_ID:
                 Intent intent = new Intent(context, ContextMenuProperties.class);
