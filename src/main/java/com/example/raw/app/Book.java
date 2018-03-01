@@ -11,6 +11,7 @@ public class Book implements Serializable{
     private String totalRead;
     private String lastActivity;
     private int coverId;
+    private boolean isFix;
 
     Book(String name, String filePath, float size, int coverId){
         this.name = name;
@@ -25,6 +26,7 @@ public class Book implements Serializable{
         this.coverId = coverId;
         this.totalRead = "0%";
         this.lastActivity = "0:00:00";
+        this.isFix = false;
     }
 
     String getName(){
@@ -50,4 +52,6 @@ public class Book implements Serializable{
     int getCoverId(){
         return coverId;
     }
+
+    boolean isFix() { return isFix; }
 }

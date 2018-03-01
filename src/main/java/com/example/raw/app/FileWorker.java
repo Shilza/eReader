@@ -19,7 +19,20 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 
 class FileWorker{
+
     private static final String APP_DIRECTORY = Environment.getExternalStorageDirectory ()+"/eReader";
+    private static final String LIST_RECENT_BOOKS = APP_DIRECTORY + "/recent_books.json";
+    static ArrayList<Book> books;
+
+    static{
+        try{
+            books = new Gson().fromJson(new BufferedReader(new FileReader(LIST_RECENT_BOOKS)),
+                    new TypeToken<ArrayList<Book>>(){}.getType());
+        }catch (Exception ex){
+            books = new ArrayList<>();
+            ex.printStackTrace();
+        }
+    }
 
     static void checkAppFolder(){
         File directory = new File(APP_DIRECTORY);
@@ -58,54 +71,33 @@ class FileWorker{
         return books;
     }
 
-
-
-    static class JSONWorker {
-
-        private static final String LIST_RECENT_BOOKS = APP_DIRECTORY + "/recent_books.json";
-        static ArrayList<Book> books;
-
-        static{
-            try{
-                books = new Gson().fromJson(new BufferedReader(new FileReader(LIST_RECENT_BOOKS)),
-                        new TypeToken<ArrayList<Book>>(){}.getType());
-            }catch (Exception ex){
-                books = new ArrayList<>();
-                ex.printStackTrace();
-            }
-        }
-
-        static ArrayList<Book> getBooks(){
+    static ArrayList<Book> getBooks(){
             return books;
         }
 
-        static void exportToJSON(Book book){
-            if(!isBookExist(book.getName())){
-                books.add(book);
-                String jsonString = new Gson().toJson(books);
+    static void exportToJSON(Book book){
+        if(!isBookExist(book.getName())){
+            books.add(book);
 
-                try {
-                    BufferedWriter writer = new BufferedWriter(new FileWriter(LIST_RECENT_BOOKS));
-                    writer.write(jsonString);
-                    writer.close();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-                TabRecentBooks.addBook();
+            try {
+                BufferedWriter writer = new BufferedWriter(new FileWriter(LIST_RECENT_BOOKS));
+                writer.write(new Gson().toJson(books));
+                writer.close();
+            }catch (Exception e){
+                e.printStackTrace();
             }
+            TabRecentBooks.addBook();
         }
+    }
 
-        static boolean isBookExist(String bookName){
-            try{
-                for(Book a: books)
-                    if(a.getName().equals(bookName))
-                        return true;
-            }catch(Exception ex){
-                ex.printStackTrace();
-            }
-
-            return false;
+    static boolean isBookExist(String bookName){
+        try{
+            for(Book a: books)
+                if(a.getName().equals(bookName))
+                    return true;
+        }catch(Exception ex){
+            ex.printStackTrace();
         }
-
+        return false;
     }
 }

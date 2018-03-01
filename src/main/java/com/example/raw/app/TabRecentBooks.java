@@ -38,7 +38,7 @@ public class TabRecentBooks extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(llm);
 
-        ArrayList<Book> books = FileWorker.JSONWorker.getBooks();
+        ArrayList<Book> books = FileWorker.getBooks();
         adapter = new RVAdapter(books, getActivity());
         recyclerView.setAdapter(adapter);
 

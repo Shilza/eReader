@@ -3,7 +3,6 @@ package com.example.raw.app;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -18,7 +17,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewHolder> {
 
     private ArrayList<Book> books;
     private Context context;
-    private String contextMenuHeaderTitleName;
+    private String selectedBookName;
 
     private final byte CONTEXT_MENU_OPEN_ID = 0;
     private final byte CONTEXT_MENU_DELETE = 1;
@@ -30,13 +29,13 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewHolder> {
         this.context = context;
     }
 
-    public class BookViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener ,View.OnCreateContextMenuListener{
+    public class BookViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener ,View.OnCreateContextMenuListener, View.OnClickListener{
 
         TextView bookName;
         TextView bookSize;
         ImageView bookCover;
 
-        LongClickListener longClickListener;
+        ItemClickListener itemClickListener;
 
         BookViewHolder(final View itemView) {
             super(itemView);
@@ -47,26 +46,32 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewHolder> {
 
             itemView.setOnCreateContextMenuListener(this);
             itemView.setOnLongClickListener(this);
+            itemView.setOnClickListener(this);
         }
 
         @Override
         public void onCreateContextMenu(ContextMenu menu, View view,
                                         ContextMenu.ContextMenuInfo menuInfo) {
 
-            menu.setHeaderTitle(contextMenuHeaderTitleName);
+            menu.setHeaderTitle(selectedBookName);
             menu.add(0, CONTEXT_MENU_OPEN_ID, 0, "Открыть");
             menu.add(0, CONTEXT_MENU_FIX, 0, "Закрепить");
-            menu.add(0, CONTEXT_MENU_PROPERTIES, 0, "Свойства");
             menu.add(0, CONTEXT_MENU_DELETE, 0, "Удалить");
+            menu.add(0, CONTEXT_MENU_PROPERTIES, 0, "Свойства");
         }
 
-        public void setOnLongClickListener(LongClickListener listener){
-            this.longClickListener = listener;
+        public void setOnLongClickListener(ItemClickListener listener){
+            this.itemClickListener = listener;
+        }
+
+        @Override
+        public void onClick(View view){
+           this.itemClickListener.onItemViewClick(getLayoutPosition(), false);
         }
 
         @Override
         public boolean onLongClick(View view){
-            this.longClickListener.onItemViewClick(getLayoutPosition());
+            this.itemClickListener.onItemViewClick(getLayoutPosition(), true);
             return false;
         }
     }
@@ -88,11 +93,17 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewHolder> {
         bookViewHolder.bookSize.setText(books.get(i).getSize());
         bookViewHolder.bookCover.setImageResource(books.get(i).getCoverId());
 
-        bookViewHolder.setOnLongClickListener(new LongClickListener() {
+        bookViewHolder.setOnLongClickListener(new ItemClickListener() {
             @Override
-            public void onItemViewClick(int pos) {
-                contextMenuHeaderTitleName = books.get(pos).getName();
-                Toast.makeText(context, contextMenuHeaderTitleName, Toast.LENGTH_SHORT).show();
+            public void onItemViewClick(int pos, boolean isLongClick) {
+                selectedBookName = books.get(pos).getName();
+                Toast.makeText(context, selectedBookName, Toast.LENGTH_SHORT).show();
+
+                if(!isLongClick){
+                    for(Book a : books)
+                        if(a.getName().equals(selectedBookName))
+                            FileWorker.exportToJSON(a);
+                }
             }
         });
     }
@@ -104,19 +115,14 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewHolder> {
 
     public void getItemSelected(MenuItem item){
         switch (item.getItemId()){
-            case CONTEXT_MENU_OPEN_ID:
+            case CONTEXT_MENU_PROPERTIES:
                 Intent intent = new Intent(context, ContextMenuProperties.class);
                 for(Book a : books){
-                    if(a.getName().equals(contextMenuHeaderTitleName))
+                    if(a.getName().equals(selectedBookName))
                         intent.putExtra("Book", a);
                 }
                 context.startActivity(intent);
                 break;
-            case CONTEXT_MENU_DELETE:
-                for(Book a : books){
-                    if(a.getName().equals(contextMenuHeaderTitleName))
-                        FileWorker.JSONWorker.exportToJSON(a);
-                }
             default:
                 break;
         }
