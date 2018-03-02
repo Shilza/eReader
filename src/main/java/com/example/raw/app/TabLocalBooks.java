@@ -17,6 +17,7 @@ public class TabLocalBooks extends Fragment {
 
     private RecyclerView recyclerView;
     private RVAdapter adapter;
+    private static TextView tvLocalBooks;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,18 +31,23 @@ public class TabLocalBooks extends Fragment {
         View view = inflater.inflate(R.layout.tab_local_books, null);
 
         recyclerView = view.findViewById(R.id.local_books_recycler_view);
+        tvLocalBooks = view.findViewById(R.id.local_books_text);
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(llm);
 
-        ArrayList<Book> books = FileWorker.initializeLocalBooksData(getActivity().getContentResolver());
-        adapter = new RVAdapter(books, getActivity());
+        ArrayList<Book> books = FileWorker.getLocalBooks();
+        adapter = new LocalBooksRVAdapter(books, getActivity());
         recyclerView.setAdapter(adapter);
 
         if(books.isEmpty())
-            ((TextView)view.findViewById(R.id.local_books_text)).setText("Локальные");
+            tvLocalBooks.setText("Локальные");
 
         return view;
+    }
+
+    static void setTextLocalBooks(){
+        tvLocalBooks.setText("Локальные");
     }
 
     @Override

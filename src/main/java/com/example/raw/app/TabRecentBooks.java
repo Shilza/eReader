@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -19,7 +20,7 @@ public class TabRecentBooks extends Fragment {
 
     private RecyclerView recyclerView;
     private static RVAdapter adapter;
-    private static TextView tvRecentBooks;
+    public static TextView tvRecentBooks;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,8 +39,8 @@ public class TabRecentBooks extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(llm);
 
-        ArrayList<Book> books = FileWorker.getBooks();
-        adapter = new RVAdapter(books, getActivity());
+        ArrayList<Book> books = FileWorker.getRecentBooks();
+        adapter = new RecentBooksRVAdapter(books, getActivity());
         recyclerView.setAdapter(adapter);
 
         if(books.isEmpty())
@@ -53,6 +54,10 @@ public class TabRecentBooks extends Fragment {
         tvRecentBooks.setText("");
     }
 
+    static void setTextRecentBooks(){
+        tvRecentBooks.setText("Последние");
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -61,5 +66,11 @@ public class TabRecentBooks extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item){
+        adapter.getItemSelected(item);
+        return  super.onContextItemSelected(item);
     }
 }

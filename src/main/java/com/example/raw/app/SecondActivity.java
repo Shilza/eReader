@@ -68,7 +68,7 @@ public class SecondActivity extends Activity{
             } catch(FileNotFoundException e){
                 e.printStackTrace();
             }
-            catch(IOException e){
+            catch(Exception e){
                 e.printStackTrace();
             }
         }
@@ -81,10 +81,10 @@ public class SecondActivity extends Activity{
             result = contentURI.getPath();
         } else {
             cursor.moveToFirst();
-            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-            result = cursor.getString(idx);
+            int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(index);
+            cursor.close();
         }
-        cursor.close();
         return result;
     }
 }
