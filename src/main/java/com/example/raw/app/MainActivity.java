@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.main);
         FileWorker.checkAppFolder();
 
-        getActionBar().setHideOnContentScrollEnabled(true);
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Последние"));
         tabLayout.addTab(tabLayout.newTab().setText("Локальные"));
