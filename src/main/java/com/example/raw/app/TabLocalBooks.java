@@ -13,16 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 
-public class TabLocalBooks extends Fragment {
-
-    private RecyclerView recyclerView;
-    private RVAdapter adapter;
-    private static TextView tvLocalBooks;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+public class TabLocalBooks extends Tab{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,40 +21,21 @@ public class TabLocalBooks extends Fragment {
 
         View view = inflater.inflate(R.layout.tab_local_books, null);
 
-        recyclerView = view.findViewById(R.id.local_books_recycler_view);
-        tvLocalBooks = view.findViewById(R.id.local_books_text);
+        RecyclerView recyclerView = view.findViewById(R.id.local_books_recycler_view);
+        tvLocation = view.findViewById(R.id.local_books_text);
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(llm);
 
         ArrayList<Book> books = FileWorker.getLocalBooks();
-        adapter = new LocalBooksRVAdapter(books, getActivity());
+        adapter = new LocalBooksRVAdapter(books, getActivity(), this);
         recyclerView.setAdapter(adapter);
 
+        locationName = "Локальные";
+
         if(books.isEmpty())
-            tvLocalBooks.setText("Локальные");
+            tvLocation.setText(locationName);
 
         return view;
     }
-
-    static void setTextLocalBooks(){
-        tvLocalBooks.setText("Локальные");
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item){
-        adapter.getItemSelected(item);
-        return  super.onContextItemSelected(item);
-    }
-
 }

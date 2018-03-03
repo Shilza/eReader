@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.main);
         FileWorker.checkAppFolder();
 
+        getActionBar().setHideOnContentScrollEnabled(true);
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Последние"));
         tabLayout.addTab(tabLayout.newTab().setText("Локальные"));
@@ -33,12 +34,10 @@ public class MainActivity extends AppCompatActivity{
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
     }

@@ -28,12 +28,16 @@ class FileWorker{
             recentBooks = new Gson().fromJson(new BufferedReader(new FileReader(LIST_RECENT_BOOKS)),
                     new TypeToken<ArrayList<Book>>(){}.getType());
 
+            ArrayList<Book> deletedBooks = new ArrayList<>();
             for(Book obj : recentBooks){
-                if(!new File(obj.getFilePath()).exists()){
-                    recentBooks.remove(obj);
-                    refreshingJSON();
-                }
+                if(!new File(obj.getFilePath()).exists())
+                    deletedBooks.add(obj);
             }
+            if(!deletedBooks.isEmpty()){
+                recentBooks.removeAll(deletedBooks);
+                refreshingJSON();
+            }
+
         } catch (Exception ex){
             recentBooks = new ArrayList<>();
             ex.printStackTrace();
@@ -74,17 +78,14 @@ class FileWorker{
                         size = size / (1024 * 1024);
                         strSize = f.format(size) + " МБ";
                     }
-                    else if(size / 1024 > 1){
+                    else{
                         size = size / 1024;
                         strSize = f.format(size) + " КБ";
                     }
-                    else
-                        strSize = f.format(size) + " Б";
 
 
                     Book book = new Book(name, path, strSize, R.drawable.e);
 
-                    Log.d("Saas", entry.getPath());
                     boolean isBookContains = false;
                     for(Book obj : recentBooks){
                         if(obj.equals(book)){
@@ -106,13 +107,13 @@ class FileWorker{
 
     static ArrayList<Book> getRecentBooks(){
             return recentBooks;
-        }
+    }
 
     static void exportToJSON(Book book){
-        if(!isBookExistInList(book.getName())){
+        if(isBookExist(book.getFilePath()) && !isBookExistInList(book)){
             recentBooks.add(book);
+            localBooks.remove(book);
             refreshingJSON();
-            TabRecentBooks.addBook();
         }
     }
 
@@ -126,14 +127,15 @@ class FileWorker{
         }
     }
 
-    private static boolean isBookExistInList(String bookName){
+    private static boolean isBookExistInList(Book book){
         try{
-            for(Book a: recentBooks)
-                if(a.getName().equals(bookName))
+            for(Book obj: recentBooks)
+                if(obj.equals(book))
                     return true;
         }catch(Exception ex){
             ex.printStackTrace();
         }
+
         return false;
     }
 
