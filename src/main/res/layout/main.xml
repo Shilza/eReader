@@ -22,8 +22,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/pager"/>
-
     </LinearLayout>
 
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="4dp"
+        android:scrollbars="vertical"
+        android:id="@+id/search_recycler_view"
+        />
 
 </android.support.constraint.ConstraintLayout>

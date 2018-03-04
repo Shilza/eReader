@@ -9,7 +9,7 @@ public class Book implements Serializable{
     private String filePath;
     private String size;
     private String totalRead;
-    private String lastActivity;
+    private long lastActivity;
     private int coverId;
 
     Book(String name, String filePath, String size, int coverId){
@@ -18,7 +18,11 @@ public class Book implements Serializable{
         this.size = size;
         this.coverId = coverId;
         this.totalRead = "0%";
-        this.lastActivity = "0:00:00";
+        this.lastActivity = 0;
+    }
+
+    void setLastActivity(long lastActivity){
+        this.lastActivity = lastActivity;
     }
 
     String getName(){
@@ -37,7 +41,7 @@ public class Book implements Serializable{
         return totalRead;
     }
 
-    String getLastActivity(){
+    long getLastActivity(){
         return lastActivity;
     }
 
@@ -57,9 +61,7 @@ public class Book implements Serializable{
         if (filePath != null ? !filePath.equals(book.filePath) : book.filePath != null)
             return false;
         if (size != null ? !size.equals(book.size) : book.size != null) return false;
-        if (totalRead != null ? !totalRead.equals(book.totalRead) : book.totalRead != null)
-            return false;
-        return lastActivity != null ? lastActivity.equals(book.lastActivity) : book.lastActivity == null;
+        return totalRead != null ? totalRead.equals(book.totalRead) : book.totalRead == null;
     }
 
     @Override
@@ -68,7 +70,7 @@ public class Book implements Serializable{
         result = 31 * result + (filePath != null ? filePath.hashCode() : 0);
         result = 31 * result + (size != null ? size.hashCode() : 0);
         result = 31 * result + (totalRead != null ? totalRead.hashCode() : 0);
-        result = 31 * result + (lastActivity != null ? lastActivity.hashCode() : 0);
+        result = 31 * result + (int) (lastActivity ^ (lastActivity >>> 32));
         result = 31 * result + coverId;
         return result;
     }

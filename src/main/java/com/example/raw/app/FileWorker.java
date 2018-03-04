@@ -11,14 +11,17 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 class FileWorker{
 
     private static final String APP_DIRECTORY = Environment.getExternalStorageDirectory()+"/eReader";
     private static final String LIST_RECENT_BOOKS = APP_DIRECTORY + "/recent_books.json";
-    private static ArrayList<Book> recentBooks;
+    static ArrayList<Book> recentBooks;
     private static ArrayList<Book> localBooks;
 
     static{
@@ -111,7 +114,8 @@ class FileWorker{
 
     static void exportToJSON(Book book){
         if(isBookExist(book.getFilePath()) && !isBookExistInList(book)){
-            recentBooks.add(book);
+            book.setLastActivity(new Date().getTime());
+            recentBooks.add(0, book);
             localBooks.remove(book);
             refreshingJSON();
         }

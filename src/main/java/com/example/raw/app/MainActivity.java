@@ -1,13 +1,23 @@
 package com.example.raw.app;
 
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.AccelerateInterpolator;
 
 public class MainActivity extends AppCompatActivity{
+    private SearchAdapter searchAdapter;
+    private RecyclerView searchRecyclerView;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -16,14 +26,14 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.main);
         FileWorker.checkAppFolder();
 
-        TabLayout tabLayout = findViewById(R.id.tabLayout);
+        tabLayout = findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Последние"));
         tabLayout.addTab(tabLayout.newTab().setText("Локальные"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final ViewPager viewPager = findViewById(R.id.pager);
-        TabPagerAdapter adapter = new TabPagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
-        viewPager.setAdapter(adapter);
+        viewPager = findViewById(R.id.pager);
+        TabPagerAdapter pagerAdapter = new TabPagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
+        viewPager.setAdapter(pagerAdapter);
         viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -39,13 +49,72 @@ public class MainActivity extends AppCompatActivity{
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
+
+        searchAdapter = new SearchAdapter(FileWorker.getRecentBooks(), FileWorker.getLocalBooks());
+        searchRecyclerView = findViewById(R.id.search_recycler_view);
+        searchRecyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        searchRecyclerView.setLayoutManager(layoutManager);
+        searchRecyclerView.setAdapter(searchAdapter);
+        searchRecyclerView.setVisibility(View.GONE);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
+
+        MenuItem search = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(search);
+        searchView.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+            @Override
+            public void onViewAttachedToWindow(View view) {
+                tabLayoutAnimation(false);
+                searchRecyclerAnimation(true);
+                tabLayout.setVisibility(View.GONE);
+                viewPager.setVisibility(View.GONE);
+                searchRecyclerView.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onViewDetachedFromWindow(View view) {
+                tabLayoutAnimation(true);
+                searchRecyclerAnimation(false);
+                tabLayout.setVisibility(View.VISIBLE);
+                viewPager.setVisibility(View.VISIBLE);
+                searchRecyclerView.setVisibility(View.GONE);
+            }
+        });
+        search(searchView);
+
         return true;
     }
+
+    private void tabLayoutAnimation(boolean show) {
+        int value = show ? tabLayout.getHeight() : -tabLayout.getHeight();
+        tabLayout.animate().translationYBy(value).setDuration(200).setInterpolator(new AccelerateInterpolator()).start();
+    }
+
+    private void searchRecyclerAnimation(boolean show){
+        int value = show ? -searchRecyclerView.getHeight() : searchRecyclerView.getHeight() ;
+        searchRecyclerView.animate().translationYBy(value).setDuration(200).setInterpolator(new AccelerateInterpolator()).start();
+    }
+
+    private void search(final SearchView searchView) {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (searchAdapter != null) searchAdapter.getFilter().filter(newText);
+                return true;
+            }
+        });
+
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

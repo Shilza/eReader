@@ -7,9 +7,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewHolder> {
 
@@ -25,10 +30,10 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
     }
 
     public abstract class BookViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener ,View.OnCreateContextMenuListener, View.OnClickListener{
-
-        TextView bookName;
-        TextView bookSize;
-        ImageView bookCover;
+        private TextView bookName;
+        private TextView bookSize;
+        private TextView bookLastActivity;
+        private ImageView bookCover;
 
         ItemClickListener itemClickListener;
 
@@ -36,7 +41,8 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
             super(itemView);
 
             bookName = itemView.findViewById(R.id.book_name);
-            bookSize = itemView.findViewById(R.id.book_path);
+            bookSize = itemView.findViewById(R.id.book_size);
+            bookLastActivity = itemView.findViewById(R.id.book_last_activity);
             bookCover = itemView.findViewById(R.id.book_cover);
 
             itemView.setOnCreateContextMenuListener(this);
@@ -48,7 +54,7 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
         public abstract void onCreateContextMenu(ContextMenu menu, View view,
                                         ContextMenu.ContextMenuInfo menuInfo);
 
-        public void setOnLongClickListener(ItemClickListener listener){
+        private void setOnLongClickListener(ItemClickListener listener){
             this.itemClickListener = listener;
         }
 
@@ -85,16 +91,27 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
         bookViewHolder.bookSize.setText(books.get(position).getSize());
         bookViewHolder.bookCover.setImageResource(books.get(position).getCoverId());
 
+        if(books.get(position).getLastActivity()!=0){
+            SimpleDateFormat sdf;
+
+            if(books.get(position).getLastActivity()+86400000 > (new Date().getTime())) //60*60*24*1000 one day
+                sdf = new SimpleDateFormat("h:mm a", Locale.getDefault());
+            else
+                sdf = new SimpleDateFormat("d MMMM yyyy", Locale.getDefault());
+            String formattedDate = sdf.format(books.get(position).getLastActivity());
+
+            bookViewHolder.bookLastActivity.setText(formattedDate);
+        }
+
         bookViewHolder.setOnLongClickListener(new ItemClickListener() {
             @Override
             public void onItemViewClick(int pos, boolean isLongClick) {
-                selectedBook= books.get(pos);
+                selectedBook = books.get(pos);
                 Toast.makeText(context, selectedBook.getName(), Toast.LENGTH_SHORT).show();
 
                 if(!isLongClick){
                     FileWorker.exportToJSON(selectedBook);
-                    TabKeeper.recentBooks.dataSetChanging();
-                    TabKeeper.localBooks.dataSetChanging();
+                    TabKeeper.notifyDataSetChanging();
                 }
             }
         });

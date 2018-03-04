@@ -1,16 +1,22 @@
 package com.example.raw.app;
 
 import android.content.Intent;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class ContextMenuProperties extends AppCompatActivity{
 
@@ -39,7 +45,13 @@ public class ContextMenuProperties extends AppCompatActivity{
         tvName.setText(book.getName());
         tvSize.setText(book.getSize());
         tvTotalRead.setText(book.getTotalRead());
-        tvLastActivity.setText(book.getLastActivity());
+        SimpleDateFormat sdf;
+        if(book.getLastActivity()+86400000 > (new Date().getTime())) //60*60*24*1000 one day
+            sdf = new SimpleDateFormat("h:mm a", Locale.getDefault());
+        else
+            sdf = new SimpleDateFormat("d MMMM yyyy", Locale.getDefault());
+        String formattedDate = sdf.format(book.getLastActivity());
+        tvLastActivity.setText(formattedDate);
         tvFilePath.setText(book.getFilePath());
 
         /*
