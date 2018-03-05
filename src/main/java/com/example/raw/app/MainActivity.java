@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +27,8 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         FileWorker.checkAppFolder();
+
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
         tabLayout = findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Последние"));
@@ -68,8 +72,6 @@ public class MainActivity extends AppCompatActivity{
         searchView.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
             @Override
             public void onViewAttachedToWindow(View view) {
-                tabLayoutAnimation(false);
-                searchRecyclerAnimation(true);
                 tabLayout.setVisibility(View.GONE);
                 viewPager.setVisibility(View.GONE);
                 searchRecyclerView.setVisibility(View.VISIBLE);
@@ -77,8 +79,6 @@ public class MainActivity extends AppCompatActivity{
 
             @Override
             public void onViewDetachedFromWindow(View view) {
-                tabLayoutAnimation(true);
-                searchRecyclerAnimation(false);
                 tabLayout.setVisibility(View.VISIBLE);
                 viewPager.setVisibility(View.VISIBLE);
                 searchRecyclerView.setVisibility(View.GONE);
@@ -88,17 +88,6 @@ public class MainActivity extends AppCompatActivity{
 
         return true;
     }
-
-    private void tabLayoutAnimation(boolean show) {
-        int value = show ? tabLayout.getHeight() : -tabLayout.getHeight();
-        tabLayout.animate().translationYBy(value).setDuration(200).setInterpolator(new AccelerateInterpolator()).start();
-    }
-
-    private void searchRecyclerAnimation(boolean show){
-        int value = show ? -searchRecyclerView.getHeight() : searchRecyclerView.getHeight() ;
-        searchRecyclerView.animate().translationYBy(value).setDuration(200).setInterpolator(new AccelerateInterpolator()).start();
-    }
-
     private void search(final SearchView searchView) {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

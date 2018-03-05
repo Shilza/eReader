@@ -41,17 +41,11 @@ public class ContextMenuProperties extends AppCompatActivity{
         tvFilePath = findViewById(R.id.properties_file_path);
 
         book = (Book)getIntent().getSerializableExtra("Book");
-        ivCover.setImageResource(book.getCoverId());
+        ivCover.setImageBitmap(book.getCover());
         tvName.setText(book.getName());
         tvSize.setText(book.getSize());
         tvTotalRead.setText(book.getTotalRead());
-        SimpleDateFormat sdf;
-        if(book.getLastActivity()+86400000 > (new Date().getTime())) //60*60*24*1000 one day
-            sdf = new SimpleDateFormat("h:mm a", Locale.getDefault());
-        else
-            sdf = new SimpleDateFormat("d MMMM yyyy", Locale.getDefault());
-        String formattedDate = sdf.format(book.getLastActivity());
-        tvLastActivity.setText(formattedDate);
+        tvLastActivity.setText(book.getLastActivity());
         tvFilePath.setText(book.getFilePath());
 
         /*

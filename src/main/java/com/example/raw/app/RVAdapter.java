@@ -1,7 +1,11 @@
 package com.example.raw.app;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.pdf.PdfRenderer;
+import android.os.ParcelFileDescriptor;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -86,22 +91,14 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
     public abstract void getItemSelected(MenuItem item);
 
     @Override
-    public void onBindViewHolder(final BookViewHolder bookViewHolder, int position) {
+    public void onBindViewHolder(BookViewHolder bookViewHolder, int position) {
         bookViewHolder.bookName.setText(books.get(position).getName());
         bookViewHolder.bookSize.setText(books.get(position).getSize());
-        bookViewHolder.bookCover.setImageResource(books.get(position).getCoverId());
+        //bookViewHolder.bookCover.setImageBitmap(books.get(position).getCover());
+        bookViewHolder.bookCover.setImageResource(R.drawable.e);
+        //R.drawable.e //default cover
 
-        if(books.get(position).getLastActivity()!=0){
-            SimpleDateFormat sdf;
-
-            if(books.get(position).getLastActivity()+86400000 > (new Date().getTime())) //60*60*24*1000 one day
-                sdf = new SimpleDateFormat("h:mm a", Locale.getDefault());
-            else
-                sdf = new SimpleDateFormat("d MMMM yyyy", Locale.getDefault());
-            String formattedDate = sdf.format(books.get(position).getLastActivity());
-
-            bookViewHolder.bookLastActivity.setText(formattedDate);
-        }
+        bookViewHolder.bookLastActivity.setText(books.get(position).getLastActivity());
 
         bookViewHolder.setOnLongClickListener(new ItemClickListener() {
             @Override
@@ -110,7 +107,7 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
                 Toast.makeText(context, selectedBook.getName(), Toast.LENGTH_SHORT).show();
 
                 if(!isLongClick){
-                    FileWorker.exportToJSON(selectedBook);
+                    FileWorker.exportRecentBooksToJSON(selectedBook);
                     TabKeeper.notifyDataSetChanging();
                 }
             }

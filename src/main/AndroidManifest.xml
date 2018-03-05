@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".SecondActivity" />
-        <activity android:name=".ContextMenuProperties"/>
+        <activity android:name=".ContextMenuProperties" />
+        <activity android:name=".PDFViewer"></activity>
     </application>
 
 </manifest>

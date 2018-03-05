@@ -2,6 +2,7 @@ package com.example.raw.app;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -24,7 +25,7 @@ class RecentBooksRVAdapter extends RVAdapter{
 
     private void bookRemoving(Book book){
         books.remove(book);
-        FileWorker.refreshingJSON();
+        FileWorker.refreshingRecentBooksJSON();
         parent.dataSetChanging();
     }
 
@@ -34,7 +35,9 @@ class RecentBooksRVAdapter extends RVAdapter{
             case CONTEXT_MENU_OPEN:
                 //TODO
                 if(FileWorker.isBookExist(selectedBook.getFilePath())){
-                    //OPEN BOOK
+                    Intent intent = new Intent(context, PDFViewer.class);
+                    intent.putExtra("Book", selectedBook.getFilePath());
+                    context.startActivity(intent);
                 }else{
                     Toast.makeText(context, "Невозможно открыть, возможно книга была удалена", Toast.LENGTH_SHORT).show();
                     bookRemoving(selectedBook);
@@ -48,6 +51,7 @@ class RecentBooksRVAdapter extends RVAdapter{
                 break;
             case CONTEXT_MENU_DELETE:
                 //TODO
+                //FileWorker.refreshingLocalBooksJSON();
                 bookRemoving(selectedBook);
                 break;
             case CONTEXT_MENU_PROPERTIES:

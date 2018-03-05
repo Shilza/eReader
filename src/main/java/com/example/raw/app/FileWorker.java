@@ -1,6 +1,9 @@
 package com.example.raw.app;
 
+import android.graphics.Bitmap;
+import android.graphics.pdf.PdfRenderer;
 import android.os.Environment;
+import android.os.ParcelFileDescriptor;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -21,12 +24,11 @@ class FileWorker{
 
     private static final String APP_DIRECTORY = Environment.getExternalStorageDirectory()+"/eReader";
     private static final String LIST_RECENT_BOOKS = APP_DIRECTORY + "/recent_books.json";
-    static ArrayList<Book> recentBooks;
+    private static final String LIST_LOCAL_BOOKS = APP_DIRECTORY + "/local_books.json";
+    private static ArrayList<Book> recentBooks;
     private static ArrayList<Book> localBooks;
 
     static{
-        localBooks = new ArrayList<>();
-
         try{
             recentBooks = new Gson().fromJson(new BufferedReader(new FileReader(LIST_RECENT_BOOKS)),
                     new TypeToken<ArrayList<Book>>(){}.getType());
@@ -38,17 +40,45 @@ class FileWorker{
             }
             if(!deletedBooks.isEmpty()){
                 recentBooks.removeAll(deletedBooks);
-                refreshingJSON();
+                refreshingRecentBooksJSON();
             }
 
         } catch (Exception ex){
             recentBooks = new ArrayList<>();
             ex.printStackTrace();
-        } finally{
-            if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()))
-                searchingFiles(Environment.getExternalStorageDirectory());
-            //searchingFiles(new File("/storage/")); //SD CARD
         }
+
+        try{
+            localBooks = new Gson().fromJson(new BufferedReader(new FileReader(LIST_LOCAL_BOOKS)),
+                    new TypeToken<ArrayList<Book>>(){}.getType());
+
+            if(localBooks.isEmpty()){
+                localBooks = new ArrayList<>();
+                if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())){
+                    searchingFiles(Environment.getExternalStorageDirectory());
+                }
+                refreshingLocalBooksJSON();
+            }
+
+            ArrayList<Book> deletedBooks = new ArrayList<>();
+            for(Book obj : localBooks){
+                if(!new File(obj.getFilePath()).exists())
+                    deletedBooks.add(obj);
+            }
+            if(!deletedBooks.isEmpty()){
+                localBooks.removeAll(deletedBooks);
+                refreshingLocalBooksJSON();
+            }
+        }
+        catch (Exception ex){
+            localBooks = new ArrayList<>();
+            if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())){
+                searchingFiles(Environment.getExternalStorageDirectory());
+            }
+            refreshingLocalBooksJSON();
+            ex.printStackTrace();
+        }
+        //searchingFiles(new File("/storage/")); //SD CARD
     }
 
     static void checkAppFolder(){
@@ -56,7 +86,6 @@ class FileWorker{
         if (!directory.exists()) {
             directory.mkdir();
         }
-        //FileWriter write = new FileWriter(APP_DIRECTORY"/sas.txt");
     }
 
     private static void searchingFiles(File folder) {
@@ -72,7 +101,8 @@ class FileWorker{
 
                 if(index != -1){
                     String name = temp.substring(0, temp.indexOf(extension));
-                    String path = entry.getAbsolutePath();
+                    String filePath = entry.getAbsolutePath();
+                    long lastActivity = entry.lastModified();
 
                     float size = entry.length();
                     String strSize;
@@ -86,8 +116,7 @@ class FileWorker{
                         strSize = f.format(size) + " КБ";
                     }
 
-
-                    Book book = new Book(name, path, strSize, R.drawable.e);
+                    Book book = new Book(name, filePath, strSize, lastActivity);
 
                     boolean isBookContains = false;
                     for(Book obj : recentBooks){
@@ -112,22 +141,33 @@ class FileWorker{
             return recentBooks;
     }
 
-    static void exportToJSON(Book book){
+    static void exportRecentBooksToJSON(Book book){
         if(isBookExist(book.getFilePath()) && !isBookExistInList(book)){
             book.setLastActivity(new Date().getTime());
             recentBooks.add(0, book);
             localBooks.remove(book);
-            refreshingJSON();
+            refreshingRecentBooksJSON();
+            refreshingLocalBooksJSON();
         }
     }
 
-    static void refreshingJSON(){
+    static void refreshingRecentBooksJSON(){
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(LIST_RECENT_BOOKS));
             writer.write(new Gson().toJson(recentBooks));
             writer.close();
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+    static void refreshingLocalBooksJSON(){
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(LIST_LOCAL_BOOKS));
+            writer.write(new Gson().toJson(localBooks));
+            writer.close();
+        }catch (Exception ex){
+            ex.printStackTrace();
         }
     }
 
