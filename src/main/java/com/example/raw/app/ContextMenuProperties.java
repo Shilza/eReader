@@ -1,9 +1,12 @@
 package com.example.raw.app;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.pdf.PdfRenderer;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.ParcelFileDescriptor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
@@ -14,6 +17,7 @@ import android.widget.TextView;
 
 import org.json.JSONObject;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -41,13 +45,14 @@ public class ContextMenuProperties extends AppCompatActivity{
         tvFilePath = findViewById(R.id.properties_file_path);
 
         book = (Book)getIntent().getSerializableExtra("Book");
-        ivCover.setImageBitmap(book.getCover());
+
+
         tvName.setText(book.getName());
         tvSize.setText(book.getSize());
         tvTotalRead.setText(book.getTotalRead());
         tvLastActivity.setText(book.getLastActivity());
         tvFilePath.setText(book.getFilePath());
-
+        ivCover.setImageResource(R.drawable.e);
         /*
         tvFilePath.setOnClickListener(new View.OnClickListener() {
             @Override

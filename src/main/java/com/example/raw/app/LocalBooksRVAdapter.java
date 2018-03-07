@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.gson.annotations.Expose;
+
+import java.nio.file.attribute.GroupPrincipal;
 import java.util.ArrayList;
 
 public class LocalBooksRVAdapter extends RVAdapter{
@@ -18,6 +21,7 @@ public class LocalBooksRVAdapter extends RVAdapter{
     private final byte CONTEXT_MENU_OPEN = 0;
     private final byte CONTEXT_MENU_DELETE = 1;
     private final byte CONTEXT_MENU_PROPERTIES = 2;
+    private final byte GROUP_ID = 1;
 
     LocalBooksRVAdapter(ArrayList<Book> books, Context context, Tab parent){
         super(books, context, parent);
@@ -25,19 +29,12 @@ public class LocalBooksRVAdapter extends RVAdapter{
 
     @Override
     public void getItemSelected(MenuItem item){
+        if(item.getGroupId() != GROUP_ID)
+            return;
+
         switch (item.getItemId()){
             case CONTEXT_MENU_OPEN:
-                //TODO
-                /*
-                if(FileWorker.isBookExist(selectedBook.getFilePath())){
-                    //todo
-                }else{
-                    Toast.makeText(context, "Невозможно открыть, возможно книга была удалена", Toast.LENGTH_SHORT).show();
-                    books.remove(selectedBook);
-                    FileWorker.refreshingLocalBooksJSON();
-                    parent.dataSetChanging();
-                }
-                */
+                bookOpening();
                 break;
             case CONTEXT_MENU_DELETE:
                 //TODO
@@ -59,13 +56,14 @@ public class LocalBooksRVAdapter extends RVAdapter{
             super(view);
         }
 
+        @Override
         public void onCreateContextMenu(ContextMenu menu, View view,
                                         ContextMenu.ContextMenuInfo menuInfo) {
 
             menu.setHeaderTitle(selectedBook.getName());
-            menu.add(0, CONTEXT_MENU_OPEN, 0, "Открыть");
-            menu.add(0, CONTEXT_MENU_DELETE, 0, "Удалить");
-            menu.add(0, CONTEXT_MENU_PROPERTIES, 0, "Свойства");
+            menu.add(GROUP_ID, CONTEXT_MENU_OPEN, 0, "Открыть");
+            menu.add(GROUP_ID, CONTEXT_MENU_DELETE, 0, "Удалить");
+            menu.add(GROUP_ID, CONTEXT_MENU_PROPERTIES, 0, "Свойства");
         }
     }
 

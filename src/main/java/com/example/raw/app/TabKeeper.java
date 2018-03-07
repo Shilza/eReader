@@ -5,6 +5,7 @@ final class TabKeeper {
     private static TabLocalBooks localBooks;
     private static TabRecentBooks recentBooks;
 
+    
     static void setTab(Tab tab){
         if(tab.getClass().equals(TabLocalBooks.class))
             localBooks = (TabLocalBooks)tab;

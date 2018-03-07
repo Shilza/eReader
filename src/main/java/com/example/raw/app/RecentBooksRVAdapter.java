@@ -18,6 +18,7 @@ class RecentBooksRVAdapter extends RVAdapter{
     private final byte CONTEXT_MENU_DELETE_FROM_LIST = 2;
     private final byte CONTEXT_MENU_DELETE = 3;
     private final byte CONTEXT_MENU_PROPERTIES = 4;
+    private final byte GROUP_ID = 0;
 
     RecentBooksRVAdapter(ArrayList<Book> books, Context context, Tab parent){
         super(books, context, parent);
@@ -25,23 +26,18 @@ class RecentBooksRVAdapter extends RVAdapter{
 
     private void bookRemoving(Book book){
         books.remove(book);
-        FileWorker.refreshingRecentBooksJSON();
+        FileWorker.refreshingJSON(books);
         parent.dataSetChanging();
     }
 
     @Override
     public void getItemSelected(MenuItem item){
+        if(item.getGroupId() != GROUP_ID)
+            return;
+
         switch (item.getItemId()){
             case CONTEXT_MENU_OPEN:
-                //TODO
-                if(FileWorker.isBookExist(selectedBook.getFilePath())){
-                    Intent intent = new Intent(context, PDFViewer.class);
-                    intent.putExtra("Book", selectedBook.getFilePath());
-                    context.startActivity(intent);
-                }else{
-                    Toast.makeText(context, "Невозможно открыть, возможно книга была удалена", Toast.LENGTH_SHORT).show();
-                    bookRemoving(selectedBook);
-                }
+                bookOpening();
                 break;
             case CONTEXT_MENU_BOOKMARKS:
                 //TODO
@@ -51,7 +47,6 @@ class RecentBooksRVAdapter extends RVAdapter{
                 break;
             case CONTEXT_MENU_DELETE:
                 //TODO
-                //FileWorker.refreshingLocalBooksJSON();
                 bookRemoving(selectedBook);
                 break;
             case CONTEXT_MENU_PROPERTIES:
@@ -70,15 +65,16 @@ class RecentBooksRVAdapter extends RVAdapter{
             super(view);
         }
 
+        @Override
         public void onCreateContextMenu(ContextMenu menu, View view,
                                         ContextMenu.ContextMenuInfo menuInfo) {
 
             menu.setHeaderTitle(selectedBook.getName());
-            menu.add(0, CONTEXT_MENU_OPEN, 0, "Открыть");
-            menu.add(0, CONTEXT_MENU_BOOKMARKS, 0, "Закладки");
-            menu.add(0, CONTEXT_MENU_DELETE_FROM_LIST, 0, "Удалить из списка");
-            menu.add(0, CONTEXT_MENU_DELETE, 0, "Удалить");
-            menu.add(0, CONTEXT_MENU_PROPERTIES, 0, "Свойства");
+            menu.add(GROUP_ID, CONTEXT_MENU_OPEN, 0, "Открыть");
+            menu.add(GROUP_ID, CONTEXT_MENU_BOOKMARKS, 0, "Закладки");
+            menu.add(GROUP_ID, CONTEXT_MENU_DELETE_FROM_LIST, 0, "Удалить из списка");
+            menu.add(GROUP_ID, CONTEXT_MENU_DELETE, 0, "Удалить");
+            menu.add(GROUP_ID, CONTEXT_MENU_PROPERTIES, 0, "Свойства");
         }
     }
 

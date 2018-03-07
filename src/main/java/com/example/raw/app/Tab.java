@@ -31,6 +31,7 @@ public abstract class Tab extends Fragment {
             tvLocation.setText(locationName);
         else
             tvLocation.setText("");
+
         adapter.notifyDataSetChanged();
     }
 
@@ -49,4 +50,5 @@ public abstract class Tab extends Fragment {
         adapter.getItemSelected(item);
         return  super.onContextItemSelected(item);
     }
+
 }

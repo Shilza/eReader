@@ -1,6 +1,7 @@
 package com.example.raw.app;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.pdf.PdfRenderer;
 import android.os.ParcelFileDescriptor;
@@ -90,11 +91,24 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
 
     public abstract void getItemSelected(MenuItem item);
 
+    void bookOpening(){
+        if(FileWorker.isBookExist(selectedBook.getFilePath())){
+            Intent intent = new Intent(context, PDFViewer.class);
+            intent.putExtra("Book", selectedBook.getFilePath());
+            context.startActivity(intent);
+        }else{
+            Toast.makeText(context, "Невозможно открыть, возможно книга была удалена", Toast.LENGTH_SHORT).show();
+            books.remove(selectedBook);
+            FileWorker.refreshingJSON(books);
+            parent.dataSetChanging();
+        }
+    }
+
     @Override
-    public void onBindViewHolder(BookViewHolder bookViewHolder, int position) {
+    public void onBindViewHolder(final BookViewHolder bookViewHolder, int position) {
         bookViewHolder.bookName.setText(books.get(position).getName());
         bookViewHolder.bookSize.setText(books.get(position).getSize());
-        //bookViewHolder.bookCover.setImageBitmap(books.get(position).getCover());
+        //bookViewHolder.bookCover.setImageBitmap(bitmap);
         bookViewHolder.bookCover.setImageResource(R.drawable.e);
         //R.drawable.e //default cover
 
@@ -109,6 +123,7 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
                 if(!isLongClick){
                     FileWorker.exportRecentBooksToJSON(selectedBook);
                     TabKeeper.notifyDataSetChanging();
+                    bookOpening();
                 }
             }
         });

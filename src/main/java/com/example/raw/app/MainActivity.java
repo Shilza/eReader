@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity{
         tabLayout.addTab(tabLayout.newTab().setText("Последние"));
         tabLayout.addTab(tabLayout.newTab().setText("Локальные"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
+        
         viewPager = findViewById(R.id.pager);
         TabPagerAdapter pagerAdapter = new TabPagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);

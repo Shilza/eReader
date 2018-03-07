@@ -33,21 +33,6 @@ public class PDFViewer extends Activity implements OnPageChangeListener,OnLoadCo
         //displayFromAsset(SAMPLE_FILE);
     }
 
-    private void displayFromAsset(String assetFileName) {
-        pdfFileName = assetFileName;
-
-        pdfView.fromAsset(SAMPLE_FILE)
-                .defaultPage(pageNumber)
-                .enableSwipe(true)
-
-                .swipeHorizontal(false)
-                .onPageChange(this)
-                .enableAnnotationRendering(true)
-                .onLoad(this)
-                .scrollHandle(new DefaultScrollHandle(this))
-                .load();
-    }
-
 
     @Override
     public void onPageChanged(int page, int pageCount) {
@@ -65,7 +50,6 @@ public class PDFViewer extends Activity implements OnPageChangeListener,OnLoadCo
 
     public void printBookmarksTree(List<PdfDocument.Bookmark> tree, String sep) {
         for (PdfDocument.Bookmark b : tree) {
-
             if (b.hasChildren()) {
                 printBookmarksTree(b.getChildren(), sep + "-");
             }

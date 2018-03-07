@@ -4,6 +4,9 @@ import android.graphics.Bitmap;
 import android.graphics.pdf.PdfRenderer;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
+import android.widget.ImageView;
+
+import com.google.gson.annotations.Expose;
 
 import java.io.File;
 import java.io.Serializable;
@@ -19,7 +22,6 @@ public class Book implements Serializable{
     private String size;
     private String totalRead;
     private String lastActivity;
-    private Bitmap bitmap;
 
     Book(String name, String filePath, String size, long lastActivity){
         this.name = name;
@@ -27,10 +29,9 @@ public class Book implements Serializable{
         this.size = size;
         this.lastActivity = lastActivityTreatment(lastActivity);
         this.totalRead = "0%";
-        //coverTreatment();
     }
 
-    String lastActivityTreatment(long lastActivity){
+    private String lastActivityTreatment(long lastActivity){
         SimpleDateFormat sdf;
 
         if(lastActivity+86400000 > (new Date().getTime())) //60*60*24*1000 one day
@@ -48,14 +49,11 @@ public class Book implements Serializable{
             Bitmap bitmap = Bitmap.createBitmap(page.getWidth(), page.getHeight(),
                     Bitmap.Config.ARGB_8888);
             page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
-            this.bitmap = bitmap;
 
             rend.close();
             page.close();
         }
-        catch(Exception e){
-            e.printStackTrace();
-        }
+        catch(Exception e){}
     }
 
     void setLastActivity(long lastActivity){
@@ -82,9 +80,6 @@ public class Book implements Serializable{
         return lastActivity;
     }
 
-    Bitmap getCover() { return bitmap; }
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -98,9 +93,7 @@ public class Book implements Serializable{
         if (size != null ? !size.equals(book.size) : book.size != null) return false;
         if (totalRead != null ? !totalRead.equals(book.totalRead) : book.totalRead != null)
             return false;
-        if (lastActivity != null ? !lastActivity.equals(book.lastActivity) : book.lastActivity != null)
-            return false;
-        return bitmap != null ? bitmap.equals(book.bitmap) : book.bitmap == null;
+        return lastActivity != null ? lastActivity.equals(book.lastActivity) : book.lastActivity == null;
     }
 
     @Override
@@ -110,7 +103,7 @@ public class Book implements Serializable{
         result = 31 * result + (size != null ? size.hashCode() : 0);
         result = 31 * result + (totalRead != null ? totalRead.hashCode() : 0);
         result = 31 * result + (lastActivity != null ? lastActivity.hashCode() : 0);
-        result = 31 * result + (bitmap != null ? bitmap.hashCode() : 0);
         return result;
     }
+
 }

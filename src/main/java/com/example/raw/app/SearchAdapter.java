@@ -32,7 +32,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     public void onBindViewHolder(SearchAdapter.ViewHolder viewHolder, int position) {
         viewHolder.bookName.setText(filteredList.get(position).getName());
         viewHolder.bookSize.setText(filteredList.get(position).getSize());
-        viewHolder.bookCover.setImageBitmap(filteredList.get(position).getCover());
+        //viewHolder.bookCover.setImageBitmap(filteredList.get(position).getCover());
     }
 
     @Override
