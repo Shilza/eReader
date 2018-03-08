@@ -26,7 +26,7 @@ public abstract class Tab extends Fragment {
     public abstract View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState);
 
-    void dataSetChanging(){
+    void dataSetChanged(){
         if(adapter.getItemCount() == 0)
             tvLocation.setText(locationName);
         else

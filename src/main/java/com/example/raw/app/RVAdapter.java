@@ -2,25 +2,17 @@ package com.example.raw.app;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.pdf.PdfRenderer;
-import android.os.ParcelFileDescriptor;
+import android.media.Image;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewHolder> {
 
@@ -28,6 +20,7 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
     Context context;
     Tab parent;
     Book selectedBook;
+
 
     RVAdapter(ArrayList<Book> books, Context context, Tab parent){
         this.books = books;
@@ -100,7 +93,7 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
             Toast.makeText(context, "Невозможно открыть, возможно книга была удалена", Toast.LENGTH_SHORT).show();
             books.remove(selectedBook);
             FileWorker.refreshingJSON(books);
-            parent.dataSetChanging();
+            parent.dataSetChanged();
         }
     }
 
@@ -122,7 +115,7 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
 
                 if(!isLongClick){
                     FileWorker.exportRecentBooksToJSON(selectedBook);
-                    TabKeeper.notifyDataSetChanging();
+                    TabKeeper.notifyDataSetChanged();
                     bookOpening();
                 }
             }

@@ -13,8 +13,8 @@ final class TabKeeper {
             recentBooks = (TabRecentBooks)tab;
     }
 
-    static void notifyDataSetChanging(){
-        recentBooks.dataSetChanging();
-        localBooks.dataSetChanging();
+    static void notifyDataSetChanged(){
+        recentBooks.dataSetChanged();
+        localBooks.dataSetChanged();
     }
 }

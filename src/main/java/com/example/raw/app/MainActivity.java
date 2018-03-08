@@ -3,6 +3,8 @@ package com.example.raw.app;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,11 +17,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 
+import java.io.File;
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity{
     private SearchAdapter searchAdapter;
     private RecyclerView searchRecyclerView;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private DrawerLayout drawer;
+    private ActionBarDrawerToggle toggle;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,6 +36,12 @@ public class MainActivity extends AppCompatActivity{
         FileWorker.checkAppFolder();
 
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+
+        drawer = findViewById(R.id.drawer);
+        toggle = new ActionBarDrawerToggle(this, drawer, R.string.open, R.string.close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         tabLayout = findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Последние"));
@@ -54,7 +67,10 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-        searchAdapter = new SearchAdapter(FileWorker.getRecentBooks(), FileWorker.getLocalBooks());
+        ArrayList<Book> list = new ArrayList<>(FileWorker.getRecentBooks());
+        list.addAll(FileWorker.getLocalBooks());
+
+        searchAdapter = new SearchAdapter(list, this);
         searchRecyclerView = findViewById(R.id.search_recycler_view);
         searchRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -104,9 +120,11 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if(toggle.onOptionsItemSelected(item))
+            return true;
+
         switch(item.getItemId()){
             /*
             case R.id.action_settings:

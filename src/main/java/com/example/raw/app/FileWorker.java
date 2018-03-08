@@ -1,6 +1,7 @@
 package com.example.raw.app;
 
 import android.os.Environment;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -66,8 +67,8 @@ class FileWorker{
         }
     }
 
-    private static void searchingFiles(File folder) {
-        File[] folderEntries = folder.listFiles();
+    private static void searchingFiles(File directory) {
+        File[] folderEntries = directory.listFiles();
 
         for (File entry : folderEntries){
             if (entry.isDirectory())

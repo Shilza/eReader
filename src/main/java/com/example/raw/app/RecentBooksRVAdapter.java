@@ -2,13 +2,12 @@ package com.example.raw.app;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
 import java.util.ArrayList;
 
 class RecentBooksRVAdapter extends RVAdapter{
@@ -27,7 +26,7 @@ class RecentBooksRVAdapter extends RVAdapter{
     private void bookRemoving(Book book){
         books.remove(book);
         FileWorker.refreshingJSON(books);
-        parent.dataSetChanging();
+        parent.dataSetChanged();
     }
 
     @Override

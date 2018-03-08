@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <item
+        android:id="@+id/action_settings"
+        android:title="Настройки"
+        android:paddingLeft="16dp"
+        android:icon="@drawable/ic_settings_black"/>
+
+    <item
+        android:id="@+id/action_bookmarks"
+        android:title="Закладки"
+        android:paddingLeft="16dp"
+        android:icon="@drawable/ic_bookmark_black"/>
+
+    <item
+        android:id="@+id/action_exit"
+        android:title="Выход"
+        android:paddingLeft="16dp"
+        android:icon="@drawable/ic_exit_black"/>
+</menu>

@@ -1,43 +1,78 @@
 package com.example.raw.app;
 
-import android.support.v7.widget.RecyclerView;
+import android.content.Context;
+import android.content.Intent;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> implements Filterable {
-    private ArrayList<Book> recentBooks;
-    private ArrayList<Book> localBooks;
-    private ArrayList<Book> filteredList;
+public class SearchAdapter extends RVAdapter implements Filterable {
 
-    SearchAdapter(ArrayList<Book> recentBooks, ArrayList<Book> localBooks) {
-        this.recentBooks = recentBooks;
-        this.localBooks = localBooks;
-        filteredList = new ArrayList<>();
+    private ArrayList<Book> allBooks;
+    private final byte CONTEXT_MENU_OPEN = 0;
+    private final byte CONTEXT_MENU_DELETE = 1;
+    private final byte CONTEXT_MENU_PROPERTIES = 2;
+    private final byte GROUP_ID = 2;
+
+    SearchAdapter(ArrayList<Book> books, Context context) {
+        super(new ArrayList<Book>(), context, null);
+        this.allBooks = books;
     }
 
     @Override
-    public SearchAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item, viewGroup, false);
-        return new ViewHolder(view);
+    public void getItemSelected(MenuItem item){
+        if(item.getGroupId() != GROUP_ID)
+            return;
+
+        switch (item.getItemId()){
+            case CONTEXT_MENU_OPEN:
+                bookOpening();
+                break;
+            case CONTEXT_MENU_DELETE:
+                //TODO
+                //FileWorker.refreshingLocalBooksJSON();
+                break;
+            case CONTEXT_MENU_PROPERTIES:
+                Intent intent = new Intent(context, ContextMenuProperties.class);
+                intent.putExtra("Book", selectedBook);
+                context.startActivity(intent);
+                break;
+            default:
+                break;
+        }
     }
 
-    @Override
-    public void onBindViewHolder(SearchAdapter.ViewHolder viewHolder, int position) {
-        viewHolder.bookName.setText(filteredList.get(position).getName());
-        viewHolder.bookSize.setText(filteredList.get(position).getSize());
-        //viewHolder.bookCover.setImageBitmap(filteredList.get(position).getCover());
-    }
+    void bookOpening(){
+        if(FileWorker.isBookExist(selectedBook.getFilePath())){
+            Intent intent = new Intent(context, PDFViewer.class);
+            intent.putExtra("Book", selectedBook.getFilePath());
+            context.startActivity(intent);
+        }else{
+            Toast.makeText(context, "Невозможно открыть, возможно книга была удалена", Toast.LENGTH_SHORT).show();
+            allBooks.remove(selectedBook);
+            books.remove(selectedBook);
 
-    @Override
-    public int getItemCount() {
-        return filteredList.size();
+            for(Book obj : FileWorker.getRecentBooks())
+                if(obj.equals(selectedBook)) {
+                    FileWorker.getRecentBooks().remove(obj);
+                    break;
+                }
+            for(Book obj : FileWorker.getLocalBooks())
+                if(obj.equals(selectedBook)) {
+                    FileWorker.getLocalBooks().remove(obj);
+                    break;
+                }
+
+            notifyDataSetChanged();
+            TabKeeper.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -49,45 +84,50 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 String parsedString = charSequence.toString();
 
                 if (parsedString.isEmpty()) {
-                    filteredList = new ArrayList<>();
+                    books = new ArrayList<>();
                 } else{
 
                     ArrayList<Book> tempFilteredList = new ArrayList<>();
 
-                    for (Book obj : recentBooks)
-                        if (obj.getName().toLowerCase().contains(parsedString))
-                            tempFilteredList.add(obj);
-                    for (Book obj : localBooks)
+                    for (Book obj : allBooks)
                         if (obj.getName().toLowerCase().contains(parsedString))
                             tempFilteredList.add(obj);
 
-                    filteredList = tempFilteredList;
+                    books = tempFilteredList;
                 }
 
                 FilterResults filterResults = new FilterResults();
-                filterResults.values = filteredList;
+                filterResults.values = books;
                 return filterResults;
             }
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                filteredList = (ArrayList<Book>)filterResults.values;
+                books = (ArrayList<Book>)filterResults.values;
                 notifyDataSetChanged();
             }
         };
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
-        TextView bookName;
-        TextView bookSize;
-        ImageView bookCover;
-
-        ViewHolder(final View itemView) {
-            super(itemView);
-
-            bookName = itemView.findViewById(R.id.book_name);
-            bookSize = itemView.findViewById(R.id.book_last_activity);
-            bookCover = itemView.findViewById(R.id.book_cover);
+    class ViewHolder extends RVAdapter.BookViewHolder{
+        ViewHolder(View view){
+            super(view);
         }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View view,
+                                        ContextMenu.ContextMenuInfo menuInfo) {
+
+            menu.setHeaderTitle(selectedBook.getName());
+            menu.add(GROUP_ID, CONTEXT_MENU_OPEN, 0, "Открыть");
+            menu.add(GROUP_ID, CONTEXT_MENU_DELETE, 0, "Удалить");
+            menu.add(GROUP_ID, CONTEXT_MENU_PROPERTIES, 0, "Свойства");
+        }
+    }
+
+    @Override
+    public SearchAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item, viewGroup, false);
+        return new SearchAdapter.ViewHolder(view);
     }
 }
