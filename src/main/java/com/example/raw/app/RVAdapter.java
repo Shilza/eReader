@@ -85,14 +85,12 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
     public abstract void getItemSelected(MenuItem item);
 
     void bookOpening(){
-        if(FileWorker.isBookExist(selectedBook.getFilePath())){
-            Intent intent = new Intent(context, PDFViewer.class);
-            intent.putExtra("Book", selectedBook.getFilePath());
-            context.startActivity(intent);
+        if(FileWorker.getInstance().isBookExist(selectedBook.getFilePath())){
+            BookOpener.getInstance().opening(selectedBook, context);
         }else{
             Toast.makeText(context, "Невозможно открыть, возможно книга была удалена", Toast.LENGTH_SHORT).show();
             books.remove(selectedBook);
-            FileWorker.refreshingJSON(books);
+            FileWorker.getInstance().refreshingJSON(books);
             parent.dataSetChanged();
         }
     }
@@ -114,7 +112,7 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
                 Toast.makeText(context, selectedBook.getName(), Toast.LENGTH_SHORT).show();
 
                 if(!isLongClick){
-                    FileWorker.exportRecentBooksToJSON(selectedBook);
+                    FileWorker.getInstance().exportRecentBooksToJSON(selectedBook);
                     TabKeeper.notifyDataSetChanged();
                     bookOpening();
                 }

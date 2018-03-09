@@ -17,10 +17,10 @@ import java.io.File;
 import java.util.List;
 
 public class PDFViewer extends Activity implements OnPageChangeListener,OnLoadCompleteListener{
-    public static String SAMPLE_FILE;
     PDFView pdfView;
     Integer pageNumber = 0;
     String pdfFileName;
+    private Book book;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +28,8 @@ public class PDFViewer extends Activity implements OnPageChangeListener,OnLoadCo
         setContentView(R.layout.activity_pdfviewer);
 
         pdfView= findViewById(R.id.pdfView);
-        SAMPLE_FILE = getIntent().getSerializableExtra("Book").toString();
-        pdfView.fromFile(new File(SAMPLE_FILE)).load();
-        //displayFromAsset(SAMPLE_FILE);
+        book = (Book)getIntent().getSerializableExtra("Book");
+        pdfView.fromFile(new File(book.getFilePath())).load();
     }
 
 

@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class SearchAdapter extends RVAdapter implements Filterable {
+public class SearchRVAdapter extends RVAdapter implements Filterable {
 
     private ArrayList<Book> allBooks;
     private final byte CONTEXT_MENU_OPEN = 0;
@@ -21,7 +21,7 @@ public class SearchAdapter extends RVAdapter implements Filterable {
     private final byte CONTEXT_MENU_PROPERTIES = 2;
     private final byte GROUP_ID = 2;
 
-    SearchAdapter(ArrayList<Book> books, Context context) {
+    SearchRVAdapter(ArrayList<Book> books, Context context) {
         super(new ArrayList<Book>(), context, null);
         this.allBooks = books;
     }
@@ -50,7 +50,7 @@ public class SearchAdapter extends RVAdapter implements Filterable {
     }
 
     void bookOpening(){
-        if(FileWorker.isBookExist(selectedBook.getFilePath())){
+        if(FileWorker.getInstance().isBookExist(selectedBook.getFilePath())){
             Intent intent = new Intent(context, PDFViewer.class);
             intent.putExtra("Book", selectedBook.getFilePath());
             context.startActivity(intent);
@@ -59,14 +59,14 @@ public class SearchAdapter extends RVAdapter implements Filterable {
             allBooks.remove(selectedBook);
             books.remove(selectedBook);
 
-            for(Book obj : FileWorker.getRecentBooks())
+            for(Book obj : FileWorker.getInstance().getRecentBooks())
                 if(obj.equals(selectedBook)) {
-                    FileWorker.getRecentBooks().remove(obj);
+                    FileWorker.getInstance().getRecentBooks().remove(obj);
                     break;
                 }
-            for(Book obj : FileWorker.getLocalBooks())
+            for(Book obj : FileWorker.getInstance().getLocalBooks())
                 if(obj.equals(selectedBook)) {
-                    FileWorker.getLocalBooks().remove(obj);
+                    FileWorker.getInstance().getLocalBooks().remove(obj);
                     break;
                 }
 
@@ -126,8 +126,8 @@ public class SearchAdapter extends RVAdapter implements Filterable {
     }
 
     @Override
-    public SearchAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public SearchRVAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item, viewGroup, false);
-        return new SearchAdapter.ViewHolder(view);
+        return new SearchRVAdapter.ViewHolder(view);
     }
 }

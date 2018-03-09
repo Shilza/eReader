@@ -1,5 +1,11 @@
 package com.example.raw.app;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
@@ -15,17 +21,20 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
+import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity{
-    private SearchAdapter searchAdapter;
+    private SearchRVAdapter searchRVAdapter;
     private RecyclerView searchRecyclerView;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
 
     @Override
@@ -33,21 +42,106 @@ public class MainActivity extends AppCompatActivity{
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        FileWorker.checkAppFolder();
 
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        initDrawer();
+        initTabs();
+        initSearch();
+    }
 
-        drawer = findViewById(R.id.drawer);
+    private void initDrawer(){
+        DrawerLayout drawer = findViewById(R.id.drawer);
         toggle = new ActionBarDrawerToggle(this, drawer, R.string.open, R.string.close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        ((NavigationView) findViewById(R.id.navigation_view)).setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch(item.getItemId()) {
+                    case R.id.action_open_book:
+                        Intent intent = new Intent()
+                                .setType("*/*")
+                                .setAction(Intent.ACTION_GET_CONTENT);
+
+                        startActivityForResult(Intent.createChooser(intent, "Выберите файл"), 1);
+
+                        break;
+                    case R.id.action_bookmarks:
+                        Log.d("Saas", "2");
+                        break;
+                    case R.id.action_statistics:
+                        Log.d("Saas", "3");
+                        break;
+                    case R.id.action_settings:
+                        Log.d("Saas", "4");
+                        break;
+                    case R.id.action_like:
+                        Log.d("Saas", "5");
+                        break;
+                    case R.id.action_exit:
+                        android.os.Process.killProcess(android.os.Process.myPid()); //REMAKE
+                        break;
+                }
+
+                return false;
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 1 && resultCode == RESULT_OK) {
+            Uri selectedFile = data.getData();
+            File file = new File(getRealPathFromURI(selectedFile));
+
+            Book book = FileWorker.getInstance().bookPreparing(file);
+            if(book != null) {
+                FileWorker.getInstance().bookEntry(book);
+                FileWorker.getInstance().exportRecentBooksToJSON(book);
+                TabKeeper.notifyDataSetChanged();
+                BookOpener.getInstance().opening(book, this);
+            } else{
+                Toast.makeText(this, "Неподдерживаемый формат", Toast.LENGTH_SHORT).show();
+            }
+            /*
+            final BufferedReader br = new BufferedReader(
+                    new InputStreamReader(
+                            new FileInputStream(getRealPathFromURI(selectedFile)), "Cp1251"));
+            String nextString;
+            String finalString = "";
+            while ((nextString = br.readLine()) != null) {
+                finalString = finalString.concat(nextString);
+            }
+            */
+
+        }
+    }
+
+    private String getRealPathFromURI(Uri contentURI) {
+        String result;
+        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) {
+            result = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(index);
+            cursor.close();
+        }
+        return result;
+    }
+
+    private void initTabs(){
         tabLayout = findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Последние"));
         tabLayout.addTab(tabLayout.newTab().setText("Локальные"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        
+
         viewPager = findViewById(R.id.pager);
         TabPagerAdapter pagerAdapter = new TabPagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
@@ -66,16 +160,18 @@ public class MainActivity extends AppCompatActivity{
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
+    }
 
-        ArrayList<Book> list = new ArrayList<>(FileWorker.getRecentBooks());
-        list.addAll(FileWorker.getLocalBooks());
+    private void initSearch(){
+        ArrayList<Book> list = new ArrayList<>(FileWorker.getInstance().getRecentBooks());
+        list.addAll(FileWorker.getInstance().getLocalBooks());
 
-        searchAdapter = new SearchAdapter(list, this);
+        searchRVAdapter = new SearchRVAdapter(list, this);
         searchRecyclerView = findViewById(R.id.search_recycler_view);
         searchRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         searchRecyclerView.setLayoutManager(layoutManager);
-        searchRecyclerView.setAdapter(searchAdapter);
+        searchRecyclerView.setAdapter(searchRVAdapter);
         searchRecyclerView.setVisibility(View.GONE);
     }
 
@@ -104,6 +200,7 @@ public class MainActivity extends AppCompatActivity{
 
         return true;
     }
+
     private void search(final SearchView searchView) {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -113,7 +210,7 @@ public class MainActivity extends AppCompatActivity{
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if (searchAdapter != null) searchAdapter.getFilter().filter(newText);
+                if (searchRVAdapter != null) searchRVAdapter.getFilter().filter(newText);
                 return true;
             }
         });
@@ -125,23 +222,6 @@ public class MainActivity extends AppCompatActivity{
         if(toggle.onOptionsItemSelected(item))
             return true;
 
-        switch(item.getItemId()){
-            /*
-            case R.id.action_settings:
-                text.setText("1");
-                return true;
-            case R.id.action_bookmarks:
-                text.setText("2");
-                return true;
-            case R.id.action_marks:
-                text.setText("3");
-                return true;
-            case R.id.action_exit:
-                text.setText("4");
-                android.os.Process.killProcess(android.os.Process.myPid()); //REMAKE
-                return true;
-                */
-        }
         return super.onOptionsItemSelected(item);
     }
 }

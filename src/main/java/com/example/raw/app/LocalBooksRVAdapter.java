@@ -9,11 +9,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.google.gson.annotations.Expose;
-
-import java.nio.file.attribute.GroupPrincipal;
 import java.util.ArrayList;
 
 public class LocalBooksRVAdapter extends RVAdapter{

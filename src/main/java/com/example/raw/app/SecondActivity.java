@@ -37,7 +37,6 @@ public class SecondActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.second_activity);
 
-        text = findViewById(R.id.text);
         Intent intent = new Intent()
                 .setType("*/*")
                .setAction(Intent.ACTION_GET_CONTENT);
