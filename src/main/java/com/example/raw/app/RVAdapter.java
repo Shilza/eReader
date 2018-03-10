@@ -1,9 +1,8 @@
 package com.example.raw.app;
 
 import android.content.Context;
-import android.content.Intent;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,20 +11,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewHolder> {
 
     ArrayList<Book> books;
     Context context;
-    Tab parent;
     Book selectedBook;
 
 
-    RVAdapter(ArrayList<Book> books, Context context, Tab parent){
+    RVAdapter(ArrayList<Book> books, Context context){
         this.books = books;
         this.context = context;
-        this.parent = parent;
     }
 
     public abstract class BookViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener ,View.OnCreateContextMenuListener, View.OnClickListener{
@@ -91,7 +89,7 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
             Toast.makeText(context, "Невозможно открыть, возможно книга была удалена", Toast.LENGTH_SHORT).show();
             books.remove(selectedBook);
             FileWorker.getInstance().refreshingJSON(books);
-            parent.dataSetChanged();
+            TabKeeper.getInstance().notifyDataSetChanged();
         }
     }
 
@@ -112,8 +110,15 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
                 Toast.makeText(context, selectedBook.getName(), Toast.LENGTH_SHORT).show();
 
                 if(!isLongClick){
-                    FileWorker.getInstance().exportRecentBooksToJSON(selectedBook);
-                    TabKeeper.notifyDataSetChanged();
+                    if(!FileWorker.getInstance().getRecentBooks().contains(selectedBook)){
+                        FileWorker.getInstance().addingToRecentBooks(selectedBook);
+                        FileWorker.getInstance().removeBookFromLocalBooks(selectedBook);
+                    } else{
+                        Book book = books.remove(books.indexOf(selectedBook));
+                        FileWorker.getInstance().addingToRecentBooks(book);
+                    }
+
+                    TabKeeper.getInstance().notifyDataSetChanged();
                     bookOpening();
                 }
             }

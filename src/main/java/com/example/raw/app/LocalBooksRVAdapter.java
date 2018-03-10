@@ -19,8 +19,8 @@ public class LocalBooksRVAdapter extends RVAdapter{
     private final byte CONTEXT_MENU_PROPERTIES = 2;
     private final byte GROUP_ID = 1;
 
-    LocalBooksRVAdapter(ArrayList<Book> books, Context context, Tab parent){
-        super(books, context, parent);
+    LocalBooksRVAdapter(ArrayList<Book> books, Context context){
+        super(books, context);
     }
 
     @Override

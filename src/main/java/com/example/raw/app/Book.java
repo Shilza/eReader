@@ -3,14 +3,9 @@ package com.example.raw.app;
 import android.graphics.Bitmap;
 import android.graphics.pdf.PdfRenderer;
 import android.os.ParcelFileDescriptor;
-import android.util.Log;
-import android.widget.ImageView;
-
-import com.google.gson.annotations.Expose;
 
 import java.io.File;
 import java.io.Serializable;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -22,16 +17,18 @@ public class Book implements Serializable{
     private String size;
     private String totalRead;
     private String lastActivity;
+    private Extensions extension;
 
-    Book(String name, String filePath, String size, long lastActivity){
+    Book(String name, String filePath, String size, long lastActivity, Extensions extension){
         this.name = name;
         this.filePath = filePath;
         this.size = size;
-        this.lastActivity = lastActivityTreatment(lastActivity);
+        this.lastActivity = lastActivityProcessing(lastActivity);
         this.totalRead = "0%";
+        this.extension = extension;
     }
 
-    private String lastActivityTreatment(long lastActivity){
+    private String lastActivityProcessing(long lastActivity){
         SimpleDateFormat sdf;
 
         if(lastActivity+86400000 > (new Date().getTime())) //60*60*24*1000 one day
@@ -57,7 +54,7 @@ public class Book implements Serializable{
     }
 
     void setLastActivity(long lastActivity){
-        this.lastActivity = lastActivityTreatment(lastActivity);
+        this.lastActivity = lastActivityProcessing(lastActivity);
     }
 
     String getName(){
@@ -79,6 +76,8 @@ public class Book implements Serializable{
     String getLastActivity(){
         return lastActivity;
     }
+
+    Extensions getExtension() { return extension; }
 
     @Override
     public boolean equals(Object o) {

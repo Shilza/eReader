@@ -1,7 +1,6 @@
 package com.example.raw.app;
 
 import android.os.Environment;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -24,13 +23,12 @@ class FileWorker{
     private ArrayList<Book> recentBooks;
     private ArrayList<Book> localBooks;
 
-
     static FileWorker getInstance() {
         return INSTANCE;
     }
 
     private FileWorker() {
-        checkAppFolder();
+        checkAppDirectory();
         recentBooks = new ArrayList<>();
         localBooks = new ArrayList<>();
 
@@ -67,7 +65,7 @@ class FileWorker{
          return books;
     }
 
-    private void checkAppFolder(){
+    private void checkAppDirectory(){
         File directory = new File(APP_DIRECTORY);
         if (!directory.exists()) {
             directory.mkdir();
@@ -80,51 +78,47 @@ class FileWorker{
         for (File dir: folderEntries){
             if (dir.isDirectory())
                 searchingFiles(dir);
-            else
-                bookEntry(bookPreparing(dir));
+            else{
+                for(Extensions ext : Extensions.searchableExtensions())
+                    if(dir.getName().contains(ext.getDescription()))
+                        bookEntry(bookPreparing(dir));
+            }
         }
     }
 
     void bookEntry(Book book){
-        if(book != null){
-            boolean isBookContains = false;
-            for(Book obj : recentBooks){
-                if(obj.equals(book)){
-                    isBookContains = true;
-                    break;
-                }
-            }
-            if(!isBookContains)
-                localBooks.add(book);
-        }
+        if(book != null && !recentBooks.contains(book))
+            localBooks.add(book);
     }
 
     Book bookPreparing(File directory){
         String temp = directory.getName();
-        String extension = ".pdf";
-        int index = temp.indexOf(extension);
+        Extensions extension = null;
 
-        if(index != -1){
-            String name = temp.substring(0, temp.indexOf(extension));
-            String filePath = directory.getAbsolutePath();
-            long lastActivity = directory.lastModified();
+        for(Extensions ext : Extensions.values())
+            if(temp.contains(ext.getDescription()))
+                extension = ext;
 
-            float size = directory.length();
-            String strSize;
-            DecimalFormat f = new DecimalFormat("##.00");
-            if(size / 1024 > 1024){
-                size = size / (1024 * 1024);
-                strSize = f.format(size) + " МБ";
-            }
-            else{
-                size = size / 1024;
-                strSize = f.format(size) + " КБ";
-            }
+        String name = temp.substring(0, temp.indexOf(extension.getDescription()));
+        String filePath = directory.getAbsolutePath();
+        long lastActivity = directory.lastModified();
 
-            return new Book(name, filePath, strSize, lastActivity);
+        float size = directory.length();
+        String strSize;
+        DecimalFormat f = new DecimalFormat("##.00");
+        if(size / 1024 > 1024){
+            size = size / (1024 * 1024);
+            strSize = f.format(size) + " МБ";
+        }
+        else if(size > 1024){
+            size = size / 1024;
+            strSize = f.format(size) + " КБ";
+        }
+        else{
+            strSize = String.valueOf(size) + "Б";
         }
 
-        return null;
+        return new Book(name, filePath, strSize, lastActivity, extension);
     }
 
     ArrayList<Book> getLocalBooks(){
@@ -135,14 +129,17 @@ class FileWorker{
             return recentBooks;
     }
 
-    void exportRecentBooksToJSON(Book book){
-        if(isBookExist(book.getFilePath()) && !isBookExistInList(book)){
+    void addingToRecentBooks(Book book){
+        if(isBookExist(book.getFilePath())){
             book.setLastActivity(new Date().getTime());
             recentBooks.add(0, book);
-            localBooks.remove(book);
             refreshingJSON(recentBooks);
-            refreshingJSON(localBooks);
         }
+    }
+
+    void removeBookFromLocalBooks(Book book){
+        localBooks.remove(book);
+        refreshingJSON(localBooks);
     }
 
     void refreshingJSON(ArrayList<Book> books){
@@ -160,14 +157,6 @@ class FileWorker{
         }catch (Exception ex){
             ex.printStackTrace();
         }
-    }
-
-    private boolean isBookExistInList(Book book){
-        for(Book obj: recentBooks)
-            if(obj.equals(book))
-                return true;
-
-        return false;
     }
 
     boolean isBookExist(String bookPath){

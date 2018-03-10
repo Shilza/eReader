@@ -61,7 +61,7 @@
             android:layout_marginTop="80dp"
             android:background="@android:color/white"
             android:layout_gravity="start"
-            app:menu="@menu/drawer_menu"
+            app:menu="@menu/menu_drawer"
             />
 </android.support.v4.widget.DrawerLayout>
 

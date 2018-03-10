@@ -23,12 +23,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity{
     private SearchRVAdapter searchRVAdapter;
@@ -100,25 +97,37 @@ public class MainActivity extends AppCompatActivity{
             File file = new File(getRealPathFromURI(selectedFile));
 
             Book book = FileWorker.getInstance().bookPreparing(file);
-            if(book != null) {
-                FileWorker.getInstance().bookEntry(book);
-                FileWorker.getInstance().exportRecentBooksToJSON(book);
-                TabKeeper.notifyDataSetChanged();
-                BookOpener.getInstance().opening(book, this);
-            } else{
-                Toast.makeText(this, "Неподдерживаемый формат", Toast.LENGTH_SHORT).show();
-            }
-            /*
-            final BufferedReader br = new BufferedReader(
-                    new InputStreamReader(
-                            new FileInputStream(getRealPathFromURI(selectedFile)), "Cp1251"));
-            String nextString;
-            String finalString = "";
-            while ((nextString = br.readLine()) != null) {
-                finalString = finalString.concat(nextString);
-            }
-            */
+            boolean isBookExistInList = false;
 
+            for (Book obj : FileWorker.getInstance().getRecentBooks()) {
+                if (obj.getFilePath().equals(book.getFilePath())) {
+                    Book item = FileWorker.getInstance().getRecentBooks().remove(
+                            FileWorker.getInstance().getRecentBooks().indexOf(obj)
+                    );
+                    FileWorker.getInstance().addingToRecentBooks(item);
+                    isBookExistInList = true;
+                    break;
+                }
+            }
+
+            for (Book obj : FileWorker.getInstance().getLocalBooks()) {
+                if (obj.getFilePath().equals(book.getFilePath())) {
+                    FileWorker.getInstance().removeBookFromLocalBooks(obj);
+                    FileWorker.getInstance().addingToRecentBooks(book);
+                    isBookExistInList = true;
+                    break;
+                }
+            }
+
+            if (!isBookExistInList) {
+                for(Extensions ext : Extensions.searchableExtensions())
+                    if(book.getExtension() == ext){
+                        FileWorker.getInstance().addingToRecentBooks(book);
+                        TabKeeper.getInstance().notifyDataSetChanged();
+                    }
+                BookOpener.getInstance().opening(book, this);
+            } else
+                Toast.makeText(this, "Неподдерживаемый формат", Toast.LENGTH_SHORT).show();
         }
     }
 

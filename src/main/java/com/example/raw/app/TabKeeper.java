@@ -2,18 +2,24 @@ package com.example.raw.app;
 
 
 final class TabKeeper {
-    private static TabLocalBooks localBooks;
-    private static TabRecentBooks recentBooks;
+    private static final TabKeeper INSTANCE = new TabKeeper();
+    private TabLocalBooks localBooks;
+    private TabRecentBooks recentBooks;
 
-    
-    static void setTab(Tab tab){
+    static TabKeeper getInstance() {
+        return INSTANCE;
+    }
+
+    private TabKeeper(){}
+
+    void setTab(Tab tab){
         if(tab.getClass().equals(TabLocalBooks.class))
             localBooks = (TabLocalBooks)tab;
         else if(tab.getClass().equals(TabRecentBooks.class))
             recentBooks = (TabRecentBooks)tab;
     }
 
-    static void notifyDataSetChanged(){
+    void notifyDataSetChanged(){
         recentBooks.dataSetChanged();
         localBooks.dataSetChanged();
     }

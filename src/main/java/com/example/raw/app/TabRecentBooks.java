@@ -25,7 +25,7 @@ public class TabRecentBooks extends Tab {
         recyclerView.setLayoutManager(llm);
 
         ArrayList<Book> books = FileWorker.getInstance().getRecentBooks();
-        adapter = new RecentBooksRVAdapter(books, getActivity(), this);
+        adapter = new RecentBooksRVAdapter(books, getActivity());
         recyclerView.setAdapter(adapter);
         locationName = "Последние";
 

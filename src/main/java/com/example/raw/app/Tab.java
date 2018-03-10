@@ -19,7 +19,7 @@ public abstract class Tab extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TabKeeper.setTab(this);
+        TabKeeper.getInstance().setTab(this);
     }
 
     @Override

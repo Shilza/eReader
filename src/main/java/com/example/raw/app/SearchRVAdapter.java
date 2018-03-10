@@ -2,6 +2,7 @@ package com.example.raw.app;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -11,6 +12,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class SearchRVAdapter extends RVAdapter implements Filterable {
@@ -22,7 +24,7 @@ public class SearchRVAdapter extends RVAdapter implements Filterable {
     private final byte GROUP_ID = 2;
 
     SearchRVAdapter(ArrayList<Book> books, Context context) {
-        super(new ArrayList<Book>(), context, null);
+        super(new ArrayList<Book>(), context);
         this.allBooks = books;
     }
 
@@ -37,7 +39,6 @@ public class SearchRVAdapter extends RVAdapter implements Filterable {
                 break;
             case CONTEXT_MENU_DELETE:
                 //TODO
-                //FileWorker.refreshingLocalBooksJSON();
                 break;
             case CONTEXT_MENU_PROPERTIES:
                 Intent intent = new Intent(context, ContextMenuProperties.class);
@@ -50,28 +51,20 @@ public class SearchRVAdapter extends RVAdapter implements Filterable {
     }
 
     void bookOpening(){
-        if(FileWorker.getInstance().isBookExist(selectedBook.getFilePath())){
-            Intent intent = new Intent(context, PDFViewer.class);
-            intent.putExtra("Book", selectedBook.getFilePath());
-            context.startActivity(intent);
-        }else{
+        if(FileWorker.getInstance().isBookExist(selectedBook.getFilePath()))
+            BookOpener.getInstance().opening(selectedBook, context);
+        else{
             Toast.makeText(context, "Невозможно открыть, возможно книга была удалена", Toast.LENGTH_SHORT).show();
             allBooks.remove(selectedBook);
             books.remove(selectedBook);
 
-            for(Book obj : FileWorker.getInstance().getRecentBooks())
-                if(obj.equals(selectedBook)) {
-                    FileWorker.getInstance().getRecentBooks().remove(obj);
-                    break;
-                }
-            for(Book obj : FileWorker.getInstance().getLocalBooks())
-                if(obj.equals(selectedBook)) {
-                    FileWorker.getInstance().getLocalBooks().remove(obj);
-                    break;
-                }
+            if(FileWorker.getInstance().getRecentBooks().contains(selectedBook))
+                FileWorker.getInstance().getRecentBooks().remove(selectedBook);
+            else if(FileWorker.getInstance().getLocalBooks().contains(selectedBook))
+                FileWorker.getInstance().getLocalBooks().remove(selectedBook);
 
             notifyDataSetChanged();
-            TabKeeper.notifyDataSetChanged();
+            TabKeeper.getInstance().notifyDataSetChanged();
         }
     }
 

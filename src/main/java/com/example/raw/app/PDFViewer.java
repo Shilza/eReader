@@ -16,7 +16,7 @@ import com.shockwave.pdfium.PdfDocument;
 import java.io.File;
 import java.util.List;
 
-public class PDFViewer extends Activity implements OnPageChangeListener,OnLoadCompleteListener{
+public class PDFViewer extends Activity implements OnPageChangeListener, OnLoadCompleteListener{
     PDFView pdfView;
     Integer pageNumber = 0;
     String pdfFileName;

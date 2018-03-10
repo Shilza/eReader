@@ -21,7 +21,8 @@
         </activity>
         <activity android:name=".SecondActivity" />
         <activity android:name=".ContextMenuProperties" />
-        <activity android:name=".PDFViewer"></activity>
+        <activity android:name=".PDFViewer" />
+        <activity android:name=".SimpleTextViewer"></activity>
     </application>
 
 </manifest>

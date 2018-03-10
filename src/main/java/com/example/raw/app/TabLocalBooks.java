@@ -28,7 +28,7 @@ public class TabLocalBooks extends Tab{
         recyclerView.setLayoutManager(llm);
 
         ArrayList<Book> books = FileWorker.getInstance().getLocalBooks();
-        adapter = new LocalBooksRVAdapter(books, getActivity(), this);
+        adapter = new LocalBooksRVAdapter(books, getActivity());
         recyclerView.setAdapter(adapter);
 
         locationName = "Локальные";

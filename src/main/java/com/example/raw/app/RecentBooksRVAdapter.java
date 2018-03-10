@@ -19,14 +19,14 @@ class RecentBooksRVAdapter extends RVAdapter{
     private final byte CONTEXT_MENU_PROPERTIES = 4;
     private final byte GROUP_ID = 0;
 
-    RecentBooksRVAdapter(ArrayList<Book> books, Context context, Tab parent){
-        super(books, context, parent);
+    RecentBooksRVAdapter(ArrayList<Book> books, Context context){
+        super(books, context);
     }
 
     private void bookRemoving(Book book){
         books.remove(book);
         FileWorker.getInstance().refreshingJSON(books);
-        parent.dataSetChanged();
+        TabKeeper.getInstance().notifyDataSetChanged();
     }
 
     @Override
