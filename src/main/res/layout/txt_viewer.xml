@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.raw.app.TXTViewer">
+
+
+    <android.widget.SearchView
+        android:id="@+id/txt_viewer_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:clickable="true" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/txt_viewer_search"
+        >
+    <TextView
+        android:id="@+id/txt_viewer_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        />
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/txt_viewer_footer"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:onClick="buttonsOnClick"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/txt_viewer_button_share"
+            android:src="@drawable/ic_share_black_30dp"
+        />
+        <ImageButton
+            android:onClick="buttonsOnClick"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/txt_viewer_button_edit"
+            android:src="@drawable/ic_edit_black_30dp"
+            />
+        <ImageButton
+            android:onClick="buttonsOnClick"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/txt_viewer_button_encoding"
+            android:src="@drawable/ic_encoding_black_30dp"
+            />
+        <ImageButton
+            android:onClick="buttonsOnClick"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/txt_viewer_button_text_size"
+            android:src="@drawable/ic_text_fields_black_30dp"
+            />
+        <ImageButton
+            android:onClick="buttonsOnClick"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/txt_viewer_button_search"
+            android:src="@drawable/ic_search_black_30dp"
+            />
+
+    </LinearLayout>
+
+    </RelativeLayout>

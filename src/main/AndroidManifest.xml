@@ -19,10 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SecondActivity" />
         <activity android:name=".ContextMenuProperties" />
         <activity android:name=".PDFViewer" />
-        <activity android:name=".SimpleTextViewer"></activity>
+        <activity android:name=".TXTViewer"></activity>
     </application>
 
 </manifest>

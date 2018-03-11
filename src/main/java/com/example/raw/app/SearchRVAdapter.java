@@ -39,6 +39,7 @@ public class SearchRVAdapter extends RVAdapter implements Filterable {
                 break;
             case CONTEXT_MENU_DELETE:
                 //TODO
+                ad.show();
                 break;
             case CONTEXT_MENU_PROPERTIES:
                 Intent intent = new Intent(context, ContextMenuProperties.class);

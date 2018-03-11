@@ -67,16 +67,12 @@ public class MainActivity extends AppCompatActivity{
 
                         break;
                     case R.id.action_bookmarks:
-                        Log.d("Saas", "2");
                         break;
                     case R.id.action_statistics:
-                        Log.d("Saas", "3");
                         break;
                     case R.id.action_settings:
-                        Log.d("Saas", "4");
                         break;
                     case R.id.action_like:
-                        Log.d("Saas", "5");
                         break;
                     case R.id.action_exit:
                         android.os.Process.killProcess(android.os.Process.myPid()); //REMAKE
@@ -228,10 +224,7 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(toggle.onOptionsItemSelected(item))
-            return true;
-
-        return super.onOptionsItemSelected(item);
+        return toggle.onOptionsItemSelected(item);
     }
 }
 

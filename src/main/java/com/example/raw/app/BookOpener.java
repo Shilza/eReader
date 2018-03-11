@@ -2,9 +2,11 @@ package com.example.raw.app;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -24,7 +26,7 @@ class BookOpener {
             context.startActivity(intent);
         } else if(book.getExtension() == Extensions.TXT){
             try{
-                Intent intent = new Intent(context, SimpleTextViewer.class);
+                Intent intent = new Intent(context, TXTViewer.class);
                 String text = getString(book.getFilePath());
                 intent.putExtra("Text", text);
                 context.startActivity(intent);
@@ -47,9 +49,11 @@ class BookOpener {
 
     private static String getString(String filePath) throws IOException {
         BufferedReader reader = new BufferedReader( new FileReader(filePath));
+
         String line;
         StringBuilder stringBuilder = new StringBuilder();
         String ls = System.getProperty("line.separator");
+
         while((line = reader.readLine()) != null){
             stringBuilder.append(line);
             stringBuilder.append(ls);

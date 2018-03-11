@@ -34,6 +34,7 @@ public class LocalBooksRVAdapter extends RVAdapter{
                 break;
             case CONTEXT_MENU_DELETE:
                 //TODO
+                ad.show();
                 //FileWorker.refreshingLocalBooksJSON();
                 break;
             case CONTEXT_MENU_PROPERTIES:

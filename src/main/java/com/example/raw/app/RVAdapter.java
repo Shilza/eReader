@@ -1,6 +1,8 @@
 package com.example.raw.app;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -19,11 +21,13 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
     ArrayList<Book> books;
     Context context;
     Book selectedBook;
+    AlertDialog.Builder ad;
 
 
     RVAdapter(ArrayList<Book> books, Context context){
         this.books = books;
         this.context = context;
+        initAlertDialog();
     }
 
     public abstract class BookViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener ,View.OnCreateContextMenuListener, View.OnClickListener{
@@ -81,6 +85,29 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
     }
 
     public abstract void getItemSelected(MenuItem item);
+
+    private void initAlertDialog(){
+        ad = new AlertDialog.Builder(context);
+        ad.setTitle("Удалить");
+        ad.setMessage("Действительно хотите удалить эту книгу?");
+        ad.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int arg1) {
+                Toast.makeText(context, "Вы сделали правильный выбор",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+        ad.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int arg1) {
+                Toast.makeText(context, "Возможно вы правы", Toast.LENGTH_LONG).show();
+            }
+        });
+        ad.setCancelable(true);
+        ad.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            public void onCancel(DialogInterface dialog) {
+                Toast.makeText(context, "Вы ничего не выбрали", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 
     void bookOpening(){
         if(FileWorker.getInstance().isBookExist(selectedBook.getFilePath())){

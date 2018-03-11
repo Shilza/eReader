@@ -46,6 +46,7 @@ class RecentBooksRVAdapter extends RVAdapter{
                 break;
             case CONTEXT_MENU_DELETE:
                 //TODO
+                ad.show();
                 bookRemoving(selectedBook);
                 break;
             case CONTEXT_MENU_PROPERTIES:
