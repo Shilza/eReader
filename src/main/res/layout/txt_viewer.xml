@@ -7,18 +7,22 @@
     android:layout_height="match_parent"
     tools:context="com.example.raw.app.TXTViewer">
 
-
-    <android.widget.SearchView
-        android:id="@+id/txt_viewer_search"
+    <TextView
+        android:id="@+id/txt_viewer_filename"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusable="true"
-        android:clickable="true" />
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/black"
+        android:textSize="20sp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:gravity="start|center"
+        android:textColor="@android:color/white"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/txt_viewer_search"
+        android:layout_below="@id/txt_viewer_filename"
+        android:theme="@style/MySearchViewStyle"
         >
     <TextView
         android:id="@+id/txt_viewer_text_view"
@@ -49,14 +53,6 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_weight="1"
-            android:id="@+id/txt_viewer_button_edit"
-            android:src="@drawable/ic_edit_black_30dp"
-            />
-        <ImageButton
-            android:onClick="buttonsOnClick"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_weight="1"
             android:id="@+id/txt_viewer_button_encoding"
             android:src="@drawable/ic_encoding_black_30dp"
             />
@@ -78,5 +74,13 @@
             />
 
     </LinearLayout>
+
+    <android.widget.SearchView
+        android:id="@+id/txt_viewer_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_viewer_footer"
+        android:focusable="true"
+        android:clickable="true" />
 
     </RelativeLayout>

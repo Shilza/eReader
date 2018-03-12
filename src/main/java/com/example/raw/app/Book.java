@@ -16,19 +16,19 @@ public class Book implements Serializable{
     private String filePath;
     private String size;
     private String totalRead;
-    private String lastActivity;
+    private long lastActivity;
     private Extensions extension;
 
     Book(String name, String filePath, String size, long lastActivity, Extensions extension){
         this.name = name;
         this.filePath = filePath;
         this.size = size;
-        this.lastActivity = lastActivityProcessing(lastActivity);
+        this.lastActivity = lastActivity;
         this.totalRead = "0%";
         this.extension = extension;
     }
 
-    private String lastActivityProcessing(long lastActivity){
+    static String lastActivityProcessing(long lastActivity){
         SimpleDateFormat sdf;
 
         if(lastActivity+86400000 > (new Date().getTime())) //60*60*24*1000 one day
@@ -54,7 +54,7 @@ public class Book implements Serializable{
     }
 
     void setLastActivity(long lastActivity){
-        this.lastActivity = lastActivityProcessing(lastActivity);
+        this.lastActivity = lastActivity;
     }
 
     String getName(){
@@ -74,7 +74,7 @@ public class Book implements Serializable{
     }
 
     String getLastActivity(){
-        return lastActivity;
+        return lastActivityProcessing(lastActivity);
     }
 
     Extensions getExtension() { return extension; }
@@ -90,9 +90,7 @@ public class Book implements Serializable{
         if (filePath != null ? !filePath.equals(book.filePath) : book.filePath != null)
             return false;
         if (size != null ? !size.equals(book.size) : book.size != null) return false;
-        if (totalRead != null ? !totalRead.equals(book.totalRead) : book.totalRead != null)
-            return false;
-        return lastActivity != null ? lastActivity.equals(book.lastActivity) : book.lastActivity == null;
+        return extension == book.extension;
     }
 
     @Override
@@ -100,9 +98,7 @@ public class Book implements Serializable{
         int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (filePath != null ? filePath.hashCode() : 0);
         result = 31 * result + (size != null ? size.hashCode() : 0);
-        result = 31 * result + (totalRead != null ? totalRead.hashCode() : 0);
-        result = 31 * result + (lastActivity != null ? lastActivity.hashCode() : 0);
+        result = 31 * result + (extension != null ? extension.hashCode() : 0);
         return result;
     }
-
 }

@@ -80,14 +80,16 @@ class FileWorker{
                 searchingFiles(dir);
             else{
                 for(Extensions ext : Extensions.searchableExtensions())
-                    if(dir.getName().contains(ext.getDescription()))
+                    if(dir.getName().contains(ext.getDescription())){
                         bookEntry(bookPreparing(dir));
+                        break;
+                    }
             }
         }
     }
 
     void bookEntry(Book book){
-        if(book != null && !recentBooks.contains(book))
+        if(!recentBooks.contains(book))
             localBooks.add(book);
     }
 
@@ -96,8 +98,10 @@ class FileWorker{
         Extensions extension = null;
 
         for(Extensions ext : Extensions.values())
-            if(temp.contains(ext.getDescription()))
+            if(temp.contains(ext.getDescription())){
                 extension = ext;
+                break;
+            }
 
         String name = temp.substring(0, temp.indexOf(extension.getDescription()));
         String filePath = directory.getAbsolutePath();

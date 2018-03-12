@@ -25,14 +25,9 @@ class BookOpener {
             intent.putExtra("Book", book);
             context.startActivity(intent);
         } else if(book.getExtension() == Extensions.TXT){
-            try{
-                Intent intent = new Intent(context, TXTViewer.class);
-                String text = getString(book.getFilePath());
-                intent.putExtra("Text", text);
-                context.startActivity(intent);
-            } catch (IOException ex){
-                Toast.makeText(context, "Невозможо открыть файл", Toast.LENGTH_SHORT).show();
-            }
+            Intent intent = new Intent(context, TXTViewer.class);
+            intent.putExtra("Text", book.getFilePath());
+            context.startActivity(intent);
         }
 
                     /*
@@ -45,21 +40,5 @@ class BookOpener {
                 finalString = finalString.concat(nextString);
             }
             */
-    }
-
-    private static String getString(String filePath) throws IOException {
-        BufferedReader reader = new BufferedReader( new FileReader(filePath));
-
-        String line;
-        StringBuilder stringBuilder = new StringBuilder();
-        String ls = System.getProperty("line.separator");
-
-        while((line = reader.readLine()) != null){
-            stringBuilder.append(line);
-            stringBuilder.append(ls);
-        }
-
-        stringBuilder.deleteCharAt(stringBuilder.length()-1);
-        return stringBuilder.toString();
     }
 }

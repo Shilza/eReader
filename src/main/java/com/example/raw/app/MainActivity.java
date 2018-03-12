@@ -92,37 +92,44 @@ public class MainActivity extends AppCompatActivity{
             Uri selectedFile = data.getData();
             File file = new File(getRealPathFromURI(selectedFile));
 
-            Book book = FileWorker.getInstance().bookPreparing(file);
-            boolean isBookExistInList = false;
-
-            for (Book obj : FileWorker.getInstance().getRecentBooks()) {
-                if (obj.getFilePath().equals(book.getFilePath())) {
-                    Book item = FileWorker.getInstance().getRecentBooks().remove(
-                            FileWorker.getInstance().getRecentBooks().indexOf(obj)
-                    );
-                    FileWorker.getInstance().addingToRecentBooks(item);
-                    isBookExistInList = true;
+            boolean isReadable = false;
+            for(Extensions ext : Extensions.values())
+                if(file.getName().endsWith(ext.getDescription())){
+                    isReadable = true;
                     break;
                 }
-            }
 
-            for (Book obj : FileWorker.getInstance().getLocalBooks()) {
-                if (obj.getFilePath().equals(book.getFilePath())) {
-                    FileWorker.getInstance().removeBookFromLocalBooks(obj);
-                    FileWorker.getInstance().addingToRecentBooks(book);
-                    isBookExistInList = true;
-                    break;
-                }
-            }
+            if(isReadable){
+                Book book = FileWorker.getInstance().bookPreparing(file);
+                boolean isBookExistInList = false;
 
-            if (!isBookExistInList) {
-                for(Extensions ext : Extensions.searchableExtensions())
-                    if(book.getExtension() == ext){
-                        FileWorker.getInstance().addingToRecentBooks(book);
-                        TabKeeper.getInstance().notifyDataSetChanged();
+                for (Book obj : FileWorker.getInstance().getRecentBooks()) {
+                    if (obj.getFilePath().equals(book.getFilePath())) {
+                        Book item = FileWorker.getInstance().getRecentBooks().remove(
+                                FileWorker.getInstance().getRecentBooks().indexOf(obj)
+                        );
+                        FileWorker.getInstance().addingToRecentBooks(item);
+                        isBookExistInList = true;
+                        break;
                     }
+                }
+
+                for (Book obj : FileWorker.getInstance().getLocalBooks()) {
+                    if (obj.getFilePath().equals(book.getFilePath())) {
+                        FileWorker.getInstance().removeBookFromLocalBooks(obj);
+                        FileWorker.getInstance().addingToRecentBooks(book);
+                        isBookExistInList = true;
+                        break;
+                    }
+                }
+
+                if (!isBookExistInList) {
+                    FileWorker.getInstance().addingToRecentBooks(book);
+                    TabKeeper.getInstance().notifyDataSetChanged();
+                }
+
                 BookOpener.getInstance().opening(book, this);
-            } else
+            }else
                 Toast.makeText(this, "Неподдерживаемый формат", Toast.LENGTH_SHORT).show();
         }
     }
@@ -185,6 +192,7 @@ public class MainActivity extends AppCompatActivity{
         getMenuInflater().inflate(R.menu.main_menu, menu);
 
         MenuItem search = menu.findItem(R.id.action_search);
+
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(search);
         searchView.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
             @Override
