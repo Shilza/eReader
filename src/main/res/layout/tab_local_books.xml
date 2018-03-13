@@ -8,13 +8,20 @@
         android:id="@+id/local_books_text"
         android:layout_centerInParent="true" />
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_height="match_parent"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_container"
         android:layout_width="match_parent"
-        android:layout_marginTop="4dp"
-        android:scrollbars="vertical"
-        android:id="@+id/local_books_recycler_view"
-        >
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_marginTop="4dp"
+            android:scrollbars="vertical"
+            android:id="@+id/local_books_recycler_view"
+            >
+        </android.support.v7.widget.RecyclerView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

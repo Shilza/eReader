@@ -1,5 +1,8 @@
 package com.example.raw.app;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -22,8 +25,10 @@ import java.util.SortedMap;
 public class TXTViewer extends AppCompatActivity{
     private boolean isExtraMenuHide = false;
     private boolean isSearchActive = false;
+    private boolean isPlusMinusActive = false;
     private TextView tvMainText;
     private LinearLayout footer;
+    private LinearLayout plusMinus;
     private SearchView searchView;
     private String comingString;
     private TextView tvFilename;
@@ -43,6 +48,8 @@ public class TXTViewer extends AppCompatActivity{
         }
 
         footer = findViewById(R.id.txt_viewer_footer);
+        plusMinus = findViewById(R.id.txt_viewer_plus_minus);
+        plusMinus.setVisibility(View.GONE);
 
         searchView = findViewById(R.id.txt_viewer_search);
         searchView.animate().translationYBy(-searchView.getHeight()).
@@ -66,6 +73,9 @@ public class TXTViewer extends AppCompatActivity{
             public void onClick(View view) {
                 footerAnimation(isExtraMenuHide);
                 isExtraMenuHide = !isExtraMenuHide;
+
+                plusMinus.setVisibility(View.GONE);
+                isPlusMinusActive = !isPlusMinusActive;
             }
         });
 
@@ -115,8 +125,29 @@ public class TXTViewer extends AppCompatActivity{
                 //shareActionProvider.setShareIntent(intent);
                 break;
             case R.id.txt_viewer_button_text_size:
-                tvMainText.setTextSize(tvMainText.getTextSize()*2);
+                isPlusMinusActive = !isPlusMinusActive;
+                if(isPlusMinusActive)
+                    plusMinus.setVisibility(View.VISIBLE);
+                else
+                    plusMinus.setVisibility(View.GONE);
                 break;
+            case R.id.txt_viewer_button_text_copy:
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("", comingString);
+                Toast.makeText(this, "Текст скопирован в буфер обмена", Toast.LENGTH_SHORT).show();
+                try{
+                    clipboard.setPrimaryClip(clip);
+                } catch (NullPointerException ex){
+                    Toast.makeText(this, "Не удалось скопировать в буфер обмена", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.txt_viewer_button_plus:
+                tvMainText.setTextSize(tvMainText.getTextSize()+1);
+                break;
+            case R.id.txt_viewer_button_minus:
+                tvMainText.setTextSize(tvMainText.getTextSize()-1);
+                break;
+
         }
     }
 

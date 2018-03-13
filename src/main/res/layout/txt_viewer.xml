@@ -26,12 +26,33 @@
         >
     <TextView
         android:id="@+id/txt_viewer_text_view"
+        android:textIsSelectable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="10sp"
         />
 
     </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/txt_viewer_plus_minus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true">
+        <ImageButton
+            android:onClick="buttonsOnClick"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:id="@+id/txt_viewer_button_plus"
+            android:src="@drawable/ic_add_box_black_24dp"/>
+        <ImageButton
+            android:onClick="buttonsOnClick"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:id="@+id/txt_viewer_button_minus"
+            android:src="@drawable/ic_indeterminate_check_box_black_24dp"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,12 +71,20 @@
         />
         <ImageButton
             android:onClick="buttonsOnClick"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/txt_viewer_button_text_copy"
+            android:src="@drawable/ic_content_copy_black_30dp"/>
+        <ImageButton
+            android:onClick="buttonsOnClick"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:id="@+id/txt_viewer_button_encoding"
             android:src="@drawable/ic_encoding_black_30dp"
             />
+
         <ImageButton
             android:onClick="buttonsOnClick"
             android:layout_height="wrap_content"

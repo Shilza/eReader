@@ -1,6 +1,7 @@
 package com.example.raw.app;
 
 import android.os.Environment;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -39,10 +40,7 @@ class FileWorker{
         try{
             localBooks = initializeData(localBooks);
         } catch (Exception ex){
-            if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()))
-                searchingFiles(Environment.getExternalStorageDirectory());
-
-            refreshingJSON(localBooks);
+            localBooksSearching();
         }
         //searchingFiles(new File("/storage/")); //SD CARD
     }
@@ -88,7 +86,16 @@ class FileWorker{
         }
     }
 
-    void bookEntry(Book book){
+    public void localBooksSearching(){
+       localBooks.clear();
+
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()))
+            searchingFiles(Environment.getExternalStorageDirectory());
+
+        refreshingJSON(localBooks);
+    }
+
+    private void bookEntry(Book book){
         if(!recentBooks.contains(book))
             localBooks.add(book);
     }
