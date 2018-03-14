@@ -18,11 +18,16 @@
         android:gravity="start|center"
         android:textColor="@android:color/white"/>
 
+    <android.widget.SearchView
+        android:id="@+id/txt_viewer_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/txt_viewer_filename"
-        android:theme="@style/MySearchViewStyle"
+        android:layout_marginTop="?attr/actionBarSize"
         >
     <TextView
         android:id="@+id/txt_viewer_text_view"
@@ -103,13 +108,5 @@
             />
 
     </LinearLayout>
-
-    <android.widget.SearchView
-        android:id="@+id/txt_viewer_search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txt_viewer_footer"
-        android:focusable="true"
-        android:clickable="true" />
 
     </RelativeLayout>

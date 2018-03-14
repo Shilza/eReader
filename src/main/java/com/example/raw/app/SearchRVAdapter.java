@@ -23,9 +23,9 @@ public class SearchRVAdapter extends RVAdapter implements Filterable {
     private final byte CONTEXT_MENU_PROPERTIES = 2;
     private final byte GROUP_ID = 2;
 
-    SearchRVAdapter(ArrayList<Book> books, Context context) {
+    SearchRVAdapter(ArrayList<Book> allBooks, Context context) {
         super(new ArrayList<Book>(), context);
-        this.allBooks = books;
+        this.allBooks = allBooks;
     }
 
     @Override
@@ -56,7 +56,6 @@ public class SearchRVAdapter extends RVAdapter implements Filterable {
             BookOpener.getInstance().opening(selectedBook, context);
         else{
             Toast.makeText(context, "Невозможно открыть, возможно книга была удалена", Toast.LENGTH_SHORT).show();
-            allBooks.remove(selectedBook);
             books.remove(selectedBook);
 
             if(FileWorker.getInstance().getRecentBooks().contains(selectedBook))
@@ -78,7 +77,7 @@ public class SearchRVAdapter extends RVAdapter implements Filterable {
                 String parsedString = charSequence.toString();
 
                 if (parsedString.isEmpty()) {
-                    books = new ArrayList<>();
+                    books.clear();
                 } else{
 
                     ArrayList<Book> tempFilteredList = new ArrayList<>();

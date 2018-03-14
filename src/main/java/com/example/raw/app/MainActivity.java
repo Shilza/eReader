@@ -92,14 +92,18 @@ public class MainActivity extends AppCompatActivity{
             Uri selectedFile = data.getData();
             File file = new File(getRealPathFromURI(selectedFile));
 
+            boolean isReadable = false;
             for (Extensions ext : Extensions.values())
                 if (file.getName().endsWith(ext.getDescription())) {
                     read(file);
+                    isReadable = true;
                     break;
                 }
+
+            if(!isReadable)
+                Toast.makeText(this, "Неподдерживаемый формат", Toast.LENGTH_SHORT).show();
         }
-        else
-            Toast.makeText(this, "Неподдерживаемый формат", Toast.LENGTH_SHORT).show();
+
     }
 
     private void read(File file){

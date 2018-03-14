@@ -19,8 +19,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.SortedMap;
 
 public class TXTViewer extends AppCompatActivity{
     private boolean isExtraMenuHide = false;
@@ -32,7 +30,6 @@ public class TXTViewer extends AppCompatActivity{
     private SearchView searchView;
     private String comingString;
     private TextView tvFilename;
-    private TXTViewerDialogFragment dialogFragment;
     private String comingFilePath;
 
     @Override
@@ -52,8 +49,7 @@ public class TXTViewer extends AppCompatActivity{
         plusMinus.setVisibility(View.GONE);
 
         searchView = findViewById(R.id.txt_viewer_search);
-        searchView.animate().translationYBy(-searchView.getHeight()).
-                setDuration(0).setInterpolator(new AccelerateInterpolator()).start();
+        searchView.setVisibility(View.GONE);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -74,14 +70,17 @@ public class TXTViewer extends AppCompatActivity{
                 footerAnimation(isExtraMenuHide);
                 isExtraMenuHide = !isExtraMenuHide;
 
-                plusMinus.setVisibility(View.GONE);
-                isPlusMinusActive = !isPlusMinusActive;
+                if(isPlusMinusActive){
+                    plusMinus.setVisibility(View.GONE);
+                    isPlusMinusActive = !isPlusMinusActive;
+                }
             }
         });
 
         tvFilename = findViewById(R.id.txt_viewer_filename);
         tvFilename.setText(new File(comingFilePath).getName());
 
+        /*
         SortedMap<String, Charset> sa = Charset.availableCharsets();
         String[] saas = new String[sa.size()];
         int i =0;
@@ -89,18 +88,12 @@ public class TXTViewer extends AppCompatActivity{
             saas[i] = str;
             i++;
         }
-        dialogFragment = new TXTViewerDialogFragment();
-        dialogFragment.set(tvMainText, comingString, saas, this);
+        */
     }
 
     private void footerAnimation(boolean show){
         int value = show ? -footer.getHeight() : footer.getHeight() ;
         footer.animate().translationYBy(value).setDuration(200).setInterpolator(new AccelerateInterpolator()).start();
-    }
-    
-    private void searchViewAnimation(boolean show){
-        int value = show ?  searchView.getHeight() : -searchView.getHeight() ;
-        searchView.animate().translationYBy(value).setDuration(200).setInterpolator(new AccelerateInterpolator()).start();
     }
 
     @Override
@@ -112,8 +105,15 @@ public class TXTViewer extends AppCompatActivity{
     public void buttonsOnClick(View view){
         switch (view.getId()){
             case R.id.txt_viewer_button_search:
-                searchViewAnimation(isSearchActive);
-                isSearchActive = !isSearchActive;
+                isSearchActive=!isSearchActive;
+                if(isSearchActive){
+                    tvFilename.setVisibility(View.GONE);
+                    searchView.setVisibility(View.VISIBLE);
+                    searchView.setIconified(false);
+                } else{
+                    tvFilename.setVisibility(View.VISIBLE);
+                    searchView.setVisibility(View.GONE);
+                }
                 break;
             case R.id.txt_viewer_button_encoding:
                 break;
@@ -122,7 +122,6 @@ public class TXTViewer extends AppCompatActivity{
                 intent.setType("text/*");
                 intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + comingFilePath));
                 startActivity(Intent.createChooser(intent, "Share with"));
-                //shareActionProvider.setShareIntent(intent);
                 break;
             case R.id.txt_viewer_button_text_size:
                 isPlusMinusActive = !isPlusMinusActive;

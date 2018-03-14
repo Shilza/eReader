@@ -112,12 +112,26 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
     void bookOpening(){
         if(FileWorker.getInstance().isBookExist(selectedBook.getFilePath())){
             BookOpener.getInstance().opening(selectedBook, context);
-        }else{
+        } else {
             Toast.makeText(context, "Невозможно открыть, возможно книга была удалена", Toast.LENGTH_SHORT).show();
             books.remove(selectedBook);
             FileWorker.getInstance().refreshingJSON(books);
             TabKeeper.getInstance().notifyDataSetChanged();
         }
+    }
+
+    private void clickProcessing(){
+        if(!FileWorker.getInstance().getRecentBooks().contains(selectedBook)){
+            FileWorker.getInstance().addingToRecentBooks(selectedBook);
+            FileWorker.getInstance().removeBookFromLocalBooks(selectedBook);
+        } else{
+            Book book = FileWorker.getInstance().getRecentBooks().remove(
+                    FileWorker.getInstance().getRecentBooks().indexOf(selectedBook));
+            FileWorker.getInstance().addingToRecentBooks(book);
+        }
+
+        TabKeeper.getInstance().notifyDataSetChanged();
+        bookOpening();
     }
 
     @Override
@@ -136,19 +150,10 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
                 selectedBook = books.get(pos);
                 Toast.makeText(context, selectedBook.getName(), Toast.LENGTH_SHORT).show();
 
-                if(!isLongClick){
-                    if(!FileWorker.getInstance().getRecentBooks().contains(selectedBook)){
-                        FileWorker.getInstance().addingToRecentBooks(selectedBook);
-                        FileWorker.getInstance().removeBookFromLocalBooks(selectedBook);
-                    } else{
-                        Book book = books.remove(books.indexOf(selectedBook));
-                        FileWorker.getInstance().addingToRecentBooks(book);
-                    }
-
-                    TabKeeper.getInstance().notifyDataSetChanged();
-                    bookOpening();
-                }
+                if(!isLongClick)
+                   clickProcessing();
             }
         });
+
     }
 }
