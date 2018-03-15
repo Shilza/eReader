@@ -17,7 +17,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +24,6 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity{
     private SearchRVAdapter searchRVAdapter;
@@ -38,7 +36,7 @@ public class MainActivity extends AppCompatActivity{
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.activity_main);
 
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         initDrawer();
@@ -65,18 +63,18 @@ public class MainActivity extends AppCompatActivity{
 
                         startActivityForResult(Intent.createChooser(intent, "Выберите файл"), 1);
 
-                        break;
+                        return true;
                     case R.id.action_bookmarks:
-                        break;
+                        return true;
                     case R.id.action_statistics:
-                        break;
+                        return true;
                     case R.id.action_settings:
-                        break;
+                        return true;
                     case R.id.action_like:
-                        break;
+                        return true;
                     case R.id.action_exit:
                         android.os.Process.killProcess(android.os.Process.myPid()); //REMAKE
-                        break;
+                        return true;
                 }
 
                 return false;

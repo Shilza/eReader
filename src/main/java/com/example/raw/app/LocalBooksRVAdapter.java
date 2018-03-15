@@ -3,7 +3,6 @@ package com.example.raw.app;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -66,7 +65,7 @@ public class LocalBooksRVAdapter extends RVAdapter{
 
     @Override
     public LocalBooksRVAdapter.LocalBooksViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_view_item, viewGroup, false);
         return new LocalBooksRVAdapter.LocalBooksViewHolder(view);
     }
 }

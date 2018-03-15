@@ -60,11 +60,7 @@
             android:layout_height="match_parent"
             android:layout_width="wrap_content"
             android:layout_marginTop="?attr/actionBarSize"
-            android:background="@android:color/white"
             android:layout_gravity="start"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground"
             app:menu="@menu/menu_drawer"
             />
 

@@ -80,7 +80,7 @@ class RecentBooksRVAdapter extends RVAdapter{
 
     @Override
     public RecentBooksViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_view_item, viewGroup, false);
         return new RecentBooksViewHolder(view);
     }
 }

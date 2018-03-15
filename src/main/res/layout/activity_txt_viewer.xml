@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.raw.app.TXTViewer">
+    app:menu="@menu/menu_txt_viewer"
+    tools:context="com.example.raw.app.TXTViewer"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:id="@+id/txt_viewer_filename"
@@ -46,13 +48,13 @@
         android:layout_centerHorizontal="true"
         android:layout_centerInParent="true">
         <ImageButton
-            android:onClick="buttonsOnClick"
+            android:onClick="txtViewerOnClick"
             android:layout_width="30dp"
             android:layout_height="match_parent"
             android:id="@+id/txt_viewer_button_plus"
             android:src="@drawable/ic_add_box_black_24dp"/>
         <ImageButton
-            android:onClick="buttonsOnClick"
+            android:onClick="txtViewerOnClick"
             android:layout_width="30dp"
             android:layout_height="match_parent"
             android:id="@+id/txt_viewer_button_minus"
@@ -64,10 +66,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:id="@+id/txt_viewer_footer"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        >
 
         <ImageButton
-            android:onClick="buttonsOnClick"
+            android:onClick="txtViewerOnClick"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_weight="1"
@@ -75,14 +78,14 @@
             android:src="@drawable/ic_share_black_30dp"
         />
         <ImageButton
-            android:onClick="buttonsOnClick"
+            android:onClick="txtViewerOnClick"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/txt_viewer_button_text_copy"
             android:src="@drawable/ic_content_copy_black_30dp"/>
         <ImageButton
-            android:onClick="buttonsOnClick"
+            android:onClick="txtViewerOnClick"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_weight="1"
@@ -91,7 +94,7 @@
             />
 
         <ImageButton
-            android:onClick="buttonsOnClick"
+            android:onClick="txtViewerOnClick"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_weight="1"
@@ -99,7 +102,7 @@
             android:src="@drawable/ic_text_fields_black_30dp"
             />
         <ImageButton
-            android:onClick="buttonsOnClick"
+            android:onClick="txtViewerOnClick"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_weight="1"

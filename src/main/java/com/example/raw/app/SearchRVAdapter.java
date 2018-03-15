@@ -2,7 +2,6 @@ package com.example.raw.app;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -12,7 +11,6 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.Toast;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class SearchRVAdapter extends RVAdapter implements Filterable {
@@ -120,7 +118,7 @@ public class SearchRVAdapter extends RVAdapter implements Filterable {
 
     @Override
     public SearchRVAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_view_item, viewGroup, false);
         return new SearchRVAdapter.ViewHolder(view);
     }
 }

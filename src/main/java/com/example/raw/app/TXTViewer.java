@@ -1,11 +1,11 @@
 package com.example.raw.app;
 
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -20,7 +20,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class TXTViewer extends AppCompatActivity{
+public class TXTViewer extends Activity {
     private boolean isExtraMenuHide = false;
     private boolean isSearchActive = false;
     private boolean isPlusMinusActive = false;
@@ -35,7 +35,7 @@ public class TXTViewer extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.txt_viewer);
+        setContentView(R.layout.activity_txt_viewer);
 
         comingFilePath = String.valueOf(getIntent().getSerializableExtra("Text"));
         try{
@@ -95,14 +95,8 @@ public class TXTViewer extends AppCompatActivity{
         int value = show ? -footer.getHeight() : footer.getHeight() ;
         footer.animate().translationYBy(value).setDuration(200).setInterpolator(new AccelerateInterpolator()).start();
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_txt_viewer, menu);
-        return true;
-    }
     
-    public void buttonsOnClick(View view){
+    public void txtViewerOnClick(View view){
         switch (view.getId()){
             case R.id.txt_viewer_button_search:
                 isSearchActive=!isSearchActive;
