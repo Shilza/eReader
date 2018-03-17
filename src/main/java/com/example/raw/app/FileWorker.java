@@ -15,7 +15,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-class FileWorker{
+public class FileWorker{
 
     private static final FileWorker INSTANCE = new FileWorker();
     private final String APP_DIRECTORY = Environment.getExternalStorageDirectory() + "/eReader";
@@ -24,7 +24,7 @@ class FileWorker{
     private ArrayList<Book> recentBooks;
     private ArrayList<Book> localBooks;
 
-    static FileWorker getInstance() {
+    public static FileWorker getInstance() {
         return INSTANCE;
     }
 
@@ -136,7 +136,7 @@ class FileWorker{
         return localBooks;
     }
 
-    ArrayList<Book> getRecentBooks(){
+    public ArrayList<Book> getRecentBooks(){
         return recentBooks;
     }
 
@@ -153,7 +153,7 @@ class FileWorker{
         refreshingJSON(localBooks);
     }
 
-    void refreshingJSON(ArrayList<Book> books){
+    public void refreshingJSON(ArrayList<Book> books){
         try {
             BufferedWriter writer;
             if(books == recentBooks)

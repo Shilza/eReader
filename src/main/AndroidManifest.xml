@@ -20,8 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ContextMenuProperties" />
-        <activity android:name=".PDFViewer" />
-        <activity android:name=".TXTViewer"></activity>
+        <activity android:name=".Viewers.PDFViewer" />
+        <activity android:name=".Viewers.SimpleTextViewer"></activity>
     </application>
 
 </manifest>

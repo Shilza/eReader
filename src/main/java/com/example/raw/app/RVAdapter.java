@@ -101,12 +101,6 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
                 Toast.makeText(context, "Возможно вы правы", Toast.LENGTH_LONG).show();
             }
         });
-        ad.setCancelable(true);
-        ad.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            public void onCancel(DialogInterface dialog) {
-                Toast.makeText(context, "Вы ничего не выбрали", Toast.LENGTH_LONG).show();
-            }
-        });
     }
 
     void bookOpening(){

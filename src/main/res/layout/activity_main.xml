@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tabLayout"
-            android:background="@android:color/black"
+            android:background="@color/colorPrimary"
             android:minHeight="?attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
@@ -59,7 +59,7 @@
             app:headerLayout="@layout/menu_header"
             android:layout_height="match_parent"
             android:layout_width="wrap_content"
-            android:layout_marginTop="?attr/actionBarSize"
+            android:layout_marginTop="70dp"
             android:layout_gravity="start"
             app:menu="@menu/menu_drawer"
             />

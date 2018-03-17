@@ -53,35 +53,35 @@ public class Book implements Serializable{
         catch(Exception e){}
     }
 
-    void setLastActivity(long lastActivity){
+    public void setLastActivity(long lastActivity){
         this.lastActivity = lastActivity;
     }
 
-    void setTotalRead(float totalRead){
+    public void setTotalRead(float totalRead){
         this.totalRead = totalRead;
     }
 
-    String getName(){
+    public String getName(){
         return name;
     }
 
-    String getFilePath(){
+    public String getFilePath(){
         return filePath;
     }
 
-    String getSize(){
+    public String getSize(){
         return size;
     }
 
-    float getTotalRead(){
+    public float getTotalRead(){
         return totalRead;
     }
 
-    String getLastActivity(){
+    public String getLastActivity(){
         return lastActivityProcessing(lastActivity);
     }
 
-    Extensions getExtension() { return extension; }
+    public Extensions getExtension() { return extension; }
 
     @Override
     public boolean equals(Object o) {

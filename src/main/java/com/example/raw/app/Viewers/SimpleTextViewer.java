@@ -1,4 +1,4 @@
-package com.example.raw.app;
+package com.example.raw.app.Viewers;
 
 import android.app.Activity;
 import android.content.ClipData;
@@ -15,12 +15,14 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.raw.app.R;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class TXTViewer extends Activity {
+public class SimpleTextViewer extends Activity {
     private boolean isExtraMenuHide = false;
     private boolean isSearchActive = false;
     private boolean isPlusMinusActive = false;

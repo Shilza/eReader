@@ -4,6 +4,8 @@ public enum Extensions {
     PDF(".pdf"),
     //FB2(".fb2"),
     TXT(".txt"),
+    XML(".xml"),
+    HTML(".html"),
     JSON(".json");
 
     private String description;
@@ -15,6 +17,15 @@ public enum Extensions {
     static Extensions[] searchableExtensions(){
         Extensions[] arr = new Extensions[1];
         arr[0] = PDF;
+        return arr;
+    }
+
+    static Extensions[] simpleTextExtensions(){
+        Extensions[] arr = new Extensions[4];
+        arr[0] = TXT;
+        arr[1] = XML;
+        arr[2] = HTML;
+        arr[3] = JSON;
         return arr;
     }
 

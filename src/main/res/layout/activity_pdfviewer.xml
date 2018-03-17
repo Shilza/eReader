@@ -1,54 +1,58 @@
-<RelativeLayout android:layout_width="match_parent"
+<RelativeLayout
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-        <TextView
+        <com.github.barteksc.pdfviewer.PDFView
+            android:id="@+id/pdfView"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/colorPrimaryDark"
-            android:textColor="#ffffff"
+            android:layout_height="match_parent"
+            />
+
+        <TextView
             android:id="@+id/tv_header"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorPrimary"
+            android:textColor="#ffffff"
             android:textSize="18sp"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
             android:gravity="start|center"
-            />
-
-        <com.github.barteksc.pdfviewer.PDFView
-            android:id="@+id/pdfView"
-            android:layout_width="match_parent"
-            android:layout_height="520dp"
-            android:layout_below="@id/tv_header"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:singleLine="true"
             />
 
         <LinearLayout
+            android:id="@+id/pdf_view_footer"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_alignParentBottom="true"
             android:orientation="horizontal"
-            android:background="#E7E6E4">
+            android:background="@color/colorStandardBackground">
 
-         <ImageButton
-             android:onClick="pdfViewerOnClick"
-             android:id="@+id/action_pdf_viewer_share"
-             android:layout_height="match_parent"
-             android:layout_width="match_parent"
-             android:layout_weight="1"
-             android:src="@drawable/ic_share_black_24dp"
-             android:background="@drawable/background_footer_selector"
-             />
+                <ImageButton
+                    android:onClick="pdfViewerOnClick"
+                    android:id="@+id/action_pdf_viewer_share"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_share_black_24dp"
+                    android:background="@drawable/background_footer_selector"
+                     />
 
-        <ImageButton
-            android:onClick="pdfViewerOnClick"
-            android:id="@+id/action_pdf_viewer_orientation"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/ic_pages_black_24dp"
-            android:background="@drawable/background_footer_selector"
-            />
-
+                <ImageButton
+                    android:onClick="pdfViewerOnClick"
+                    android:id="@+id/action_pdf_viewer_orientation"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_pages_black_24dp"
+                    android:background="@drawable/background_footer_selector"
+                    />
                 <ImageButton
                     android:onClick="pdfViewerOnClick"
                     android:id="@+id/action_pdf_viewer_screen_size"
@@ -59,14 +63,14 @@
                     android:background="@drawable/background_footer_selector"
                     />
 
-        <ImageButton
-            android:onClick="pdfViewerOnClick"
-            android:id="@+id/action_pdf_viewer_bookmark"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/ic_bookmark_border_black_24dp"
-            android:background="@drawable/background_footer_selector"/>
+                <ImageButton
+                    android:onClick="pdfViewerOnClick"
+                    android:id="@+id/action_pdf_viewer_bookmark"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_bookmark_border_black_24dp"
+                    android:background="@drawable/background_footer_selector"/>
         </LinearLayout>
 
 </RelativeLayout>
