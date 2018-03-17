@@ -22,9 +22,10 @@ class BookOpener {
     void opening(Book book, Context context){
         if(book.getExtension() == Extensions.PDF){
             Intent intent = new Intent(context, PDFViewer.class);
-            intent.putExtra("Book", book);
+            intent.putExtra("Book", book.getFilePath());
             context.startActivity(intent);
-        } else if(book.getExtension() == Extensions.TXT){
+        } else if(book.getExtension() == Extensions.TXT
+                || book.getExtension() == Extensions.JSON){
             Intent intent = new Intent(context, TXTViewer.class);
             intent.putExtra("Text", book.getFilePath());
             context.startActivity(intent);

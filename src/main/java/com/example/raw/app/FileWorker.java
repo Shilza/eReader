@@ -86,7 +86,7 @@ class FileWorker{
         }
     }
 
-    public void localBooksSearching(){
+    void localBooksSearching(){
        localBooks.clear();
 
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()))
@@ -105,7 +105,7 @@ class FileWorker{
         Extensions extension = null;
 
         for(Extensions ext : Extensions.values())
-            if(temp.contains(ext.getDescription())){
+            if(temp.toLowerCase().contains(ext.getDescription())){
                 extension = ext;
                 break;
             }
@@ -137,7 +137,7 @@ class FileWorker{
     }
 
     ArrayList<Book> getRecentBooks(){
-            return recentBooks;
+        return recentBooks;
     }
 
     void addingToRecentBooks(Book book){

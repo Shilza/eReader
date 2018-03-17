@@ -15,7 +15,7 @@ public class Book implements Serializable{
     private String name;
     private String filePath;
     private String size;
-    private String totalRead;
+    private float totalRead;
     private long lastActivity;
     private Extensions extension;
 
@@ -24,11 +24,11 @@ public class Book implements Serializable{
         this.filePath = filePath;
         this.size = size;
         this.lastActivity = lastActivity;
-        this.totalRead = "0%";
+        this.totalRead = 0;
         this.extension = extension;
     }
 
-    static String lastActivityProcessing(long lastActivity){
+    private String lastActivityProcessing(long lastActivity){
         SimpleDateFormat sdf;
 
         if(lastActivity+86400000 > (new Date().getTime())) //60*60*24*1000 one day
@@ -57,6 +57,10 @@ public class Book implements Serializable{
         this.lastActivity = lastActivity;
     }
 
+    void setTotalRead(float totalRead){
+        this.totalRead = totalRead;
+    }
+
     String getName(){
         return name;
     }
@@ -69,7 +73,7 @@ public class Book implements Serializable{
         return size;
     }
 
-    String getTotalRead(){
+    float getTotalRead(){
         return totalRead;
     }
 

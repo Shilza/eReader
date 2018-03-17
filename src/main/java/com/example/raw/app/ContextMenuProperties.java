@@ -1,42 +1,27 @@
 package com.example.raw.app;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 
-public class ContextMenuProperties extends AppCompatActivity{
-
-    private ImageView ivCover;
-    private TextView tvName;
-    private TextView tvTotalRead;
-    private TextView tvLastActivity;
-    private TextView tvSize;
-    private TextView tvFilePath;
-    private Book book;
+public class ContextMenuProperties extends Activity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_context_menu_properties);
 
-        ivCover = findViewById(R.id.properties_book_cover);
-        tvName = findViewById(R.id.properties_book_name);
-        tvTotalRead = findViewById(R.id.properties_total_read);
-        tvLastActivity = findViewById(R.id.properties_last_activity);
-        tvSize = findViewById(R.id.properties_book_size);
-        tvFilePath = findViewById(R.id.properties_file_path);
+        Book book = (Book)getIntent().getSerializableExtra("Book");
 
-        book = (Book)getIntent().getSerializableExtra("Book");
+        ((ImageView) findViewById(R.id.properties_book_cover)).setImageResource(R.drawable.e);
+        ((TextView) findViewById(R.id.properties_book_name)).setText(book.getName());
+        ((TextView) findViewById(R.id.properties_total_read)).setText(book.getTotalRead()*100 + "%");
+        ((TextView) findViewById(R.id.properties_last_activity)).setText(book.getLastActivity());
+        ((TextView) findViewById(R.id.properties_book_size)).setText(book.getSize());
+        ((TextView) findViewById(R.id.properties_file_path)).setText(book.getFilePath());
 
-
-        tvName.setText(book.getName());
-        tvSize.setText(book.getSize());
-        tvTotalRead.setText(book.getTotalRead());
-        tvLastActivity.setText(book.getLastActivity());
-        tvFilePath.setText(book.getFilePath());
-        ivCover.setImageResource(R.drawable.e);
         /*
         tvFilePath.setOnClickListener(new View.OnClickListener() {
             @Override
