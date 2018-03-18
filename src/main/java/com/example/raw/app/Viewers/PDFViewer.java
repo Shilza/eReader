@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.raw.app.Book;
+import com.example.raw.app.Dialog;
 import com.example.raw.app.FileWorker;
 import com.example.raw.app.R;
 import com.github.barteksc.pdfviewer.PDFView;
@@ -23,7 +25,7 @@ import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
 
 import java.io.File;
 
-public class PDFViewer extends Activity implements OnPageChangeListener, OnLoadCompleteListener, OnTapListener{
+public class PDFViewer extends Activity implements OnPageChangeListener, OnLoadCompleteListener, OnTapListener, Dialog.OnInputListener{
     private PDFView pdfView;
     private ImageButton ibScreenSize;
     private float totalRead = 0;
@@ -56,13 +58,18 @@ public class PDFViewer extends Activity implements OnPageChangeListener, OnLoadC
 
     @Override
     public void loadComplete(int pageCount){
-        pdfView.jumpTo((int)(pageCount*totalRead));
+        pdfView.jumpTo((int)(pageCount*totalRead), true);
     }
 
     @Override
     public boolean onTap(MotionEvent e){
         animations();
         return true;
+    }
+
+    @Override
+    public void sendInput(int value){
+        pdfView.jumpTo(value, true);
     }
 
     private void animations(){
@@ -110,6 +117,15 @@ public class PDFViewer extends Activity implements OnPageChangeListener, OnLoadC
                         .scrollHandle(new DefaultScrollHandle(this))
                         .load();
 
+                break;
+
+            case R.id.action_pdf_viewer_goto:
+                Bundle args = new Bundle();
+                args.putInt("maxSeekBarValue", pdfView.getPageCount());
+                args.putInt("currentSeekBarValue", pdfView.getCurrentPage());
+                Dialog dialog = new Dialog();
+                dialog.setArguments(args);
+                dialog.show(getFragmentManager(), "MyCustomDialog");
                 break;
 
             case R.id.action_pdf_viewer_screen_size:

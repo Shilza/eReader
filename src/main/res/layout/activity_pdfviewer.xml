@@ -50,7 +50,16 @@
                     android:layout_height="match_parent"
                     android:layout_width="match_parent"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_pages_black_24dp"
+                    android:src="@drawable/ic_page"
+                    android:background="@drawable/background_footer_selector"
+                    />
+                <ImageButton
+                    android:onClick="pdfViewerOnClick"
+                    android:id="@+id/action_pdf_viewer_goto"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_chevron_right_black_24dp"
                     android:background="@drawable/background_footer_selector"
                     />
                 <ImageButton

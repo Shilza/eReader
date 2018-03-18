@@ -93,12 +93,12 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
         ad.setPositiveButton("Да", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int arg1) {
                 Toast.makeText(context, "Вы сделали правильный выбор",
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
             }
         });
         ad.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int arg1) {
-                Toast.makeText(context, "Возможно вы правы", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Возможно вы правы", Toast.LENGTH_SHORT).show();
             }
         });
     }

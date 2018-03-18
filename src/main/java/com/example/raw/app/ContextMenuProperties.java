@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+
 
 public class ContextMenuProperties extends Activity{
 
@@ -14,10 +16,16 @@ public class ContextMenuProperties extends Activity{
         setContentView(R.layout.activity_context_menu_properties);
 
         Book book = (Book)getIntent().getSerializableExtra("Book");
+        String totalRead;
+        if(book.getTotalRead() > 0){
+            DecimalFormat f = new DecimalFormat("##.0");
+            totalRead = f.format(book.getTotalRead()*100) + "%";
+        } else
+            totalRead = "0%";
 
         ((ImageView) findViewById(R.id.properties_book_cover)).setImageResource(R.drawable.e);
         ((TextView) findViewById(R.id.properties_book_name)).setText(book.getName());
-        ((TextView) findViewById(R.id.properties_total_read)).setText(book.getTotalRead()*100 + "%");
+        ((TextView) findViewById(R.id.properties_total_read)).setText(totalRead);
         ((TextView) findViewById(R.id.properties_last_activity)).setText(book.getLastActivity());
         ((TextView) findViewById(R.id.properties_book_size)).setText(book.getSize());
         ((TextView) findViewById(R.id.properties_file_path)).setText(book.getFilePath());
