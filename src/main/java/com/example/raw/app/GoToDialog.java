@@ -11,7 +11,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 
-public class Dialog extends DialogFragment {
+public class GoToDialog extends DialogFragment {
 
     public interface OnInputListener{
         void sendInput(int value);
@@ -62,6 +62,6 @@ public class Dialog extends DialogFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-            onInputListener = (OnInputListener) getActivity();
+        onInputListener = (OnInputListener) getActivity();
     }
 }

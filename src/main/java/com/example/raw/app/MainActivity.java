@@ -68,6 +68,8 @@ public class MainActivity extends AppCompatActivity{
                     case R.id.action_bookmarks:
                         return true;
                     case R.id.action_statistics:
+                        Intent intent1 = new Intent(getBaseContext(), Statistics.class);
+                        startActivity(intent1);
                         return true;
                     case R.id.action_settings:
                         return true;

@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.LinearLayout;
@@ -37,7 +36,7 @@ public class SimpleTextViewer extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_txt_viewer);
+        setContentView(R.layout.activity_simple_text_viewer);
 
         comingFilePath = String.valueOf(getIntent().getSerializableExtra("Text"));
         try{
@@ -101,40 +100,19 @@ public class SimpleTextViewer extends Activity {
     public void txtViewerOnClick(View view){
         switch (view.getId()){
             case R.id.txt_viewer_button_search:
-                isSearchActive=!isSearchActive;
-                if(isSearchActive){
-                    tvFilename.setVisibility(View.GONE);
-                    searchView.setVisibility(View.VISIBLE);
-                    searchView.setIconified(false);
-                } else{
-                    tvFilename.setVisibility(View.VISIBLE);
-                    searchView.setVisibility(View.GONE);
-                }
+                search();
                 break;
             case R.id.txt_viewer_button_encoding:
+                //TODO DIALOG
                 break;
             case R.id.txt_viewer_button_share:
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("text/*");
-                intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + comingFilePath));
-                startActivity(Intent.createChooser(intent, "Share with"));
+                bookSharing();
                 break;
             case R.id.txt_viewer_button_text_size:
-                isPlusMinusActive = !isPlusMinusActive;
-                if(isPlusMinusActive)
-                    plusMinus.setVisibility(View.VISIBLE);
-                else
-                    plusMinus.setVisibility(View.GONE);
+                sizeChanging();
                 break;
             case R.id.txt_viewer_button_text_copy:
-                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("", comingString);
-                Toast.makeText(this, "Текст скопирован в буфер обмена", Toast.LENGTH_SHORT).show();
-                try{
-                    clipboard.setPrimaryClip(clip);
-                } catch (NullPointerException ex){
-                    Toast.makeText(this, "Не удалось скопировать в буфер обмена", Toast.LENGTH_SHORT).show();
-                }
+                textCopy();
                 break;
             case R.id.txt_viewer_button_plus:
                 tvMainText.setTextSize(tvMainText.getTextSize()+1);
@@ -143,6 +121,44 @@ public class SimpleTextViewer extends Activity {
                 tvMainText.setTextSize(tvMainText.getTextSize()-1);
                 break;
 
+        }
+    }
+
+    private void textCopy(){
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText("", comingString);
+        Toast.makeText(this, "Текст скопирован в буфер обмена", Toast.LENGTH_SHORT).show();
+        try{
+            clipboard.setPrimaryClip(clip);
+        } catch (NullPointerException ex){
+            Toast.makeText(this, "Не удалось скопировать в буфер обмена", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void sizeChanging(){
+        isPlusMinusActive = !isPlusMinusActive;
+        if(isPlusMinusActive)
+            plusMinus.setVisibility(View.VISIBLE);
+        else
+            plusMinus.setVisibility(View.GONE);
+    }
+
+    private void bookSharing(){
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/*");
+        intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + comingFilePath));
+        startActivity(Intent.createChooser(intent, "Share with"));
+    }
+
+    private void search(){
+        isSearchActive=!isSearchActive;
+        if(isSearchActive){
+            tvFilename.setVisibility(View.GONE);
+            searchView.setVisibility(View.VISIBLE);
+            searchView.setIconified(false);
+        } else{
+            tvFilename.setVisibility(View.VISIBLE);
+            searchView.setVisibility(View.GONE);
         }
     }
 

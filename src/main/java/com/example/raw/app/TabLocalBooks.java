@@ -1,11 +1,9 @@
 package com.example.raw.app;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +41,7 @@ public class TabLocalBooks extends Tab implements SwipeRefreshLayout.OnRefreshLi
         return view;
     }
 
-    class Sas extends Thread{
+    class searchThread extends Thread{
         public void run(){
             FileWorker.getInstance().localBooksSearching();
             getActivity().runOnUiThread(new Runnable() {
@@ -59,6 +57,6 @@ public class TabLocalBooks extends Tab implements SwipeRefreshLayout.OnRefreshLi
     @Override
     public void onRefresh() {
         swipeRefreshLayout.setRefreshing(true);
-        new Sas().start();
+        new searchThread().start();
     }
 }

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.raw.app.Statistics">
+
+    <RelativeLayout
+        android:id="@+id/statistics_header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/statistic_action_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="15dp"
+            android:onClick="statisticsOnClick"
+            android:src="@drawable/ic_arrow_back_white_24dp"
+            android:background="@android:color/transparent"
+            android:layout_alignParentStart="true"
+            />
+        <TextView
+            android:id="@+id/statistics_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignLeft="@id/statistic_action_back"
+            android:layout_marginStart="20dp"
+            android:textSize="20sp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:gravity="start|center"
+            android:text="Статистика"
+            android:textColor="@android:color/white"/>
+        <ImageButton
+            android:id="@+id/statistic_action_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:onClick="statisticsOnClick"
+            android:src="@drawable/ic_statistics_settings"
+            android:background="@android:color/transparent"
+            android:layout_alignParentEnd="true"
+            />
+
+    </RelativeLayout>
+
+    
+    <TableLayout
+        android:id="@+id/statistics_table_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/statistics_header_layout"
+        android:layout_margin="15dp"
+        android:stretchColumns="*"
+        />
+
+</RelativeLayout>

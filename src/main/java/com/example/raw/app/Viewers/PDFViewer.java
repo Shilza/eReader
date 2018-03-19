@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -14,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.raw.app.Book;
-import com.example.raw.app.Dialog;
+import com.example.raw.app.GoToDialog;
 import com.example.raw.app.FileWorker;
 import com.example.raw.app.R;
 import com.github.barteksc.pdfviewer.PDFView;
@@ -25,7 +24,7 @@ import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
 
 import java.io.File;
 
-public class PDFViewer extends Activity implements OnPageChangeListener, OnLoadCompleteListener, OnTapListener, Dialog.OnInputListener{
+public class PDFViewer extends Activity implements OnPageChangeListener, OnLoadCompleteListener, OnTapListener{
     private PDFView pdfView;
     private ImageButton ibScreenSize;
     private float totalRead = 0;
@@ -47,6 +46,7 @@ public class PDFViewer extends Activity implements OnPageChangeListener, OnLoadC
         pdfView = findViewById(R.id.pdfView);
         tvHeader = findViewById(R.id.tv_header);
         tvHeader.setText(book.getName());
+
         pdfView.fromFile(new File(book.getFilePath()))
                 .onTap(this)
                 .onPageChange(this)
@@ -67,9 +67,8 @@ public class PDFViewer extends Activity implements OnPageChangeListener, OnLoadC
         return true;
     }
 
-    @Override
-    public void sendInput(int value){
-        pdfView.jumpTo(value, true);
+    public void jumpTo(int value){
+        pdfView.jumpTo(value);
     }
 
     private void animations(){
@@ -98,54 +97,69 @@ public class PDFViewer extends Activity implements OnPageChangeListener, OnLoadC
     public void pdfViewerOnClick(View view){
         switch (view.getId()){
             case R.id.action_pdf_viewer_share:
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("text/*");
-                intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + book.getFilePath()));
-                startActivity(Intent.createChooser(intent, "Share with"));
+                bookSharing();
                 break;
 
             case R.id.action_pdf_viewer_orientation:
-                isHorizontalOrientation =!isHorizontalOrientation;
-
-                animations();
-                pdfView.recycle();
-                pdfView.fromFile(new File(book.getFilePath()))
-                        .onTap(this)
-                        .defaultPage(pdfView.getCurrentPage())
-                        .onPageChange(this)
-                        .swipeHorizontal(isHorizontalOrientation)
-                        .scrollHandle(new DefaultScrollHandle(this))
-                        .load();
-
+                orientationChanging();
                 break;
 
             case R.id.action_pdf_viewer_goto:
-                Bundle args = new Bundle();
-                args.putInt("maxSeekBarValue", pdfView.getPageCount());
-                args.putInt("currentSeekBarValue", pdfView.getCurrentPage());
-                Dialog dialog = new Dialog();
-                dialog.setArguments(args);
-                dialog.show(getFragmentManager(), "MyCustomDialog");
+                createDialog();
                 break;
 
             case R.id.action_pdf_viewer_screen_size:
-                isFullScreen=!isFullScreen;
-
-                animations();
-                if(isFullScreen){
-                    ibScreenSize.setImageResource(R.drawable.ic_fullscreen_exit_black_24dp);
-                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                        WindowManager.LayoutParams.FLAG_FULLSCREEN);
-                }
-                else{
-                    ibScreenSize.setImageResource(R.drawable.ic_fullscreen_black_24dp);
-                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN,
-                            WindowManager.LayoutParams.FLAG_FULLSCREEN);
-                }
+                sizeChanging();
                 break;
 
             case R.id.action_pdf_viewer_bookmark:
                 break;
+        }
+    }
+
+    private void bookSharing(){
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/*");
+        intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + book.getFilePath()));
+        startActivity(Intent.createChooser(intent, "Share with"));
+    }
+
+    private void orientationChanging(){
+        isHorizontalOrientation =!isHorizontalOrientation;
+
+        animations();
+        pdfView.recycle();
+        pdfView.fromFile(new File(book.getFilePath()))
+                .onTap(this)
+                .defaultPage(pdfView.getCurrentPage())
+                .onPageChange(this)
+                .swipeHorizontal(isHorizontalOrientation)
+                .scrollHandle(new DefaultScrollHandle(this))
+                .load();
+    }
+
+    private void createDialog(){
+        Bundle args = new Bundle();
+        args.putInt("maxSeekBarValue", pdfView.getPageCount());
+        args.putInt("currentSeekBarValue", pdfView.getCurrentPage());
+        GoToDialog goToDialog = new GoToDialog();
+        goToDialog.setArguments(args);
+        goToDialog.show(getFragmentManager(), "MyCustomDialog");
+    }
+
+    private void sizeChanging(){
+        isFullScreen=!isFullScreen;
+
+        animations();
+        if(isFullScreen){
+            ibScreenSize.setImageResource(R.drawable.ic_fullscreen_exit_black_24dp);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+        else{
+            ibScreenSize.setImageResource(R.drawable.ic_fullscreen_black_24dp);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
     }
 

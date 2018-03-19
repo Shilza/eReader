@@ -6,7 +6,6 @@
     android:focusable="true"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    android:id="@+id/cv"
     android:layout_marginLeft="10dp"
     android:layout_marginBottom="4dp"
     android:layout_marginRight="10dp"
