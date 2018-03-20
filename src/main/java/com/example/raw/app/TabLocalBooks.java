@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class TabLocalBooks extends Tab implements SwipeRefreshLayout.OnRefreshListener {
 
-    SwipeRefreshLayout swipeRefreshLayout;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,22 +41,24 @@ public class TabLocalBooks extends Tab implements SwipeRefreshLayout.OnRefreshLi
         return view;
     }
 
-    class searchThread extends Thread{
-        public void run(){
-            FileWorker.getInstance().localBooksSearching();
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    dataSetChanged();
-                    swipeRefreshLayout.setRefreshing(false);
-                }
-            });
-        }
-    }
-
     @Override
     public void onRefresh() {
         swipeRefreshLayout.setRefreshing(true);
-        new searchThread().start();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                FileWorker.getInstance().localBooksSearching();
+                try{
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            dataSetChanged();
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
+                    });
+                } catch (NullPointerException e){}
+            }
+        }).start();
     }
 }

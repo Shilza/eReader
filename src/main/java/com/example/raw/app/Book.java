@@ -3,7 +3,6 @@ package com.example.raw.app;
 import android.graphics.Bitmap;
 import android.graphics.pdf.PdfRenderer;
 import android.os.ParcelFileDescriptor;
-
 import java.io.File;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -39,18 +38,21 @@ public class Book implements Serializable{
         return sdf.format(lastActivity);
     }
 
-    private void coverTreatment(){
-        try {
+    Bitmap coverTreatment(){
+        Bitmap bitmap = null;
+
+        try{
             PdfRenderer rend = new PdfRenderer(ParcelFileDescriptor.open(new File(filePath), ParcelFileDescriptor.MODE_READ_ONLY));
             PdfRenderer.Page page = rend.openPage(0);
-            Bitmap bitmap = Bitmap.createBitmap(page.getWidth(), page.getHeight(),
-                    Bitmap.Config.ARGB_8888);
+            bitmap = Bitmap.createBitmap(page.getWidth(), page.getHeight(),
+                    Bitmap.Config.ARGB_4444);
             page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
-
             rend.close();
             page.close();
         }
         catch(Exception e){}
+
+        return bitmap;
     }
 
     public void setLastActivity(long lastActivity){

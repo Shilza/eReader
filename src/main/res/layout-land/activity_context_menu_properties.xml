@@ -17,10 +17,10 @@
         >
 
         <ImageView
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="200dp"
             android:layout_margin="10dp"
-            android:layout_gravity="left"
+            android:layout_gravity="start"
             android:elevation="8dp"
             android:background="@android:color/black"
             android:id="@+id/properties_book_cover"
@@ -30,7 +30,7 @@
         <TableLayout
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="10dp"
             android:stretchColumns="*"
             >
 

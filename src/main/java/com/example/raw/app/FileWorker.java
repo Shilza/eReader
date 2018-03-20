@@ -1,5 +1,6 @@
 package com.example.raw.app;
 
+import android.graphics.Bitmap;
 import android.os.Environment;
 import android.util.Log;
 
@@ -9,6 +10,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.text.DecimalFormat;
@@ -18,9 +20,10 @@ import java.util.Date;
 public class FileWorker{
 
     private static final FileWorker INSTANCE = new FileWorker();
-    private final String APP_DIRECTORY = Environment.getExternalStorageDirectory() + "/eReader";
-    private final String LIST_RECENT_BOOKS = APP_DIRECTORY + "/recent_books.json";
-    private final String LIST_LOCAL_BOOKS = APP_DIRECTORY + "/local_books.json";
+    private final String APP_DIRECTORY = Environment.getExternalStorageDirectory() + "/eReader/";
+    private final String PICTURES = APP_DIRECTORY+"Pictures/";
+    private final String LIST_RECENT_BOOKS = APP_DIRECTORY + "recent_books.json";
+    private final String LIST_LOCAL_BOOKS = APP_DIRECTORY + "local_books.json";
     private ArrayList<Book> recentBooks;
     private ArrayList<Book> localBooks;
 
@@ -43,6 +46,37 @@ public class FileWorker{
             localBooksSearching();
         }
         //searchingFiles(new File("/storage/")); //SD CARD
+
+        creatingCovers();
+    }
+
+    private void creatingCovers(){
+        new Thread(new Runnable() {
+
+            private void process(ArrayList<Book> list){
+                for(Book book : list){
+                    File file = new File(PICTURES);
+                    if(!file.exists())
+                        file.mkdir();
+                    else{
+                        try{
+                            File fl = new File(PICTURES+book.getName()+".png");
+                            if(!fl.exists()){
+                                FileOutputStream sas = new FileOutputStream(fl);
+                                book.coverTreatment().compress(Bitmap.CompressFormat.PNG, 100, sas);
+                                sas.close();
+                            }
+                        }catch (Exception e){}
+                    }
+                }
+            }
+
+            @Override
+            public void run() {
+                process(recentBooks);
+                process(localBooks);
+            }
+        }).start();
     }
 
     private ArrayList<Book> initializeData(ArrayList<Book> books) throws Exception{
@@ -138,6 +172,10 @@ public class FileWorker{
 
     public ArrayList<Book> getRecentBooks(){
         return recentBooks;
+    }
+
+    public String getPicturesPath(){
+        return PICTURES;
     }
 
     void addingToRecentBooks(Book book){

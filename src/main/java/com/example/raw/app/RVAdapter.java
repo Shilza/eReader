@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,7 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
 import java.util.ArrayList;
 
 public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewHolder> {
@@ -132,9 +133,11 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
     public void onBindViewHolder(final BookViewHolder bookViewHolder, int position) {
         bookViewHolder.bookName.setText(books.get(position).getName());
         bookViewHolder.bookSize.setText(books.get(position).getSize());
-        //bookViewHolder.bookCover.setImageBitmap(bitmap);
-        bookViewHolder.bookCover.setImageResource(R.drawable.e);
-        //R.drawable.e //default cover
+
+        Glide.with(context)
+                .load(FileWorker.getInstance().getPicturesPath() + books.get(position).getName()+".png")
+                .apply(new RequestOptions().fitCenter().placeholder(R.drawable.e))
+                .into(bookViewHolder.bookCover);
 
         bookViewHolder.bookLastActivity.setText(books.get(position).getLastActivity());
 

@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
 import java.text.DecimalFormat;
 
 
@@ -23,7 +26,12 @@ public class ContextMenuProperties extends Activity{
         } else
             totalRead = "0%";
 
-        ((ImageView) findViewById(R.id.properties_book_cover)).setImageResource(R.drawable.e);
+        ImageView cover =  findViewById(R.id.properties_book_cover);
+        Glide.with(this)
+                .load(FileWorker.getInstance().getPicturesPath() + book.getName()+".png")
+                .apply(new RequestOptions().fitCenter().placeholder(R.drawable.e))
+                .into(cover);
+
         ((TextView) findViewById(R.id.properties_book_name)).setText(book.getName());
         ((TextView) findViewById(R.id.properties_total_read)).setText(totalRead);
         ((TextView) findViewById(R.id.properties_last_activity)).setText(book.getLastActivity());
