@@ -56,6 +56,7 @@
             android:id="@+id/txt_viewer_button_plus"
             android:layout_width="40dp"
             android:layout_height="match_parent"
+            android:padding="5dp"
             android:onClick="txtViewerOnClick"
             android:background="#DCDCDB"
             android:src="@drawable/ic_add_box_black_24dp"/>
@@ -63,6 +64,7 @@
             android:id="@+id/txt_viewer_button_minus"
             android:layout_width="40dp"
             android:layout_height="match_parent"
+            android:padding="5dp"
             android:onClick="txtViewerOnClick"
             android:background="#DCDCDB"
             android:src="@drawable/ic_indeterminate_check_box_black_24dp"/>
@@ -79,48 +81,94 @@
         >
 
         <ImageButton
+            android:id="@+id/txt_viewer_button_share"
             android:onClick="txtViewerOnClick"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:id="@+id/txt_viewer_button_share"
+            android:background="@drawable/background_footer_selector"
             android:src="@drawable/ic_share_black_24dp"
         />
         <ImageButton
+            android:id="@+id/txt_viewer_button_text_copy"
             android:onClick="txtViewerOnClick"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:id="@+id/txt_viewer_button_text_copy"
+            android:background="@drawable/background_footer_selector"
             android:src="@drawable/ic_content_copy_black_24dp"/>
         <ImageButton
+            android:id="@+id/txt_viewer_button_encoding"
             android:onClick="txtViewerOnClick"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:id="@+id/txt_viewer_button_encoding"
+            android:background="@drawable/background_footer_selector"
             android:src="@drawable/ic_encoding_black_24dp"
             />
         <ImageButton
+            android:id="@+id/txt_viewer_button_text_size"
             android:onClick="txtViewerOnClick"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:id="@+id/txt_viewer_button_text_size"
+            android:background="@drawable/background_footer_selector"
             android:src="@drawable/ic_text_fields_black_24dp"
             />
         <ImageButton
+            android:id="@+id/txt_viewer_button_search"
             android:onClick="txtViewerOnClick"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:id="@+id/txt_viewer_button_search"
+            android:background="@drawable/background_footer_selector"
             android:src="@drawable/ic_search_black_24dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/txt_viewer_search_panel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp"
+        android:background="#99E5E5E5"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/txt_viewer_button_search_backward"
+            android:onClick="txtViewerSearchPanelOnClick"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:padding="7dp"
+            android:state_pressed="true"
+            android:background="@drawable/background_footer_selector"
+            android:src="@drawable/ic_chevron_left_black_30dp"
+            />
+        <ImageButton
+            android:id="@+id/txt_viewer_button_search_navigation"
+            android:onClick="txtViewerSearchPanelOnClick"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:padding="7dp"
+            android:background="@drawable/background_footer_selector"
+            android:src="@drawable/ic_search_black_26dp"
+            />
+        <ImageButton
+            android:id="@+id/txt_viewer_button_search_forward"
+            android:onClick="txtViewerSearchPanelOnClick"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:padding="7dp"
+            android:background="@drawable/background_footer_selector"
+            android:src="@drawable/ic_chevron_right_black_30dp"
             />
 
     </LinearLayout>

@@ -24,7 +24,7 @@ import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
 
 import java.io.File;
 
-public class PDFViewer extends Activity implements OnPageChangeListener, OnLoadCompleteListener, OnTapListener{
+public class PDFViewer extends Activity implements OnPageChangeListener, OnLoadCompleteListener, OnTapListener, GoToDialog.OnInputListener {
     private PDFView pdfView;
     private ImageButton ibScreenSize;
     private float totalRead = 0;
@@ -67,7 +67,8 @@ public class PDFViewer extends Activity implements OnPageChangeListener, OnLoadC
         return true;
     }
 
-    public void jumpTo(int value){
+    @Override
+    public void sendInput(int value){
         pdfView.jumpTo(value);
     }
 
