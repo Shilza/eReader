@@ -1,9 +1,11 @@
 package com.example.raw.app;
 
 import android.graphics.Bitmap;
+import android.graphics.pdf.PdfRenderer;
 import android.os.Environment;
-import android.util.Log;
+import android.os.ParcelFileDescriptor;
 
+import com.example.raw.app.Entities.Book;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -45,7 +47,6 @@ public class FileWorker{
         } catch (Exception ex){
             localBooksSearching();
         }
-        //searchingFiles(new File("/storage/")); //SD CARD
 
         creatingCovers();
     }
@@ -54,29 +55,48 @@ public class FileWorker{
         new Thread(new Runnable() {
 
             private void process(ArrayList<Book> list){
+
                 for(Book book : list){
+
                     File file = new File(PICTURES);
                     if(!file.exists())
                         file.mkdir();
-                    else{
-                        try{
-                            File fl = new File(PICTURES+book.getName()+".png");
-                            if(!fl.exists()){
-                                FileOutputStream sas = new FileOutputStream(fl);
-                                book.coverTreatment().compress(Bitmap.CompressFormat.PNG, 100, sas);
-                                sas.close();
+                    else
+                        try {
+                            File fl = new File(PICTURES + book.getName() + ".png");
+                            if (!fl.exists()) {
+                                FileOutputStream out = new FileOutputStream(fl);
+                                coverCreation(book.getFilePath()).compress(Bitmap.CompressFormat.PNG, 100, out);
+                                out.close();
                             }
-                        }catch (Exception e){}
-                    }
+                        } catch (Exception e) {
+                        }
                 }
             }
 
             @Override
             public void run() {
-                process(recentBooks);
-                process(localBooks);
+                process(new ArrayList<>(recentBooks));
+                process(new ArrayList<>(localBooks));
             }
         }).start();
+    }
+
+    private Bitmap coverCreation(String filePath){
+        Bitmap bitmap = null;
+
+        try{
+            PdfRenderer rend = new PdfRenderer(ParcelFileDescriptor.open(new File(filePath), ParcelFileDescriptor.MODE_READ_ONLY));
+            PdfRenderer.Page page = rend.openPage(0);
+            bitmap = Bitmap.createBitmap(page.getWidth(), page.getHeight(),
+                    Bitmap.Config.ARGB_4444);
+            page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
+            rend.close();
+            page.close();
+        }
+        catch(Exception e){}
+
+        return bitmap;
     }
 
     private ArrayList<Book> initializeData(ArrayList<Book> books) throws Exception{
@@ -123,8 +143,14 @@ public class FileWorker{
     void localBooksSearching(){
        localBooks.clear();
 
-        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()))
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())){
             searchingFiles(Environment.getExternalStorageDirectory());
+            for(File f : new File("/storage").listFiles()){
+                if(f.getName().contains("sdcard")){
+                    searchingFiles(f);
+                }
+            }
+        }
 
         refreshingJSON(localBooks);
     }
@@ -159,9 +185,8 @@ public class FileWorker{
             size = size / 1024;
             strSize = f.format(size) + " КБ";
         }
-        else{
+        else
             strSize = String.valueOf(size) + "Б";
-        }
 
         return new Book(name, filePath, strSize, lastActivity, extension);
     }

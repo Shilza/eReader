@@ -12,10 +12,12 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.raw.app.Book;
-import com.example.raw.app.GoToDialog;
+import com.example.raw.app.Entities.Book;
+import com.example.raw.app.Viewers.Dialogs.BookmarksDialog;
+import com.example.raw.app.Viewers.Dialogs.GoToDialog;
 import com.example.raw.app.FileWorker;
 import com.example.raw.app.R;
+import com.example.raw.app.TabKeeper;
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
@@ -23,8 +25,11 @@ import com.github.barteksc.pdfviewer.listener.OnTapListener;
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
 
 import java.io.File;
+import java.util.Date;
 
-public class PDFViewer extends Activity implements OnPageChangeListener, OnLoadCompleteListener, OnTapListener, GoToDialog.OnInputListener {
+public class PDFViewer extends Activity
+        implements OnPageChangeListener,OnLoadCompleteListener, OnTapListener, GoToDialog.OnInputListener {
+
     private PDFView pdfView;
     private ImageButton ibScreenSize;
     private float totalRead = 0;
@@ -82,7 +87,9 @@ public class PDFViewer extends Activity implements OnPageChangeListener, OnLoadC
     @Override
     public void onPageChanged(int curPage, int count){
         book.setTotalRead((float)curPage/(float)count);
+        book.setLastActivity(new Date().getTime());
         FileWorker.getInstance().refreshingJSON(FileWorker.getInstance().getRecentBooks());
+        TabKeeper.getInstance().notifyDataSetChanged();
     }
 
     private void footerAnimation(boolean show){
@@ -106,7 +113,7 @@ public class PDFViewer extends Activity implements OnPageChangeListener, OnLoadC
                 break;
 
             case R.id.action_pdf_viewer_goto:
-                createDialog();
+                createGoToDialog();
                 break;
 
             case R.id.action_pdf_viewer_screen_size:
@@ -114,6 +121,7 @@ public class PDFViewer extends Activity implements OnPageChangeListener, OnLoadC
                 break;
 
             case R.id.action_pdf_viewer_bookmark:
+                createBookmarksDialog();
                 break;
         }
     }
@@ -139,13 +147,22 @@ public class PDFViewer extends Activity implements OnPageChangeListener, OnLoadC
                 .load();
     }
 
-    private void createDialog(){
+    private void createGoToDialog(){
         Bundle args = new Bundle();
-        args.putInt("maxSeekBarValue", pdfView.getPageCount());
-        args.putInt("currentSeekBarValue", pdfView.getCurrentPage());
+        args.putInt("maxPageCount", pdfView.getPageCount());
+        args.putInt("currentPage", pdfView.getCurrentPage());
         GoToDialog goToDialog = new GoToDialog();
         goToDialog.setArguments(args);
-        goToDialog.show(getFragmentManager(), "MyCustomDialog");
+        goToDialog.show(getFragmentManager(), "GoToDialog");
+    }
+
+    private void createBookmarksDialog(){
+        Bundle args = new Bundle();
+        args.putInt("currentPage", pdfView.getCurrentPage());
+        args.putSerializable("book", book);
+        BookmarksDialog dialog = new BookmarksDialog();
+        dialog.setArguments(args);
+        dialog.show(getFragmentManager(), "BookmarksDialog");
     }
 
     private void sizeChanging(){

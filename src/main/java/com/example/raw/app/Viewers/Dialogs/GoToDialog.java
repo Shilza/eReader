@@ -1,14 +1,16 @@
-package com.example.raw.app;
+package com.example.raw.app.Viewers.Dialogs;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.raw.app.R;
 
 public class GoToDialog extends DialogFragment {
 
@@ -23,7 +25,7 @@ public class GoToDialog extends DialogFragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.pdf_viewer_go_to_dialog, container, false);
-        TextView mActionOk = view.findViewById(R.id.pdf_view_dialog_goto_button);
+        Button actionOk = view.findViewById(R.id.pdf_view_dialog_goto_button);
         getDialog().setTitle("Перейти к");
 
         onInputListener = (OnInputListener) getActivity();
@@ -31,9 +33,9 @@ public class GoToDialog extends DialogFragment {
         input = view.findViewById(R.id.pdf_view_dialog_goto_input);
 
         SeekBar seekBar = view.findViewById(R.id.pdf_view_dialog_goto_seekBar);
-        pageCount = getArguments().getInt("maxSeekBarValue");
+        pageCount = getArguments().getInt("maxPageCount");
         seekBar.setMax(pageCount);
-        seekBar.setProgress(getArguments().getInt("currentSeekBarValue"));
+        seekBar.setProgress(getArguments().getInt("currentPage") + 1);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -51,13 +53,13 @@ public class GoToDialog extends DialogFragment {
             }
         });
 
-        mActionOk.setOnClickListener(new View.OnClickListener() {
+        actionOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int value = Integer.parseInt(input.getText().toString());
+                int value = Integer.parseInt(input.getText().toString())-1;
                 if(value <= pageCount){
                     onInputListener.sendInput(value);
-                    getDialog().dismiss();
+                    dismiss();
                 } else
                     Toast.makeText(getActivity() , "Такой страницы не существует", Toast.LENGTH_SHORT).show();
             }

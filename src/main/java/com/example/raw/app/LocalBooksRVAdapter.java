@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.raw.app.Entities.Book;
+
 import java.util.ArrayList;
 
 public class LocalBooksRVAdapter extends RVAdapter{

@@ -1,11 +1,11 @@
-package com.example.raw.app;
+package com.example.raw.app.Entities;
 
-import android.graphics.Bitmap;
-import android.graphics.pdf.PdfRenderer;
-import android.os.ParcelFileDescriptor;
-import java.io.File;
+
+import com.example.raw.app.Extensions;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -17,14 +17,16 @@ public class Book implements Serializable{
     private float totalRead;
     private long lastActivity;
     private Extensions extension;
+    private ArrayList<Bookmark> bookmarks;
 
-    Book(String name, String filePath, String size, long lastActivity, Extensions extension){
+    public Book(String name, String filePath, String size, long lastActivity, Extensions extension){
         this.name = name;
         this.filePath = filePath;
         this.size = size;
         this.lastActivity = lastActivity;
         this.totalRead = 0;
         this.extension = extension;
+        this.bookmarks = new ArrayList<>();
     }
 
     private String lastActivityProcessing(long lastActivity){
@@ -38,21 +40,12 @@ public class Book implements Serializable{
         return sdf.format(lastActivity);
     }
 
-    Bitmap coverTreatment(){
-        Bitmap bitmap = null;
+    public ArrayList<Bookmark> getBookmarks() {
+        return bookmarks;
+    }
 
-        try{
-            PdfRenderer rend = new PdfRenderer(ParcelFileDescriptor.open(new File(filePath), ParcelFileDescriptor.MODE_READ_ONLY));
-            PdfRenderer.Page page = rend.openPage(0);
-            bitmap = Bitmap.createBitmap(page.getWidth(), page.getHeight(),
-                    Bitmap.Config.ARGB_4444);
-            page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
-            rend.close();
-            page.close();
-        }
-        catch(Exception e){}
-
-        return bitmap;
+    public void addBookmark(Bookmark bookmark){
+        bookmarks.add(bookmark);
     }
 
     public void setLastActivity(long lastActivity){

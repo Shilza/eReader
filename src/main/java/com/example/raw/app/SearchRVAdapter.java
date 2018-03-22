@@ -11,6 +11,8 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.Toast;
 
+import com.example.raw.app.Entities.Book;
+
 import java.util.ArrayList;
 
 public class SearchRVAdapter extends RVAdapter implements Filterable {

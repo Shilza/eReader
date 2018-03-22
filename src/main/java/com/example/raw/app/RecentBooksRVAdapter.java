@@ -8,16 +8,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.raw.app.Entities.Book;
+
 import java.util.ArrayList;
 
 class RecentBooksRVAdapter extends RVAdapter{
 
     private final byte CONTEXT_MENU_OPEN = 0;
-    private final byte CONTEXT_MENU_BOOKMARKS = 1;
-    private final byte CONTEXT_MENU_DELETE_FROM_LIST = 2;
-    private final byte CONTEXT_MENU_DELETE = 3;
-    private final byte CONTEXT_MENU_PROPERTIES = 4;
-    private final byte GROUP_ID = 0;
+    private final byte CONTEXT_MENU_DELETE_FROM_LIST = 1;
+    private final byte CONTEXT_MENU_DELETE = 2;
+    private final byte CONTEXT_MENU_PROPERTIES = 3;
+    private final byte GROUP_ID = 4;
 
     RecentBooksRVAdapter(ArrayList<Book> books, Context context){
         super(books, context);
@@ -37,9 +38,6 @@ class RecentBooksRVAdapter extends RVAdapter{
         switch (item.getItemId()){
             case CONTEXT_MENU_OPEN:
                 bookOpening();
-                break;
-            case CONTEXT_MENU_BOOKMARKS:
-                //TODO
                 break;
             case CONTEXT_MENU_DELETE_FROM_LIST:
                 bookRemoving(selectedBook);
@@ -71,7 +69,6 @@ class RecentBooksRVAdapter extends RVAdapter{
 
             menu.setHeaderTitle(selectedBook.getName());
             menu.add(GROUP_ID, CONTEXT_MENU_OPEN, 0, "Открыть");
-            menu.add(GROUP_ID, CONTEXT_MENU_BOOKMARKS, 0, "Закладки");
             menu.add(GROUP_ID, CONTEXT_MENU_DELETE_FROM_LIST, 0, "Удалить из списка");
             menu.add(GROUP_ID, CONTEXT_MENU_DELETE, 0, "Удалить");
             menu.add(GROUP_ID, CONTEXT_MENU_PROPERTIES, 0, "Свойства");

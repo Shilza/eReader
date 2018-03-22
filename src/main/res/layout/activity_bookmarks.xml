@@ -3,57 +3,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.raw.app.Statistics">
+    tools:context="com.example.raw.app.BookmarksActivity">
 
     <RelativeLayout
-        android:id="@+id/statistics_header_layout"
+        android:id="@+id/bookmarks_activity_header_layout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/colorPrimary"
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/statistic_action_back"
+            android:id="@+id/bookmarks_activity_action_back"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_marginStart="15dp"
             android:background="@android:color/transparent"
-            android:onClick="statisticsOnClick"
+            android:onClick="bookmarksActivityOnClick"
             android:src="@drawable/ic_arrow_back_white_24dp" />
 
         <TextView
-            android:id="@+id/statistics_title"
+            android:id="@+id/bookmarks_activity_title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignLeft="@id/statistic_action_back"
+            android:layout_alignStart="@id/bookmarks_activity_action_back"
             android:layout_marginStart="20dp"
             android:gravity="start|center"
             android:paddingEnd="15dp"
             android:paddingStart="15dp"
-            android:text="Статистика"
+            android:text="Закладки"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
 
         <ImageButton
-            android:id="@+id/statistic_action_settings"
+            android:id="@+id/bookmarks_activity_action_removing"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:background="@android:color/transparent"
-            android:onClick="statisticsOnClick"
-            android:src="@drawable/ic_statistics_settings" />
+            android:onClick="bookmarksActivityOnClick"
+            android:src="@drawable/ic_delete_forever_black_24dp" />
 
     </RelativeLayout>
 
-
-    <TableLayout
-        android:id="@+id/statistics_table_layout"
+    <TextView
+        android:id="@+id/tv_count"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/statistics_header_layout"
-        android:layout_margin="15dp"
-        android:stretchColumns="*" />
+        android:gravity="center"
+        android:layout_below="@id/bookmarks_activity_header_layout"/>
 
 </RelativeLayout>

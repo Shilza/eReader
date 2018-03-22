@@ -17,11 +17,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import com.example.raw.app.Entities.Book;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -66,10 +67,10 @@ public class MainActivity extends AppCompatActivity{
 
                         return true;
                     case R.id.action_bookmarks:
+                        startActivity(new Intent(getBaseContext(), BookmarksActivity.class));
                         return true;
                     case R.id.action_statistics:
-                        Intent intent1 = new Intent(getBaseContext(), Statistics.class);
-                        startActivity(intent1);
+                        startActivity(new Intent(getBaseContext(), Statistics.class));
                         return true;
                     case R.id.action_settings:
                         return true;

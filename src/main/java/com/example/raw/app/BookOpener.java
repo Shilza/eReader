@@ -3,6 +3,7 @@ package com.example.raw.app;
 import android.content.Context;
 import android.content.Intent;
 
+import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Viewers.PDFViewer;
 import com.example.raw.app.Viewers.SimpleTextViewer;
 

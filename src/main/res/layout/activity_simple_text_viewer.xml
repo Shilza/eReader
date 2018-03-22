@@ -86,7 +86,7 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/background_footer_selector"
+            android:background="?selectableItemBackground"
             android:src="@drawable/ic_share_black_24dp"
         />
         <ImageButton
@@ -95,7 +95,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/background_footer_selector"
+            android:background="?selectableItemBackground"
             android:src="@drawable/ic_content_copy_black_24dp"/>
         <ImageButton
             android:id="@+id/txt_viewer_button_encoding"
@@ -103,7 +103,7 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/background_footer_selector"
+            android:background="?selectableItemBackground"
             android:src="@drawable/ic_encoding_black_24dp"
             />
         <ImageButton
@@ -112,7 +112,7 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/background_footer_selector"
+            android:background="?selectableItemBackground"
             android:src="@drawable/ic_text_fields_black_24dp"
             />
         <ImageButton
@@ -121,7 +121,7 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/background_footer_selector"
+            android:background="?selectableItemBackground"
             android:src="@drawable/ic_search_black_24dp"
             />
 
@@ -146,7 +146,7 @@
             android:layout_weight="1"
             android:padding="7dp"
             android:state_pressed="true"
-            android:background="@drawable/background_footer_selector"
+            android:background="?selectableItemBackground"
             android:src="@drawable/ic_chevron_left_black_30dp"
             />
         <ImageButton
@@ -156,7 +156,7 @@
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:padding="7dp"
-            android:background="@drawable/background_footer_selector"
+            android:background="?selectableItemBackground"
             android:src="@drawable/ic_search_black_26dp"
             />
         <ImageButton
@@ -167,7 +167,7 @@
             android:layout_marginStart="10dp"
             android:layout_weight="1"
             android:padding="7dp"
-            android:background="@drawable/background_footer_selector"
+            android:background="?selectableItemBackground"
             android:src="@drawable/ic_chevron_right_black_30dp"
             />
 

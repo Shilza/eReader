@@ -1,12 +1,12 @@
 package com.example.raw.app;
 
 
-final class TabKeeper {
+final public class TabKeeper {
     private static final TabKeeper INSTANCE = new TabKeeper();
     private TabLocalBooks localBooks;
     private TabRecentBooks recentBooks;
 
-    static TabKeeper getInstance() {
+    public static TabKeeper getInstance() {
         return INSTANCE;
     }
 
@@ -19,7 +19,7 @@ final class TabKeeper {
             recentBooks = (TabRecentBooks)tab;
     }
 
-    void notifyDataSetChanged(){
+    public void notifyDataSetChanged(){
         recentBooks.dataSetChanged();
         localBooks.dataSetChanged();
     }

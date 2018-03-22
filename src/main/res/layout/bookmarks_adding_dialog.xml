@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/bookmarks_adding_tv_pages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <TextView
+        android:id="@+id/bookmarks_adding_action_add_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bookmarks_adding_tv_pages"
+        android:background="@android:color/transparent"
+        android:text="Добавить текст"
+        android:textColor="#33bbff" />
+
+    <EditText
+        android:id="@+id/bookmarks_adding_et_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bookmarks_adding_tv_pages"
+        android:minHeight="100dp"
+        android:maxHeight="180dp"
+        />
+
+    <Button
+        android:id="@+id/bookmarks_adding_action_ok"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bookmarks_adding_action_add_text"
+        android:background="@android:color/transparent"
+        android:text="ОК"
+        android:textColor="#33bbff"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/bookmarks_adding_action_alt_ok"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bookmarks_adding_et_text"
+        android:background="@android:color/transparent"
+        android:text="ОК"
+        android:textColor="#33bbff"
+        android:textSize="18sp" />
+
+</RelativeLayout>
