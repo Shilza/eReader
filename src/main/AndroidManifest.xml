@@ -23,7 +23,8 @@
         <activity android:name=".Viewers.PDFViewer" />
         <activity android:name=".Viewers.SimpleTextViewer" />
         <activity android:name=".Statistics" />
-        <activity android:name=".BookmarksActivity"></activity>
+        <activity android:name=".BookmarksActivity" />
+        <activity android:name=".BookmarksOfParticularBookActivity"></activity>
     </application>
 
 </manifest>

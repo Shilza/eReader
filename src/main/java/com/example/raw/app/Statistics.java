@@ -1,6 +1,8 @@
 package com.example.raw.app;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -9,8 +11,11 @@ import android.widget.PopupMenu;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Statistics extends Activity {
+
+    private AlertDialog.Builder ad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +23,7 @@ public class Statistics extends Activity {
         setContentView(R.layout.activity_statistics);
 
         initUI();
+        createDialog();
     }
 
     private void initUI(){
@@ -93,7 +99,7 @@ public class Statistics extends Activity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.statistics_menu_clear:
-                        //TODO
+                        ad.show();
                         break;
                     case R.id.statistics_menu_books:
                         //TODO
@@ -104,5 +110,31 @@ public class Statistics extends Activity {
         });
 
         popup.show();
+    }
+
+    private boolean removingStatistics(){
+        //TODO
+        return false;
+    }
+
+    private void createDialog(){
+        ad = new AlertDialog.Builder(this);
+        ad.setTitle("Очистить статистику");
+        ad.setMessage("Действительно хотите очистить статистику?");
+        ad.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int arg1) {
+                if(removingStatistics())
+                    Toast.makeText(getBaseContext(), "Статистика очищена",
+                            Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(getBaseContext(), "Статистика пуста",
+                            Toast.LENGTH_SHORT).show();
+            }
+        });
+        ad.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int arg1) {
+
+            }
+        });
     }
 }

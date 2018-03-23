@@ -45,7 +45,7 @@ class RecentBooksRVAdapter extends RVAdapter{
             case CONTEXT_MENU_DELETE:
                 //TODO
                 ad.show();
-                bookRemoving(selectedBook);
+                //bookRemoving(selectedBook);
                 break;
             case CONTEXT_MENU_PROPERTIES:
                 Intent intent = new Intent(context, ContextMenuProperties.class);

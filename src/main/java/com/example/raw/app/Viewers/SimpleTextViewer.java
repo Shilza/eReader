@@ -294,3 +294,15 @@ public class SimpleTextViewer extends Activity {
         return stringBuilder.toString();
     }
 }
+
+
+                    /*
+            final BufferedReader br = new BufferedReader(
+                    new InputStreamReader(
+                            new FileInputStream(getRealPathFromURI(selectedFile)), "Cp1251"));
+            String nextString;
+            String finalString = "";
+            while ((nextString = br.readLine()) != null) {
+                finalString = finalString.concat(nextString);
+            }
+            */

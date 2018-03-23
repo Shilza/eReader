@@ -23,7 +23,7 @@ public class FileWorker{
 
     private static final FileWorker INSTANCE = new FileWorker();
     private final String APP_DIRECTORY = Environment.getExternalStorageDirectory() + "/eReader/";
-    private final String PICTURES = APP_DIRECTORY+"Pictures/";
+    private final String PICTURES = APP_DIRECTORY + "Pictures/";
     private final String LIST_RECENT_BOOKS = APP_DIRECTORY + "recent_books.json";
     private final String LIST_LOCAL_BOOKS = APP_DIRECTORY + "local_books.json";
     private ArrayList<Book> recentBooks;
@@ -69,8 +69,7 @@ public class FileWorker{
                                 coverCreation(book.getFilePath()).compress(Bitmap.CompressFormat.PNG, 100, out);
                                 out.close();
                             }
-                        } catch (Exception e) {
-                        }
+                        } catch (Exception e) {}
                 }
             }
 
@@ -89,7 +88,7 @@ public class FileWorker{
             PdfRenderer rend = new PdfRenderer(ParcelFileDescriptor.open(new File(filePath), ParcelFileDescriptor.MODE_READ_ONLY));
             PdfRenderer.Page page = rend.openPage(0);
             bitmap = Bitmap.createBitmap(page.getWidth(), page.getHeight(),
-                    Bitmap.Config.ARGB_4444);
+                    Bitmap.Config.ARGB_8888);
             page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
             rend.close();
             page.close();
@@ -130,13 +129,12 @@ public class FileWorker{
         for (File dir: folderEntries){
             if (dir.isDirectory())
                 searchingFiles(dir);
-            else{
+            else
                 for(Extensions ext : Extensions.searchableExtensions())
                     if(dir.getName().contains(ext.getDescription())){
                         bookEntry(bookPreparing(dir));
                         break;
                     }
-            }
         }
     }
 

@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.raw.app.BookmarksOfParticularBookActivity;
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Viewers.Dialogs.BookmarksDialog;
 import com.example.raw.app.Viewers.Dialogs.GoToDialog;
@@ -37,7 +38,7 @@ public class PDFViewer extends Activity
     private boolean isFullScreen = false;
     private boolean isExtraMenuHide = false;
     private LinearLayout footer;
-    private TextView tvHeader;
+    private LinearLayout header;
     private Book book;
 
     @Override
@@ -46,10 +47,11 @@ public class PDFViewer extends Activity
         setContentView(R.layout.activity_pdfviewer);
         setBook();
 
+        header = findViewById(R.id.pdf_viewer_header);
         ibScreenSize = findViewById(R.id.action_pdf_viewer_screen_size);
         footer = findViewById(R.id.pdf_view_footer);
         pdfView = findViewById(R.id.pdfView);
-        tvHeader = findViewById(R.id.tv_header);
+        TextView tvHeader = findViewById(R.id.pdf_viewer_tv_header);
         tvHeader.setText(book.getName());
 
         pdfView.fromFile(new File(book.getFilePath()))
@@ -98,12 +100,16 @@ public class PDFViewer extends Activity
     }
 
     private void tvHeaderAnimation(boolean show){
-        int value = show ? tvHeader.getHeight() : -tvHeader.getHeight();
-        tvHeader.animate().translationYBy(value).setDuration(200).setInterpolator(new AccelerateInterpolator()).start();
+        int value = show ? header.getHeight() : -header.getHeight();
+        header.animate().translationYBy(value).setDuration(200).setInterpolator(new AccelerateInterpolator()).start();
     }
 
     public void pdfViewerOnClick(View view){
         switch (view.getId()){
+            case R.id.action_pdf_viewer_bookmarks:
+                startActivity(new Intent(this, BookmarksOfParticularBookActivity.class));
+                break;
+
             case R.id.action_pdf_viewer_share:
                 bookSharing();
                 break;
@@ -120,7 +126,7 @@ public class PDFViewer extends Activity
                 sizeChanging();
                 break;
 
-            case R.id.action_pdf_viewer_bookmark:
+            case R.id.action_pdf_viewer_add_bookmarks:
                 createBookmarksDialog();
                 break;
         }

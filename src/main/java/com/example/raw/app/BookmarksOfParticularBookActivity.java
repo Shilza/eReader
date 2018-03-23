@@ -5,67 +5,59 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.raw.app.Entities.Book;
 
-import java.io.File;
-import java.util.ArrayList;
-
-public class BookmarksActivity extends Activity {
+public class BookmarksOfParticularBookActivity extends Activity{
 
     private AlertDialog.Builder ad;
-    private int countofBookmarks = 0;
+    private Book book;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bookmarks);
+        setContentView(R.layout.activity_bookmarks_of_particular_book);
 
-        for(Book book : FileWorker.getInstance().getRecentBooks())
-            if(book.getBookmarks().size() != 0)
-                countofBookmarks++;
-
-        ((TextView) findViewById(R.id.tv_count)).setText("Количество книг, имеющих закладки " + countofBookmarks);
         createDialog();
     }
 
-    public void bookmarksActivityOnClick(View view){
+    public void bmPartBookActivityOnClick(View view){
         switch (view.getId()){
-            case R.id.bookmarks_activity_action_back:
+            case R.id.bm_of_part_book_act_back:
                 finish();
                 break;
 
-            case R.id.bookmarks_activity_action_removing:
+            case R.id.bm_of_part_book_act_removing:
                 ad.show();
                 break;
         }
     }
 
-    private void removingBookmarks(){
-        ArrayList<Book> recentBooks = FileWorker.getInstance().getRecentBooks();
-        for(Book book : recentBooks)
+    private boolean removingBookmarks() {
+        if (book.getBookmarks().size() > 0) {
             book.getBookmarks().clear();
+            FileWorker.getInstance().refreshingJSON(FileWorker.getInstance().getRecentBooks());
+            return true;
+        }
 
-        FileWorker.getInstance().refreshingJSON(recentBooks);
+        return  false;
     }
 
-    private void createDialog(){
+    private void createDialog() {
         ad = new AlertDialog.Builder(this);
         ad.setTitle("Очистить закладки");
         ad.setMessage("Действительно хотите очистить закладки?");
         ad.setPositiveButton("Да", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int arg1) {
-                if(countofBookmarks > 0){
-                    removingBookmarks();
+                if(removingBookmarks())
                     Toast.makeText(getBaseContext(), "Закладки очищены",
                             Toast.LENGTH_SHORT).show();
-                }
                 else
                     Toast.makeText(getBaseContext(), "Закладок не найдено",
                             Toast.LENGTH_SHORT).show();
-            }
+                }
+
         });
         ad.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int arg1) {

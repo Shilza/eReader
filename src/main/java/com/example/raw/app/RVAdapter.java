@@ -106,9 +106,9 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
     }
 
     void bookOpening(){
-        if(FileWorker.getInstance().isBookExist(selectedBook.getFilePath())){
+        if(FileWorker.getInstance().isBookExist(selectedBook.getFilePath()))
             BookOpener.getInstance().opening(selectedBook, context);
-        } else {
+        else {
             Toast.makeText(context, "Невозможно открыть, возможно книга была удалена", Toast.LENGTH_SHORT).show();
             books.remove(selectedBook);
             FileWorker.getInstance().refreshingJSON(books);
