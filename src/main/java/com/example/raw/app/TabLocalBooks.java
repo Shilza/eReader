@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.raw.app.Entities.Book;
+import com.example.raw.app.Utils.FileWorker;
 
 import java.util.ArrayList;
 
@@ -21,7 +22,6 @@ public class TabLocalBooks extends Tab implements SwipeRefreshLayout.OnRefreshLi
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.tab_local_books, null);
-
 
         swipeRefreshLayout = view.findViewById(R.id.swipe_container);
         swipeRefreshLayout.setOnRefreshListener(this);

@@ -1,4 +1,4 @@
-package com.example.raw.app;
+package com.example.raw.app.Utils;
 
 import android.graphics.Bitmap;
 import android.graphics.pdf.PdfRenderer;
@@ -6,6 +6,7 @@ import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 
 import com.example.raw.app.Entities.Book;
+import com.example.raw.app.Extensions;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -138,16 +139,14 @@ public class FileWorker{
         }
     }
 
-    void localBooksSearching(){
+    public void localBooksSearching(){
        localBooks.clear();
 
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())){
             searchingFiles(Environment.getExternalStorageDirectory());
-            for(File f : new File("/storage").listFiles()){
-                if(f.getName().contains("sdcard")){
+            for(File f : new File("/storage").listFiles())
+                if(f.getName().contains("sdcard1"))
                     searchingFiles(f);
-                }
-            }
         }
 
         refreshingJSON(localBooks);
@@ -158,7 +157,7 @@ public class FileWorker{
             localBooks.add(book);
     }
 
-    Book bookPreparing(File directory){
+    public Book bookPreparing(File directory){
         String temp = directory.getName();
         Extensions extension = null;
 
@@ -189,7 +188,7 @@ public class FileWorker{
         return new Book(name, filePath, strSize, lastActivity, extension);
     }
 
-    ArrayList<Book> getLocalBooks(){
+    public ArrayList<Book> getLocalBooks(){
         return localBooks;
     }
 
@@ -201,7 +200,7 @@ public class FileWorker{
         return PICTURES;
     }
 
-    void addingToRecentBooks(Book book){
+    public void addingToRecentBooks(Book book){
         if(isBookExist(book.getFilePath())){
             book.setLastActivity(new Date().getTime());
             recentBooks.add(0, book);
@@ -209,7 +208,7 @@ public class FileWorker{
         }
     }
 
-    void removeBookFromLocalBooks(Book book){
+    public void removeBookFromLocalBooks(Book book){
         localBooks.remove(book);
         refreshingJSON(localBooks);
     }
@@ -231,7 +230,7 @@ public class FileWorker{
         }
     }
 
-    boolean isBookExist(String bookPath){
+    public boolean isBookExist(String bookPath){
         return (new File(bookPath).exists());
     }
 }

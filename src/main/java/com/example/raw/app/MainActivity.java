@@ -23,6 +23,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.raw.app.Entities.Book;
+import com.example.raw.app.Utils.BookOpener;
+import com.example.raw.app.Utils.FileWorker;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -201,6 +203,12 @@ public class MainActivity extends AppCompatActivity{
         searchRecyclerView.setLayoutManager(layoutManager);
         searchRecyclerView.setAdapter(searchRVAdapter);
         searchRecyclerView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item){
+        searchRVAdapter.getItemSelected(item);
+        return super.onContextItemSelected(item);
     }
 
     @Override

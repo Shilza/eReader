@@ -12,6 +12,8 @@ import android.widget.Filterable;
 import android.widget.Toast;
 
 import com.example.raw.app.Entities.Book;
+import com.example.raw.app.Utils.BookOpener;
+import com.example.raw.app.Utils.FileWorker;
 
 import java.util.ArrayList;
 
@@ -45,8 +47,6 @@ public class SearchRVAdapter extends RVAdapter implements Filterable {
                 Intent intent = new Intent(context, ContextMenuProperties.class);
                 intent.putExtra("Book", selectedBook);
                 context.startActivity(intent);
-                break;
-            default:
                 break;
         }
     }

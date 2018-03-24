@@ -47,6 +47,16 @@
 
     </RelativeLayout>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/bookmarks_recycler_view"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_marginTop="4dp"
+        android:layout_below="@id/bookmarks_activity_header_layout"
+        android:scrollbars="vertical"
+        >
+    </android.support.v7.widget.RecyclerView>
+
     <TextView
         android:id="@+id/tv_count"
         android:layout_width="match_parent"

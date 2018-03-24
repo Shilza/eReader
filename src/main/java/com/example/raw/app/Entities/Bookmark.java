@@ -1,6 +1,8 @@
 package com.example.raw.app.Entities;
 
-public class Bookmark {
+import java.io.Serializable;
+
+public class Bookmark implements Serializable{
 
     private int page;
     private long uploadDate;

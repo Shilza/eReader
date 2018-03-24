@@ -4,19 +4,23 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.raw.app.Entities.Book;
+import com.example.raw.app.Utils.FileWorker;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class BookmarksActivity extends Activity {
 
     private AlertDialog.Builder ad;
-    private int countofBookmarks = 0;
+    private int countOfBookmarks = 0;
+    private BookmarksRVAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +29,25 @@ public class BookmarksActivity extends Activity {
 
         for(Book book : FileWorker.getInstance().getRecentBooks())
             if(book.getBookmarks().size() != 0)
-                countofBookmarks++;
+                countOfBookmarks++;
 
-        ((TextView) findViewById(R.id.tv_count)).setText("Количество книг, имеющих закладки " + countofBookmarks);
         createDialog();
+
+        RecyclerView recyclerView = findViewById(R.id.bookmarks_recycler_view);
+
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(llm);
+
+        ArrayList<Book> books = new ArrayList<>();
+        for(Book book : FileWorker.getInstance().getRecentBooks())
+            if(book.getBookmarks().size() > 0)
+                books.add(book);
+
+        if(books.size() == 0)
+            ((TextView) findViewById(R.id.tv_count)).setText("Закладок не найдено");
+
+        adapter = new BookmarksRVAdapter(books, this);
+        recyclerView.setAdapter(adapter);
     }
 
     public void bookmarksActivityOnClick(View view){
@@ -57,7 +76,7 @@ public class BookmarksActivity extends Activity {
         ad.setMessage("Действительно хотите очистить закладки?");
         ad.setPositiveButton("Да", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int arg1) {
-                if(countofBookmarks > 0){
+                if(countOfBookmarks > 0){
                     removingBookmarks();
                     Toast.makeText(getBaseContext(), "Закладки очищены",
                             Toast.LENGTH_SHORT).show();
@@ -72,5 +91,11 @@ public class BookmarksActivity extends Activity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item){
+        adapter.getItemSelected(item);
+        return  super.onContextItemSelected(item);
     }
 }

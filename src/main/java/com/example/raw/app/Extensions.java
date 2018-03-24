@@ -14,13 +14,13 @@ public enum Extensions {
         this.description = description;
     }
 
-    static Extensions[] searchableExtensions(){
+    public static Extensions[] searchableExtensions(){
         Extensions[] arr = new Extensions[1];
         arr[0] = PDF;
         return arr;
     }
 
-    static Extensions[] simpleTextExtensions(){
+    public static Extensions[] simpleTextExtensions(){
         Extensions[] arr = new Extensions[4];
         arr[0] = TXT;
         arr[1] = XML;

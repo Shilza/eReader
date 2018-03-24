@@ -18,7 +18,7 @@ public class LocalBooksRVAdapter extends RVAdapter{
     private final byte CONTEXT_MENU_OPEN = 0;
     private final byte CONTEXT_MENU_DELETE = 1;
     private final byte CONTEXT_MENU_PROPERTIES = 2;
-    private final byte GROUP_ID = 1;
+    private final byte GROUP_ID = 0;
 
     LocalBooksRVAdapter(ArrayList<Book> books, Context context){
         super(books, context);
@@ -42,8 +42,6 @@ public class LocalBooksRVAdapter extends RVAdapter{
                 Intent intent = new Intent(context, ContextMenuProperties.class);
                 intent.putExtra("Book", selectedBook);
                 context.startActivity(intent);
-                break;
-            default:
                 break;
         }
     }

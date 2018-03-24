@@ -16,7 +16,7 @@ import com.example.raw.app.BookmarksOfParticularBookActivity;
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Viewers.Dialogs.BookmarksDialog;
 import com.example.raw.app.Viewers.Dialogs.GoToDialog;
-import com.example.raw.app.FileWorker;
+import com.example.raw.app.Utils.FileWorker;
 import com.example.raw.app.R;
 import com.example.raw.app.TabKeeper;
 import com.github.barteksc.pdfviewer.PDFView;
@@ -195,5 +195,12 @@ public class PDFViewer extends Activity
                 totalRead = book.getTotalRead();
                 break;
             }
+        if(book == null)
+            for(Book obj : FileWorker.getInstance().getLocalBooks())
+                if(obj.getFilePath().equals(filePath)){
+                    book = obj;
+                    totalRead = book.getTotalRead();
+                    break;
+                }
     }
 }

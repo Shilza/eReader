@@ -1,16 +1,17 @@
-package com.example.raw.app;
+package com.example.raw.app.Utils;
 
 import android.content.Context;
 import android.content.Intent;
 
 import com.example.raw.app.Entities.Book;
+import com.example.raw.app.Extensions;
 import com.example.raw.app.Viewers.PDFViewer;
 import com.example.raw.app.Viewers.SimpleTextViewer;
 
-class BookOpener {
+public class BookOpener {
     private static final BookOpener INSTANCE = new BookOpener();
 
-    static BookOpener getInstance() {
+    public static BookOpener getInstance() {
         return INSTANCE;
     }
 
@@ -24,7 +25,7 @@ class BookOpener {
         return false;
     }
 
-    void opening(Book book, Context context){
+    public void opening(Book book, Context context){
         if(book.getExtension() == Extensions.PDF){
             Intent intent = new Intent(context, PDFViewer.class);
             intent.putExtra("Book", book.getFilePath());

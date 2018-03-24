@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.raw.app.Entities.Book;
+import com.example.raw.app.Utils.BookOpener;
+import com.example.raw.app.Utils.FileWorker;
 
 import java.util.ArrayList;
 
@@ -24,7 +26,6 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
     Context context;
     Book selectedBook;
     AlertDialog.Builder ad;
-
 
     RVAdapter(ArrayList<Book> books, Context context){
         this.books = books;
@@ -152,6 +153,5 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
                    clickProcessing();
             }
         });
-
     }
 }
