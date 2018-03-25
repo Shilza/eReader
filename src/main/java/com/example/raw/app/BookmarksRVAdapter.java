@@ -162,6 +162,10 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     Toast.makeText(context, selectedBook.getName(), Toast.LENGTH_SHORT).show();
 
                     if(!isLongClick){
+                        //CLOSE ALL BOOKMARKS CONTAINERS
+                        for(int i=0; i< books.size(); i++)
+                            books.set(i, new Pair<>(0, books.get(i).second));
+
                         books.set(pos, new Pair<>(1, books.get(pos).second));
                         notifyDataSetChanged();
                     }

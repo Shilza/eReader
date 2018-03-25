@@ -24,10 +24,6 @@ public class BookmarkPreviewRVAdapter extends RecyclerView.Adapter<BookmarkPrevi
     private Context context;
     private AlertDialog.Builder ad;
 
-    private final byte CONTEXT_MENU_OPEN = 0;
-    private final byte CONTEXT_MENU_REMOVING = 1;
-    private final byte GROUP_ID = 4;
-
     BookmarkPreviewRVAdapter(Book book, Context context){
         this.book = book;
         this.bookmarks = book.getBookmarks();
@@ -35,7 +31,7 @@ public class BookmarkPreviewRVAdapter extends RecyclerView.Adapter<BookmarkPrevi
         initAlertDialog();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener ,View.OnCreateContextMenuListener, View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener{
         TextView page;
         TextView text;
         ItemClickListener itemClickListener;
@@ -45,19 +41,8 @@ public class BookmarkPreviewRVAdapter extends RecyclerView.Adapter<BookmarkPrevi
 
             page = itemView.findViewById(R.id.bookmark_preview_page);
             text = itemView.findViewById(R.id.bookmark_preview_text);
-
-            itemView.setOnCreateContextMenuListener(this);
             itemView.setOnLongClickListener(this);
             itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onCreateContextMenu(ContextMenu menu, View view,
-                                        ContextMenu.ContextMenuInfo menuInfo) {
-
-            menu.setHeaderTitle("Закладка");
-            menu.add(GROUP_ID, CONTEXT_MENU_OPEN, 0, "Открыть");
-            menu.add(GROUP_ID, CONTEXT_MENU_REMOVING, 0, "Очистить закладки");
         }
 
         private void setOnLongClickListener(ItemClickListener listener){
@@ -110,24 +95,21 @@ public class BookmarkPreviewRVAdapter extends RecyclerView.Adapter<BookmarkPrevi
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.page.setText(String.valueOf(bookmarks.get(position).getPage()));
         holder.text.setText(bookmarks.get(position).getText());
-    }
 
-    void getItemSelected(MenuItem item){
-        if(item.getGroupId() != GROUP_ID)
-            return;
-
-        switch (item.getItemId()){
-            case CONTEXT_MENU_OPEN:
-                //TODO
-                break;
-
-            case CONTEXT_MENU_REMOVING:
-                ad.show();
-                break;
-        }
+        holder.setOnLongClickListener(new ItemClickListener() {
+            @Override
+            public void onItemViewClick(int pos, boolean isLongClick) {
+                if(!isLongClick){
+                    if(bookmarks.get(position).getText() == "")
+                        Toast.makeText(context, "Закладка пуста", Toast.LENGTH_SHORT).show();
+                    //else
+                        //TODO
+                }
+            }
+        });
     }
 
 }

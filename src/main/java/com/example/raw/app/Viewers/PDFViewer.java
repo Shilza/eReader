@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.raw.app.BookmarksOfParticularBookActivity;
 import com.example.raw.app.Entities.Book;
+import com.example.raw.app.Entities.Bookmark;
 import com.example.raw.app.Viewers.Dialogs.BookmarksDialog;
 import com.example.raw.app.Viewers.Dialogs.GoToDialog;
 import com.example.raw.app.Utils.FileWorker;
@@ -26,6 +27,7 @@ import com.github.barteksc.pdfviewer.listener.OnTapListener;
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class PDFViewer extends Activity
@@ -33,6 +35,8 @@ public class PDFViewer extends Activity
 
     private PDFView pdfView;
     private ImageButton ibScreenSize;
+    private ImageButton ibBookmarks;
+    private TextView tvBookmarksCount;
     private float totalRead = 0;
     private boolean isHorizontalOrientation = false;
     private boolean isFullScreen = false;
@@ -50,6 +54,8 @@ public class PDFViewer extends Activity
         header = findViewById(R.id.pdf_viewer_header);
         ibScreenSize = findViewById(R.id.action_pdf_viewer_screen_size);
         footer = findViewById(R.id.pdf_view_footer);
+        ibBookmarks = findViewById(R.id.action_pdf_viewer_bookmarks);
+        tvBookmarksCount = findViewById(R.id.action_pdf_viewer_bookmarks_count);
         pdfView = findViewById(R.id.pdfView);
         TextView tvHeader = findViewById(R.id.pdf_viewer_tv_header);
         tvHeader.setText(book.getName());
@@ -92,6 +98,21 @@ public class PDFViewer extends Activity
         book.setLastActivity(new Date().getTime());
         FileWorker.getInstance().refreshingJSON(FileWorker.getInstance().getRecentBooks());
         TabKeeper.getInstance().notifyDataSetChanged();
+
+        int bookmarksCount = 0;
+        for(Bookmark bookmark : book.getBookmarks())
+            if(bookmark.getPage() == curPage)
+                bookmarksCount++;
+
+        if(bookmarksCount > 0){
+            ibBookmarks.setImageResource(R.drawable.ic_bookmark_border_red_28dp);
+            tvBookmarksCount.setText(String.valueOf(bookmarksCount));
+            tvBookmarksCount.setVisibility(View.VISIBLE);
+        }
+        else{
+            ibBookmarks.setImageResource(R.drawable.ic_bookmark_border_white_28dp);
+            tvBookmarksCount.setVisibility(View.GONE);
+        }
     }
 
     private void footerAnimation(boolean show){
