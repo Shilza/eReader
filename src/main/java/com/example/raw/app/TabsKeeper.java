@@ -1,18 +1,22 @@
 package com.example.raw.app;
 
 
-final public class TabKeeper {
-    private static final TabKeeper INSTANCE = new TabKeeper();
+import com.example.raw.app.Main.Tabs.Tab;
+import com.example.raw.app.Main.Tabs.TabLocalBooks;
+import com.example.raw.app.Main.Tabs.TabRecentBooks;
+
+final public class TabsKeeper {
+    private static final TabsKeeper INSTANCE = new TabsKeeper();
     private TabLocalBooks localBooks;
     private TabRecentBooks recentBooks;
 
-    public static TabKeeper getInstance() {
+    public static TabsKeeper getInstance() {
         return INSTANCE;
     }
 
-    private TabKeeper(){}
+    private TabsKeeper(){}
 
-    void setTab(Tab tab){
+    public void setTab(Tab tab){
         if(tab.getClass().equals(TabLocalBooks.class))
             localBooks = (TabLocalBooks)tab;
         else if(tab.getClass().equals(TabRecentBooks.class))

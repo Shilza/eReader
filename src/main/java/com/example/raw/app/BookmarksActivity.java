@@ -78,6 +78,7 @@ public class BookmarksActivity extends Activity {
             public void onClick(DialogInterface dialog, int arg1) {
                 if(countOfBookmarks > 0){
                     removingBookmarks();
+                    adapter.notifyDataSetChanged();
                     Toast.makeText(getBaseContext(), "Закладки очищены",
                             Toast.LENGTH_SHORT).show();
                 }

@@ -1,4 +1,4 @@
-package com.example.raw.app;
+package com.example.raw.app.Main.Tabs;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.raw.app.Entities.Book;
+import com.example.raw.app.Main.Adapters.RecentBooksRVAdapter;
+import com.example.raw.app.R;
 import com.example.raw.app.Utils.FileWorker;
 
 import java.util.ArrayList;

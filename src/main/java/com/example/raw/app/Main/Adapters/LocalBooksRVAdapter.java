@@ -1,4 +1,5 @@
-package com.example.raw.app;
+package com.example.raw.app.Main.Adapters;
+
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,28 +9,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.raw.app.ContextMenuProperties;
 import com.example.raw.app.Entities.Book;
-import com.example.raw.app.Utils.FileWorker;
+import com.example.raw.app.R;
 
 import java.util.ArrayList;
 
-class RecentBooksRVAdapter extends RVAdapter{
+public class LocalBooksRVAdapter extends RVAdapter{
 
     private final byte CONTEXT_MENU_OPEN = 0;
-    private final byte CONTEXT_MENU_FIX = 1;
-    private final byte CONTEXT_MENU_DELETE_FROM_LIST = 2;
-    private final byte CONTEXT_MENU_DELETE = 3;
-    private final byte CONTEXT_MENU_PROPERTIES = 4;
-    private final byte GROUP_ID = 1;
+    private final byte CONTEXT_MENU_DELETE = 1;
+    private final byte CONTEXT_MENU_PROPERTIES = 2;
+    private final byte GROUP_ID = 0;
 
-    RecentBooksRVAdapter(ArrayList<Book> books, Context context){
+    public LocalBooksRVAdapter(ArrayList<Book> books, Context context){
         super(books, context);
-    }
-
-    private void bookRemoving(Book book){
-        books.remove(book);
-        FileWorker.getInstance().refreshingJSON(books);
-        TabKeeper.getInstance().notifyDataSetChanged();
     }
 
     @Override
@@ -41,21 +35,11 @@ class RecentBooksRVAdapter extends RVAdapter{
             case CONTEXT_MENU_OPEN:
                 bookOpening();
                 break;
-
-            case CONTEXT_MENU_FIX:
-                //TODO
-                break;
-
-            case CONTEXT_MENU_DELETE_FROM_LIST:
-                bookRemoving(selectedBook);
-                break;
-
             case CONTEXT_MENU_DELETE:
                 //TODO
                 ad.show();
-                //bookRemoving(selectedBook);
+                //FileWorker.refreshingLocalBooksJSON();
                 break;
-
             case CONTEXT_MENU_PROPERTIES:
                 Intent intent = new Intent(context, ContextMenuProperties.class);
                 intent.putExtra("Book", selectedBook);
@@ -64,9 +48,9 @@ class RecentBooksRVAdapter extends RVAdapter{
         }
     }
 
-    class RecentBooksViewHolder extends BookViewHolder{
+    class LocalBooksViewHolder extends RVAdapter.BookViewHolder {
 
-        RecentBooksViewHolder(View view){
+        LocalBooksViewHolder(View view){
             super(view);
         }
 
@@ -76,16 +60,14 @@ class RecentBooksRVAdapter extends RVAdapter{
 
             menu.setHeaderTitle(selectedBook.getName());
             menu.add(GROUP_ID, CONTEXT_MENU_OPEN, 0, "Открыть");
-            menu.add(GROUP_ID, CONTEXT_MENU_FIX, 0, "Закрепить");
-            menu.add(GROUP_ID, CONTEXT_MENU_DELETE_FROM_LIST, 0, "Удалить из списка");
             menu.add(GROUP_ID, CONTEXT_MENU_DELETE, 0, "Удалить");
             menu.add(GROUP_ID, CONTEXT_MENU_PROPERTIES, 0, "Свойства");
         }
     }
 
     @Override
-    public RecentBooksViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public LocalBooksRVAdapter.LocalBooksViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_view_item, viewGroup, false);
-        return new RecentBooksViewHolder(view);
+        return new LocalBooksRVAdapter.LocalBooksViewHolder(view);
     }
 }

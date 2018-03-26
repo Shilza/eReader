@@ -1,4 +1,4 @@
-package com.example.raw.app;
+package com.example.raw.app.Main.Adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -15,6 +15,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.raw.app.Entities.Book;
+import com.example.raw.app.ItemClickListener;
+import com.example.raw.app.R;
+import com.example.raw.app.TabsKeeper;
 import com.example.raw.app.Utils.BookOpener;
 import com.example.raw.app.Utils.FileWorker;
 
@@ -113,7 +116,7 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
             Toast.makeText(context, "Невозможно открыть, возможно книга была удалена", Toast.LENGTH_SHORT).show();
             books.remove(selectedBook);
             FileWorker.getInstance().refreshingJSON(books);
-            TabKeeper.getInstance().notifyDataSetChanged();
+            TabsKeeper.getInstance().notifyDataSetChanged();
         }
     }
 
@@ -127,7 +130,7 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
             FileWorker.getInstance().addingToRecentBooks(book);
         }
 
-        TabKeeper.getInstance().notifyDataSetChanged();
+        TabsKeeper.getInstance().notifyDataSetChanged();
         bookOpening();
     }
 

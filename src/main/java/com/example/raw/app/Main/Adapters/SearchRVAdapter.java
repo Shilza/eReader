@@ -1,4 +1,4 @@
-package com.example.raw.app;
+package com.example.raw.app.Main.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +11,10 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.Toast;
 
+import com.example.raw.app.ContextMenuProperties;
 import com.example.raw.app.Entities.Book;
+import com.example.raw.app.R;
+import com.example.raw.app.TabsKeeper;
 import com.example.raw.app.Utils.BookOpener;
 import com.example.raw.app.Utils.FileWorker;
 
@@ -25,7 +28,7 @@ public class SearchRVAdapter extends RVAdapter implements Filterable {
     private final byte CONTEXT_MENU_PROPERTIES = 2;
     private final byte GROUP_ID = 2;
 
-    SearchRVAdapter(ArrayList<Book> allBooks, Context context) {
+    public SearchRVAdapter(ArrayList<Book> allBooks, Context context) {
         super(new ArrayList<Book>(), context);
         this.allBooks = allBooks;
     }
@@ -64,7 +67,7 @@ public class SearchRVAdapter extends RVAdapter implements Filterable {
                 FileWorker.getInstance().getLocalBooks().remove(selectedBook);
 
             notifyDataSetChanged();
-            TabKeeper.getInstance().notifyDataSetChanged();
+            TabsKeeper.getInstance().notifyDataSetChanged();
         }
     }
 

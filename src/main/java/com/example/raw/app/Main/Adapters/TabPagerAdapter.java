@@ -1,15 +1,17 @@
-package com.example.raw.app;
+package com.example.raw.app.Main.Adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.util.Log;
+
+import com.example.raw.app.Main.Tabs.TabLocalBooks;
+import com.example.raw.app.Main.Tabs.TabRecentBooks;
 
 public class TabPagerAdapter extends FragmentStatePagerAdapter{
 
     private int mNoOfTabs;
 
-    TabPagerAdapter(FragmentManager fm, int numberOfTabs){
+    public TabPagerAdapter(FragmentManager fm, int numberOfTabs){
         super(fm);
         this.mNoOfTabs = numberOfTabs;
     }

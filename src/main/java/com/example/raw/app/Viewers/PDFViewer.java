@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -12,14 +15,16 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.raw.app.BookmarkOfParticularBookAdapter;
 import com.example.raw.app.BookmarksOfParticularBookActivity;
+import com.example.raw.app.BookmarksRVAdapter;
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Entities.Bookmark;
 import com.example.raw.app.Viewers.Dialogs.BookmarksDialog;
 import com.example.raw.app.Viewers.Dialogs.GoToDialog;
 import com.example.raw.app.Utils.FileWorker;
 import com.example.raw.app.R;
-import com.example.raw.app.TabKeeper;
+import com.example.raw.app.TabsKeeper;
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
@@ -97,7 +102,7 @@ public class PDFViewer extends Activity
         book.setTotalRead((float)curPage/(float)count);
         book.setLastActivity(new Date().getTime());
         FileWorker.getInstance().refreshingJSON(FileWorker.getInstance().getRecentBooks());
-        TabKeeper.getInstance().notifyDataSetChanged();
+        TabsKeeper.getInstance().notifyDataSetChanged();
 
         int bookmarksCount = 0;
         for(Bookmark bookmark : book.getBookmarks())
@@ -128,7 +133,10 @@ public class PDFViewer extends Activity
     public void pdfViewerOnClick(View view){
         switch (view.getId()){
             case R.id.action_pdf_viewer_bookmarks:
-                startActivity(new Intent(this, BookmarksOfParticularBookActivity.class));
+                Intent intent = new Intent(this, BookmarksOfParticularBookActivity.class);
+                intent.putExtra("filePath", book.getFilePath());
+                intent.putExtra("bookmarks", book.getBookmarks());
+                startActivity(intent);
                 break;
 
             case R.id.action_pdf_viewer_share:

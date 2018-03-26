@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/statistics_header_layout"
+        android:id="@+id/bm_of_part_book_header_layout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/colorPrimary"
@@ -44,5 +44,15 @@
             android:src="@drawable/ic_delete_forever_black_24dp" />
 
     </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/bookmarks_of_particular_book_recycler_view"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_marginTop="4dp"
+        android:layout_below="@id/bm_of_part_book_header_layout"
+        android:scrollbars="vertical"
+        >
+    </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>

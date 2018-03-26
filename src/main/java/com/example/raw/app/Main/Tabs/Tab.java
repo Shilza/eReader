@@ -1,4 +1,4 @@
-package com.example.raw.app;
+package com.example.raw.app.Main.Tabs;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,6 +8,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.raw.app.Main.Adapters.RVAdapter;
+import com.example.raw.app.TabsKeeper;
 
 
 public abstract class Tab extends Fragment {
@@ -19,14 +22,14 @@ public abstract class Tab extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TabKeeper.getInstance().setTab(this);
+        TabsKeeper.getInstance().setTab(this);
     }
 
     @Override
     public abstract View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState);
 
-    void dataSetChanged(){
+    public void dataSetChanged(){
         if(adapter.getItemCount() == 0)
             tvLocation.setText(locationName);
         else

@@ -1,4 +1,4 @@
-package com.example.raw.app;
+package com.example.raw.app.Main;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -22,7 +22,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.raw.app.BookmarksActivity;
 import com.example.raw.app.Entities.Book;
+import com.example.raw.app.Extensions;
+import com.example.raw.app.Main.Adapters.SearchRVAdapter;
+import com.example.raw.app.Main.Adapters.TabPagerAdapter;
+import com.example.raw.app.R;
+import com.example.raw.app.TabsKeeper;
 import com.example.raw.app.Utils.BookOpener;
 import com.example.raw.app.Utils.FileWorker;
 
@@ -145,7 +151,7 @@ public class MainActivity extends AppCompatActivity{
 
             if (!isBookExistInList) {
                 FileWorker.getInstance().addingToRecentBooks(book);
-                TabKeeper.getInstance().notifyDataSetChanged();
+                TabsKeeper.getInstance().notifyDataSetChanged();
             }
         }
 

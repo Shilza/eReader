@@ -41,6 +41,7 @@ public class BookmarkPreviewRVAdapter extends RecyclerView.Adapter<BookmarkPrevi
 
             page = itemView.findViewById(R.id.bookmark_preview_page);
             text = itemView.findViewById(R.id.bookmark_preview_text);
+
             itemView.setOnLongClickListener(this);
             itemView.setOnClickListener(this);
         }
@@ -96,14 +97,15 @@ public class BookmarkPreviewRVAdapter extends RecyclerView.Adapter<BookmarkPrevi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.page.setText(String.valueOf(bookmarks.get(position).getPage()));
+        int page = bookmarks.get(position).getPage()+1;
+        holder.page.setText(String.valueOf(page));
         holder.text.setText(bookmarks.get(position).getText());
 
         holder.setOnLongClickListener(new ItemClickListener() {
             @Override
             public void onItemViewClick(int pos, boolean isLongClick) {
                 if(!isLongClick){
-                    if(bookmarks.get(position).getText() == "")
+                    if(bookmarks.get(position).getText().equals(""))
                         Toast.makeText(context, "Закладка пуста", Toast.LENGTH_SHORT).show();
                     //else
                         //TODO

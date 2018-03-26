@@ -60,8 +60,13 @@ public class FileWorker{
                 for(Book book : list){
 
                     File file = new File(PICTURES);
-                    if(!file.exists())
+                    if(!file.exists()) {
                         file.mkdir();
+                        try{
+                            new File(PICTURES + ".nomedia").createNewFile();
+                        } catch (Exception e){}
+
+                    }
                     else
                         try {
                             File fl = new File(PICTURES + book.getName() + ".png");

@@ -1,4 +1,4 @@
-package com.example.raw.app;
+package com.example.raw.app.Main;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -12,6 +12,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.raw.app.R;
 
 public class Statistics extends Activity {
 

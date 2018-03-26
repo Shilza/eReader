@@ -1,6 +1,8 @@
 package com.example.raw.app;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,6 +12,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Utils.FileWorker;
 
+import java.io.File;
 import java.text.DecimalFormat;
 
 

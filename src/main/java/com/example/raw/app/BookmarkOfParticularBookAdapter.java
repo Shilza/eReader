@@ -3,60 +3,56 @@ package com.example.raw.app;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.Pair;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.example.raw.app.Entities.Book;
-import com.example.raw.app.Utils.FileWorker;
+import com.example.raw.app.Entities.Bookmark;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
-public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class BookmarkOfParticularBookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
-    private ArrayList<Pair<Integer, Book>> books;
+    private ArrayList<Pair<Integer, Bookmark>> bookmarks;
     private Context context;
-    private Book selectedBook;
+    private Bookmark selectedBookmark;
     private AlertDialog.Builder ad;
 
-    private RecyclerView rvBookmarkPreview;
 
     private final byte CONTEXT_MENU_REMOVING = 0;
-    private final byte GROUP_ID = 3;
+    private final byte GROUP_ID = 4;
 
-    BookmarksRVAdapter(ArrayList<Book> books, Context context){
-        this.books = new ArrayList<>();
-        for(Book book : books)
-            this.books.add(new Pair<>(0, book));
+
+    public BookmarkOfParticularBookAdapter(ArrayList<Bookmark> bookmarks, Context context){
+        this.bookmarks = new ArrayList<>();
+        for(Bookmark bookmark : bookmarks)
+            this.bookmarks.add(new Pair<>(0, bookmark));
 
         this.context = context;
         initAlertDialog();
     }
 
-    public class BookmarksViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener ,View.OnCreateContextMenuListener, View.OnClickListener{
-        private TextView bookName;
-        private TextView bookmarksCount;
-        private ImageView bookCover;
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener ,View.OnCreateContextMenuListener, View.OnClickListener{
 
+        TextView tvPage;
+        TextView tvText;
+        TextView tvDate;
         ItemClickListener itemClickListener;
 
-        BookmarksViewHolder(final View itemView) {
+        ViewHolder(final View itemView) {
             super(itemView);
 
-            bookName = itemView.findViewById(R.id.book_name);
-            bookCover = itemView.findViewById(R.id.book_cover);
-            bookmarksCount = itemView.findViewById(R.id.bookmarks_count);
+            tvPage = itemView.findViewById(R.id.bm_of_part_book_rv_item_page);
+            tvText = itemView.findViewById(R.id.bm_of_part_book_rv_item_text);
+            tvDate = itemView.findViewById(R.id.bm_of_part_book_rv_item_date);
 
             itemView.setOnCreateContextMenuListener(this);
             itemView.setOnLongClickListener(this);
@@ -67,8 +63,7 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         public void onCreateContextMenu(ContextMenu menu, View view,
                                         ContextMenu.ContextMenuInfo menuInfo) {
 
-            menu.setHeaderTitle(selectedBook.getName());
-            menu.add(GROUP_ID, CONTEXT_MENU_REMOVING, 0, "Очистить закладки");
+            menu.add(GROUP_ID, CONTEXT_MENU_REMOVING, 0, "Удалить");
         }
 
         private void setOnLongClickListener(ItemClickListener listener){
@@ -100,15 +95,13 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         switch (viewType) {
             case 0:
-                View v1 = inflater.inflate(R.layout.bookmarks_rv_item, viewGroup, false);
-                viewHolder = new BookmarksViewHolder(v1);
+                View v1 = inflater.inflate(R.layout.bookmarks_particular_book_item, viewGroup, false);
+                viewHolder = new BookmarkOfParticularBookAdapter.ViewHolder(v1);
                 break;
 
             case 1:
-                View v2 = inflater.inflate(R.layout.bookmarks_alt_rv_item, viewGroup, false);
-                viewHolder = new BookmarksViewHolder1(v2);
-                rvBookmarkPreview = v2.findViewById(R.id.bookmarks_alt_recycler_view);
-                rvBookmarkPreview.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true));
+                //View v2 = inflater.inflate(R.layout.bookmarks_alt_rv_item, viewGroup, false);
+                //viewHolder = new BookmarkOfParticularBookAdapter.BookmarksViewHolder1(v2);
                 break;
         }
 
@@ -117,13 +110,13 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        return books.size();
+        return bookmarks.size();
     }
 
     private void initAlertDialog(){
         ad = new AlertDialog.Builder(context);
         ad.setTitle("Удалить");
-        ad.setMessage("Действительно хотите удалить все закладки этой книги?");
+        ad.setMessage("Действительно хотите удалить эту закладку");
         ad.setPositiveButton("Да", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int arg1) {
 
@@ -139,53 +132,30 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (holder.getItemViewType()){
-
             case 0:
-            BookmarksViewHolder bookmarksViewHolder = (BookmarksViewHolder) holder;
-            bookmarksViewHolder.bookName.setText(books.get(position).second.getName());
-            bookmarksViewHolder.bookmarksCount.setText("Количество закладок: " +
-                    String.valueOf(books.get(position).second.getBookmarks().size()));
+                BookmarkOfParticularBookAdapter.ViewHolder bookmarksViewHolder = (BookmarkOfParticularBookAdapter.ViewHolder) holder;
 
-            Glide.with(context)
-                    .load(FileWorker.getInstance().getPicturesPath() + books.get(position).second.getName()+".png")
-                    .apply(new RequestOptions().fitCenter().placeholder(R.drawable.e))
-                    .into(bookmarksViewHolder.bookCover);
+                bookmarksViewHolder.tvPage.setText("Страница " + String.valueOf(bookmarks.get(position).second.getPage()));
+                bookmarksViewHolder.tvText.setText(bookmarks.get(position).second.getText());
 
-            bookmarksViewHolder.setOnLongClickListener(new ItemClickListener() {
-                @Override
-                public void onItemViewClick(int pos, boolean isLongClick) {
-                    selectedBook = books.get(pos).second;
-                    Toast.makeText(context, selectedBook.getName(), Toast.LENGTH_SHORT).show();
+                SimpleDateFormat sdf = new SimpleDateFormat("d MMMM yyyy", Locale.getDefault());
+                String date = sdf.format(bookmarks.get(position).second.getUploadDate());
+                bookmarksViewHolder.tvDate.setText(date);
 
-                    if(!isLongClick){
-                        //CLOSE ALL BOOKMARKS CONTAINERS
-                        for(int i=0; i< books.size(); i++)
-                            books.set(i, new Pair<>(0, books.get(i).second));
-
-                        books.set(pos, new Pair<>(1, books.get(pos).second));
-                        notifyDataSetChanged();
-                    }
-                }
-            });
-            break;
-
-            case 1:
-                BookmarksViewHolder1 bookmarksViewHolder1 = (BookmarksViewHolder1) holder;
-                bookmarksViewHolder1.setOnLongClickListener(new ItemClickListener() {
+                bookmarksViewHolder.setOnLongClickListener(new ItemClickListener() {
                     @Override
                     public void onItemViewClick(int pos, boolean isLongClick) {
-                        selectedBook = books.get(pos).second;
-                        Toast.makeText(context, selectedBook.getName(), Toast.LENGTH_SHORT).show();
+                        selectedBookmark = bookmarks.get(pos).second;
+                        Toast.makeText(context, selectedBookmark.getPage(), Toast.LENGTH_SHORT).show();
 
                         if(!isLongClick){
-                            books.set(pos, new Pair<>(0, books.get(pos).second));
-                            notifyDataSetChanged();
+                            //TODO
                         }
                     }
                 });
+                break;
 
-                BookmarkPreviewRVAdapter bookmarkAdapter = new BookmarkPreviewRVAdapter(books.get(position).second, context);
-                rvBookmarkPreview.setAdapter(bookmarkAdapter);
+            case 1:
                 break;
         }
     }
@@ -203,7 +173,7 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemViewType(int position) {
-        return books.get(position).first == 0 ?  0 : 1;
+        return bookmarks.get(position).first == 0 ?  0 : 1;
     }
 
     public class BookmarksViewHolder1 extends RecyclerView.ViewHolder implements View.OnLongClickListener ,View.OnCreateContextMenuListener, View.OnClickListener{
@@ -222,8 +192,7 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         public void onCreateContextMenu(ContextMenu menu, View view,
                                         ContextMenu.ContextMenuInfo menuInfo) {
 
-            menu.setHeaderTitle(selectedBook.getName());
-            menu.add(GROUP_ID, CONTEXT_MENU_REMOVING, 0, "Очистить закладки");
+            menu.add(GROUP_ID, CONTEXT_MENU_REMOVING, 0, "Удалить");
         }
 
         private void setOnLongClickListener(ItemClickListener listener){
