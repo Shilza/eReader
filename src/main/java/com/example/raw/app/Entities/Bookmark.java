@@ -26,4 +26,23 @@ public class Bookmark implements Serializable{
         return text;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Bookmark bookmark = (Bookmark) o;
+
+        if (page != bookmark.page) return false;
+        if (uploadDate != bookmark.uploadDate) return false;
+        return text != null ? text.equals(bookmark.text) : bookmark.text == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = page;
+        result = 31 * result + (int) (uploadDate ^ (uploadDate >>> 32));
+        result = 31 * result + (text != null ? text.hashCode() : 0);
+        return result;
+    }
 }

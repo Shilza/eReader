@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -35,7 +36,7 @@ public class BookmarksOfParticularBookActivity extends Activity{
         LinearLayoutManager llm = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(llm);
 
-        adapter = new BookmarkOfParticularBookAdapter(book.getBookmarks(), this);
+        adapter = new BookmarkOfParticularBookAdapter(bookmarks, this);
         recyclerView.setAdapter(adapter);
 
         createDialog();
@@ -62,7 +63,9 @@ public class BookmarksOfParticularBookActivity extends Activity{
     private boolean removingBookmarks() {
         if (bookmarks.size() > 0) {
             bookmarks.clear();
+            Log.d("Saas", ""+book.getBookmarks().size());
             FileWorker.getInstance().refreshingJSON(FileWorker.getInstance().getRecentBooks());
+            adapter.notifyDataSetChanged();
             return true;
         }
 
@@ -108,11 +111,17 @@ public class BookmarksOfParticularBookActivity extends Activity{
                     break;
                 }
 
+        ArrayList<Bookmark> bm = new ArrayList<>();
+
         for(Bookmark bookmark : book.getBookmarks())
-            for(Bookmark bookmark1 : bookmarks)
+            for(Bookmark bookmark1 : bookmarks){
                 if(bookmark.equals(bookmark1)){
-                    bookmark1 = bookmark;
+                    bm.add(bookmark);
                     break;
                 }
+            }
+
+        bookmarks.clear();
+        bookmarks.addAll(bm);
     }
 }

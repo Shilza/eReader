@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
-    android:layout_marginTop="8dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground">
@@ -29,7 +30,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
-            android:maxHeight="60dp"
+            android:maxLines="7"
+            android:scrollbars="vertical"
             android:paddingTop="5dp"
             android:paddingBottom="8dp"/>
         <TextView

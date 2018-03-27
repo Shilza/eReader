@@ -4,9 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.MenuItem;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -15,9 +14,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.raw.app.BookmarkOfParticularBookAdapter;
 import com.example.raw.app.BookmarksOfParticularBookActivity;
-import com.example.raw.app.BookmarksRVAdapter;
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Entities.Bookmark;
 import com.example.raw.app.Viewers.Dialogs.BookmarksDialog;
@@ -120,6 +117,29 @@ public class PDFViewer extends Activity
         }
     }
 
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event){
+        if(keyCode == KeyEvent.KEYCODE_VOLUME_UP){
+            pdfView.jumpTo(pdfView.getCurrentPage()-1, true);
+            return true;
+        }
+        else if(keyCode == KeyEvent.KEYCODE_VOLUME_DOWN){
+            pdfView.jumpTo(pdfView.getCurrentPage()+1, true);
+            return true;
+        }
+        else if(keyCode == KeyEvent.KEYCODE_BACK) {
+            onBackPressed();
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
     private void footerAnimation(boolean show){
         int value = show ? -footer.getHeight() : footer.getHeight() ;
         footer.animate().translationYBy(value).setDuration(200).setInterpolator(new AccelerateInterpolator()).start();
@@ -135,7 +155,7 @@ public class PDFViewer extends Activity
             case R.id.action_pdf_viewer_bookmarks:
                 Intent intent = new Intent(this, BookmarksOfParticularBookActivity.class);
                 intent.putExtra("filePath", book.getFilePath());
-                intent.putExtra("bookmarks", book.getBookmarks());
+                intent.putExtra("bookmarks", getBookmarks());
                 startActivity(intent);
                 break;
 
@@ -214,6 +234,20 @@ public class PDFViewer extends Activity
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
+    }
+
+
+    private ArrayList<Bookmark> getBookmarks(){
+        ArrayList<Bookmark> bookmarks = new ArrayList<>();
+
+        for(Bookmark bookmark : book.getBookmarks())
+            if(bookmark.getPage() == pdfView.getCurrentPage())
+                bookmarks.add(bookmark);
+
+        if(bookmarks.size() == 0)
+            bookmarks = book.getBookmarks();
+
+        return bookmarks;
     }
 
     private void setBook(){

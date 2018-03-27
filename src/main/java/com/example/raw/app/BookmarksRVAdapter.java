@@ -108,7 +108,7 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 View v2 = inflater.inflate(R.layout.bookmarks_alt_rv_item, viewGroup, false);
                 viewHolder = new BookmarksViewHolder1(v2);
                 rvBookmarkPreview = v2.findViewById(R.id.bookmarks_alt_recycler_view);
-                rvBookmarkPreview.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true));
+                rvBookmarkPreview.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
                 break;
         }
 
