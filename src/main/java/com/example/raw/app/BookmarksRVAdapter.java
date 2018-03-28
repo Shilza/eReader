@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.Pair;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -41,10 +40,11 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             this.books.add(new Pair<>(0, book));
 
         this.context = context;
-        initAlertDialog();
+        iniRemovingBookmarksDialog();
     }
 
     public class BookmarksViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener ,View.OnCreateContextMenuListener, View.OnClickListener{
+
         private TextView bookName;
         private TextView bookmarksCount;
         private ImageView bookCover;
@@ -120,13 +120,22 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return books.size();
     }
 
-    private void initAlertDialog(){
+    private void iniRemovingBookmarksDialog(){
         ad = new AlertDialog.Builder(context);
         ad.setTitle("Удалить");
         ad.setMessage("Действительно хотите удалить все закладки этой книги?");
         ad.setPositiveButton("Да", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int arg1) {
+                selectedBook.getBookmarks().clear();
 
+                for(Pair<Integer, Book> pair : books)
+                    if(pair.second.equals(selectedBook)){
+                        books.remove(pair);
+                        break;
+                    }
+
+                Toast.makeText(context, "Закладки удалены", Toast.LENGTH_SHORT).show();
+                notifyDataSetChanged();
             }
         });
         ad.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
@@ -206,24 +215,15 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return books.get(position).first == 0 ?  0 : 1;
     }
 
-    public class BookmarksViewHolder1 extends RecyclerView.ViewHolder implements View.OnLongClickListener ,View.OnCreateContextMenuListener, View.OnClickListener{
+    public class BookmarksViewHolder1 extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener{
 
         ItemClickListener itemClickListener;
 
         BookmarksViewHolder1(final View itemView) {
             super(itemView);
 
-            itemView.setOnCreateContextMenuListener(this);
             itemView.setOnLongClickListener(this);
             itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onCreateContextMenu(ContextMenu menu, View view,
-                                        ContextMenu.ContextMenuInfo menuInfo) {
-
-            menu.setHeaderTitle(selectedBook.getName());
-            menu.add(GROUP_ID, CONTEXT_MENU_REMOVING, 0, "Очистить закладки");
         }
 
         private void setOnLongClickListener(ItemClickListener listener){

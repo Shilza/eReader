@@ -3,6 +3,7 @@ package com.example.raw.app;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Entities.Bookmark;
+import com.example.raw.app.Utils.BookOpener;
+import com.example.raw.app.Viewers.PDFViewer;
 
 import java.util.ArrayList;
 
@@ -22,13 +25,11 @@ public class BookmarkPreviewRVAdapter extends RecyclerView.Adapter<BookmarkPrevi
     private Book book;
     private ArrayList<Bookmark> bookmarks;
     private Context context;
-    private AlertDialog.Builder ad;
 
     BookmarkPreviewRVAdapter(Book book, Context context){
         this.book = book;
         this.bookmarks = book.getBookmarks();
         this.context = context;
-        initAlertDialog();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener{
@@ -78,23 +79,6 @@ public class BookmarkPreviewRVAdapter extends RecyclerView.Adapter<BookmarkPrevi
         return bookmarks.size();
     }
 
-    private void initAlertDialog(){
-        ad = new AlertDialog.Builder(context);
-        ad.setTitle("Удалить");
-        ad.setMessage("Действительно хотите удалить эту закладку?");
-        ad.setPositiveButton("Да", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int arg1) {
-                Toast.makeText(context, "Вы сделали правильный выбор",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-        ad.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int arg1) {
-                Toast.makeText(context, "Возможно вы правы", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         int page = bookmarks.get(position).getPage()+1;
@@ -104,12 +88,8 @@ public class BookmarkPreviewRVAdapter extends RecyclerView.Adapter<BookmarkPrevi
         holder.setOnLongClickListener(new ItemClickListener() {
             @Override
             public void onItemViewClick(int pos, boolean isLongClick) {
-                if(!isLongClick){
-                    if(bookmarks.get(position).getText().equals(""))
-                        Toast.makeText(context, "Закладка пуста", Toast.LENGTH_SHORT).show();
-                    //else
-                        //TODO
-                }
+                ((BookmarksActivity) context).finish();
+                BookOpener.getInstance().opening(book, bookmarks.get(pos).getPage(), context);
             }
         });
     }

@@ -3,6 +3,7 @@ package com.example.raw.app;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -11,7 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Entities.Bookmark;
+import com.example.raw.app.Utils.BookOpener;
+import com.example.raw.app.Viewers.PDFViewer;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,6 +23,7 @@ import java.util.Locale;
 
 public class BookmarkOfParticularBookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
+    private Book book;
     private ArrayList<Bookmark> bookmarks;
     private Context context;
     private Bookmark selectedBookmark;
@@ -28,7 +33,8 @@ public class BookmarkOfParticularBookAdapter extends RecyclerView.Adapter<Recycl
     private final byte CONTEXT_MENU_REMOVING = 1;
     private final byte GROUP_ID = 4;
 
-    BookmarkOfParticularBookAdapter(ArrayList<Bookmark> bookmarks, Context context){
+    BookmarkOfParticularBookAdapter(Book book, ArrayList<Bookmark> bookmarks, Context context){
+        this.book = book;
         this.bookmarks = bookmarks;
         this.context = context;
         initAlertDialog();
@@ -128,11 +134,15 @@ public class BookmarkOfParticularBookAdapter extends RecyclerView.Adapter<Recycl
             public void onItemViewClick(int pos, boolean isLongClick) {
                 selectedBookmark = bookmarks.get(pos);
 
-                if (!isLongClick) {
-                   //TODO
-                }
+                if (!isLongClick)
+                    gotoPage(pos);
             }
         });
+    }
+
+    private void gotoPage(int position){
+        ((BookmarksOfParticularBookActivity) context).finish();
+        BookOpener.getInstance().opening(book, bookmarks.get(position).getPage(), context);
     }
 
     void getItemSelected(MenuItem item){
@@ -141,6 +151,7 @@ public class BookmarkOfParticularBookAdapter extends RecyclerView.Adapter<Recycl
 
         switch (item.getItemId()){
             case CONTEXT_MENU_GOTO:
+                gotoPage(selectedBookmark.getPage());
                 break;
 
             case CONTEXT_MENU_REMOVING:

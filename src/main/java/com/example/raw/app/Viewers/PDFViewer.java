@@ -4,14 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.raw.app.BookmarksOfParticularBookActivity;
@@ -43,8 +41,9 @@ public class PDFViewer extends Activity
     private boolean isHorizontalOrientation = false;
     private boolean isFullScreen = false;
     private boolean isExtraMenuHide = false;
-    private LinearLayout footer;
-    private LinearLayout header;
+    private View footer;
+    private View header;
+    private int startPage;
     private Book book;
 
     @Override
@@ -59,8 +58,7 @@ public class PDFViewer extends Activity
         ibBookmarks = findViewById(R.id.action_pdf_viewer_bookmarks);
         tvBookmarksCount = findViewById(R.id.action_pdf_viewer_bookmarks_count);
         pdfView = findViewById(R.id.pdfView);
-        TextView tvHeader = findViewById(R.id.pdf_viewer_tv_header);
-        tvHeader.setText(book.getName());
+        ((TextView)findViewById(R.id.pdf_viewer_tv_header)).setText(book.getName());
 
         pdfView.fromFile(new File(book.getFilePath()))
                 .onTap(this)
@@ -73,7 +71,10 @@ public class PDFViewer extends Activity
 
     @Override
     public void loadComplete(int pageCount){
-        pdfView.jumpTo((int)(pageCount*totalRead), true);
+        if(startPage == -1)
+            pdfView.jumpTo((int)(pageCount*totalRead), true);
+        else
+            pdfView.jumpTo(startPage, true);
     }
 
     @Override
@@ -97,9 +98,7 @@ public class PDFViewer extends Activity
     @Override
     public void onPageChanged(int curPage, int count){
         book.setTotalRead((float)curPage/(float)count);
-        book.setLastActivity(new Date().getTime());
-        FileWorker.getInstance().refreshingJSON(FileWorker.getInstance().getRecentBooks());
-        TabsKeeper.getInstance().notifyDataSetChanged();
+        refreshBooksData();
 
         int bookmarksCount = 0;
         for(Bookmark bookmark : book.getBookmarks())
@@ -115,6 +114,11 @@ public class PDFViewer extends Activity
             ibBookmarks.setImageResource(R.drawable.ic_bookmark_border_white_28dp);
             tvBookmarksCount.setVisibility(View.GONE);
         }
+    }
+
+    private void refreshBooksData(){
+        book.setLastActivity(new Date().getTime());
+        FileWorker.getInstance().refreshingJSON(FileWorker.getInstance().getRecentBooks());
     }
 
     @Override
@@ -137,6 +141,8 @@ public class PDFViewer extends Activity
 
     @Override
     public void onBackPressed() {
+        refreshBooksData();
+        TabsKeeper.getInstance().notifyDataSetChanged();
         finish();
     }
 
@@ -154,8 +160,8 @@ public class PDFViewer extends Activity
         switch (view.getId()){
             case R.id.action_pdf_viewer_bookmarks:
                 Intent intent = new Intent(this, BookmarksOfParticularBookActivity.class);
-                intent.putExtra("filePath", book.getFilePath());
-                intent.putExtra("bookmarks", getBookmarks());
+                intent.putExtra("FilePath", book.getFilePath());
+                intent.putExtra("Bookmarks", getBookmarks());
                 startActivity(intent);
                 break;
 
@@ -236,7 +242,6 @@ public class PDFViewer extends Activity
         }
     }
 
-
     private ArrayList<Bookmark> getBookmarks(){
         ArrayList<Bookmark> bookmarks = new ArrayList<>();
 
@@ -251,7 +256,9 @@ public class PDFViewer extends Activity
     }
 
     private void setBook(){
-        String filePath = String.valueOf(getIntent().getSerializableExtra("Book"));
+        String filePath = String.valueOf(getIntent().getSerializableExtra("FilePath"));
+        startPage = getIntent().getIntExtra("Page", -1);
+
         for(Book obj : FileWorker.getInstance().getRecentBooks())
             if(obj.getFilePath().equals(filePath)){
                 book = obj;

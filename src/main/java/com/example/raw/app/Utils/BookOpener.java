@@ -28,13 +28,21 @@ public class BookOpener {
     public void opening(Book book, Context context){
         if(book.getExtension() == Extensions.PDF){
             Intent intent = new Intent(context, PDFViewer.class);
-            intent.putExtra("Book", book.getFilePath());
+            intent.putExtra("FilePath", book.getFilePath());
             context.startActivity(intent);
         } else if(isSimpleText(book.getExtension())){
             Intent intent = new Intent(context, SimpleTextViewer.class);
             intent.putExtra("Text", book.getFilePath());
             context.startActivity(intent);
         }
+    }
 
+    public void opening(Book book, int page, Context context){
+        if(book.getExtension() == Extensions.PDF){
+            Intent intent = new Intent(context, PDFViewer.class);
+            intent.putExtra("FilePath", book.getFilePath());
+            intent.putExtra("Page", page);
+            context.startActivity(intent);
+        }
     }
 }

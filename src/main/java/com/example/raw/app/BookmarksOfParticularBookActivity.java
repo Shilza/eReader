@@ -2,8 +2,11 @@ package com.example.raw.app;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,6 +18,7 @@ import android.widget.Toast;
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Entities.Bookmark;
 import com.example.raw.app.Utils.FileWorker;
+import com.example.raw.app.Viewers.PDFViewer;
 
 import java.util.ArrayList;
 
@@ -36,7 +40,7 @@ public class BookmarksOfParticularBookActivity extends Activity{
         LinearLayoutManager llm = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(llm);
 
-        adapter = new BookmarkOfParticularBookAdapter(bookmarks, this);
+        adapter = new BookmarkOfParticularBookAdapter(book, bookmarks, this);
         recyclerView.setAdapter(adapter);
 
         createDialog();
@@ -63,7 +67,6 @@ public class BookmarksOfParticularBookActivity extends Activity{
     private boolean removingBookmarks() {
         if (bookmarks.size() > 0) {
             bookmarks.clear();
-            Log.d("Saas", ""+book.getBookmarks().size());
             FileWorker.getInstance().refreshingJSON(FileWorker.getInstance().getRecentBooks());
             adapter.notifyDataSetChanged();
             return true;
@@ -95,10 +98,9 @@ public class BookmarksOfParticularBookActivity extends Activity{
     }
 
     private void setData(){
+        bookmarks = (ArrayList<Bookmark>) getIntent().getSerializableExtra("Bookmarks");
+        String filePath = String.valueOf(getIntent().getSerializableExtra("FilePath"));
 
-        bookmarks = (ArrayList<Bookmark>) getIntent().getSerializableExtra("bookmarks");
-
-        String filePath = String.valueOf(getIntent().getSerializableExtra("filePath"));
         for(Book obj : FileWorker.getInstance().getRecentBooks())
             if(obj.getFilePath().equals(filePath)){
                 book = obj;

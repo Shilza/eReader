@@ -2,6 +2,7 @@ package com.example.raw.app.Viewers.Dialogs;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,12 +57,19 @@ public class GoToDialog extends DialogFragment {
         actionOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int value = Integer.parseInt(input.getText().toString())-1;
-                if(value <= pageCount){
-                    onInputListener.sendInput(value);
+                if (input.getText().length() != 0) {
+                    int value = Integer.parseInt(input.getText().toString()) - 1;
+
+                    if (value <= pageCount) {
+                        onInputListener.sendInput(value);
+                        dismiss();
+                    } else
+                        Toast.makeText(getActivity(), "Такой страницы не существует", Toast.LENGTH_SHORT).show();
+                }
+                else{
                     dismiss();
-                } else
-                    Toast.makeText(getActivity() , "Такой страницы не существует", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Вы не ввели страницу", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
