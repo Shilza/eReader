@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/e"
@@ -19,11 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ContextMenuProperties" />
+        <activity android:name=".Main.ContextMenuProperties" />
         <activity android:name=".Viewers.PDFViewer" />
         <activity android:name=".Viewers.SimpleTextViewer" />
         <activity android:name=".Main.Statistics" />
-        <activity android:name=".BookmarksActivity" />
+        <activity android:name=".Main.BookmarksActivity" />
         <activity android:name=".BookmarksOfParticularBookActivity"></activity>
     </application>
 

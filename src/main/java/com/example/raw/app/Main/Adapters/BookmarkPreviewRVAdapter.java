@@ -1,22 +1,18 @@
-package com.example.raw.app;
+package com.example.raw.app.Main.Adapters;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Entities.Bookmark;
+import com.example.raw.app.ItemClickListener;
+import com.example.raw.app.Main.BookmarksActivity;
+import com.example.raw.app.R;
 import com.example.raw.app.Utils.BookOpener;
-import com.example.raw.app.Viewers.PDFViewer;
 
 import java.util.ArrayList;
 
@@ -26,7 +22,7 @@ public class BookmarkPreviewRVAdapter extends RecyclerView.Adapter<BookmarkPrevi
     private ArrayList<Bookmark> bookmarks;
     private Context context;
 
-    BookmarkPreviewRVAdapter(Book book, Context context){
+    public BookmarkPreviewRVAdapter(Book book, Context context){
         this.book = book;
         this.bookmarks = book.getBookmarks();
         this.context = context;

@@ -3,7 +3,9 @@ package com.example.raw.app.Main.Adapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Environment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +23,7 @@ import com.example.raw.app.TabsKeeper;
 import com.example.raw.app.Utils.BookOpener;
 import com.example.raw.app.Utils.FileWorker;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewHolder> {
@@ -98,6 +101,8 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
         ad.setMessage("Действительно хотите удалить эту книгу?");
         ad.setPositiveButton("Да", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int arg1) {
+
+                //context.deleteFile(selectedBook.getName());
                 Toast.makeText(context, "Вы сделали правильный выбор",
                         Toast.LENGTH_SHORT).show();
             }

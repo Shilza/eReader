@@ -98,15 +98,6 @@
             android:background="?selectableItemBackground"
             android:src="@drawable/ic_content_copy_black_24dp"/>
         <ImageButton
-            android:id="@+id/txt_viewer_button_encoding"
-            android:onClick="txtViewerOnClick"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:background="?selectableItemBackground"
-            android:src="@drawable/ic_encoding_black_24dp"
-            />
-        <ImageButton
             android:id="@+id/txt_viewer_button_text_size"
             android:onClick="txtViewerOnClick"
             android:layout_height="match_parent"

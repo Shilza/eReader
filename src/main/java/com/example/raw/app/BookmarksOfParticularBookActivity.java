@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.raw.app.Entities.Book;
@@ -34,6 +35,9 @@ public class BookmarksOfParticularBookActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookmarks_of_particular_book);
         setData();
+
+        if(bookmarks.size() == 0)
+            ((TextView) findViewById(R.id.tv_count_particular)).setText("Закладок не найдено");
 
         RecyclerView recyclerView = findViewById(R.id.bookmarks_of_particular_book_recycler_view);
 
@@ -66,6 +70,7 @@ public class BookmarksOfParticularBookActivity extends Activity{
 
     private boolean removingBookmarks() {
         if (bookmarks.size() > 0) {
+            book.getBookmarks().removeAll(bookmarks);
             bookmarks.clear();
             FileWorker.getInstance().refreshingJSON(FileWorker.getInstance().getRecentBooks());
             adapter.notifyDataSetChanged();
@@ -106,24 +111,5 @@ public class BookmarksOfParticularBookActivity extends Activity{
                 book = obj;
                 break;
             }
-        if(book == null)
-            for(Book obj : FileWorker.getInstance().getLocalBooks())
-                if(obj.getFilePath().equals(filePath)){
-                    book = obj;
-                    break;
-                }
-
-        ArrayList<Bookmark> bm = new ArrayList<>();
-
-        for(Bookmark bookmark : book.getBookmarks())
-            for(Bookmark bookmark1 : bookmarks){
-                if(bookmark.equals(bookmark1)){
-                    bm.add(bookmark);
-                    break;
-                }
-            }
-
-        bookmarks.clear();
-        bookmarks.addAll(bm);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.raw.app;
+package com.example.raw.app.Main;
 
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.raw.app.Entities.Book;
+import com.example.raw.app.R;
 import com.example.raw.app.Utils.FileWorker;
 
 import java.io.File;

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -265,12 +266,5 @@ public class PDFViewer extends Activity
                 totalRead = book.getTotalRead();
                 break;
             }
-        if(book == null)
-            for(Book obj : FileWorker.getInstance().getLocalBooks())
-                if(obj.getFilePath().equals(filePath)){
-                    book = obj;
-                    totalRead = book.getTotalRead();
-                    break;
-                }
     }
 }

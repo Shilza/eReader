@@ -17,12 +17,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.raw.app.BookmarksActivity;
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Extensions;
 import com.example.raw.app.Main.Adapters.SearchRVAdapter;

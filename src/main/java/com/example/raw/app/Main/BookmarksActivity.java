@@ -1,4 +1,4 @@
-package com.example.raw.app;
+package com.example.raw.app.Main;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -12,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.raw.app.Entities.Book;
+import com.example.raw.app.Main.Adapters.BookmarksRVAdapter;
+import com.example.raw.app.R;
 import com.example.raw.app.Utils.FileWorker;
 
 import java.util.ArrayList;
@@ -66,8 +68,10 @@ public class BookmarksActivity extends Activity {
         ArrayList<Book> recentBooks = FileWorker.getInstance().getRecentBooks();
         for(Book book : recentBooks)
             book.getBookmarks().clear();
+        adapter.getBooks().clear();
 
         FileWorker.getInstance().refreshingJSON(recentBooks);
+        adapter.notifyDataSetChanged();
     }
 
     private void createDialog(){
@@ -78,7 +82,6 @@ public class BookmarksActivity extends Activity {
             public void onClick(DialogInterface dialog, int arg1) {
                 if(countOfBookmarks > 0){
                     removingBookmarks();
-                    adapter.notifyDataSetChanged();
                     Toast.makeText(getBaseContext(), "Закладки очищены",
                             Toast.LENGTH_SHORT).show();
                 }

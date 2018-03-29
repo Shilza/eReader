@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.raw.app.ContextMenuProperties;
+import com.example.raw.app.Main.ContextMenuProperties;
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.R;
 
@@ -35,11 +35,11 @@ public class LocalBooksRVAdapter extends RVAdapter{
             case CONTEXT_MENU_OPEN:
                 bookOpening();
                 break;
+
             case CONTEXT_MENU_DELETE:
-                //TODO
                 ad.show();
-                //FileWorker.refreshingLocalBooksJSON();
                 break;
+
             case CONTEXT_MENU_PROPERTIES:
                 Intent intent = new Intent(context, ContextMenuProperties.class);
                 intent.putExtra("Book", selectedBook);

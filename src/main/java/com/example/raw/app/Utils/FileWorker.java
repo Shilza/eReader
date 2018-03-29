@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.pdf.PdfRenderer;
 import android.os.Environment;
 import android.os.ParcelFileDescriptor;
+import android.util.Log;
 
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Extensions;
@@ -145,12 +146,9 @@ public class FileWorker{
     }
 
     public void localBooksSearching(){
-       localBooks.clear();
-
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())){
-            searchingFiles(Environment.getExternalStorageDirectory());
             for(File f : new File("/storage").listFiles())
-                if(f.getName().contains("sdcard1"))
+                if(f.getName().contains("sdcard"))
                     searchingFiles(f);
         }
 
@@ -158,7 +156,14 @@ public class FileWorker{
     }
 
     private void bookEntry(Book book){
-        if(!recentBooks.contains(book))
+        //FIX EQUALS IN BOOK AND REMAKE IT
+        boolean isContains = false;
+        for(Book book1 : recentBooks){
+            if(book1.getFilePath().equals(book.getFilePath()))
+                isContains = true;
+        }
+
+        if(!isContains && !localBooks.contains(book))
             localBooks.add(book);
     }
 

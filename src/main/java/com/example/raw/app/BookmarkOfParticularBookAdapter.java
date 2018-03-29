@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Entities.Bookmark;
 import com.example.raw.app.Utils.BookOpener;
+import com.example.raw.app.Utils.FileWorker;
 import com.example.raw.app.Viewers.PDFViewer;
 
 import java.text.SimpleDateFormat;
@@ -108,7 +110,9 @@ public class BookmarkOfParticularBookAdapter extends RecyclerView.Adapter<Recycl
         ad.setMessage("Действительно хотите удалить эту закладку");
         ad.setPositiveButton("Да", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int arg1) {
+                book.getBookmarks().remove(selectedBookmark);
                 bookmarks.remove(selectedBookmark);
+                FileWorker.getInstance().refreshingJSON(FileWorker.getInstance().getRecentBooks());
                 notifyDataSetChanged();
             }
         });

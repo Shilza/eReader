@@ -169,19 +169,6 @@ public class SimpleTextViewer extends Activity {
                 searchViewAnimation();
                 break;
 
-            case R.id.txt_viewer_button_encoding:
-                //TODO DIALOG
-                /*
-                    SortedMap<String, Charset> sa = Charset.availableCharsets();
-                    String[] saas = new String[sa.size()];
-                    int i =0;
-                    for(String str : sa.keySet()){
-                        saas[i] = str;
-                        i++;
-                    }
-                */
-                break;
-
             case R.id.txt_viewer_button_share:
                 bookSharing();
                 break;
@@ -294,15 +281,3 @@ public class SimpleTextViewer extends Activity {
         return stringBuilder.toString();
     }
 }
-
-
-                    /*
-            final BufferedReader br = new BufferedReader(
-                    new InputStreamReader(
-                            new FileInputStream(getRealPathFromURI(selectedFile)), "Cp1251"));
-            String nextString;
-            String finalString = "";
-            while ((nextString = br.readLine()) != null) {
-                finalString = finalString.concat(nextString);
-            }
-            */

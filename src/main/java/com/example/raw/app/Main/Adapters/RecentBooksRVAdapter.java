@@ -1,14 +1,17 @@
 package com.example.raw.app.Main.Adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import com.example.raw.app.ContextMenuProperties;
+import com.example.raw.app.Main.ContextMenuProperties;
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.R;
 import com.example.raw.app.TabsKeeper;
@@ -18,15 +21,17 @@ import java.util.ArrayList;
 
 public class RecentBooksRVAdapter extends RVAdapter{
 
+    private AlertDialog.Builder deleteFromListDialog;
+
     private final byte CONTEXT_MENU_OPEN = 0;
-    private final byte CONTEXT_MENU_FIX = 1;
-    private final byte CONTEXT_MENU_DELETE_FROM_LIST = 2;
-    private final byte CONTEXT_MENU_DELETE = 3;
-    private final byte CONTEXT_MENU_PROPERTIES = 4;
+    private final byte CONTEXT_MENU_DELETE_FROM_LIST = 1;
+    private final byte CONTEXT_MENU_DELETE = 2;
+    private final byte CONTEXT_MENU_PROPERTIES = 3;
     private final byte GROUP_ID = 1;
 
     public RecentBooksRVAdapter(ArrayList<Book> books, Context context){
         super(books, context);
+        initAlertDialog();
     }
 
     private void bookRemoving(Book book){
@@ -45,12 +50,8 @@ public class RecentBooksRVAdapter extends RVAdapter{
                 bookOpening();
                 break;
 
-            case CONTEXT_MENU_FIX:
-                //TODO
-                break;
-
             case CONTEXT_MENU_DELETE_FROM_LIST:
-                bookRemoving(selectedBook);
+                deleteFromListDialog.show();
                 break;
 
             case CONTEXT_MENU_DELETE:
@@ -67,6 +68,21 @@ public class RecentBooksRVAdapter extends RVAdapter{
         }
     }
 
+    private void initAlertDialog(){
+        deleteFromListDialog = new AlertDialog.Builder(context);
+        deleteFromListDialog.setTitle("Удалить из списка");
+        deleteFromListDialog.setMessage("Действительно хотите удалить эту книгу?\nСтатистика и закладки будут очищены");
+        deleteFromListDialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int arg1) {
+                bookRemoving(selectedBook);
+            }
+        });
+        deleteFromListDialog.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int arg1) {
+            }
+        });
+    }
+
     class RecentBooksViewHolder extends BookViewHolder{
 
         RecentBooksViewHolder(View view){
@@ -79,7 +95,6 @@ public class RecentBooksRVAdapter extends RVAdapter{
 
             menu.setHeaderTitle(selectedBook.getName());
             menu.add(GROUP_ID, CONTEXT_MENU_OPEN, 0, "Открыть");
-            menu.add(GROUP_ID, CONTEXT_MENU_FIX, 0, "Закрепить");
             menu.add(GROUP_ID, CONTEXT_MENU_DELETE_FROM_LIST, 0, "Удалить из списка");
             menu.add(GROUP_ID, CONTEXT_MENU_DELETE, 0, "Удалить");
             menu.add(GROUP_ID, CONTEXT_MENU_PROPERTIES, 0, "Свойства");

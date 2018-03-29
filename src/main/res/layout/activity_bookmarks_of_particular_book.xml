@@ -55,4 +55,11 @@
         >
     </android.support.v7.widget.RecyclerView>
 
+    <TextView
+        android:id="@+id/tv_count_particular"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_below="@id/bookmarks_activity_header_layout"/>
+
 </RelativeLayout>

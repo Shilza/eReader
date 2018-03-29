@@ -1,10 +1,12 @@
 package com.example.raw.app.Viewers.Dialogs;
 
 import android.app.DialogFragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -62,6 +64,9 @@ public class BookmarksDialog extends DialogFragment implements View.OnClickListe
                 actionAddText.setVisibility(View.GONE);
                 actionActOk.setVisibility(View.VISIBLE);
                 input.requestFocus();
+                InputMethodManager imm = (InputMethodManager)
+                        getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(input, InputMethodManager.SHOW_IMPLICIT);
                 break;
 
             case R.id.bookmarks_adding_action_ok:

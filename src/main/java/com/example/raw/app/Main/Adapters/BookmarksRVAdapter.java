@@ -1,4 +1,4 @@
-package com.example.raw.app;
+package com.example.raw.app.Main.Adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -18,8 +18,11 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.raw.app.Entities.Book;
+import com.example.raw.app.ItemClickListener;
+import com.example.raw.app.R;
 import com.example.raw.app.Utils.FileWorker;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
@@ -34,7 +37,7 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private final byte CONTEXT_MENU_REMOVING = 0;
     private final byte GROUP_ID = 3;
 
-    BookmarksRVAdapter(ArrayList<Book> books, Context context){
+    public BookmarksRVAdapter(ArrayList<Book> books, Context context){
         this.books = new ArrayList<>();
         for(Book book : books)
             this.books.add(new Pair<>(0, book));
@@ -145,6 +148,10 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         });
     }
 
+    public ArrayList<Pair<Integer, Book>> getBooks(){
+        return books;
+    }
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (holder.getItemViewType()){
@@ -199,7 +206,7 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
-    void getItemSelected(MenuItem item){
+    public void getItemSelected(MenuItem item){
         if(item.getGroupId() != GROUP_ID)
             return;
 

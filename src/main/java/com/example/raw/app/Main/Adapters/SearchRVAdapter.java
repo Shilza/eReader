@@ -11,7 +11,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.Toast;
 
-import com.example.raw.app.ContextMenuProperties;
+import com.example.raw.app.Main.ContextMenuProperties;
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.R;
 import com.example.raw.app.TabsKeeper;
