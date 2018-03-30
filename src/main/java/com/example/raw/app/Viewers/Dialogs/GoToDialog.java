@@ -2,7 +2,6 @@ package com.example.raw.app.Viewers.Dialogs;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,7 @@ import com.example.raw.app.R;
 
 public class GoToDialog extends DialogFragment {
 
-    public interface OnInputListener{
+    public interface OnInputListener {
         void sendInput(int value);
     }
 
@@ -25,15 +24,15 @@ public class GoToDialog extends DialogFragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.pdf_viewer_go_to_dialog, container, false);
-        Button actionOk = view.findViewById(R.id.pdf_view_dialog_goto_button);
+        View view = inflater.inflate(R.layout.dialog_goto_pdf_viewer, container, false);
+        Button actionOk = view.findViewById(R.id.acPDFViewerDialogGotoActionGo);
         getDialog().setTitle("Перейти к");
 
         onInputListener = (OnInputListener) getActivity();
 
-        input = view.findViewById(R.id.pdf_view_dialog_goto_input);
+        input = view.findViewById(R.id.acPDFViewerDialogGotoEditText);
 
-        SeekBar seekBar = view.findViewById(R.id.pdf_view_dialog_goto_seekBar);
+        SeekBar seekBar = view.findViewById(R.id.acPDFViewerDialogGotoSeekBar);
         pageCount = getArguments().getInt("maxPageCount");
         seekBar.setMax(pageCount);
         seekBar.setProgress(getArguments().getInt("currentPage") + 1);
@@ -65,8 +64,7 @@ public class GoToDialog extends DialogFragment {
                         dismiss();
                     } else
                         Toast.makeText(getActivity(), "Такой страницы не существует", Toast.LENGTH_SHORT).show();
-                }
-                else{
+                } else {
                     dismiss();
                     Toast.makeText(getActivity(), "Вы не ввели страницу", Toast.LENGTH_SHORT).show();
                 }

@@ -20,7 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Main.ContextMenuProperties" />
+        <activity android:name=".Main.PropertiesActivity" />
         <activity android:name=".Viewers.PDFViewer" />
         <activity android:name=".Viewers.SimpleTextViewer" />
         <activity android:name=".Main.Statistics" />

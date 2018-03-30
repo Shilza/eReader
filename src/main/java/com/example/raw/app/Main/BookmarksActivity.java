@@ -35,7 +35,7 @@ public class BookmarksActivity extends Activity {
 
         createDialog();
 
-        RecyclerView recyclerView = findViewById(R.id.bookmarks_recycler_view);
+        RecyclerView recyclerView = findViewById(R.id.acBookmarksRecyclerView);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(llm);
@@ -46,7 +46,7 @@ public class BookmarksActivity extends Activity {
                 books.add(book);
 
         if(books.size() == 0)
-            ((TextView) findViewById(R.id.tv_count)).setText("Закладок не найдено");
+            ((TextView) findViewById(R.id.acBookmarksTvCount)).setText("Закладок не найдено");
 
         adapter = new BookmarksRVAdapter(books, this);
         recyclerView.setAdapter(adapter);
@@ -54,11 +54,11 @@ public class BookmarksActivity extends Activity {
 
     public void bookmarksActivityOnClick(View view){
         switch (view.getId()){
-            case R.id.bookmarks_activity_action_back:
+            case R.id.acBookmarksActionBack:
                 finish();
                 break;
 
-            case R.id.bookmarks_activity_action_removing:
+            case R.id.acBookmarksActionRemoving:
                 ad.show();
                 break;
         }

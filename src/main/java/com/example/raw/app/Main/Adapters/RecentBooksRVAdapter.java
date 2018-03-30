@@ -4,14 +4,14 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.example.raw.app.Main.ContextMenuProperties;
+import com.example.raw.app.Main.PropertiesActivity;
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.R;
 import com.example.raw.app.TabsKeeper;
@@ -61,7 +61,7 @@ public class RecentBooksRVAdapter extends RVAdapter{
                 break;
 
             case CONTEXT_MENU_PROPERTIES:
-                Intent intent = new Intent(context, ContextMenuProperties.class);
+                Intent intent = new Intent(context, PropertiesActivity.class);
                 intent.putExtra("Book", selectedBook);
                 context.startActivity(intent);
                 break;
@@ -101,9 +101,10 @@ public class RecentBooksRVAdapter extends RVAdapter{
         }
     }
 
+    @NonNull
     @Override
     public RecentBooksViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_view_item, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adt_rv_main_tabs, viewGroup, false);
         return new RecentBooksViewHolder(view);
     }
 }

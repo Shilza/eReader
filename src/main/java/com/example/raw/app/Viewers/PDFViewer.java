@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class PDFViewer extends Activity
-        implements OnPageChangeListener,OnLoadCompleteListener, OnTapListener, GoToDialog.OnInputListener {
+        implements OnPageChangeListener, OnLoadCompleteListener, OnTapListener, GoToDialog.OnInputListener {
 
     private PDFView pdfView;
     private ImageButton ibScreenSize;
@@ -53,13 +52,13 @@ public class PDFViewer extends Activity
         setContentView(R.layout.activity_pdfviewer);
         setBook();
 
-        header = findViewById(R.id.pdf_viewer_header);
-        ibScreenSize = findViewById(R.id.action_pdf_viewer_screen_size);
-        footer = findViewById(R.id.pdf_view_footer);
-        ibBookmarks = findViewById(R.id.action_pdf_viewer_bookmarks);
-        tvBookmarksCount = findViewById(R.id.action_pdf_viewer_bookmarks_count);
+        header = findViewById(R.id.acPDFViewerHeader);
+        ibScreenSize = findViewById(R.id.acPDFViewerActionChangeScreenSize);
+        footer = findViewById(R.id.acPDFViewerFooter);
+        ibBookmarks = findViewById(R.id.acPDFViewerActionBookmarks);
+        tvBookmarksCount = findViewById(R.id.acPDFViewerTvBookmarksCount);
         pdfView = findViewById(R.id.pdfView);
-        ((TextView)findViewById(R.id.pdf_viewer_tv_header)).setText(book.getName());
+        ((TextView) findViewById(R.id.acPDFViewerTvHeader)).setText(book.getName());
 
         pdfView.fromFile(new File(book.getFilePath()))
                 .onTap(this)
@@ -71,68 +70,64 @@ public class PDFViewer extends Activity
     }
 
     @Override
-    public void loadComplete(int pageCount){
-        if(startPage == -1)
-            pdfView.jumpTo((int)(pageCount*totalRead), true);
+    public void loadComplete(int pageCount) {
+        if (startPage == -1)
+            pdfView.jumpTo((int) (pdfView.getPageCount() * totalRead), true);
         else
             pdfView.jumpTo(startPage, true);
     }
 
     @Override
-    public boolean onTap(MotionEvent e){
+    public boolean onTap(MotionEvent e) {
         animations();
         return true;
     }
 
     @Override
-    public void sendInput(int value){
+    public void sendInput(int value) {
         pdfView.jumpTo(value);
     }
 
-    private void animations(){
+    private void animations() {
         footerAnimation(isExtraMenuHide);
         tvHeaderAnimation(isExtraMenuHide);
         isExtraMenuHide = !isExtraMenuHide;
     }
 
-    //HARD METHOD
     @Override
-    public void onPageChanged(int curPage, int count){
-        book.setTotalRead((float)curPage/(float)count);
+    public void onPageChanged(int curPage, int count) {
+        book.setTotalRead((float) curPage / (float) count);
         refreshBooksData();
 
         int bookmarksCount = 0;
-        for(Bookmark bookmark : book.getBookmarks())
-            if(bookmark.getPage() == curPage)
+        for (Bookmark bookmark : book.getBookmarks())
+            if (bookmark.getPage() == curPage)
                 bookmarksCount++;
 
-        if(bookmarksCount > 0){
+        if (bookmarksCount > 0) {
             ibBookmarks.setImageResource(R.drawable.ic_bookmark_border_red_28dp);
             tvBookmarksCount.setText(String.valueOf(bookmarksCount));
             tvBookmarksCount.setVisibility(View.VISIBLE);
-        }
-        else{
+        } else {
             ibBookmarks.setImageResource(R.drawable.ic_bookmark_border_white_28dp);
             tvBookmarksCount.setVisibility(View.GONE);
         }
     }
 
-    private void refreshBooksData(){
+    private void refreshBooksData() {
         book.setLastActivity(new Date().getTime());
         FileWorker.getInstance().refreshingJSON(FileWorker.getInstance().getRecentBooks());
     }
 
     @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event){
-        if(keyCode == KeyEvent.KEYCODE_VOLUME_UP){
-            pdfView.jumpTo(pdfView.getCurrentPage()-1, true);
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
+            pdfView.jumpTo(pdfView.getCurrentPage() - 1, true);
             return true;
-        }
-        else if(keyCode == KeyEvent.KEYCODE_VOLUME_DOWN){
-            pdfView.jumpTo(pdfView.getCurrentPage()+1, true);
+        } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+            pdfView.jumpTo(pdfView.getCurrentPage() + 1, true);
             return true;
-        }
-        else if(keyCode == KeyEvent.KEYCODE_BACK) {
+        } else if (keyCode == KeyEvent.KEYCODE_BACK) {
             onBackPressed();
             return true;
         }
@@ -147,56 +142,56 @@ public class PDFViewer extends Activity
         finish();
     }
 
-    private void footerAnimation(boolean show){
-        int value = show ? -footer.getHeight() : footer.getHeight() ;
+    private void footerAnimation(boolean show) {
+        int value = show ? -footer.getHeight() : footer.getHeight();
         footer.animate().translationYBy(value).setDuration(200).setInterpolator(new AccelerateInterpolator()).start();
     }
 
-    private void tvHeaderAnimation(boolean show){
+    private void tvHeaderAnimation(boolean show) {
         int value = show ? header.getHeight() : -header.getHeight();
         header.animate().translationYBy(value).setDuration(200).setInterpolator(new AccelerateInterpolator()).start();
     }
 
-    public void pdfViewerOnClick(View view){
-        switch (view.getId()){
-            case R.id.action_pdf_viewer_bookmarks:
+    public void pdfViewerOnClick(View view) {
+        switch (view.getId()) {
+            case R.id.acPDFViewerActionBookmarks:
                 Intent intent = new Intent(this, BookmarksOfParticularBookActivity.class);
                 intent.putExtra("FilePath", book.getFilePath());
                 intent.putExtra("Bookmarks", getBookmarks());
                 startActivity(intent);
                 break;
 
-            case R.id.action_pdf_viewer_share:
+            case R.id.acPDFViewerActionShare:
                 bookSharing();
                 break;
 
-            case R.id.action_pdf_viewer_orientation:
+            case R.id.acPDFViewerActionChangeOrientation:
                 orientationChanging();
                 break;
 
-            case R.id.action_pdf_viewer_goto:
+            case R.id.acPDFViewerActionGoto:
                 createGoToDialog();
                 break;
 
-            case R.id.action_pdf_viewer_screen_size:
+            case R.id.acPDFViewerActionChangeScreenSize:
                 sizeChanging();
                 break;
 
-            case R.id.action_pdf_viewer_add_bookmarks:
+            case R.id.acPDFViewerActionAddBookmarks:
                 createBookmarksDialog();
                 break;
         }
     }
 
-    private void bookSharing(){
+    private void bookSharing() {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/*");
         intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + book.getFilePath()));
         startActivity(Intent.createChooser(intent, "Share with"));
     }
 
-    private void orientationChanging(){
-        isHorizontalOrientation =!isHorizontalOrientation;
+    private void orientationChanging() {
+        isHorizontalOrientation = !isHorizontalOrientation;
 
         animations();
         pdfView.recycle();
@@ -209,7 +204,7 @@ public class PDFViewer extends Activity
                 .load();
     }
 
-    private void createGoToDialog(){
+    private void createGoToDialog() {
         Bundle args = new Bundle();
         args.putInt("maxPageCount", pdfView.getPageCount());
         args.putInt("currentPage", pdfView.getCurrentPage());
@@ -218,7 +213,7 @@ public class PDFViewer extends Activity
         goToDialog.show(getFragmentManager(), "GoToDialog");
     }
 
-    private void createBookmarksDialog(){
+    private void createBookmarksDialog() {
         Bundle args = new Bundle();
         args.putInt("currentPage", pdfView.getCurrentPage());
         args.putSerializable("book", book);
@@ -227,41 +222,40 @@ public class PDFViewer extends Activity
         dialog.show(getFragmentManager(), "BookmarksDialog");
     }
 
-    private void sizeChanging(){
-        isFullScreen=!isFullScreen;
+    private void sizeChanging() {
+        isFullScreen = !isFullScreen;
 
         animations();
-        if(isFullScreen){
+        if (isFullScreen) {
             ibScreenSize.setImageResource(R.drawable.ic_fullscreen_exit_black_24dp);
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }
-        else{
+        } else {
             ibScreenSize.setImageResource(R.drawable.ic_fullscreen_black_24dp);
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
     }
 
-    private ArrayList<Bookmark> getBookmarks(){
+    private ArrayList<Bookmark> getBookmarks() {
         ArrayList<Bookmark> bookmarks = new ArrayList<>();
 
-        for(Bookmark bookmark : book.getBookmarks())
-            if(bookmark.getPage() == pdfView.getCurrentPage())
+        for (Bookmark bookmark : book.getBookmarks())
+            if (bookmark.getPage() == pdfView.getCurrentPage())
                 bookmarks.add(bookmark);
 
-        if(bookmarks.size() == 0)
+        if (bookmarks.size() == 0)
             bookmarks = book.getBookmarks();
 
         return bookmarks;
     }
 
-    private void setBook(){
+    private void setBook() {
         String filePath = String.valueOf(getIntent().getSerializableExtra("FilePath"));
         startPage = getIntent().getIntExtra("Page", -1);
 
-        for(Book obj : FileWorker.getInstance().getRecentBooks())
-            if(obj.getFilePath().equals(filePath)){
+        for (Book obj : FileWorker.getInstance().getRecentBooks())
+            if (obj.getFilePath().equals(filePath)) {
                 book = obj;
                 totalRead = book.getTotalRead();
                 break;

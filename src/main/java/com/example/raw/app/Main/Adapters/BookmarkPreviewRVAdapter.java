@@ -1,6 +1,7 @@
 package com.example.raw.app.Main.Adapters;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,7 @@ public class BookmarkPreviewRVAdapter extends RecyclerView.Adapter<BookmarkPrevi
     private ArrayList<Bookmark> bookmarks;
     private Context context;
 
-    public BookmarkPreviewRVAdapter(Book book, Context context){
+    BookmarkPreviewRVAdapter(Book book, Context context){
         this.book = book;
         this.bookmarks = book.getBookmarks();
         this.context = context;
@@ -36,8 +37,8 @@ public class BookmarkPreviewRVAdapter extends RecyclerView.Adapter<BookmarkPrevi
         ViewHolder(final View itemView) {
             super(itemView);
 
-            page = itemView.findViewById(R.id.bookmark_preview_page);
-            text = itemView.findViewById(R.id.bookmark_preview_text);
+            page = itemView.findViewById(R.id.acBookmarksPreviewPage);
+            text = itemView.findViewById(R.id.acBookmarksPreviewText);
 
             itemView.setOnLongClickListener(this);
             itemView.setOnClickListener(this);
@@ -60,13 +61,13 @@ public class BookmarkPreviewRVAdapter extends RecyclerView.Adapter<BookmarkPrevi
     }
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType){
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.bookmark_preview_rv_item, viewGroup, false);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType){
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adt_rv_bookmark_previev, viewGroup, false);
         return new ViewHolder(view);
     }
 
@@ -76,7 +77,7 @@ public class BookmarkPreviewRVAdapter extends RecyclerView.Adapter<BookmarkPrevi
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         int page = bookmarks.get(position).getPage()+1;
         holder.page.setText(String.valueOf(page));
         holder.text.setText(bookmarks.get(position).getText());

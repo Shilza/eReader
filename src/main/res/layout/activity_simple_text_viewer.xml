@@ -1,31 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout 
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:menu="@menu/menu_txt_viewer"
-    tools:context="com.example.raw.app.Viewers.SimpleTextViewer"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    tools:context="com.example.raw.app.Viewers.SimpleTextViewer">
 
     <TextView
-        android:id="@+id/txt_viewer_filename"
+        android:id="@+id/acSimpleTextViewerFilename"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/colorPrimary"
-        android:textSize="20sp"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:gravity="start|center"
-        android:textColor="@android:color/white"
-        android:maxLines="1"
         android:ellipsize="end"
+        android:gravity="start|center"
+        android:maxLines="1"
+        android:paddingEnd="15dp"
+        android:paddingStart="15dp"
         android:singleLine="true"
-        />
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
 
     <android.widget.SearchView
-        android:id="@+id/txt_viewer_search"
+        android:id="@+id/acSimpleTextViewerSearchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme" />
@@ -33,134 +31,132 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
-        >
-    <TextView
-        android:id="@+id/txt_viewer_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textIsSelectable="true"
-        android:textSize="10sp"
-        />
+        android:layout_marginTop="50dp">
+
+        <TextView
+            android:id="@+id/acSimpleTextViewerMainTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textIsSelectable="true"
+            android:textSize="10sp" />
 
     </ScrollView>
 
     <LinearLayout
-        android:id="@+id/txt_viewer_plus_minus"
+        android:id="@+id/acSimpleTextViewerTextSizeChangingLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerInParent="true">
 
         <ImageButton
-            android:id="@+id/txt_viewer_button_plus"
+            android:id="@+id/acSimpleTextViewerBtPlus"
             android:layout_width="40dp"
             android:layout_height="match_parent"
-            android:padding="5dp"
-            android:onClick="txtViewerOnClick"
             android:background="#DCDCDB"
-            android:src="@drawable/ic_add_box_black_24dp"/>
+            android:onClick="txtViewerOnClick"
+            android:padding="5dp"
+            android:src="@drawable/ic_add_box_black_24dp" />
+
         <ImageButton
-            android:id="@+id/txt_viewer_button_minus"
+            android:id="@+id/acSimpleTextViewerBtMinus"
             android:layout_width="40dp"
             android:layout_height="match_parent"
-            android:padding="5dp"
-            android:onClick="txtViewerOnClick"
             android:background="#DCDCDB"
-            android:src="@drawable/ic_indeterminate_check_box_black_24dp"/>
+            android:onClick="txtViewerOnClick"
+            android:padding="5dp"
+            android:src="@drawable/ic_indeterminate_check_box_black_24dp" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/txt_viewer_footer"
+        android:id="@+id/acSimpleTextViewerFooter"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:background="@color/colorStandardBackground"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/txt_viewer_button_share"
-            android:onClick="txtViewerOnClick"
-            android:layout_height="match_parent"
+            android:id="@+id/acSimpleTextViewerBtShare"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="?selectableItemBackground"
-            android:src="@drawable/ic_share_black_24dp"
-        />
+            android:onClick="txtViewerOnClick"
+            android:src="@drawable/ic_share_black_24dp" />
+
         <ImageButton
-            android:id="@+id/txt_viewer_button_text_copy"
-            android:onClick="txtViewerOnClick"
+            android:id="@+id/acSimpleTextViewerBtCopy"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="?selectableItemBackground"
-            android:src="@drawable/ic_content_copy_black_24dp"/>
+            android:onClick="txtViewerOnClick"
+            android:src="@drawable/ic_content_copy_black_24dp" />
+
         <ImageButton
-            android:id="@+id/txt_viewer_button_text_size"
-            android:onClick="txtViewerOnClick"
-            android:layout_height="match_parent"
+            android:id="@+id/acSimpleTextViewerBtTextSize"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="?selectableItemBackground"
-            android:src="@drawable/ic_text_fields_black_24dp"
-            />
+            android:onClick="txtViewerOnClick"
+            android:src="@drawable/ic_text_fields_black_24dp" />
+
         <ImageButton
-            android:id="@+id/txt_viewer_button_search"
-            android:onClick="txtViewerOnClick"
-            android:layout_height="match_parent"
+            android:id="@+id/acSimpleTextViewerBtSearch"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="?selectableItemBackground"
-            android:src="@drawable/ic_search_black_24dp"
-            />
+            android:onClick="txtViewerOnClick"
+            android:src="@drawable/ic_search_black_24dp" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/txt_viewer_search_panel"
+        android:id="@+id/acSimpleTextViewerSearchPanel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="100dp"
         android:background="#99E5E5E5"
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/txt_viewer_button_search_backward"
-            android:onClick="txtViewerSearchPanelOnClick"
-            android:layout_height="match_parent"
+            android:id="@+id/acSimpleTextViewerSearchBackward"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
-            android:padding="7dp"
-            android:state_pressed="true"
             android:background="?selectableItemBackground"
+            android:onClick="txtViewerSearchPanelOnClick"
+            android:padding="7dp"
             android:src="@drawable/ic_chevron_left_black_30dp"
-            />
+            android:state_pressed="true" />
+
         <ImageButton
-            android:id="@+id/txt_viewer_button_search_navigation"
-            android:onClick="txtViewerSearchPanelOnClick"
-            android:layout_height="match_parent"
+            android:id="@+id/acSimpleTextViewerSearchNavigation"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="7dp"
             android:background="?selectableItemBackground"
-            android:src="@drawable/ic_search_black_26dp"
-            />
-        <ImageButton
-            android:id="@+id/txt_viewer_button_search_forward"
             android:onClick="txtViewerSearchPanelOnClick"
-            android:layout_height="match_parent"
+            android:padding="7dp"
+            android:src="@drawable/ic_search_black_26dp" />
+
+        <ImageButton
+            android:id="@+id/acSimpleTextViewerSearchForward"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:padding="7dp"
             android:background="?selectableItemBackground"
-            android:src="@drawable/ic_chevron_right_black_30dp"
-            />
+            android:onClick="txtViewerSearchPanelOnClick"
+            android:padding="7dp"
+            android:src="@drawable/ic_chevron_right_black_30dp" />
 
     </LinearLayout>
 

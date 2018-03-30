@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -50,10 +51,10 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
         BookViewHolder(final View itemView) {
             super(itemView);
 
-            bookName = itemView.findViewById(R.id.book_name);
-            bookSize = itemView.findViewById(R.id.book_size);
-            bookLastActivity = itemView.findViewById(R.id.book_last_activity);
-            bookCover = itemView.findViewById(R.id.book_cover);
+            bookName = itemView.findViewById(R.id.acMainBookName);
+            bookSize = itemView.findViewById(R.id.acMainBookSize);
+            bookLastActivity = itemView.findViewById(R.id.acMainTabsLastActivity);
+            bookCover = itemView.findViewById(R.id.acMainTabsBookCover);
 
             itemView.setOnCreateContextMenuListener(this);
             itemView.setOnLongClickListener(this);
@@ -81,7 +82,7 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
     }
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
 
@@ -140,7 +141,7 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
     }
 
     @Override
-    public void onBindViewHolder(final BookViewHolder bookViewHolder, int position) {
+    public void onBindViewHolder(@NonNull final BookViewHolder bookViewHolder, int position) {
         bookViewHolder.bookName.setText(books.get(position).getName());
         bookViewHolder.bookSize.setText(books.get(position).getSize());
 

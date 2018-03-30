@@ -156,14 +156,7 @@ public class FileWorker{
     }
 
     private void bookEntry(Book book){
-        //FIX EQUALS IN BOOK AND REMAKE IT
-        boolean isContains = false;
-        for(Book book1 : recentBooks){
-            if(book1.getFilePath().equals(book.getFilePath()))
-                isContains = true;
-        }
-
-        if(!isContains && !localBooks.contains(book))
+        if(!recentBooks.contains(book) && !localBooks.contains(book))
             localBooks.add(book);
     }
 

@@ -3,6 +3,7 @@ package com.example.raw.app.Main.Adapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Pair;
@@ -22,7 +23,6 @@ import com.example.raw.app.ItemClickListener;
 import com.example.raw.app.R;
 import com.example.raw.app.Utils.FileWorker;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
@@ -46,7 +46,7 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         iniRemovingBookmarksDialog();
     }
 
-    public class BookmarksViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener ,View.OnCreateContextMenuListener, View.OnClickListener{
+    public class MainViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener ,View.OnCreateContextMenuListener, View.OnClickListener{
 
         private TextView bookName;
         private TextView bookmarksCount;
@@ -54,12 +54,12 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         ItemClickListener itemClickListener;
 
-        BookmarksViewHolder(final View itemView) {
+        MainViewHolder(final View itemView) {
             super(itemView);
 
-            bookName = itemView.findViewById(R.id.book_name);
-            bookCover = itemView.findViewById(R.id.book_cover);
-            bookmarksCount = itemView.findViewById(R.id.bookmarks_count);
+            bookName = itemView.findViewById(R.id.acBookmarksBookName);
+            bookCover = itemView.findViewById(R.id.acBookmarksBookCover);
+            bookmarksCount = itemView.findViewById(R.id.acBookmarksCount);
 
             itemView.setOnCreateContextMenuListener(this);
             itemView.setOnLongClickListener(this);
@@ -91,26 +91,27 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType){
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType){
 
         RecyclerView.ViewHolder viewHolder = null;
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
 
         switch (viewType) {
             case 0:
-                View v1 = inflater.inflate(R.layout.bookmarks_rv_item, viewGroup, false);
-                viewHolder = new BookmarksViewHolder(v1);
+                View v1 = inflater.inflate(R.layout.adt_rv_bookmarks, viewGroup, false);
+                viewHolder = new MainViewHolder(v1);
                 break;
 
             case 1:
-                View v2 = inflater.inflate(R.layout.bookmarks_alt_rv_item, viewGroup, false);
-                viewHolder = new BookmarksViewHolder1(v2);
-                rvBookmarkPreview = v2.findViewById(R.id.bookmarks_alt_recycler_view);
+                View v2 = inflater.inflate(R.layout.adt_rv_bookmarks_preview, viewGroup, false);
+                viewHolder = new ViewHolderExtended(v2);
+                rvBookmarkPreview = v2.findViewById(R.id.acBookmarksPreviewRecyclerView);
                 rvBookmarkPreview.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
                 break;
         }
@@ -153,21 +154,21 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         switch (holder.getItemViewType()){
 
             case 0:
-            BookmarksViewHolder bookmarksViewHolder = (BookmarksViewHolder) holder;
-            bookmarksViewHolder.bookName.setText(books.get(position).second.getName());
-            bookmarksViewHolder.bookmarksCount.setText("Количество закладок: " +
+            MainViewHolder mainViewHolder = (MainViewHolder) holder;
+            mainViewHolder.bookName.setText(books.get(position).second.getName());
+            mainViewHolder.bookmarksCount.setText("Количество закладок: " +
                     String.valueOf(books.get(position).second.getBookmarks().size()));
 
             Glide.with(context)
                     .load(FileWorker.getInstance().getPicturesPath() + books.get(position).second.getName()+".png")
                     .apply(new RequestOptions().fitCenter().placeholder(R.drawable.e))
-                    .into(bookmarksViewHolder.bookCover);
+                    .into(mainViewHolder.bookCover);
 
-            bookmarksViewHolder.setOnLongClickListener(new ItemClickListener() {
+            mainViewHolder.setOnLongClickListener(new ItemClickListener() {
                 @Override
                 public void onItemViewClick(int pos, boolean isLongClick) {
                     selectedBook = books.get(pos).second;
@@ -186,8 +187,8 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             break;
 
             case 1:
-                BookmarksViewHolder1 bookmarksViewHolder1 = (BookmarksViewHolder1) holder;
-                bookmarksViewHolder1.setOnLongClickListener(new ItemClickListener() {
+                ViewHolderExtended viewHolderExtended = (ViewHolderExtended) holder;
+                viewHolderExtended.setOnLongClickListener(new ItemClickListener() {
                     @Override
                     public void onItemViewClick(int pos, boolean isLongClick) {
                         selectedBook = books.get(pos).second;
@@ -222,11 +223,11 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return books.get(position).first == 0 ?  0 : 1;
     }
 
-    public class BookmarksViewHolder1 extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener{
+    public class ViewHolderExtended extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener{
 
         ItemClickListener itemClickListener;
 
-        BookmarksViewHolder1(final View itemView) {
+        ViewHolderExtended(final View itemView) {
             super(itemView);
 
             itemView.setOnLongClickListener(this);

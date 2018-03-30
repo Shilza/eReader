@@ -3,13 +3,14 @@ package com.example.raw.app.Main.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.raw.app.Main.ContextMenuProperties;
+import com.example.raw.app.Main.PropertiesActivity;
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.R;
 
@@ -41,7 +42,7 @@ public class LocalBooksRVAdapter extends RVAdapter{
                 break;
 
             case CONTEXT_MENU_PROPERTIES:
-                Intent intent = new Intent(context, ContextMenuProperties.class);
+                Intent intent = new Intent(context, PropertiesActivity.class);
                 intent.putExtra("Book", selectedBook);
                 context.startActivity(intent);
                 break;
@@ -67,7 +68,7 @@ public class LocalBooksRVAdapter extends RVAdapter{
 
     @Override
     public LocalBooksRVAdapter.LocalBooksViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_view_item, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adt_rv_main_tabs, viewGroup, false);
         return new LocalBooksRVAdapter.LocalBooksViewHolder(view);
     }
 }

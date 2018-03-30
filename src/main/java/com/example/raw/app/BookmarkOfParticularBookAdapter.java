@@ -3,9 +3,8 @@ package com.example.raw.app;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -17,13 +16,12 @@ import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Entities.Bookmark;
 import com.example.raw.app.Utils.BookOpener;
 import com.example.raw.app.Utils.FileWorker;
-import com.example.raw.app.Viewers.PDFViewer;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class BookmarkOfParticularBookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class BookmarkOfParticularBookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Book book;
     private ArrayList<Bookmark> bookmarks;
@@ -35,14 +33,14 @@ public class BookmarkOfParticularBookAdapter extends RecyclerView.Adapter<Recycl
     private final byte CONTEXT_MENU_REMOVING = 1;
     private final byte GROUP_ID = 4;
 
-    BookmarkOfParticularBookAdapter(Book book, ArrayList<Bookmark> bookmarks, Context context){
+    BookmarkOfParticularBookAdapter(Book book, ArrayList<Bookmark> bookmarks, Context context) {
         this.book = book;
         this.bookmarks = bookmarks;
         this.context = context;
         initAlertDialog();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener ,View.OnCreateContextMenuListener, View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnCreateContextMenuListener, View.OnClickListener {
 
         TextView tvPage;
         TextView tvText;
@@ -52,9 +50,9 @@ public class BookmarkOfParticularBookAdapter extends RecyclerView.Adapter<Recycl
         ViewHolder(final View itemView) {
             super(itemView);
 
-            tvPage = itemView.findViewById(R.id.bm_of_part_book_rv_item_page);
-            tvText = itemView.findViewById(R.id.bm_of_part_book_rv_item_text);
-            tvDate = itemView.findViewById(R.id.bm_of_part_book_rv_item_date);
+            tvPage = itemView.findViewById(R.id.acBmOfPartBookmarkPage);
+            tvText = itemView.findViewById(R.id.acBmOfPartBookmarkText);
+            tvDate = itemView.findViewById(R.id.acBmOfPartBookmarkDate);
 
             itemView.setOnCreateContextMenuListener(this);
             itemView.setOnLongClickListener(this);
@@ -69,32 +67,32 @@ public class BookmarkOfParticularBookAdapter extends RecyclerView.Adapter<Recycl
             menu.add(GROUP_ID, CONTEXT_MENU_REMOVING, 0, "Удалить закладку");
         }
 
-        private void setOnLongClickListener(ItemClickListener listener){
+        private void setOnLongClickListener(ItemClickListener listener) {
             this.itemClickListener = listener;
         }
 
         @Override
-        public void onClick(View view){
+        public void onClick(View view) {
             this.itemClickListener.onItemViewClick(getLayoutPosition(), false);
         }
 
         @Override
-        public boolean onLongClick(View view){
+        public boolean onLongClick(View view) {
             this.itemClickListener.onItemViewClick(getLayoutPosition(), true);
             return false;
         }
     }
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType){
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
 
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        View v1 = inflater.inflate(R.layout.bookmarks_particular_book_item, viewGroup, false);
+        View v1 = inflater.inflate(R.layout.adt_rv_bookmarks_particular_book, viewGroup, false);
 
         return (new BookmarkOfParticularBookAdapter.ViewHolder(v1));
     }
@@ -104,7 +102,7 @@ public class BookmarkOfParticularBookAdapter extends RecyclerView.Adapter<Recycl
         return bookmarks.size();
     }
 
-    private void initAlertDialog(){
+    private void initAlertDialog() {
         ad = new AlertDialog.Builder(context);
         ad.setTitle("Удалить");
         ad.setMessage("Действительно хотите удалить эту закладку");
@@ -123,10 +121,10 @@ public class BookmarkOfParticularBookAdapter extends RecyclerView.Adapter<Recycl
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
 
-        viewHolder.tvPage.setText("Страница " + String.valueOf(bookmarks.get(position).getPage()));
+        viewHolder.tvPage.setText("Страница " + String.valueOf(bookmarks.get(position).getPage() + 1));
         viewHolder.tvText.setText(bookmarks.get(position).getText());
 
         SimpleDateFormat sdf = new SimpleDateFormat("d MMMM yyyy", Locale.getDefault());
@@ -144,16 +142,16 @@ public class BookmarkOfParticularBookAdapter extends RecyclerView.Adapter<Recycl
         });
     }
 
-    private void gotoPage(int position){
+    private void gotoPage(int position) {
         ((BookmarksOfParticularBookActivity) context).finish();
         BookOpener.getInstance().opening(book, bookmarks.get(position).getPage(), context);
     }
 
-    void getItemSelected(MenuItem item){
-        if(item.getGroupId() != GROUP_ID)
+    void getItemSelected(MenuItem item) {
+        if (item.getGroupId() != GROUP_ID)
             return;
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case CONTEXT_MENU_GOTO:
                 gotoPage(selectedBookmark.getPage());
                 break;

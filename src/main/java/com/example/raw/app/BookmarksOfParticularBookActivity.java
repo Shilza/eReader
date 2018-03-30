@@ -23,7 +23,7 @@ import com.example.raw.app.Viewers.PDFViewer;
 
 import java.util.ArrayList;
 
-public class BookmarksOfParticularBookActivity extends Activity{
+public class BookmarksOfParticularBookActivity extends Activity {
 
     private AlertDialog.Builder ad;
     private ArrayList<Bookmark> bookmarks;
@@ -36,10 +36,10 @@ public class BookmarksOfParticularBookActivity extends Activity{
         setContentView(R.layout.activity_bookmarks_of_particular_book);
         setData();
 
-        if(bookmarks.size() == 0)
-            ((TextView) findViewById(R.id.tv_count_particular)).setText("Закладок не найдено");
+        if (bookmarks.size() == 0)
+            ((TextView) findViewById(R.id.acBmOfParticularBookTvCount)).setText("Закладок не найдено");
 
-        RecyclerView recyclerView = findViewById(R.id.bookmarks_of_particular_book_recycler_view);
+        RecyclerView recyclerView = findViewById(R.id.acBmOfParticularBookRecyclerView);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(llm);
@@ -51,18 +51,18 @@ public class BookmarksOfParticularBookActivity extends Activity{
     }
 
     @Override
-    public boolean onContextItemSelected(MenuItem item){
+    public boolean onContextItemSelected(MenuItem item) {
         adapter.getItemSelected(item);
-        return  super.onContextItemSelected(item);
+        return super.onContextItemSelected(item);
     }
 
-    public void bmPartBookActivityOnClick(View view){
-        switch (view.getId()){
-            case R.id.bm_of_part_book_act_back:
+    public void bmPartBookActivityOnClick(View view) {
+        switch (view.getId()) {
+            case R.id.acBmOfParticularBookActionBack:
                 finish();
                 break;
 
-            case R.id.bm_of_part_book_act_removing:
+            case R.id.acBmOfParticularBookActionRemoving:
                 ad.show();
                 break;
         }
@@ -77,7 +77,7 @@ public class BookmarksOfParticularBookActivity extends Activity{
             return true;
         }
 
-        return  false;
+        return false;
     }
 
     private void createDialog() {
@@ -86,13 +86,13 @@ public class BookmarksOfParticularBookActivity extends Activity{
         ad.setMessage("Действительно хотите очистить закладки?");
         ad.setPositiveButton("Да", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int arg1) {
-                if(removingBookmarks())
+                if (removingBookmarks())
                     Toast.makeText(getBaseContext(), "Закладки очищены",
                             Toast.LENGTH_SHORT).show();
                 else
                     Toast.makeText(getBaseContext(), "Закладок не найдено",
                             Toast.LENGTH_SHORT).show();
-                }
+            }
 
         });
         ad.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
@@ -102,12 +102,12 @@ public class BookmarksOfParticularBookActivity extends Activity{
         });
     }
 
-    private void setData(){
+    private void setData() {
         bookmarks = (ArrayList<Bookmark>) getIntent().getSerializableExtra("Bookmarks");
         String filePath = String.valueOf(getIntent().getSerializableExtra("FilePath"));
 
-        for(Book obj : FileWorker.getInstance().getRecentBooks())
-            if(obj.getFilePath().equals(filePath)){
+        for (Book obj : FileWorker.getInstance().getRecentBooks())
+            if (obj.getFilePath().equals(filePath)) {
                 book = obj;
                 break;
             }

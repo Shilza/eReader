@@ -48,43 +48,47 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        setSupportActionBar((Toolbar) findViewById(R.id.acMainToolbar));
         initDrawer();
         initTabs();
         initSearch();
     }
 
     private void initDrawer(){
-        DrawerLayout drawer = findViewById(R.id.drawer);
+        DrawerLayout drawer = findViewById(R.id.acMainDrawerLayout);
         toggle = new ActionBarDrawerToggle(this, drawer, R.string.open, R.string.close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ((NavigationView) findViewById(R.id.navigation_view)).setNavigationItemSelectedListener(
+        ((NavigationView) findViewById(R.id.acMainNavigationView)).setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch(item.getItemId()) {
-                    case R.id.action_open_book:
+                    case R.id.acMainActionOpenBook:
                         Intent intent = new Intent()
                                 .setType("*/*")
                                 .setAction(Intent.ACTION_GET_CONTENT);
 
                         startActivityForResult(Intent.createChooser(intent, "Выберите файл"), 1);
-
                         return true;
-                    case R.id.action_bookmarks:
+
+                    case R.id.acMainActionBookmarks:
                         startActivity(new Intent(getBaseContext(), BookmarksActivity.class));
                         return true;
-                    case R.id.action_statistics:
+
+                    case R.id.acMainActionStatistics:
                         startActivity(new Intent(getBaseContext(), Statistics.class));
                         return true;
-                    case R.id.action_settings:
+
+                    case R.id.acMainActionSettings:
                         return true;
-                    case R.id.action_like:
+
+                    case R.id.acMainActionLike:
                         return true;
-                    case R.id.action_exit:
+
+                    case R.id.acMainActionExit:
                         android.os.Process.killProcess(android.os.Process.myPid()); //REMAKE
                         return true;
                 }
@@ -173,16 +177,16 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void initTabs(){
-        tabLayout = findViewById(R.id.tabLayout);
+        tabLayout = findViewById(R.id.acMainTabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Последние"));
         tabLayout.addTab(tabLayout.newTab().setText("Локальные"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        viewPager = findViewById(R.id.pager);
+        viewPager = findViewById(R.id.acMainPager);
         TabPagerAdapter pagerAdapter = new TabPagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
-        viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
@@ -199,11 +203,8 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void initSearch(){
-        ArrayList<Book> list = new ArrayList<>(FileWorker.getInstance().getRecentBooks());
-        list.addAll(FileWorker.getInstance().getLocalBooks());
-
-        searchRVAdapter = new SearchRVAdapter(list, this);
-        searchRecyclerView = findViewById(R.id.search_recycler_view);
+        searchRVAdapter = new SearchRVAdapter(this);
+        searchRecyclerView = findViewById(R.id.acMainSearchRecyclerView);
         searchRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         searchRecyclerView.setLayoutManager(layoutManager);

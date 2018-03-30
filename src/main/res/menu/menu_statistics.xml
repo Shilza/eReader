@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/acStatisticsActionByBooks"
+        android:title="Статистика по книгам" />
+
+    <item
+        android:id="@+id/acStatisticsActionRemove"
+        android:title="Очистить статистику" />
+
+</menu>

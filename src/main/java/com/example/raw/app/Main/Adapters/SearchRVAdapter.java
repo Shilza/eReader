@@ -2,6 +2,7 @@ package com.example.raw.app.Main.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -11,7 +12,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.Toast;
 
-import com.example.raw.app.Main.ContextMenuProperties;
+import com.example.raw.app.Main.PropertiesActivity;
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.R;
 import com.example.raw.app.TabsKeeper;
@@ -22,15 +23,13 @@ import java.util.ArrayList;
 
 public class SearchRVAdapter extends RVAdapter implements Filterable {
 
-    private ArrayList<Book> allBooks;
     private final byte CONTEXT_MENU_OPEN = 0;
     private final byte CONTEXT_MENU_DELETE = 1;
     private final byte CONTEXT_MENU_PROPERTIES = 2;
     private final byte GROUP_ID = 2;
 
-    public SearchRVAdapter(ArrayList<Book> allBooks, Context context) {
+    public SearchRVAdapter(Context context) {
         super(new ArrayList<Book>(), context);
-        this.allBooks = allBooks;
     }
 
     @Override
@@ -42,32 +41,17 @@ public class SearchRVAdapter extends RVAdapter implements Filterable {
             case CONTEXT_MENU_OPEN:
                 bookOpening();
                 break;
+
             case CONTEXT_MENU_DELETE:
                 //TODO
                 ad.show();
                 break;
+
             case CONTEXT_MENU_PROPERTIES:
-                Intent intent = new Intent(context, ContextMenuProperties.class);
+                Intent intent = new Intent(context, PropertiesActivity.class);
                 intent.putExtra("Book", selectedBook);
                 context.startActivity(intent);
                 break;
-        }
-    }
-
-    void bookOpening(){
-        if(FileWorker.getInstance().isBookExist(selectedBook.getFilePath()))
-            BookOpener.getInstance().opening(selectedBook, context);
-        else{
-            Toast.makeText(context, "Невозможно открыть, возможно книга была удалена", Toast.LENGTH_SHORT).show();
-            books.remove(selectedBook);
-
-            if(FileWorker.getInstance().getRecentBooks().contains(selectedBook))
-                FileWorker.getInstance().getRecentBooks().remove(selectedBook);
-            else if(FileWorker.getInstance().getLocalBooks().contains(selectedBook))
-                FileWorker.getInstance().getLocalBooks().remove(selectedBook);
-
-            notifyDataSetChanged();
-            TabsKeeper.getInstance().notifyDataSetChanged();
         }
     }
 
@@ -85,7 +69,11 @@ public class SearchRVAdapter extends RVAdapter implements Filterable {
 
                     ArrayList<Book> tempFilteredList = new ArrayList<>();
 
-                    for (Book obj : allBooks)
+                    for (Book obj : FileWorker.getInstance().getRecentBooks())
+                        if (obj.getName().toLowerCase().contains(parsedString))
+                            tempFilteredList.add(obj);
+
+                    for (Book obj : FileWorker.getInstance().getLocalBooks())
                         if (obj.getName().toLowerCase().contains(parsedString))
                             tempFilteredList.add(obj);
 
@@ -122,8 +110,8 @@ public class SearchRVAdapter extends RVAdapter implements Filterable {
     }
 
     @Override
-    public SearchRVAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_view_item, viewGroup, false);
+    public SearchRVAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adt_rv_main_tabs, viewGroup, false);
         return new SearchRVAdapter.ViewHolder(view);
     }
 }

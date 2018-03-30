@@ -29,7 +29,7 @@ public class Statistics extends Activity {
     }
 
     private void initUI(){
-        TableLayout table = findViewById(R.id.statistics_table_layout);
+        TableLayout table = findViewById(R.id.acStatisticsTableLayout);
 
         String[] list = new String[4];
         list[0] = "Часов чтения";
@@ -57,8 +57,8 @@ public class Statistics extends Activity {
 
                     }
                 });
-                ((TextView)cardView.findViewById(R.id.statistics_count)).setText(list1[a]);
-                ((TextView)cardView.findViewById(R.id.statistics_description)).setText(list[a]);
+                ((TextView)cardView.findViewById(R.id.acStatisticsItemCount)).setText(list1[a]);
+                ((TextView)cardView.findViewById(R.id.acStatisticsItemDescription)).setText(list[a]);
                 row.addView(cardView, j);
                 a++;
             }
@@ -71,8 +71,8 @@ public class Statistics extends Activity {
 
         for(int j = 0; j<2; j++){
             View cardView = LayoutInflater.from(this).inflate(R.layout.statistics_item, row, false);
-            ((TextView)cardView.findViewById(R.id.statistics_count)).setText("1");
-            ((TextView)cardView.findViewById(R.id.statistics_description)).setText("Sas-sas");
+            ((TextView)cardView.findViewById(R.id.acStatisticsItemCount)).setText("1");
+            ((TextView)cardView.findViewById(R.id.acStatisticsItemDescription)).setText("Sas-sas");
             row.addView(cardView, j);
             a++;
         }
@@ -83,27 +83,28 @@ public class Statistics extends Activity {
     public void statisticsOnClick(View view){
         switch (view.getId()){
 
-            case R.id.statistic_action_back:
+            case R.id.acStatisticsActionBack:
                 finish();
                 break;
 
-            case R.id.statistic_action_settings:
+            case R.id.acStatisticsSettings:
                 actionSettings();
                 break;
         }
     }
 
     private void actionSettings(){
-        PopupMenu popup = new PopupMenu(this, findViewById(R.id.statistic_action_settings));
-        popup.getMenuInflater().inflate(R.menu.statistics_menu, popup.getMenu());
+        PopupMenu popup = new PopupMenu(this, findViewById(R.id.acStatisticsSettings));
+        popup.getMenuInflater().inflate(R.menu.menu_statistics, popup.getMenu());
 
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.statistics_menu_clear:
+                    case R.id.acStatisticsActionRemove:
                         ad.show();
                         break;
-                    case R.id.statistics_menu_books:
+
+                    case R.id.acStatisticsActionByBooks:
                         //TODO
                         break;
                 }

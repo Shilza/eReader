@@ -25,11 +25,11 @@ public class TabLocalBooks extends Tab implements SwipeRefreshLayout.OnRefreshLi
 
         View view = inflater.inflate(R.layout.tab_local_books, null);
 
-        swipeRefreshLayout = view.findViewById(R.id.swipe_container);
+        swipeRefreshLayout = view.findViewById(R.id.acMainTabLocalBooksSwipeLayout);
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        RecyclerView recyclerView = view.findViewById(R.id.local_books_recycler_view);
-        tvLocation = view.findViewById(R.id.local_books_text);
+        RecyclerView recyclerView = view.findViewById(R.id.acMainTabLocalBooksRecyclerView);
+        tvLocation = view.findViewById(R.id.acMainTabLocalBooksLocation);
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(llm);

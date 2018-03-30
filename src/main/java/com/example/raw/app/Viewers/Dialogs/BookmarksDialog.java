@@ -19,7 +19,7 @@ import com.example.raw.app.R;
 
 import java.util.Date;
 
-public class BookmarksDialog extends DialogFragment implements View.OnClickListener{
+public class BookmarksDialog extends DialogFragment implements View.OnClickListener {
 
     private int currentPage;
     private Book book;
@@ -30,20 +30,20 @@ public class BookmarksDialog extends DialogFragment implements View.OnClickListe
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.bookmarks_adding_dialog, container, false);
+        View view = inflater.inflate(R.layout.dialog_adding_bookmarks, container, false);
         getDialog().setTitle("Добавить закладку");
 
-        actionOk = view.findViewById(R.id.bookmarks_adding_action_ok);
-        actionActOk = view.findViewById(R.id.bookmarks_adding_action_alt_ok);
+        actionOk = view.findViewById(R.id.dialogBookmarksAddingActionOk);
+        actionActOk = view.findViewById(R.id.dialogBookmarksAddingActionAltOk);
         actionActOk.setVisibility(View.GONE);
-        actionAddText = view.findViewById(R.id.bookmarks_adding_action_add_text);
-        input = view.findViewById(R.id.bookmarks_adding_et_text);
+        actionAddText = view.findViewById(R.id.dialogBookmarksAddingActionAddText);
+        input = view.findViewById(R.id.dialogBookmarksAddingEditText);
         input.setVisibility(View.GONE);
-        currentPage = getArguments().getInt("currentPage") + 1;
-        ((TextView) view.findViewById(R.id.bookmarks_adding_tv_pages)).setText("Страница " + currentPage);
+        currentPage = getArguments().getInt("currentPage");
+        ((TextView) view.findViewById(R.id.dialogBookmarksAddingTvPage)).setText("Страница " + (currentPage + 1));
 
-        for(Book obj : FileWorker.getInstance().getRecentBooks())
-            if(obj.equals((getArguments().getSerializable("book")))){
+        for (Book obj : FileWorker.getInstance().getRecentBooks())
+            if (obj.equals((getArguments().getSerializable("book")))) {
                 book = obj;
                 break;
             }
@@ -56,9 +56,9 @@ public class BookmarksDialog extends DialogFragment implements View.OnClickListe
     }
 
     @Override
-    public void onClick(View view){
-        switch (view.getId()){
-            case R.id.bookmarks_adding_action_add_text:
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.dialogBookmarksAddingActionAddText:
                 input.setVisibility(View.VISIBLE);
                 actionOk.setVisibility(View.GONE);
                 actionAddText.setVisibility(View.GONE);
@@ -69,32 +69,32 @@ public class BookmarksDialog extends DialogFragment implements View.OnClickListe
                 imm.showSoftInput(input, InputMethodManager.SHOW_IMPLICIT);
                 break;
 
-            case R.id.bookmarks_adding_action_ok:
+            case R.id.dialogBookmarksAddingActionOk:
                 onActionClick();
                 break;
 
-            case R.id.bookmarks_adding_action_alt_ok:
+            case R.id.dialogBookmarksAddingActionAltOk:
                 onActionClick();
                 break;
         }
     }
 
-    private void onActionClick(){
+    private void onActionClick() {
         boolean isContainsBookmark = false;
 
-        for(Bookmark bookmark : book.getBookmarks())
-            if(bookmark.getPage() == currentPage &&
-                    bookmark.getText().equals(input.getText().toString())){
+        for (Bookmark bookmark : book.getBookmarks())
+            if (bookmark.getPage() == currentPage &&
+                    bookmark.getText().equals(input.getText().toString())) {
                 isContainsBookmark = true;
                 break;
             }
 
-        if(!isContainsBookmark){
+        if (!isContainsBookmark) {
             book.addBookmark(new Bookmark(currentPage, new Date().getTime(), input.getText().toString()));
-            Toast.makeText(getActivity() , "Закладка добавлена", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Закладка добавлена", Toast.LENGTH_SHORT).show();
             FileWorker.getInstance().refreshingJSON(FileWorker.getInstance().getRecentBooks());
         } else
-            Toast.makeText(getActivity() , "Закладка уже существует", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Закладка уже существует", Toast.LENGTH_SHORT).show();
 
         dismiss();
     }

@@ -4,9 +4,8 @@
 
     <item
         android:id="@+id/action_txt_viewer_search"
-        android:title="Поиск"
         android:icon="@android:drawable/ic_menu_search"
-        app:showAsAction="always|collapseActionView"
+        android:title="Поиск"
         app:actionViewClass="android.support.v7.widget.SearchView"
-        />
+        app:showAsAction="always|collapseActionView" />
 </menu>

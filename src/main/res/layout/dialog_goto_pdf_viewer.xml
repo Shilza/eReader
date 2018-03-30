@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:layout_marginLeft="15dp"
-    android:layout_marginRight="15dp">
+    android:layout_marginRight="15dp"
+    tools:context="com.example.raw.app.Viewers.PDFViewer">
 
     <EditText
-        android:id="@+id/pdf_view_dialog_goto_input"
+        android:id="@+id/acPDFViewerDialogGotoEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -17,16 +19,16 @@
         android:textAlignment="center" />
 
     <SeekBar
-        android:id="@+id/pdf_view_dialog_goto_seekBar"
+        android:id="@+id/acPDFViewerDialogGotoSeekBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/pdf_view_dialog_goto_input" />
+        android:layout_below="@id/acPDFViewerDialogGotoEditText" />
 
     <Button
-        android:id="@+id/pdf_view_dialog_goto_button"
+        android:id="@+id/acPDFViewerDialogGotoActionGo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/pdf_view_dialog_goto_seekBar"
+        android:layout_below="@id/acPDFViewerDialogGotoSeekBar"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/transparent"

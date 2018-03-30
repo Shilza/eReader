@@ -22,8 +22,8 @@ public class TabRecentBooks extends Tab {
 
         View view = inflater.inflate(R.layout.tab_recent_books, null);
 
-        RecyclerView recyclerView = view.findViewById(R.id.recent_books_recycler_view);
-        tvLocation = view.findViewById(R.id.recent_books_text);
+        RecyclerView recyclerView = view.findViewById(R.id.acMainTabRecentBooksRecyclerView);
+        tvLocation = view.findViewById(R.id.acMainTabRecentBooksLocation);
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(llm);

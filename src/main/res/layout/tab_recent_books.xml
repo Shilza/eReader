@@ -1,21 +1,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context="com.example.raw.app.Main.MainActivity">
 
     <TextView
+        android:id="@+id/acMainTabRecentBooksLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:id="@+id/recent_books_text"
-        />
+        android:layout_centerInParent="true" />
 
     <android.support.v7.widget.RecyclerView
-        android:layout_height="match_parent"
+        android:id="@+id/acMainTabRecentBooksRecyclerView"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="4dp"
-        android:scrollbars="vertical"
-        android:id="@+id/recent_books_recycler_view"
-        >
+        android:scrollbars="vertical">
+
     </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>

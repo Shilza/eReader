@@ -4,35 +4,31 @@
     tools:context=".Main.MainActivity">
 
     <item
-        android:id="@+id/action_open_book"
-        android:title="Открыть"
+        android:id="@+id/acMainActionOpenBook"
         android:icon="@drawable/ic_folder_black"
-        />
+        android:title="Открыть" />
 
     <item
-        android:id="@+id/action_bookmarks"
-        android:title="Закладки"
-        android:icon="@drawable/ic_bookmark_black"/>
+        android:id="@+id/acMainActionBookmarks"
+        android:icon="@drawable/ic_bookmark_black"
+        android:title="Закладки" />
 
     <item
-        android:id="@+id/action_statistics"
-        android:title="Статистика"
+        android:id="@+id/acMainActionStatistics"
         android:icon="@drawable/ic_statistics_black"
-        />
+        android:title="Статистика" />
     <item
-        android:id="@+id/action_settings"
-        android:title="Настройки"
-        android:icon="@drawable/ic_settings_black"/>
+        android:id="@+id/acMainActionSettings"
+        android:icon="@drawable/ic_settings_black"
+        android:title="Настройки" />
 
     <item
-        android:id="@+id/action_like"
-        android:title="Оценить приложение"
-        android:icon="@drawable/ic_like_black"/>
-
-    <!-- Язык -->
+        android:id="@+id/acMainActionLike"
+        android:icon="@drawable/ic_like_black"
+        android:title="Оценить приложение" />
 
     <item
-        android:id="@+id/action_exit"
-        android:title="Выход"
-        android:icon="@drawable/ic_exit_black"/>
+        android:id="@+id/acMainActionExit"
+        android:icon="@drawable/ic_exit_black"
+        android:title="Выход" />
 </menu>

@@ -6,14 +6,14 @@
     tools:context="com.example.raw.app.Main.BookmarksActivity">
 
     <RelativeLayout
-        android:id="@+id/bookmarks_activity_header_layout"
+        android:id="@+id/acBookmarksHeaderLayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/colorPrimary"
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/bookmarks_activity_action_back"
+            android:id="@+id/acBookmarksActionBack"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
@@ -23,10 +23,10 @@
             android:src="@drawable/ic_arrow_back_white_24dp" />
 
         <TextView
-            android:id="@+id/bookmarks_activity_title"
+            android:id="@+id/acBookmarksTitle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignStart="@id/bookmarks_activity_action_back"
+            android:layout_alignStart="@id/acBookmarksActionBack"
             android:layout_marginStart="20dp"
             android:gravity="start|center"
             android:paddingEnd="15dp"
@@ -36,7 +36,7 @@
             android:textSize="20sp" />
 
         <ImageButton
-            android:id="@+id/bookmarks_activity_action_removing"
+            android:id="@+id/acBookmarksActionRemoving"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
@@ -48,20 +48,18 @@
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/bookmarks_recycler_view"
-        android:layout_height="match_parent"
+        android:id="@+id/acBookmarksRecyclerView"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/acBookmarksHeaderLayout"
         android:layout_marginTop="4dp"
-        android:layout_below="@id/bookmarks_activity_header_layout"
-        android:scrollbars="vertical"
-        >
-    </android.support.v7.widget.RecyclerView>
+        android:scrollbars="vertical"></android.support.v7.widget.RecyclerView>
 
     <TextView
-        android:id="@+id/tv_count"
+        android:id="@+id/acBookmarksTvCount"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:layout_below="@id/bookmarks_activity_header_layout"/>
+        android:layout_below="@id/acBookmarksHeaderLayout"
+        android:gravity="center" />
 
 </RelativeLayout>

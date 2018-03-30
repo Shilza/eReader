@@ -1,8 +1,6 @@
 package com.example.raw.app.Main;
 
 import android.app.Activity;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,16 +11,15 @@ import com.example.raw.app.Entities.Book;
 import com.example.raw.app.R;
 import com.example.raw.app.Utils.FileWorker;
 
-import java.io.File;
 import java.text.DecimalFormat;
 
 
-public class ContextMenuProperties extends Activity{
+public class PropertiesActivity extends Activity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_context_menu_properties);
+        setContentView(R.layout.activity_properties);
 
         Book book = (Book)getIntent().getSerializableExtra("Book");
         String totalRead;
@@ -32,17 +29,17 @@ public class ContextMenuProperties extends Activity{
         } else
             totalRead = "0%";
 
-        ImageView cover =  findViewById(R.id.properties_book_cover);
+        ImageView cover =  findViewById(R.id.acPropertiesBookCover);
         Glide.with(this)
                 .load(FileWorker.getInstance().getPicturesPath() + book.getName()+".png")
                 .apply(new RequestOptions().fitCenter().placeholder(R.drawable.e))
                 .into(cover);
 
-        ((TextView) findViewById(R.id.properties_book_name)).setText(book.getName());
-        ((TextView) findViewById(R.id.properties_total_read)).setText(totalRead);
-        ((TextView) findViewById(R.id.properties_last_activity)).setText(book.getLastActivity());
-        ((TextView) findViewById(R.id.properties_book_size)).setText(book.getSize());
-        ((TextView) findViewById(R.id.properties_file_path)).setText(book.getFilePath());
+        ((TextView) findViewById(R.id.acPropertiesBookName)).setText(book.getName());
+        ((TextView) findViewById(R.id.acPropertiesTotalRead)).setText(totalRead);
+        ((TextView) findViewById(R.id.acPropertiesLastActivity)).setText(book.getLastActivity());
+        ((TextView) findViewById(R.id.acPropertiesBookSize)).setText(book.getSize());
+        ((TextView) findViewById(R.id.acPropertiesFilePath)).setText(book.getFilePath());
 
         /*
         tvFilePath.setOnClickListener(new View.OnClickListener() {
