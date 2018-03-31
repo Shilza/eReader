@@ -3,7 +3,6 @@ package com.example.raw.app.Main.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -16,23 +15,23 @@ import com.example.raw.app.R;
 
 import java.util.ArrayList;
 
-public class LocalBooksRVAdapter extends RVAdapter{
+public class LocalBooksRVAdapter extends RVAdapter {
 
     private final byte CONTEXT_MENU_OPEN = 0;
     private final byte CONTEXT_MENU_DELETE = 1;
     private final byte CONTEXT_MENU_PROPERTIES = 2;
     private final byte GROUP_ID = 0;
 
-    public LocalBooksRVAdapter(ArrayList<Book> books, Context context){
+    public LocalBooksRVAdapter(ArrayList<Book> books, Context context) {
         super(books, context);
     }
 
     @Override
-    public void getItemSelected(MenuItem item){
-        if(item.getGroupId() != GROUP_ID)
+    public void getItemSelected(MenuItem item) {
+        if (item.getGroupId() != GROUP_ID)
             return;
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case CONTEXT_MENU_OPEN:
                 bookOpening();
                 break;
@@ -42,9 +41,7 @@ public class LocalBooksRVAdapter extends RVAdapter{
                 break;
 
             case CONTEXT_MENU_PROPERTIES:
-                Intent intent = new Intent(context, PropertiesActivity.class);
-                intent.putExtra("Book", selectedBook);
-                context.startActivity(intent);
+                openProperties();
                 break;
         }
     }
@@ -60,15 +57,15 @@ public class LocalBooksRVAdapter extends RVAdapter{
                                         ContextMenu.ContextMenuInfo menuInfo) {
 
             menu.setHeaderTitle(selectedBook.getName());
-            menu.add(GROUP_ID, CONTEXT_MENU_OPEN, 0, "Открыть");
-            menu.add(GROUP_ID, CONTEXT_MENU_DELETE, 0, "Удалить");
-            menu.add(GROUP_ID, CONTEXT_MENU_PROPERTIES, 0, "Свойства");
+            menu.add(GROUP_ID, CONTEXT_MENU_OPEN, 0, R.string.context_menu_open);
+            menu.add(GROUP_ID, CONTEXT_MENU_DELETE, 0, R.string.context_menu_delete);
+            menu.add(GROUP_ID, CONTEXT_MENU_PROPERTIES, 0, R.string.context_menu_properties);
         }
     }
 
     @Override
-    public LocalBooksRVAdapter.LocalBooksViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public LocalBooksViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adt_rv_main_tabs, viewGroup, false);
-        return new LocalBooksRVAdapter.LocalBooksViewHolder(view);
+        return new LocalBooksViewHolder(view);
     }
 }

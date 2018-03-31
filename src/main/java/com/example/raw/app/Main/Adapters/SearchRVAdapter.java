@@ -33,11 +33,11 @@ public class SearchRVAdapter extends RVAdapter implements Filterable {
     }
 
     @Override
-    public void getItemSelected(MenuItem item){
-        if(item.getGroupId() != GROUP_ID)
+    public void getItemSelected(MenuItem item) {
+        if (item.getGroupId() != GROUP_ID)
             return;
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case CONTEXT_MENU_OPEN:
                 bookOpening();
                 break;
@@ -48,37 +48,18 @@ public class SearchRVAdapter extends RVAdapter implements Filterable {
                 break;
 
             case CONTEXT_MENU_PROPERTIES:
-                Intent intent = new Intent(context, PropertiesActivity.class);
-                intent.putExtra("Book", selectedBook);
-                context.startActivity(intent);
+                openProperties();
                 break;
         }
     }
 
     @Override
     public Filter getFilter() {
-
         return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
-                String parsedString = charSequence.toString();
-
-                if (parsedString.isEmpty()) {
-                    books.clear();
-                } else{
-
-                    ArrayList<Book> tempFilteredList = new ArrayList<>();
-
-                    for (Book obj : FileWorker.getInstance().getRecentBooks())
-                        if (obj.getName().toLowerCase().contains(parsedString))
-                            tempFilteredList.add(obj);
-
-                    for (Book obj : FileWorker.getInstance().getLocalBooks())
-                        if (obj.getName().toLowerCase().contains(parsedString))
-                            tempFilteredList.add(obj);
-
-                    books = tempFilteredList;
-                }
+                String parsedString = charSequence.toString().toLowerCase();
+                queryProcessing(parsedString);
 
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = books;
@@ -87,14 +68,14 @@ public class SearchRVAdapter extends RVAdapter implements Filterable {
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                books = (ArrayList<Book>)filterResults.values;
+                books = (ArrayList<Book>) filterResults.values;
                 notifyDataSetChanged();
             }
         };
     }
 
-    class ViewHolder extends RVAdapter.BookViewHolder{
-        ViewHolder(View view){
+    class ViewHolder extends RVAdapter.BookViewHolder {
+        ViewHolder(View view) {
             super(view);
         }
 
@@ -113,5 +94,19 @@ public class SearchRVAdapter extends RVAdapter implements Filterable {
     public SearchRVAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adt_rv_main_tabs, viewGroup, false);
         return new SearchRVAdapter.ViewHolder(view);
+    }
+
+    private void queryProcessing(String parsedString){
+        if (parsedString.isEmpty())
+            books.clear();
+        else {
+            for (Book obj : FileWorker.getInstance().getRecentBooks())
+                if (obj.getName().toLowerCase().contains(parsedString))
+                    books.add(obj);
+
+            for (Book obj : FileWorker.getInstance().getLocalBooks())
+                if (obj.getName().toLowerCase().contains(parsedString))
+                    books.add(obj);
+        }
     }
 }

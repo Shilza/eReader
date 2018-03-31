@@ -8,61 +8,31 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="saa" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="debug" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="116e06dc-73fe-45c8-a8c6-35e148d08a9a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_properties.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/res/layout/activity_context_menu_properties.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/raw/app/BookmarkOfParticularBookAdapter.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/raw/app/BookmarkOfParticularBookAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/raw/app/BookmarksOfParticularBookActivity.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/raw/app/BookmarksOfParticularBookActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Entities/Book.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Entities/Book.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Extensions.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Extensions.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/BookmarkPreviewRVAdapter.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/BookmarkPreviewRVAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/BookmarksRVAdapter.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/BookmarksRVAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/LocalBooksRVAdapter.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/LocalBooksRVAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/RVAdapter.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/RVAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/RecentBooksRVAdapter.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/RecentBooksRVAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/SearchRVAdapter.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/SearchRVAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/TabPagerAdapter.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/TabPagerAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/BookmarksActivity.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/BookmarksActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/MainActivity.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/MainActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/PropertiesActivity.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/PropertiesActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Statistics.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Statistics.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Tabs/TabLocalBooks.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Tabs/TabLocalBooks.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Tabs/TabRecentBooks.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Tabs/TabRecentBooks.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/raw/app/TabsKeeper.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/raw/app/TabsKeeper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Tabs/Tab.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Tabs/Tab.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Utils/BookOpener.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Utils/BookOpener.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Utils/FileWorker.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Utils/FileWorker.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Viewers/Dialogs/BookmarksDialog.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Viewers/Dialogs/BookmarksDialog.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Viewers/Dialogs/GoToDialog.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Viewers/Dialogs/GoToDialog.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Viewers/PDFViewer.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Viewers/PDFViewer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Viewers/SimpleTextViewer.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Viewers/SimpleTextViewer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/drawable/background_card_view_selector.xml" afterPath="$PROJECT_DIR$/src/main/res/drawable/background_card_view_selector.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/activity_bookmarks.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_bookmarks.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/activity_bookmarks_of_particular_book.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_bookmarks_of_particular_book.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/activity_pdfviewer.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_pdfviewer.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/activity_simple_text_viewer.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_simple_text_viewer.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/activity_statistics.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_statistics.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/menu_header.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/menu_header.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/statistics_item.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/statistics_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/tab_local_books.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/tab_local_books.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/tab_recent_books.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/tab_recent_books.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/menu/main_menu.xml" afterPath="$PROJECT_DIR$/src/main/res/menu/main_menu.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/menu/menu_drawer.xml" afterPath="$PROJECT_DIR$/src/main/res/menu/menu_drawer.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/menu/menu_txt_viewer.xml" afterPath="$PROJECT_DIR$/src/main/res/menu/menu_txt_viewer.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/ContextMenuProperties.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/PropertiesActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/res/drawable/bookmark_alt_background.xml" afterPath="$PROJECT_DIR$/src/main/res/drawable/bookmarks_alt_background.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/res/layout-land/activity_context_menu_properties.xml" afterPath="$PROJECT_DIR$/src/main/res/layout-land/activity_properties.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/res/layout/bookmark_preview_rv_item.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/adt_rv_bookmark_previev.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/res/layout/bookmarks_adding_dialog.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/dialog_adding_bookmarks.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/res/layout/bookmarks_alt_rv_item.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/adt_rv_bookmarks_preview.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/res/layout/bookmarks_particular_book_item.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/adt_rv_bookmarks_particular_book.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/res/layout/bookmarks_rv_item.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/adt_rv_bookmarks.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/res/layout/pdf_viewer_go_to_dialog.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/dialog_goto_pdf_viewer.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/res/layout/recycler_view_item.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/adt_rv_main_tabs.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/res/menu/statistics_menu.xml" afterPath="$PROJECT_DIR$/src/main/res/menu/menu_statistics.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/src/main/res/values/strings.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -85,128 +55,68 @@
     </system>
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="BookmarkOfParticularBookAdapter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/BookmarkOfParticularBookAdapter.java">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/res/values/strings.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="123" column="41" lean-forward="false" selection-start-line="123" selection-start-column="41" selection-end-line="123" selection-end-column="41" />
+            <state relative-caret-position="306">
+              <caret line="18" column="38" lean-forward="false" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LocalBooksRVAdapter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/LocalBooksRVAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="61" column="91" lean-forward="false" selection-start-line="61" selection-start-column="91" selection-end-line="61" selection-end-column="91" />
               <folding>
-                <element signature="method#setOnLongClickListener#0;class#ViewHolder#0;class#BookmarkOfParticularBookAdapter#0" expanded="false" />
-                <element signature="method#onClick#0;class#ViewHolder#0;class#BookmarkOfParticularBookAdapter#0" expanded="false" />
-                <element signature="method#initAlertDialog#0;class#BookmarkOfParticularBookAdapter#0" expanded="false" />
+                <element signature="method#getItemSelected#0;class#LocalBooksRVAdapter#0" expanded="false" />
+                <element signature="e#1649#1675#0" expanded="true" />
+                <element signature="e#1733#1761#0" expanded="true" />
+                <element signature="e#1823#1855#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BookmarksOfParticularBookActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/BookmarksOfParticularBookActivity.java">
+      <file leaf-file-name="RecentBooksRVAdapter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/RecentBooksRVAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-221">
-              <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+            <state relative-caret-position="892">
+              <caret line="74" column="91" lean-forward="false" selection-start-line="74" selection-start-column="91" selection-end-line="74" selection-end-column="91" />
               <folding>
-                <element signature="method#bmPartBookActivityOnClick#0;class#BookmarksOfParticularBookActivity#0" expanded="false" />
-                <element signature="method#createDialog#0;class#BookmarksOfParticularBookActivity#0" expanded="false" />
+                <element signature="imports" expanded="true" />
+                <element signature="method#RecentBooksRVAdapter#0;class#RecentBooksRVAdapter#0" expanded="false" />
+                <element signature="e#2085#2111#0" expanded="true" />
+                <element signature="e#2179#2217#0" expanded="true" />
+                <element signature="e#2275#2303#0" expanded="true" />
+                <element signature="e#2365#2397#0" expanded="true" />
+                <element signature="method#bookRemoving#0;class#RecentBooksRVAdapter#0" expanded="false" />
+                <element signature="method#initAlertDialog#0;class#RecentBooksRVAdapter#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Extensions.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Extensions.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="37" lean-forward="false" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TabsKeeper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/TabsKeeper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="16" column="26" lean-forward="false" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PDFViewer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Viewers/PDFViewer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-629">
-              <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-              <folding>
-                <element signature="method#onTap#0;class#PDFViewer#0" expanded="false" />
-                <element signature="method#animations#0;class#PDFViewer#0" expanded="false" />
-                <element signature="method#refreshBooksData#0;class#PDFViewer#0" expanded="false" />
-                <element signature="method#onKeyUp#0;class#PDFViewer#0" expanded="false" />
-                <element signature="method#footerAnimation#0;class#PDFViewer#0" expanded="false" />
-                <element signature="method#tvHeaderAnimation#0;class#PDFViewer#0" expanded="false" />
-                <element signature="method#bookSharing#0;class#PDFViewer#0" expanded="false" />
-                <element signature="method#orientationChanging#0;class#PDFViewer#0" expanded="false" />
-                <element signature="method#createGoToDialog#0;class#PDFViewer#0" expanded="false" />
-                <element signature="method#createBookmarksDialog#0;class#PDFViewer#0" expanded="false" />
-                <element signature="method#sizeChanging#0;class#PDFViewer#0" expanded="false" />
-                <element signature="method#getBookmarks#0;class#PDFViewer#0" expanded="false" />
-                <element signature="method#setBook#0;class#PDFViewer#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SimpleTextViewer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Viewers/SimpleTextViewer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1950">
-              <caret line="98" column="67" lean-forward="false" selection-start-line="98" selection-start-column="67" selection-end-line="98" selection-end-column="67" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GoToDialog.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Viewers/Dialogs/GoToDialog.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="32" column="70" lean-forward="false" selection-start-line="32" selection-start-column="70" selection-end-line="32" selection-end-column="70" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/MainActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="181" column="66" lean-forward="true" selection-start-line="181" selection-start-column="66" selection-end-line="181" selection-end-column="66" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RVAdapter.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="RVAdapter.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/RVAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="309">
-              <caret line="88" column="13" lean-forward="false" selection-start-line="88" selection-start-column="13" selection-end-line="88" selection-end-column="13" />
+            <state relative-caret-position="425">
+              <caret line="157" column="35" lean-forward="false" selection-start-line="157" selection-start-column="35" selection-end-line="157" selection-end-column="35" />
               <folding>
-                <element signature="method#clickProcessing#0;class#RVAdapter#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SearchRVAdapter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/SearchRVAdapter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="139">
-              <caret line="56" column="0" lean-forward="false" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
-              <folding>
-                <element signature="e#983#984#0" expanded="true" />
-                <element signature="e#1036#1037#0" expanded="true" />
+                <element signature="method#RVAdapter#0;class#RVAdapter#0" expanded="false" />
+                <element signature="class#BookViewHolder#0;class#RVAdapter#0" expanded="false" />
+                <element signature="method#onBindViewHolder#0;class#RVAdapter#0" expanded="false" />
+                <element signature="method#bookOpening#0;class#RVAdapter#0" expanded="false" />
+                <element signature="e#4408#4438#0" expanded="true" />
+                <element signature="method#openProperties#0;class#RVAdapter#0" expanded="false" />
+                <element signature="method#initAlertDialog#0;class#RVAdapter#0" expanded="false" />
+                <element signature="e#4940#4967#0" expanded="true" />
+                <element signature="e#4992#5036#0" expanded="true" />
+                <element signature="e#5068#5091#0" expanded="true" />
+                <element signature="e#5442#5464#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1980,13 +1890,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/BookmarkPreviewRVAdapter.java" />
-        <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/Utils/FileWorker.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/BookmarksActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/activity_context_menu_properties.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/activity_properties.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/PropertiesActivity.java" />
         <option value="$PROJECT_DIR$/src/main/res/menu/main_menu.xml" />
         <option value="$PROJECT_DIR$/src/main/res/menu/menu_txt_viewer.xml" />
         <option value="$PROJECT_DIR$/src/main/res/menu/menu_drawer.xml" />
@@ -1995,9 +1898,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/Extensions.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/TabsKeeper.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_simple_text_viewer.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/Viewers/SimpleTextViewer.java" />
         <option value="$PROJECT_DIR$/src/main/res/menu/menu_statistics.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Statistics.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout/adt_rv_bookmarks_alt.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/Viewers/Dialogs/BookmarksDialog.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout-land/activity_properties.xml" />
@@ -2022,14 +1923,23 @@
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_pdfviewer.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_bookmarks_of_particular_book.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/Entities/Book.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/BookmarksRVAdapter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/RecentBooksRVAdapter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/LocalBooksRVAdapter.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/BookmarkPreviewRVAdapter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/BookmarkOfParticularBookAdapter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/Viewers/PDFViewer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/TabPagerAdapter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Tabs/Tab.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/BookmarksActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/PropertiesActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Statistics.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/Utils/FileWorker.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/MainActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/Utils/BookOpener.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/Viewers/PDFViewer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/Viewers/SimpleTextViewer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/BookmarkOfParticularBookAdapter.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/SearchRVAdapter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/BookmarksRVAdapter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/LocalBooksRVAdapter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/RecentBooksRVAdapter.java" />
+        <option value="$PROJECT_DIR$/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/RVAdapter.java" />
       </list>
     </option>
@@ -2055,7 +1965,85 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="AndroidView">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Android projects" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Android projects" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Android projects" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Android projects" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Android projects" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -2119,6 +2107,36 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Android projects" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Android projects" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="values" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2242,11 +2260,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Viewers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Dialogs" />
+              <option name="myItemId" value="Utils" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2396,86 +2410,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scratches" />
-      <pane id="Scope" />
-      <pane id="AndroidView">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Android projects" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Android projects" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Android projects" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Android projects" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Android projects" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2583,7 +2519,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1522436852476" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1522521653473" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -2631,7 +2567,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1522436852476" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1522521653473" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -2814,7 +2750,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1522436852478" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1522521653476" />
       </method>
     </configuration>
     <list size="1">
@@ -2863,7 +2799,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.9885621" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
@@ -2873,11 +2808,10 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22385621" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.8316994" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
@@ -2885,9 +2819,9 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27458397" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2896,6 +2830,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" x="92" y="92" width="1182" height="544" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -2909,151 +2844,10 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Utils/FileWorker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="157" column="38" lean-forward="false" selection-start-line="157" selection-start-column="38" selection-end-line="157" selection-end-column="38" />
-          <folding>
-            <element signature="method#creatingCovers#0;class#FileWorker#0" expanded="false" />
-            <element signature="method#coverCreation#0;class#FileWorker#0" expanded="false" />
-            <element signature="method#initializeData#0;class#FileWorker#0" expanded="false" />
-            <element signature="method#bookPreparing#0;class#FileWorker#0" expanded="false" />
-            <element signature="method#refreshingJSON#0;class#FileWorker#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/mipmap-hdpi/ic_launcher_round.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/menu/menu_txt_viewer.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="7" lean-forward="false" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/ItemClickListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="1" lean-forward="false" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/menu/menu_drawer.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="56">
-          <caret line="11" column="39" lean-forward="false" selection-start-line="11" selection-start-column="39" selection-end-line="11" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/PropertiesActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="41" column="58" lean-forward="false" selection-start-line="41" selection-start-column="58" selection-end-line="41" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/menu/menu_statistics.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="65" lean-forward="false" selection-start-line="1" selection-start-column="65" selection-end-line="1" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Statistics.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="60" column="81" lean-forward="false" selection-start-line="60" selection-start-column="81" selection-end-line="60" selection-end-column="81" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/BookmarksActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="48" column="60" lean-forward="false" selection-start-line="48" selection-start-column="60" selection-end-line="48" selection-end-column="60" />
-          <folding>
-            <element signature="method#removingBookmarks#0;class#BookmarksActivity#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Viewers/Dialogs/BookmarksDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="75" column="54" lean-forward="false" selection-start-line="75" selection-start-column="54" selection-end-line="75" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout-land/activity_properties.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="98" column="61" lean-forward="false" selection-start-line="98" selection-start-column="61" selection-end-line="98" selection-end-column="61" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/drawable/bookmarks_alt_background.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="7" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/drawable/background_card_view_selector.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="3" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/drawable/card_view_selected_state.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="8" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="4" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Tabs/TabLocalBooks.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Tabs/TabRecentBooks.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="25" column="72" lean-forward="false" selection-start-line="25" selection-start-column="72" selection-end-line="25" selection-end-column="72" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3061,7 +2855,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="12" column="7" lean-forward="false" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
@@ -3116,7 +2909,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="7" column="56" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="39" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
@@ -3182,7 +2974,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="17" column="39" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="38" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
@@ -3266,104 +3057,113 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Entities/Book.java">
+    <entry file="jar://$PROJECT_DIR$/../caches/modules-2/files-2.1/com.android.support/support-core-ui/27.1.0/1942657dddfc9aee7483dc45b2b267795f0340da/support-core-ui-27.1.0-sources.jar!/android/support/v4/view/ViewPager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-867">
-          <caret line="0" column="37" lean-forward="false" selection-start-line="0" selection-start-column="37" selection-end-line="0" selection-end-column="37" />
+        <state relative-caret-position="119">
+          <caret line="697" column="54" lean-forward="false" selection-start-line="697" selection-start-column="31" selection-end-line="697" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/TabPagerAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="29" column="9" lean-forward="true" selection-start-line="29" selection-start-column="9" selection-end-line="29" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/RecentBooksRVAdapter.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Utils/FileWorker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="59" column="24" lean-forward="false" selection-start-line="59" selection-start-column="24" selection-end-line="59" selection-end-column="24" />
+        <state relative-caret-position="187">
+          <caret line="66" column="4" lean-forward="false" selection-start-line="66" selection-start-column="4" selection-end-line="66" selection-end-column="4" />
           <folding>
-            <element signature="method#RecentBooksRVAdapter#0;class#RecentBooksRVAdapter#0" expanded="false" />
+            <element signature="e#801#818#0" expanded="true" />
+            <element signature="method#FileWorker#0;class#FileWorker#0" expanded="false" />
+            <element signature="method#localBooksSearching#0;class#FileWorker#0" expanded="false" />
+            <element signature="e#2843#2844#0" expanded="true" />
+            <element signature="e#2876#2877#0" expanded="true" />
+            <element signature="e#2923#2924#0" expanded="true" />
+            <element signature="e#2996#2997#0" expanded="true" />
+            <element signature="method#creatingCovers#0;class#FileWorker#0" expanded="false" />
+            <element signature="method#coverCreation#0;class#FileWorker#0" expanded="false" />
+            <element signature="method#initializeData#0;class#FileWorker#0" expanded="false" />
+            <element signature="method#checkForExistenceAppDirectory#0;class#FileWorker#0" expanded="false" />
+            <element signature="method#checkForExistencePicturesDirectory#0;class#FileWorker#0" expanded="false" />
+            <element signature="method#bookEntry#0;class#FileWorker#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/LocalBooksRVAdapter.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+        <state relative-caret-position="224">
+          <caret line="216" column="84" lean-forward="false" selection-start-line="216" selection-start-column="84" selection-end-line="216" selection-end-column="84" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/BookmarksRVAdapter.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/PropertiesActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="96" column="0" lean-forward="false" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
+        <state relative-caret-position="306">
+          <caret line="29" column="35" lean-forward="false" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
           <folding>
-            <element signature="method#BookmarksRVAdapter#0;class#BookmarksRVAdapter#0" expanded="false" />
-            <element signature="method#setOnLongClickListener#0;class#MainViewHolder#0;class#BookmarksRVAdapter#0" expanded="false" />
-            <element signature="method#onClick#0;class#MainViewHolder#0;class#BookmarksRVAdapter#0" expanded="false" />
-            <element signature="method#onLongClick#0;class#MainViewHolder#0;class#BookmarksRVAdapter#0" expanded="false" />
-            <element signature="method#onAttachedToRecyclerView#0;class#BookmarksRVAdapter#0" expanded="false" />
+            <element signature="method#initializationUI#0;class#PropertiesActivity#0" expanded="false" />
+            <element signature="method#totalReadPreparing#0;class#PropertiesActivity#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/BookmarkPreviewRVAdapter.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Statistics.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="79" column="41" lean-forward="false" selection-start-line="79" selection-start-column="41" selection-end-line="79" selection-end-column="41" />
+        <state relative-caret-position="391">
+          <caret line="137" column="67" lean-forward="false" selection-start-line="137" selection-start-column="67" selection-end-line="137" selection-end-column="67" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/BookmarkOfParticularBookAdapter.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Utils/BookOpener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="123" column="41" lean-forward="false" selection-start-line="123" selection-start-column="41" selection-end-line="123" selection-end-column="41" />
+        <state relative-caret-position="51">
+          <caret line="19" column="26" lean-forward="false" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
           <folding>
-            <element signature="method#setOnLongClickListener#0;class#ViewHolder#0;class#BookmarkOfParticularBookAdapter#0" expanded="false" />
-            <element signature="method#onClick#0;class#ViewHolder#0;class#BookmarkOfParticularBookAdapter#0" expanded="false" />
-            <element signature="method#initAlertDialog#0;class#BookmarkOfParticularBookAdapter#0" expanded="false" />
+            <element signature="method#addToRecentBooks#0;class#BookOpener#0" expanded="false" />
+            <element signature="method#isSimpleText#0;class#BookOpener#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/BookmarksOfParticularBookActivity.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Viewers/Dialogs/BookmarksDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-221">
-          <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
-          <folding>
-            <element signature="method#bmPartBookActivityOnClick#0;class#BookmarksOfParticularBookActivity#0" expanded="false" />
-            <element signature="method#createDialog#0;class#BookmarksOfParticularBookActivity#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Extensions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="37" lean-forward="false" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="37" />
+        <state relative-caret-position="187">
+          <caret line="82" column="30" lean-forward="false" selection-start-line="82" selection-start-column="30" selection-end-line="82" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/TabsKeeper.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Viewers/Dialogs/GoToDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="16" column="26" lean-forward="false" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
+        <state relative-caret-position="935">
+          <caret line="71" column="11" lean-forward="true" selection-start-line="71" selection-start-column="11" selection-end-line="71" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Viewers/PDFViewer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-629">
-          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+        <state relative-caret-position="970">
+          <caret line="258" column="27" lean-forward="false" selection-start-line="258" selection-start-column="27" selection-end-line="258" selection-end-column="27" />
           <folding>
+            <element signature="method#onCreate#0;class#PDFViewer#0" expanded="false" />
+            <element signature="method#loadComplete#0;class#PDFViewer#0" expanded="false" />
             <element signature="method#onTap#0;class#PDFViewer#0" expanded="false" />
             <element signature="method#animations#0;class#PDFViewer#0" expanded="false" />
-            <element signature="method#refreshBooksData#0;class#PDFViewer#0" expanded="false" />
             <element signature="method#onKeyUp#0;class#PDFViewer#0" expanded="false" />
+            <element signature="method#onBackPressed#0;class#PDFViewer#0" expanded="false" />
+            <element signature="method#pdfViewerOnClick#0;class#PDFViewer#0" expanded="false" />
             <element signature="method#footerAnimation#0;class#PDFViewer#0" expanded="false" />
             <element signature="method#tvHeaderAnimation#0;class#PDFViewer#0" expanded="false" />
+            <element signature="method#bookmarksProcessing#0;class#PDFViewer#0" expanded="false" />
+            <element signature="method#refreshBooksData#0;class#PDFViewer#0" expanded="false" />
             <element signature="method#bookSharing#0;class#PDFViewer#0" expanded="false" />
             <element signature="method#orientationChanging#0;class#PDFViewer#0" expanded="false" />
             <element signature="method#createGoToDialog#0;class#PDFViewer#0" expanded="false" />
@@ -3377,54 +3177,266 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Viewers/SimpleTextViewer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1950">
-          <caret line="98" column="67" lean-forward="false" selection-start-line="98" selection-start-column="67" selection-end-line="98" selection-end-column="67" />
+        <state relative-caret-position="411">
+          <caret line="286" column="45" lean-forward="false" selection-start-line="286" selection-start-column="45" selection-end-line="286" selection-end-column="45" />
+          <folding>
+            <element signature="method#txtViewerOnClick#0;class#SimpleTextViewer#0" expanded="false" />
+            <element signature="method#initializationComingData#0;class#SimpleTextViewer#0" expanded="false" />
+            <element signature="method#initializationUI#0;class#SimpleTextViewer#0" expanded="false" />
+            <element signature="e#3265#3662#0" expanded="true" />
+            <element signature="e#3661#3662#0" expanded="true" />
+            <element signature="method#setSpan#0;class#SimpleTextViewer#0" expanded="false" />
+            <element signature="method#footerAnimation#0;class#SimpleTextViewer#0" expanded="false" />
+            <element signature="method#txtViewerSearchPanelOnClick#0;class#SimpleTextViewer#0" expanded="false" />
+            <element signature="method#increaseTextSize#0;class#SimpleTextViewer#0" expanded="false" />
+            <element signature="method#reduceTextSize#0;class#SimpleTextViewer#0" expanded="false" />
+            <element signature="method#startSearch#0;class#SimpleTextViewer#0" expanded="false" />
+            <element signature="method#textCopy#0;class#SimpleTextViewer#0" expanded="false" />
+            <element signature="method#sizeChanging#0;class#SimpleTextViewer#0" expanded="false" />
+            <element signature="method#bookSharing#0;class#SimpleTextViewer#0" expanded="false" />
+            <element signature="method#searchViewAnimation#0;class#SimpleTextViewer#0" expanded="false" />
+            <element signature="method#getTextFromFile#0;class#SimpleTextViewer#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/BookmarkOfParticularBookAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="105" column="19" lean-forward="false" selection-start-line="105" selection-start-column="19" selection-end-line="105" selection-end-column="19" />
+          <folding>
+            <element signature="method#BookmarkOfParticularBookAdapter#0;class#BookmarkOfParticularBookAdapter#0" expanded="false" />
+            <element signature="class#ViewHolder#0;class#BookmarkOfParticularBookAdapter#0" expanded="false" />
+            <element signature="method#setOnLongClickListener#0;class#ViewHolder#0;class#BookmarkOfParticularBookAdapter#0" expanded="false" />
+            <element signature="method#onClick#0;class#ViewHolder#0;class#BookmarkOfParticularBookAdapter#0" expanded="false" />
+            <element signature="method#onAttachedToRecyclerView#0;class#BookmarkOfParticularBookAdapter#0" expanded="false" />
+            <element signature="method#onCreateViewHolder#0;class#BookmarkOfParticularBookAdapter#0" expanded="false" />
+            <element signature="method#onBindViewHolder#0;class#BookmarkOfParticularBookAdapter#0" expanded="false" />
+            <element signature="method#getItemSelected#0;class#BookmarkOfParticularBookAdapter#0" expanded="false" />
+            <element signature="method#initAlertDialog#0;class#BookmarkOfParticularBookAdapter#0" expanded="false" />
+            <element signature="method#gotoPage#0;class#BookmarkOfParticularBookAdapter#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/BookmarksOfParticularBookActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="33" column="9" lean-forward="false" selection-start-line="33" selection-start-column="9" selection-end-line="33" selection-end-column="9" />
+          <folding>
+            <element signature="method#bmPartBookActivityOnClick#0;class#BookmarksOfParticularBookActivity#0" expanded="false" />
+            <element signature="method#removingBookmarks#0;class#BookmarksOfParticularBookActivity#0" expanded="false" />
+            <element signature="method#createDialog#0;class#BookmarksOfParticularBookActivity#0" expanded="false" />
+            <element signature="method#setData#0;class#BookmarksOfParticularBookActivity#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/ItemClickListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Viewers/Dialogs/GoToDialog.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/TabsKeeper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="32" column="70" lean-forward="false" selection-start-line="32" selection-start-column="70" selection-end-line="32" selection-end-column="70" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../caches/modules-2/files-2.1/com.android.support/support-core-ui/27.1.0/1942657dddfc9aee7483dc45b2b267795f0340da/support-core-ui-27.1.0-sources.jar!/android/support/v4/view/ViewPager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="697" column="54" lean-forward="false" selection-start-line="697" selection-start-column="31" selection-end-line="697" selection-end-column="54" />
+        <state relative-caret-position="238">
+          <caret line="18" column="19" lean-forward="false" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/SearchRVAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="56" column="0" lean-forward="false" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+        <state relative-caret-position="241">
+          <caret line="87" column="35" lean-forward="true" selection-start-line="87" selection-start-column="35" selection-end-line="87" selection-end-column="35" />
           <folding>
-            <element signature="e#983#984#0" expanded="true" />
-            <element signature="e#1036#1037#0" expanded="true" />
+            <element signature="method#getItemSelected#0;class#SearchRVAdapter#0" expanded="false" />
+            <element signature="method#getFilter#0;class#SearchRVAdapter#0" expanded="false" />
+            <element signature="method#queryProcessing#0;class#SearchRVAdapter#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Extensions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="27" column="22" lean-forward="true" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Tabs/Tab.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="31" column="24" lean-forward="false" selection-start-line="31" selection-start-column="24" selection-end-line="31" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Tabs/TabLocalBooks.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-85">
+          <caret line="31" column="58" lean-forward="false" selection-start-line="31" selection-start-column="58" selection-end-line="31" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Tabs/TabRecentBooks.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="25" column="72" lean-forward="false" selection-start-line="25" selection-start-column="72" selection-end-line="25" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/BookmarksActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="20" column="13" lean-forward="false" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+          <folding>
+            <element signature="method#onCreate#0;class#BookmarksActivity#0" expanded="false" />
+            <element signature="method#bookmarksActivityOnClick#0;class#BookmarksActivity#0" expanded="false" />
+            <element signature="method#removingBookmarks#0;class#BookmarksActivity#0" expanded="false" />
+            <element signature="method#onContextItemSelected#0;class#BookmarksActivity#0" expanded="false" />
+            <element signature="method#createDialog#0;class#BookmarksActivity#0" expanded="false" />
+            <element signature="method#createRecyclerView#0;class#BookmarksActivity#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="27" lean-forward="true" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/values/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Entities/Book.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="68" column="60" lean-forward="false" selection-start-line="68" selection-start-column="60" selection-end-line="68" selection-end-column="60" />
+          <folding>
+            <element signature="method#Book#0;class#Book#0" expanded="false" />
+            <element signature="method#lastActivityProcessing#0;class#Book#0" expanded="false" />
+            <element signature="method#equals#0;class#Book#0" expanded="false" />
+            <element signature="method#hashCode#0;class#Book#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Entities/Bookmark.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="20" column="27" lean-forward="false" selection-start-line="20" selection-start-column="27" selection-end-line="20" selection-end-column="27" />
+          <folding>
+            <element signature="method#Bookmark#0;class#Bookmark#0" expanded="false" />
+            <element signature="e#438#439#0" expanded="true" />
+            <element signature="e#471#472#0" expanded="true" />
+            <element signature="method#equals#0;class#Bookmark#0" expanded="false" />
+            <element signature="method#hashCode#0;class#Bookmark#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/BookmarkPreviewRVAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-422">
+          <caret line="32" column="8" lean-forward="false" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/BookmarksRVAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="189" column="82" lean-forward="true" selection-start-line="189" selection-start-column="82" selection-end-line="189" selection-end-column="82" />
+          <folding>
+            <element signature="method#BookmarksRVAdapter#0;class#BookmarksRVAdapter#0" expanded="false" />
+            <element signature="class#MainViewHolder#0;class#BookmarksRVAdapter#0" expanded="false" />
+            <element signature="method#setOnLongClickListener#0;class#MainViewHolder#0;class#BookmarksRVAdapter#0" expanded="false" />
+            <element signature="method#onClick#0;class#MainViewHolder#0;class#BookmarksRVAdapter#0" expanded="false" />
+            <element signature="method#onLongClick#0;class#MainViewHolder#0;class#BookmarksRVAdapter#0" expanded="false" />
+            <element signature="method#onAttachedToRecyclerView#0;class#BookmarksRVAdapter#0" expanded="false" />
+            <element signature="method#onCreateViewHolder#0;class#BookmarksRVAdapter#0" expanded="false" />
+            <element signature="method#onBindViewHolder#0;class#BookmarksRVAdapter#0" expanded="false" />
+            <element signature="method#getItemSelected#0;class#BookmarksRVAdapter#0" expanded="false" />
+            <element signature="class#ExtendedViewHolder#0;class#BookmarksRVAdapter#0" expanded="false" />
+            <element signature="e#6101#6125#0" expanded="true" />
+            <element signature="method#extendedViewHolderPreparing#0;class#BookmarksRVAdapter#0" expanded="false" />
+            <element signature="e#7293#7753#0" expanded="true" />
+            <element signature="e#7752#7753#0" expanded="true" />
+            <element signature="method#iniRemovingBookmarksDialog#0;class#BookmarksRVAdapter#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/LocalBooksRVAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="61" column="91" lean-forward="false" selection-start-line="61" selection-start-column="91" selection-end-line="61" selection-end-column="91" />
+          <folding>
+            <element signature="method#getItemSelected#0;class#LocalBooksRVAdapter#0" expanded="false" />
+            <element signature="e#1649#1675#0" expanded="true" />
+            <element signature="e#1733#1761#0" expanded="true" />
+            <element signature="e#1823#1855#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/RecentBooksRVAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="892">
+          <caret line="74" column="91" lean-forward="false" selection-start-line="74" selection-start-column="91" selection-end-line="74" selection-end-column="91" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#RecentBooksRVAdapter#0;class#RecentBooksRVAdapter#0" expanded="false" />
+            <element signature="e#2085#2111#0" expanded="true" />
+            <element signature="e#2179#2217#0" expanded="true" />
+            <element signature="e#2275#2303#0" expanded="true" />
+            <element signature="e#2365#2397#0" expanded="true" />
+            <element signature="method#bookRemoving#0;class#RecentBooksRVAdapter#0" expanded="false" />
+            <element signature="method#initAlertDialog#0;class#RecentBooksRVAdapter#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="38" lean-forward="false" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/Adapters/RVAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="88" column="13" lean-forward="false" selection-start-line="88" selection-start-column="13" selection-end-line="88" selection-end-column="13" />
+        <state relative-caret-position="425">
+          <caret line="157" column="35" lean-forward="false" selection-start-line="157" selection-start-column="35" selection-end-line="157" selection-end-column="35" />
           <folding>
-            <element signature="method#clickProcessing#0;class#RVAdapter#0" expanded="false" />
+            <element signature="method#RVAdapter#0;class#RVAdapter#0" expanded="false" />
+            <element signature="class#BookViewHolder#0;class#RVAdapter#0" expanded="false" />
+            <element signature="method#onBindViewHolder#0;class#RVAdapter#0" expanded="false" />
+            <element signature="method#bookOpening#0;class#RVAdapter#0" expanded="false" />
+            <element signature="e#4408#4438#0" expanded="true" />
+            <element signature="method#openProperties#0;class#RVAdapter#0" expanded="false" />
+            <element signature="method#initAlertDialog#0;class#RVAdapter#0" expanded="false" />
+            <element signature="e#4940#4967#0" expanded="true" />
+            <element signature="e#4992#5036#0" expanded="true" />
+            <element signature="e#5068#5091#0" expanded="true" />
+            <element signature="e#5442#5464#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/raw/app/Main/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="181" column="66" lean-forward="true" selection-start-line="181" selection-start-column="66" selection-end-line="181" selection-end-column="66" />
-          <folding />
         </state>
       </provider>
     </entry>

@@ -17,7 +17,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,7 +32,6 @@ import com.example.raw.app.Utils.BookOpener;
 import com.example.raw.app.Utils.FileWorker;
 
 import java.io.File;
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity{
     private SearchRVAdapter searchRVAdapter;
@@ -102,77 +100,39 @@ public class MainActivity extends AppCompatActivity{
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 1 && resultCode == RESULT_OK) {
-            Uri selectedFile = data.getData();
-            File file = new File(getRealPathFromURI(selectedFile));
-
-            boolean isReadable = false;
-            for (Extensions ext : Extensions.values())
-                if (file.getName().endsWith(ext.getDescription())) {
-                    read(file);
-                    isReadable = true;
-                    break;
-                }
-
-            if(!isReadable)
-                Toast.makeText(this, "Неподдерживаемый формат", Toast.LENGTH_SHORT).show();
-        }
-
+        if(requestCode == 1 && resultCode == RESULT_OK)
+            bookOpening(data);
     }
 
-    private void read(File file){
-        Book book = FileWorker.getInstance().bookPreparing(file);
-        boolean isBookExistInList = false;
+    private void bookOpening(Intent data){
+        Uri selectedFile = data.getData();
+        File file = new File(getRealPathFromURI(selectedFile));
 
-        boolean isSearchable = false;
-        for(Extensions ext : Extensions.searchableExtensions()){
-            if(book.getExtension() == ext){
-                isSearchable = true;
+        boolean isReadable = false;
+        for (Extensions ext : Extensions.values())
+            if (file.getName().endsWith(ext.getDescription())) {
+                BookOpener.getInstance().opening(file, ext,this);
+                isReadable = true;
                 break;
             }
-        }
 
-        if(isSearchable){
-            for (Book obj : FileWorker.getInstance().getRecentBooks()) {
-                if (obj.getFilePath().equals(book.getFilePath())) {
-                    Book item = FileWorker.getInstance().getRecentBooks().remove(
-                            FileWorker.getInstance().getRecentBooks().indexOf(obj)
-                    );
-                    FileWorker.getInstance().addingToRecentBooks(item);
-                    isBookExistInList = true;
-                    break;
-                }
-            }
-
-            for (Book obj : FileWorker.getInstance().getLocalBooks()) {
-                if (obj.getFilePath().equals(book.getFilePath())) {
-                    FileWorker.getInstance().removeBookFromLocalBooks(obj);
-                    FileWorker.getInstance().addingToRecentBooks(book);
-                    isBookExistInList = true;
-                    break;
-                }
-            }
-
-            if (!isBookExistInList) {
-                FileWorker.getInstance().addingToRecentBooks(book);
-                TabsKeeper.getInstance().notifyDataSetChanged();
-            }
-        }
-
-        BookOpener.getInstance().opening(book, this);
+        if(!isReadable)
+            Toast.makeText(this, "Неподдерживаемый формат", Toast.LENGTH_SHORT).show();
     }
 
     private String getRealPathFromURI(Uri contentURI) {
         String result;
         Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
-        if (cursor == null) {
+
+        if (cursor == null)
             result = contentURI.getPath();
-        } else {
+        else {
             cursor.moveToFirst();
             int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
             result = cursor.getString(index);
             cursor.close();
         }
+
         return result;
     }
 

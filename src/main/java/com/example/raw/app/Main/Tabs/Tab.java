@@ -27,10 +27,10 @@ public abstract class Tab extends Fragment {
 
     @Override
     public abstract View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState);
+                                      Bundle savedInstanceState);
 
-    public void dataSetChanged(){
-        if(adapter.getItemCount() == 0)
+    public void dataSetChanged() {
+        if (adapter.getItemCount() == 0)
             tvLocation.setText(locationName);
         else
             tvLocation.setText("");
@@ -49,9 +49,9 @@ public abstract class Tab extends Fragment {
     }
 
     @Override
-    public boolean onContextItemSelected(MenuItem item){
+    public boolean onContextItemSelected(MenuItem item) {
         adapter.getItemSelected(item);
-        return  super.onContextItemSelected(item);
+        return super.onContextItemSelected(item);
     }
 
 }

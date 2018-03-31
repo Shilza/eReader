@@ -21,8 +21,10 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter{
         switch(position){
             case 0:
                 return new TabRecentBooks();
+
             case 1:
                 return new TabLocalBooks();
+
             default:
                 return null;
         }

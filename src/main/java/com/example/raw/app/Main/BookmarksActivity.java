@@ -29,31 +29,16 @@ public class BookmarksActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookmarks);
 
-        for(Book book : FileWorker.getInstance().getRecentBooks())
-            if(book.getBookmarks().size() != 0)
+        for (Book book : FileWorker.getInstance().getRecentBooks())
+            if (book.getBookmarks().size() != 0)
                 countOfBookmarks++;
 
         createDialog();
-
-        RecyclerView recyclerView = findViewById(R.id.acBookmarksRecyclerView);
-
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(llm);
-
-        ArrayList<Book> books = new ArrayList<>();
-        for(Book book : FileWorker.getInstance().getRecentBooks())
-            if(book.getBookmarks().size() > 0)
-                books.add(book);
-
-        if(books.size() == 0)
-            ((TextView) findViewById(R.id.acBookmarksTvCount)).setText("Закладок не найдено");
-
-        adapter = new BookmarksRVAdapter(books, this);
-        recyclerView.setAdapter(adapter);
+        createRecyclerView();
     }
 
-    public void bookmarksActivityOnClick(View view){
-        switch (view.getId()){
+    public void bookmarksActivityOnClick(View view) {
+        switch (view.getId()) {
             case R.id.acBookmarksActionBack:
                 finish();
                 break;
@@ -64,9 +49,9 @@ public class BookmarksActivity extends Activity {
         }
     }
 
-    private void removingBookmarks(){
+    private void removingBookmarks() {
         ArrayList<Book> recentBooks = FileWorker.getInstance().getRecentBooks();
-        for(Book book : recentBooks)
+        for (Book book : recentBooks)
             book.getBookmarks().clear();
         adapter.getBooks().clear();
 
@@ -74,18 +59,23 @@ public class BookmarksActivity extends Activity {
         adapter.notifyDataSetChanged();
     }
 
-    private void createDialog(){
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        adapter.getItemSelected(item);
+        return super.onContextItemSelected(item);
+    }
+
+    private void createDialog() {
         ad = new AlertDialog.Builder(this);
         ad.setTitle("Очистить закладки");
         ad.setMessage("Действительно хотите очистить закладки?");
         ad.setPositiveButton("Да", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int arg1) {
-                if(countOfBookmarks > 0){
+                if (countOfBookmarks > 0) {
                     removingBookmarks();
                     Toast.makeText(getBaseContext(), "Закладки очищены",
                             Toast.LENGTH_SHORT).show();
-                }
-                else
+                } else
                     Toast.makeText(getBaseContext(), "Закладок не найдено",
                             Toast.LENGTH_SHORT).show();
             }
@@ -97,9 +87,21 @@ public class BookmarksActivity extends Activity {
         });
     }
 
-    @Override
-    public boolean onContextItemSelected(MenuItem item){
-        adapter.getItemSelected(item);
-        return  super.onContextItemSelected(item);
+    private void createRecyclerView() {
+        RecyclerView recyclerView = findViewById(R.id.acBookmarksRecyclerView);
+
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(llm);
+
+        ArrayList<Book> books = new ArrayList<>();
+        for (Book book : FileWorker.getInstance().getRecentBooks())
+            if (book.getBookmarks().size() > 0)
+                books.add(book);
+
+        if (books.size() == 0)
+            ((TextView) findViewById(R.id.acBookmarksTvCount)).setText("Закладок не найдено");
+
+        adapter = new BookmarksRVAdapter(books, this);
+        recyclerView.setAdapter(adapter);
     }
 }

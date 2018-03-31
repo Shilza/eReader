@@ -102,24 +102,6 @@ public class BookmarkOfParticularBookAdapter extends RecyclerView.Adapter<Recycl
         return bookmarks.size();
     }
 
-    private void initAlertDialog() {
-        ad = new AlertDialog.Builder(context);
-        ad.setTitle("Удалить");
-        ad.setMessage("Действительно хотите удалить эту закладку");
-        ad.setPositiveButton("Да", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int arg1) {
-                book.getBookmarks().remove(selectedBookmark);
-                bookmarks.remove(selectedBookmark);
-                FileWorker.getInstance().refreshingJSON(FileWorker.getInstance().getRecentBooks());
-                notifyDataSetChanged();
-            }
-        });
-        ad.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int arg1) {
-            }
-        });
-    }
-
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
@@ -142,11 +124,6 @@ public class BookmarkOfParticularBookAdapter extends RecyclerView.Adapter<Recycl
         });
     }
 
-    private void gotoPage(int position) {
-        ((BookmarksOfParticularBookActivity) context).finish();
-        BookOpener.getInstance().opening(book, bookmarks.get(position).getPage(), context);
-    }
-
     void getItemSelected(MenuItem item) {
         if (item.getGroupId() != GROUP_ID)
             return;
@@ -160,6 +137,29 @@ public class BookmarkOfParticularBookAdapter extends RecyclerView.Adapter<Recycl
                 ad.show();
                 break;
         }
+    }
+
+    private void initAlertDialog() {
+        ad = new AlertDialog.Builder(context);
+        ad.setTitle("Удалить");
+        ad.setMessage("Действительно хотите удалить эту закладку");
+        ad.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int arg1) {
+                book.getBookmarks().remove(selectedBookmark);
+                bookmarks.remove(selectedBookmark);
+                FileWorker.getInstance().refreshingJSON(FileWorker.getInstance().getRecentBooks());
+                notifyDataSetChanged();
+            }
+        });
+        ad.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int arg1) {
+            }
+        });
+    }
+
+    private void gotoPage(int position) {
+        ((BookmarksOfParticularBookActivity) context).finish();
+        BookOpener.getInstance().opening(book, bookmarks.get(position).getPage(), context);
     }
 
 }

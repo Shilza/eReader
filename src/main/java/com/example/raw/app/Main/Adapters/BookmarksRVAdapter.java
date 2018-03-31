@@ -110,7 +110,7 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             case 1:
                 View v2 = inflater.inflate(R.layout.adt_rv_bookmarks_preview, viewGroup, false);
-                viewHolder = new ViewHolderExtended(v2);
+                viewHolder = new ExtendedViewHolder(v2);
                 rvBookmarkPreview = v2.findViewById(R.id.acBookmarksPreviewRecyclerView);
                 rvBookmarkPreview.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
                 break;
@@ -122,6 +122,112 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public int getItemCount() {
         return books.size();
+    }
+
+    public ArrayList<Pair<Integer, Book>> getBooks(){
+        return books;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        switch (holder.getItemViewType()){
+            case 0:
+                mainViewHolderPreparing((MainViewHolder)holder, position);
+                break;
+
+            case 1:
+                extendedViewHolderPreparing((ExtendedViewHolder) holder, position);
+                break;
+        }
+    }
+
+    public void getItemSelected(MenuItem item){
+        if(item.getGroupId() != GROUP_ID)
+            return;
+
+        switch (item.getItemId()){
+            case CONTEXT_MENU_REMOVING:
+                ad.show();
+                break;
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return books.get(position).first == 0 ?  0 : 1;
+    }
+
+    public class ExtendedViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener{
+
+        ItemClickListener itemClickListener;
+
+        ExtendedViewHolder(final View itemView) {
+            super(itemView);
+
+            itemView.setOnLongClickListener(this);
+            itemView.setOnClickListener(this);
+        }
+
+        private void setOnLongClickListener(ItemClickListener listener){
+            this.itemClickListener = listener;
+        }
+
+        @Override
+        public void onClick(View view){
+            this.itemClickListener.onItemViewClick(getLayoutPosition(), false);
+        }
+
+        @Override
+        public boolean onLongClick(View view){
+            this.itemClickListener.onItemViewClick(getLayoutPosition(), true);
+            return false;
+        }
+    }
+
+    private void mainViewHolderPreparing(MainViewHolder holder, int position){
+        holder.bookName.setText(books.get(position).second.getName());
+        holder.bookmarksCount.setText(R.string.bookmarks_count +
+                String.valueOf(books.get(position).second.getBookmarks().size()));
+
+        Glide.with(context)
+                .load(FileWorker.getInstance().getPicturesPath() + books.get(position).second.getName()+".png")
+                .apply(new RequestOptions().fitCenter().placeholder(R.drawable.e))
+                .into(holder.bookCover);
+
+        holder.setOnLongClickListener(new ItemClickListener() {
+            @Override
+            public void onItemViewClick(int pos, boolean isLongClick) {
+                selectedBook = books.get(pos).second;
+                Toast.makeText(context, selectedBook.getName(), Toast.LENGTH_SHORT).show();
+
+                if(!isLongClick){
+                    //CLOSE ALL BOOKMARKS CONTAINERS
+                    for(int i=0; i< books.size(); i++)
+                        books.set(i, new Pair<>(0, books.get(i).second));
+
+                    books.set(pos, new Pair<>(1, books.get(pos).second));
+                    notifyDataSetChanged();
+                }
+            }
+        });
+    }
+
+    private void extendedViewHolderPreparing(ExtendedViewHolder holder, int position){
+        holder.setOnLongClickListener(new ItemClickListener() {
+            @Override
+            public void onItemViewClick(int pos, boolean isLongClick) {
+                selectedBook = books.get(pos).second;
+                Toast.makeText(context, selectedBook.getName(), Toast.LENGTH_SHORT).show();
+
+                if(!isLongClick){
+                    books.set(pos, new Pair<>(0, books.get(pos).second));
+                    notifyDataSetChanged();
+                }
+            }
+        });
+
+        BookmarkPreviewRVAdapter bookmarkAdapter = new BookmarkPreviewRVAdapter(books.get(position).second, context);
+        rvBookmarkPreview.setAdapter(bookmarkAdapter);
     }
 
     private void iniRemovingBookmarksDialog(){
@@ -147,106 +253,5 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             }
         });
-    }
-
-    public ArrayList<Pair<Integer, Book>> getBooks(){
-        return books;
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        switch (holder.getItemViewType()){
-
-            case 0:
-            MainViewHolder mainViewHolder = (MainViewHolder) holder;
-            mainViewHolder.bookName.setText(books.get(position).second.getName());
-            mainViewHolder.bookmarksCount.setText("Количество закладок: " +
-                    String.valueOf(books.get(position).second.getBookmarks().size()));
-
-            Glide.with(context)
-                    .load(FileWorker.getInstance().getPicturesPath() + books.get(position).second.getName()+".png")
-                    .apply(new RequestOptions().fitCenter().placeholder(R.drawable.e))
-                    .into(mainViewHolder.bookCover);
-
-            mainViewHolder.setOnLongClickListener(new ItemClickListener() {
-                @Override
-                public void onItemViewClick(int pos, boolean isLongClick) {
-                    selectedBook = books.get(pos).second;
-                    Toast.makeText(context, selectedBook.getName(), Toast.LENGTH_SHORT).show();
-
-                    if(!isLongClick){
-                        //CLOSE ALL BOOKMARKS CONTAINERS
-                        for(int i=0; i< books.size(); i++)
-                            books.set(i, new Pair<>(0, books.get(i).second));
-
-                        books.set(pos, new Pair<>(1, books.get(pos).second));
-                        notifyDataSetChanged();
-                    }
-                }
-            });
-            break;
-
-            case 1:
-                ViewHolderExtended viewHolderExtended = (ViewHolderExtended) holder;
-                viewHolderExtended.setOnLongClickListener(new ItemClickListener() {
-                    @Override
-                    public void onItemViewClick(int pos, boolean isLongClick) {
-                        selectedBook = books.get(pos).second;
-                        Toast.makeText(context, selectedBook.getName(), Toast.LENGTH_SHORT).show();
-
-                        if(!isLongClick){
-                            books.set(pos, new Pair<>(0, books.get(pos).second));
-                            notifyDataSetChanged();
-                        }
-                    }
-                });
-
-                BookmarkPreviewRVAdapter bookmarkAdapter = new BookmarkPreviewRVAdapter(books.get(position).second, context);
-                rvBookmarkPreview.setAdapter(bookmarkAdapter);
-                break;
-        }
-    }
-
-    public void getItemSelected(MenuItem item){
-        if(item.getGroupId() != GROUP_ID)
-            return;
-
-        switch (item.getItemId()){
-            case CONTEXT_MENU_REMOVING:
-                ad.show();
-                break;
-        }
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return books.get(position).first == 0 ?  0 : 1;
-    }
-
-    public class ViewHolderExtended extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener{
-
-        ItemClickListener itemClickListener;
-
-        ViewHolderExtended(final View itemView) {
-            super(itemView);
-
-            itemView.setOnLongClickListener(this);
-            itemView.setOnClickListener(this);
-        }
-
-        private void setOnLongClickListener(ItemClickListener listener){
-            this.itemClickListener = listener;
-        }
-
-        @Override
-        public void onClick(View view){
-            this.itemClickListener.onItemViewClick(getLayoutPosition(), false);
-        }
-
-        @Override
-        public boolean onLongClick(View view){
-            this.itemClickListener.onItemViewClick(getLayoutPosition(), true);
-            return false;
-        }
     }
 }

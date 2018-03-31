@@ -28,17 +28,6 @@ public class Book implements Serializable{
         this.bookmarks = new ArrayList<>();
     }
 
-    private String lastActivityProcessing(long lastActivity){
-        SimpleDateFormat sdf;
-
-        if(lastActivity+86400000 > (new Date().getTime())) //60*60*24*1000 one day
-            sdf = new SimpleDateFormat("h:mm a", Locale.getDefault());
-        else
-            sdf = new SimpleDateFormat("d MMMM yyyy", Locale.getDefault());
-
-        return sdf.format(lastActivity);
-    }
-
     public ArrayList<Bookmark> getBookmarks() {
         return bookmarks;
     }
@@ -76,6 +65,17 @@ public class Book implements Serializable{
     }
 
     public Extensions getExtension() { return extension; }
+
+    private String lastActivityProcessing(long lastActivity){
+        SimpleDateFormat sdf;
+
+        if(lastActivity+86400000 > (new Date().getTime())) //60*60*24*1000 one day
+            sdf = new SimpleDateFormat("h:mm a", Locale.getDefault());
+        else
+            sdf = new SimpleDateFormat("d MMMM yyyy", Locale.getDefault());
+
+        return sdf.format(lastActivity);
+    }
 
     @Override
     public boolean equals(Object o) {

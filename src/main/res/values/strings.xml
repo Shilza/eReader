@@ -1,5 +1,20 @@
 <resources>
     <string name="app_name">Silicate Reader</string>
+
     <string name="open">Open</string>
     <string name="close">Close</string>
+
+    <string name="bookmarks_count">"Количество закладок: "</string>
+
+    <string name="context_menu_open">"Открыть"</string>
+    <string name="context_menu_delete">"Удалить"</string>
+    <string name="context_menu_delete_from_list">"Удалить из списка"</string>
+    <string name="context_menu_properties">"Свойства"</string>
+
+    <string name="error_book_is_deleted">"Невозможно открыть, возможно книга была удалена"</string>
+
+    <string name="dialog_delete_book">"Удалить"</string>
+    <string name="dialog_confirmation_of_removal_book">"Действительно хотите удалить эту книгу?"</string>
+    <string name="dialog_consent">"Да"</string>
+    <string name="dialog_denial">"Нет"</string>
 </resources>

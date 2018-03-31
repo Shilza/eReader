@@ -3,10 +3,9 @@ package com.example.raw.app.Main.Adapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Environment;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,12 +18,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.ItemClickListener;
+import com.example.raw.app.Main.PropertiesActivity;
 import com.example.raw.app.R;
 import com.example.raw.app.TabsKeeper;
 import com.example.raw.app.Utils.BookOpener;
 import com.example.raw.app.Utils.FileWorker;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewHolder> {
@@ -96,50 +95,6 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
 
     public abstract void getItemSelected(MenuItem item);
 
-    private void initAlertDialog(){
-        ad = new AlertDialog.Builder(context);
-        ad.setTitle("Удалить");
-        ad.setMessage("Действительно хотите удалить эту книгу?");
-        ad.setPositiveButton("Да", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int arg1) {
-
-                //context.deleteFile(selectedBook.getName());
-                Toast.makeText(context, "Вы сделали правильный выбор",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-        ad.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int arg1) {
-                Toast.makeText(context, "Возможно вы правы", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    void bookOpening(){
-        if(FileWorker.getInstance().isBookExist(selectedBook.getFilePath()))
-            BookOpener.getInstance().opening(selectedBook, context);
-        else {
-            Toast.makeText(context, "Невозможно открыть, возможно книга была удалена", Toast.LENGTH_SHORT).show();
-            books.remove(selectedBook);
-            FileWorker.getInstance().refreshingJSON(books);
-            TabsKeeper.getInstance().notifyDataSetChanged();
-        }
-    }
-
-    private void clickProcessing(){
-        if(!FileWorker.getInstance().getRecentBooks().contains(selectedBook)){
-            FileWorker.getInstance().addingToRecentBooks(selectedBook);
-            FileWorker.getInstance().removeBookFromLocalBooks(selectedBook);
-        } else{
-            Book book = FileWorker.getInstance().getRecentBooks().remove(
-                    FileWorker.getInstance().getRecentBooks().indexOf(selectedBook));
-            FileWorker.getInstance().addingToRecentBooks(book);
-        }
-
-        TabsKeeper.getInstance().notifyDataSetChanged();
-        bookOpening();
-    }
-
     @Override
     public void onBindViewHolder(@NonNull final BookViewHolder bookViewHolder, int position) {
         bookViewHolder.bookName.setText(books.get(position).getName());
@@ -162,5 +117,55 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
                    clickProcessing();
             }
         });
+    }
+
+    void bookOpening(){
+        if(FileWorker.getInstance().isBookExist(selectedBook.getFilePath()))
+            BookOpener.getInstance().opening(selectedBook, context);
+        else {
+            Toast.makeText(context, R.string.error_book_is_deleted, Toast.LENGTH_SHORT).show();
+            books.remove(selectedBook);
+            FileWorker.getInstance().refreshingJSON(books);
+            TabsKeeper.getInstance().notifyDataSetChanged();
+        }
+    }
+
+    void openProperties(){
+        Intent intent = new Intent(context, PropertiesActivity.class);
+        intent.putExtra("Book", selectedBook);
+        context.startActivity(intent);
+    }
+
+    private void initAlertDialog(){
+        ad = new AlertDialog.Builder(context);
+        ad.setTitle(R.string.dialog_delete_book);
+        ad.setMessage(R.string.dialog_confirmation_of_removal_book);
+        ad.setPositiveButton(R.string.dialog_consent, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int arg1) {
+
+                //context.deleteFile(selectedBook.getName());
+                Toast.makeText(context, "Вы сделали правильный выбор",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+        ad.setNegativeButton(R.string.dialog_denial, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int arg1) {
+                Toast.makeText(context, "Возможно вы правы", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void clickProcessing(){
+        if(!FileWorker.getInstance().getRecentBooks().contains(selectedBook)){
+            FileWorker.getInstance().addToRecentBooks(selectedBook);
+            FileWorker.getInstance().removeBookFromLocalBooks(selectedBook);
+        } else{
+            Book book = FileWorker.getInstance().getRecentBooks().remove(
+                    FileWorker.getInstance().getRecentBooks().indexOf(selectedBook));
+            FileWorker.getInstance().addToRecentBooks(book);
+        }
+
+        TabsKeeper.getInstance().notifyDataSetChanged();
+        bookOpening();
     }
 }

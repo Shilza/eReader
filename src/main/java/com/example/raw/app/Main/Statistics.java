@@ -28,7 +28,7 @@ public class Statistics extends Activity {
         createDialog();
     }
 
-    private void initUI(){
+    private void initUI() {
         TableLayout table = findViewById(R.id.acStatisticsTableLayout);
 
         String[] list = new String[4];
@@ -43,13 +43,13 @@ public class Statistics extends Activity {
         list1[2] = "9";
         list1[3] = "3";
 
-        int a=0;
-        for(int i = 0; i<2; i++){
+        int a = 0;
+        for (int i = 0; i < 2; i++) {
             TableRow row = new TableRow(this);
             row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                     TableRow.LayoutParams.MATCH_PARENT));
 
-            for(int j = 0; j<2; j++){
+            for (int j = 0; j < 2; j++) {
                 View cardView = LayoutInflater.from(this).inflate(R.layout.statistics_item, row, false);
                 cardView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -57,8 +57,8 @@ public class Statistics extends Activity {
 
                     }
                 });
-                ((TextView)cardView.findViewById(R.id.acStatisticsItemCount)).setText(list1[a]);
-                ((TextView)cardView.findViewById(R.id.acStatisticsItemDescription)).setText(list[a]);
+                ((TextView) cardView.findViewById(R.id.acStatisticsItemCount)).setText(list1[a]);
+                ((TextView) cardView.findViewById(R.id.acStatisticsItemDescription)).setText(list[a]);
                 row.addView(cardView, j);
                 a++;
             }
@@ -69,10 +69,10 @@ public class Statistics extends Activity {
         row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                 TableRow.LayoutParams.MATCH_PARENT));
 
-        for(int j = 0; j<2; j++){
+        for (int j = 0; j < 2; j++) {
             View cardView = LayoutInflater.from(this).inflate(R.layout.statistics_item, row, false);
-            ((TextView)cardView.findViewById(R.id.acStatisticsItemCount)).setText("1");
-            ((TextView)cardView.findViewById(R.id.acStatisticsItemDescription)).setText("Sas-sas");
+            ((TextView) cardView.findViewById(R.id.acStatisticsItemCount)).setText("1");
+            ((TextView) cardView.findViewById(R.id.acStatisticsItemDescription)).setText("Закладок");
             row.addView(cardView, j);
             a++;
         }
@@ -80,8 +80,8 @@ public class Statistics extends Activity {
         table.addView(row, 2);
     }
 
-    public void statisticsOnClick(View view){
-        switch (view.getId()){
+    public void statisticsOnClick(View view) {
+        switch (view.getId()) {
 
             case R.id.acStatisticsActionBack:
                 finish();
@@ -93,13 +93,13 @@ public class Statistics extends Activity {
         }
     }
 
-    private void actionSettings(){
+    private void actionSettings() {
         PopupMenu popup = new PopupMenu(this, findViewById(R.id.acStatisticsSettings));
         popup.getMenuInflater().inflate(R.menu.menu_statistics, popup.getMenu());
 
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.acStatisticsActionRemove:
                         ad.show();
                         break;
@@ -115,18 +115,18 @@ public class Statistics extends Activity {
         popup.show();
     }
 
-    private boolean removingStatistics(){
+    private boolean removeStatistics() {
         //TODO
         return false;
     }
 
-    private void createDialog(){
+    private void createDialog() {
         ad = new AlertDialog.Builder(this);
         ad.setTitle("Очистить статистику");
         ad.setMessage("Действительно хотите очистить статистику?");
         ad.setPositiveButton("Да", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int arg1) {
-                if(removingStatistics())
+                if (removeStatistics())
                     Toast.makeText(getBaseContext(), "Статистика очищена",
                             Toast.LENGTH_SHORT).show();
                 else
@@ -136,7 +136,6 @@ public class Statistics extends Activity {
         });
         ad.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int arg1) {
-
             }
         });
     }

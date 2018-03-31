@@ -31,38 +31,74 @@ import java.util.ArrayList;
 
 public class SimpleTextViewer extends Activity {
 
-    private boolean isExtraMenuHide = false;
-    private boolean isSearchActive = false;
-    private boolean isPlusMinusActive = false;
-
-    private ArrayList<Integer> resultsList;
-    private int resultSelected;
-    private int lengthOfQueryString;
-    private SpannableStringBuilder sb;
-    private BackgroundColorSpan bcs;
-
-    private String comingString;
-    private String comingFilePath;
+    private ArrayList<Integer> searchResultsList;
 
     private TextView tvMainText;
+    private TextView tvFilename;
     private LinearLayout footer;
     private LinearLayout plusMinus;
     private LinearLayout searchPanel;
     private SearchView searchView;
-    private TextView tvFilename;
+
+    private SpannableStringBuilder sb;
+    private BackgroundColorSpan bcs;
+
+    private boolean isExtraMenuHide = false;
+    private boolean isSearchActive = false;
+    private boolean isPlusMinusActive = false;
+
+    private int resultSelected;
+    private int lengthOfQueryString;
+    private String comingString;
+    private String comingFilePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simple_text_viewer);
 
+        initializationComingData();
+        initializationUI();
+    }
+
+    public void txtViewerOnClick(View view) {
+        switch (view.getId()) {
+            case R.id.acSimpleTextViewerBtSearch:
+                startSearch();
+                break;
+
+            case R.id.acSimpleTextViewerBtShare:
+                bookSharing();
+                break;
+
+            case R.id.acSimpleTextViewerBtTextSize:
+                sizeChanging();
+                break;
+
+            case R.id.acSimpleTextViewerBtCopy:
+                textCopy();
+                break;
+
+            case R.id.acSimpleTextViewerBtPlus:
+                increaseTextSize();
+                break;
+
+            case R.id.acSimpleTextViewerBtMinus:
+                reduceTextSize();
+                break;
+        }
+    }
+
+    private void initializationComingData(){
         comingFilePath = String.valueOf(getIntent().getSerializableExtra("Text"));
         try {
             comingString = getTextFromFile(comingFilePath);
         } catch (IOException ex) {
             Toast.makeText(this, "Невозможо открыть файл", Toast.LENGTH_SHORT).show();
         }
+    }
 
+    private void initializationUI(){
         footer = findViewById(R.id.acSimpleTextViewerFooter);
         plusMinus = findViewById(R.id.acSimpleTextViewerTextSizeChangingLayout);
         plusMinus.setVisibility(View.GONE);
@@ -89,7 +125,7 @@ public class SimpleTextViewer extends Activity {
     }
 
     private void searchViewInit() {
-        resultsList = new ArrayList<>();
+        searchResultsList = new ArrayList<>();
         sb = new SpannableStringBuilder(comingString);
         bcs = new BackgroundColorSpan(Color.rgb(255, 64, 129));
 
@@ -105,13 +141,13 @@ public class SimpleTextViewer extends Activity {
                     lengthOfQueryString = str.length();
                     resultSelected = 0;
 
-                    resultsList.clear();
-                    resultsList.add(comingString.indexOf(str));
+                    searchResultsList.clear();
+                    searchResultsList.add(comingString.indexOf(str));
                     int count = 0;
 
-                    while (resultsList.get(resultsList.size() - 1) >= 0) {
+                    while (searchResultsList.get(searchResultsList.size() - 1) >= 0) {
                         count++;
-                        resultsList.add(comingString.indexOf(str, resultsList.get(resultsList.size() - 1) + 1));
+                        searchResultsList.add(comingString.indexOf(str, searchResultsList.get(searchResultsList.size() - 1) + 1));
                     }
 
                     setSpan(false);
@@ -147,8 +183,8 @@ public class SimpleTextViewer extends Activity {
         if (isClear)
             sb.removeSpan(bcs);
         else
-            sb.setSpan(bcs, resultsList.get(resultSelected),
-                    resultsList.get(resultSelected) + lengthOfQueryString,
+            sb.setSpan(bcs, searchResultsList.get(resultSelected),
+                    searchResultsList.get(resultSelected) + lengthOfQueryString,
                     Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
         tvMainText.setText(sb);
@@ -159,52 +195,13 @@ public class SimpleTextViewer extends Activity {
         footer.animate().translationYBy(value).setDuration(200).setInterpolator(new AccelerateInterpolator()).start();
     }
 
-    public void txtViewerOnClick(View view) {
-        switch (view.getId()) {
-            case R.id.acSimpleTextViewerBtSearch:
-                if (isPlusMinusActive) {
-                    plusMinus.setVisibility(View.GONE);
-                    isPlusMinusActive = !isPlusMinusActive;
-                }
-                searchViewAnimation();
-                break;
-
-            case R.id.acSimpleTextViewerBtShare:
-                bookSharing();
-                break;
-
-            case R.id.acSimpleTextViewerBtTextSize:
-                sizeChanging();
-                break;
-
-            case R.id.acSimpleTextViewerBtCopy:
-                textCopy();
-                break;
-
-            case R.id.acSimpleTextViewerBtPlus: {
-                DisplayMetrics metrics;
-                metrics = getApplicationContext().getResources().getDisplayMetrics();
-                float textSize = tvMainText.getTextSize() / metrics.density + 2;
-                tvMainText.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
-                break;
-            }
-
-            case R.id.acSimpleTextViewerBtMinus:
-                DisplayMetrics metrics;
-                metrics = getApplicationContext().getResources().getDisplayMetrics();
-                float textSize = tvMainText.getTextSize() / metrics.density - (tvMainText.getTextSize() / metrics.density) / 10;
-                tvMainText.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
-                break;
-        }
-    }
-
     public void txtViewerSearchPanelOnClick(View view) {
         switch (view.getId()) {
             case R.id.acSimpleTextViewerSearchBackward:
                 if (resultSelected > 0)
                     resultSelected--;
                 else
-                    resultSelected = resultsList.size() - 2;
+                    resultSelected = searchResultsList.size() - 2;
 
                 setSpan(false);
                 break;
@@ -214,7 +211,7 @@ public class SimpleTextViewer extends Activity {
                 break;
 
             case R.id.acSimpleTextViewerSearchForward:
-                if (resultsList.size() - 2 - resultSelected > 0)
+                if (searchResultsList.size() - 2 - resultSelected > 0)
                     resultSelected++;
                 else
                     resultSelected = 0;
@@ -222,6 +219,28 @@ public class SimpleTextViewer extends Activity {
                 setSpan(false);
                 break;
         }
+    }
+
+    private void increaseTextSize(){
+        DisplayMetrics metrics;
+        metrics = getApplicationContext().getResources().getDisplayMetrics();
+        float textSize = tvMainText.getTextSize() / metrics.density + 2;
+        tvMainText.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
+    }
+
+    private void reduceTextSize(){
+        DisplayMetrics metrics;
+        metrics = getApplicationContext().getResources().getDisplayMetrics();
+        float textSize = tvMainText.getTextSize() / metrics.density - (tvMainText.getTextSize() / metrics.density) / 10;
+        tvMainText.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
+    }
+
+    private void startSearch(){
+        if (isPlusMinusActive) {
+            plusMinus.setVisibility(View.GONE);
+            isPlusMinusActive = !isPlusMinusActive;
+        }
+        searchViewAnimation();
     }
 
     private void textCopy() {

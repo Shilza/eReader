@@ -34,17 +34,20 @@ public class PDFViewer extends Activity
         implements OnPageChangeListener, OnLoadCompleteListener, OnTapListener, GoToDialog.OnInputListener {
 
     private PDFView pdfView;
+    private Book book;
+
     private ImageButton ibScreenSize;
     private ImageButton ibBookmarks;
     private TextView tvBookmarksCount;
+    private View footer;
+    private View header;
+
     private float totalRead = 0;
     private boolean isHorizontalOrientation = false;
     private boolean isFullScreen = false;
     private boolean isExtraMenuHide = false;
-    private View footer;
-    private View header;
+
     private int startPage;
-    private Book book;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,25 +101,7 @@ public class PDFViewer extends Activity
     public void onPageChanged(int curPage, int count) {
         book.setTotalRead((float) curPage / (float) count);
         refreshBooksData();
-
-        int bookmarksCount = 0;
-        for (Bookmark bookmark : book.getBookmarks())
-            if (bookmark.getPage() == curPage)
-                bookmarksCount++;
-
-        if (bookmarksCount > 0) {
-            ibBookmarks.setImageResource(R.drawable.ic_bookmark_border_red_28dp);
-            tvBookmarksCount.setText(String.valueOf(bookmarksCount));
-            tvBookmarksCount.setVisibility(View.VISIBLE);
-        } else {
-            ibBookmarks.setImageResource(R.drawable.ic_bookmark_border_white_28dp);
-            tvBookmarksCount.setVisibility(View.GONE);
-        }
-    }
-
-    private void refreshBooksData() {
-        book.setLastActivity(new Date().getTime());
-        FileWorker.getInstance().refreshingJSON(FileWorker.getInstance().getRecentBooks());
+        bookmarksProcessing(curPage);
     }
 
     @Override
@@ -140,16 +125,6 @@ public class PDFViewer extends Activity
         refreshBooksData();
         TabsKeeper.getInstance().notifyDataSetChanged();
         finish();
-    }
-
-    private void footerAnimation(boolean show) {
-        int value = show ? -footer.getHeight() : footer.getHeight();
-        footer.animate().translationYBy(value).setDuration(200).setInterpolator(new AccelerateInterpolator()).start();
-    }
-
-    private void tvHeaderAnimation(boolean show) {
-        int value = show ? header.getHeight() : -header.getHeight();
-        header.animate().translationYBy(value).setDuration(200).setInterpolator(new AccelerateInterpolator()).start();
     }
 
     public void pdfViewerOnClick(View view) {
@@ -181,6 +156,37 @@ public class PDFViewer extends Activity
                 createBookmarksDialog();
                 break;
         }
+    }
+
+    private void footerAnimation(boolean show) {
+        int value = show ? -footer.getHeight() : footer.getHeight();
+        footer.animate().translationYBy(value).setDuration(200).setInterpolator(new AccelerateInterpolator()).start();
+    }
+
+    private void tvHeaderAnimation(boolean show) {
+        int value = show ? header.getHeight() : -header.getHeight();
+        header.animate().translationYBy(value).setDuration(200).setInterpolator(new AccelerateInterpolator()).start();
+    }
+
+    private void bookmarksProcessing(int curPage){
+        int bookmarksCount = 0;
+        for (Bookmark bookmark : book.getBookmarks())
+            if (bookmark.getPage() == curPage)
+                bookmarksCount++;
+
+        if (bookmarksCount > 0) {
+            ibBookmarks.setImageResource(R.drawable.ic_bookmark_border_red_28dp);
+            tvBookmarksCount.setText(String.valueOf(bookmarksCount));
+            tvBookmarksCount.setVisibility(View.VISIBLE);
+        } else {
+            ibBookmarks.setImageResource(R.drawable.ic_bookmark_border_white_28dp);
+            tvBookmarksCount.setVisibility(View.GONE);
+        }
+    }
+
+    private void refreshBooksData() {
+        book.setLastActivity(new Date().getTime());
+        FileWorker.getInstance().refreshingJSON(FileWorker.getInstance().getRecentBooks());
     }
 
     private void bookSharing() {

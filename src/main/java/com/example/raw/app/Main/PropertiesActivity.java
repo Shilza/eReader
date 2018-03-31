@@ -16,19 +16,18 @@ import java.text.DecimalFormat;
 
 public class PropertiesActivity extends Activity{
 
+    private Book book;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_properties);
 
-        Book book = (Book)getIntent().getSerializableExtra("Book");
-        String totalRead;
-        if(book.getTotalRead() > 0){
-            DecimalFormat f = new DecimalFormat("##.0");
-            totalRead = f.format(book.getTotalRead()*100) + "%";
-        } else
-            totalRead = "0%";
+        book = (Book)getIntent().getSerializableExtra("Book");
+        initializationUI();
+    }
 
+    private void initializationUI(){
         ImageView cover =  findViewById(R.id.acPropertiesBookCover);
         Glide.with(this)
                 .load(FileWorker.getInstance().getPicturesPath() + book.getName()+".png")
@@ -36,12 +35,12 @@ public class PropertiesActivity extends Activity{
                 .into(cover);
 
         ((TextView) findViewById(R.id.acPropertiesBookName)).setText(book.getName());
-        ((TextView) findViewById(R.id.acPropertiesTotalRead)).setText(totalRead);
+        ((TextView) findViewById(R.id.acPropertiesTotalRead)).setText(totalReadPreparing());
         ((TextView) findViewById(R.id.acPropertiesLastActivity)).setText(book.getLastActivity());
         ((TextView) findViewById(R.id.acPropertiesBookSize)).setText(book.getSize());
         ((TextView) findViewById(R.id.acPropertiesFilePath)).setText(book.getFilePath());
 
-        /*
+                /*
         tvFilePath.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,5 +49,17 @@ public class PropertiesActivity extends Activity{
             }
         });
         */
+    }
+
+    private String totalReadPreparing(){
+        String totalRead;
+
+        if(book.getTotalRead() > 0){
+            DecimalFormat f = new DecimalFormat("##.0");
+            totalRead = f.format(book.getTotalRead()*100) + "%";
+        } else
+            totalRead = "0%";
+
+        return totalRead;
     }
 }
