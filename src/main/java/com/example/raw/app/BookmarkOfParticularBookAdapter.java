@@ -141,9 +141,9 @@ public class BookmarkOfParticularBookAdapter extends RecyclerView.Adapter<Recycl
 
     private void initAlertDialog() {
         ad = new AlertDialog.Builder(context);
-        ad.setTitle("Удалить");
-        ad.setMessage("Действительно хотите удалить эту закладку");
-        ad.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+        ad.setTitle(R.string.dialog_bopb_adt_delete);
+        ad.setMessage(R.string.dialog_bopb_adt_confirmation_of_removal_bookmark);
+        ad.setPositiveButton(R.string.dialog_consent, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int arg1) {
                 book.getBookmarks().remove(selectedBookmark);
                 bookmarks.remove(selectedBookmark);
@@ -151,7 +151,7 @@ public class BookmarkOfParticularBookAdapter extends RecyclerView.Adapter<Recycl
                 notifyDataSetChanged();
             }
         });
-        ad.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+        ad.setNegativeButton(R.string.dialog_denial, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int arg1) {
             }
         });

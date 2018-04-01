@@ -122,19 +122,19 @@ public class Statistics extends Activity {
 
     private void createDialog() {
         ad = new AlertDialog.Builder(this);
-        ad.setTitle("Очистить статистику");
-        ad.setMessage("Действительно хотите очистить статистику?");
-        ad.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+        ad.setTitle(R.string.dialog_title_delete_statistics);
+        ad.setMessage(R.string.dialog_confirmation_of_removal_statistics);
+        ad.setPositiveButton(R.string.dialog_consent, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int arg1) {
                 if (removeStatistics())
-                    Toast.makeText(getBaseContext(), "Статистика очищена",
+                    Toast.makeText(getBaseContext(), R.string.dialog_statistics_cleared,
                             Toast.LENGTH_SHORT).show();
                 else
-                    Toast.makeText(getBaseContext(), "Статистика пуста",
+                    Toast.makeText(getBaseContext(), R.string.dialog_statistics_is_empty,
                             Toast.LENGTH_SHORT).show();
             }
         });
-        ad.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+        ad.setNegativeButton(R.string.dialog_denial, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int arg1) {
             }
         });

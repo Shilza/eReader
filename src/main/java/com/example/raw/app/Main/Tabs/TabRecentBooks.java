@@ -31,7 +31,7 @@ public class TabRecentBooks extends Tab {
         ArrayList<Book> books = FileWorker.getInstance().getRecentBooks();
         adapter = new RecentBooksRVAdapter(books, getActivity());
         recyclerView.setAdapter(adapter);
-        locationName = "Последние";
+        locationName = getString(R.string.tab_recent_books_location);
 
         if(books.isEmpty())
            tvLocation.setText(locationName);

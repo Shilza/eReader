@@ -14,7 +14,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"
         android:layout_marginTop="15dp"
-        android:hint="Номер страницы"
+        android:hint="@string/dialog_pdf_viewer_goto_input_placeholder"
         android:inputType="number"
         android:textAlignment="center" />
 
@@ -33,7 +33,7 @@
         android:layout_marginTop="10dp"
         android:background="@android:color/transparent"
         android:gravity="center"
-        android:text="ОК"
+        android:text="@string/dialog_pdf_viewer_goto_OK"
         android:textColor="#33bbff"
         android:textSize="18sp" />
 

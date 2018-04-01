@@ -46,7 +46,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Прочитано" />
+                        android:text="@string/ac_properties_read" />
 
                     <TextView
                         android:id="@+id/acPropertiesTotalRead"
@@ -62,7 +62,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Последняя активность" />
+                        android:text="@string/ac_properties_last_activity" />
 
                     <TextView
                         android:id="@+id/acPropertiesLastActivity"
@@ -78,7 +78,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Размер" />
+                        android:text="@string/ac_properties_size" />
 
                     <TextView
                         android:id="@+id/acPropertiesBookSize"
@@ -93,7 +93,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Расположение" />
+                        android:text="@string/ac_properties_location" />
 
                     <TextView
                         android:id="@+id/acPropertiesFilePath"

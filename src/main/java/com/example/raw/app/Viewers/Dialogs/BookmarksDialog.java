@@ -31,7 +31,7 @@ public class BookmarksDialog extends DialogFragment implements View.OnClickListe
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_adding_bookmarks, container, false);
-        getDialog().setTitle("Добавить закладку");
+        getDialog().setTitle(R.string.dialog_title_add_bookmarks);
 
         actionOk = view.findViewById(R.id.dialogBookmarksAddingActionOk);
         actionActOk = view.findViewById(R.id.dialogBookmarksAddingActionAltOk);
@@ -40,7 +40,7 @@ public class BookmarksDialog extends DialogFragment implements View.OnClickListe
         input = view.findViewById(R.id.dialogBookmarksAddingEditText);
         input.setVisibility(View.GONE);
         currentPage = getArguments().getInt("currentPage");
-        ((TextView) view.findViewById(R.id.dialogBookmarksAddingTvPage)).setText("Страница " + (currentPage + 1));
+        ((TextView) view.findViewById(R.id.dialogBookmarksAddingTvPage)).setText(getString(R.string.dialog_page) + (currentPage + 1));
 
         for (Book obj : FileWorker.getInstance().getRecentBooks())
             if (obj.equals((getArguments().getSerializable("book")))) {
@@ -91,10 +91,10 @@ public class BookmarksDialog extends DialogFragment implements View.OnClickListe
 
         if (!isContainsBookmark) {
             book.addBookmark(new Bookmark(currentPage, new Date().getTime(), input.getText().toString()));
-            Toast.makeText(getActivity(), "Закладка добавлена", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.bookmark_added, Toast.LENGTH_SHORT).show();
             FileWorker.getInstance().refreshingJSON(FileWorker.getInstance().getRecentBooks());
         } else
-            Toast.makeText(getActivity(), "Закладка уже существует", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.bookmarks_does_not_exist, Toast.LENGTH_SHORT).show();
 
         dismiss();
     }

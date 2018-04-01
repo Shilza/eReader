@@ -84,9 +84,9 @@ public class SearchRVAdapter extends RVAdapter implements Filterable {
                                         ContextMenu.ContextMenuInfo menuInfo) {
 
             menu.setHeaderTitle(selectedBook.getName());
-            menu.add(GROUP_ID, CONTEXT_MENU_OPEN, 0, "Открыть");
-            menu.add(GROUP_ID, CONTEXT_MENU_DELETE, 0, "Удалить");
-            menu.add(GROUP_ID, CONTEXT_MENU_PROPERTIES, 0, "Свойства");
+            menu.add(GROUP_ID, CONTEXT_MENU_OPEN, 0, R.string.context_menu_open);
+            menu.add(GROUP_ID, CONTEXT_MENU_DELETE, 0, R.string.context_menu_delete);
+            menu.add(GROUP_ID, CONTEXT_MENU_PROPERTIES, 0, R.string.context_menu_properties);
         }
     }
 

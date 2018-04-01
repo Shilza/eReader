@@ -38,7 +38,7 @@ public class TabLocalBooks extends Tab implements SwipeRefreshLayout.OnRefreshLi
         adapter = new LocalBooksRVAdapter(books, getActivity());
         recyclerView.setAdapter(adapter);
 
-        locationName = "Локальные";
+        locationName = getString(R.string.tab_local_books_location);
 
         if(books.isEmpty())
             tvLocation.setText(locationName);

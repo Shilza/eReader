@@ -31,7 +31,7 @@
             android:gravity="start|center"
             android:paddingEnd="15dp"
             android:paddingStart="15dp"
-            android:text="Статистика"
+            android:text="@string/title_statistics"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
 

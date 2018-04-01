@@ -26,7 +26,7 @@ public class GoToDialog extends DialogFragment {
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_goto_pdf_viewer, container, false);
         Button actionOk = view.findViewById(R.id.acPDFViewerDialogGotoActionGo);
-        getDialog().setTitle("Перейти к");
+        getDialog().setTitle(R.string.dialog_title_goto);
 
         onInputListener = (OnInputListener) getActivity();
 
@@ -63,10 +63,10 @@ public class GoToDialog extends DialogFragment {
                         onInputListener.sendInput(value);
                         dismiss();
                     } else
-                        Toast.makeText(getActivity(), "Такой страницы не существует", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), R.string.page_does_not_exist, Toast.LENGTH_SHORT).show();
                 } else {
                     dismiss();
-                    Toast.makeText(getActivity(), "Вы не ввели страницу", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.page_not_entered, Toast.LENGTH_SHORT).show();
                 }
             }
         });

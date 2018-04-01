@@ -94,7 +94,7 @@ public class SimpleTextViewer extends Activity {
         try {
             comingString = getTextFromFile(comingFilePath);
         } catch (IOException ex) {
-            Toast.makeText(this, "Невозможо открыть файл", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_cannot_open_file, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -152,13 +152,13 @@ public class SimpleTextViewer extends Activity {
 
                     setSpan(false);
 
-                    Toast toast = Toast.makeText(getBaseContext(), "Результатов " + count, Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getBaseContext(), R.string.text_viewer_results + count, Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                     searchPanel.setVisibility(View.VISIBLE);
                 } else {
                     setSpan(true);
-                    Toast.makeText(getBaseContext(), "Поиск не дал результатов", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), R.string.text_viewer_search_has_not_given_any_results, Toast.LENGTH_SHORT).show();
                 }
 
                 return false;
@@ -246,11 +246,11 @@ public class SimpleTextViewer extends Activity {
     private void textCopy() {
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText("", comingString);
-        Toast.makeText(this, "Текст скопирован в буфер обмена", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.text_viewer_text_copy_to_buffer, Toast.LENGTH_SHORT).show();
         try {
             clipboard.setPrimaryClip(clip);
         } catch (NullPointerException ex) {
-            Toast.makeText(this, "Не удалось скопировать в буфер обмена", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.text_viewer_text_could_not_copy, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -266,7 +266,7 @@ public class SimpleTextViewer extends Activity {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/*");
         intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + comingFilePath));
-        startActivity(Intent.createChooser(intent, "Share with"));
+        startActivity(Intent.createChooser(intent, getString(R.string.intent_share)));
     }
 
     private void searchViewAnimation() {

@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity{
                                 .setType("*/*")
                                 .setAction(Intent.ACTION_GET_CONTENT);
 
-                        startActivityForResult(Intent.createChooser(intent, "Выберите файл"), 1);
+                        startActivityForResult(Intent.createChooser(intent, getString(R.string.intent_select_file)), 1);
                         return true;
 
                     case R.id.acMainActionBookmarks:
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity{
                         return true;
 
                     case R.id.acMainActionExit:
-                        android.os.Process.killProcess(android.os.Process.myPid()); //REMAKE
+                        android.os.Process.killProcess(android.os.Process.myPid());
                         return true;
                 }
 
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity{
             }
 
         if(!isReadable)
-            Toast.makeText(this, "Неподдерживаемый формат", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_unsupported_format, Toast.LENGTH_SHORT).show();
     }
 
     private String getRealPathFromURI(Uri contentURI) {
@@ -138,8 +138,8 @@ public class MainActivity extends AppCompatActivity{
 
     private void initTabs(){
         tabLayout = findViewById(R.id.acMainTabLayout);
-        tabLayout.addTab(tabLayout.newTab().setText("Последние"));
-        tabLayout.addTab(tabLayout.newTab().setText("Локальные"));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_recent_books_location));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_local_books_location));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         viewPager = findViewById(R.id.acMainPager);

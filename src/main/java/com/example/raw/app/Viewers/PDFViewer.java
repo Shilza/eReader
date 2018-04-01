@@ -193,7 +193,7 @@ public class PDFViewer extends Activity
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/*");
         intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + book.getFilePath()));
-        startActivity(Intent.createChooser(intent, "Share with"));
+        startActivity(Intent.createChooser(intent, getString(R.string.intent_share)));
     }
 
     private void orientationChanging() {

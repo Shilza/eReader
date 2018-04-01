@@ -67,20 +67,20 @@ public class BookmarksActivity extends Activity {
 
     private void createDialog() {
         ad = new AlertDialog.Builder(this);
-        ad.setTitle("Очистить закладки");
-        ad.setMessage("Действительно хотите очистить закладки?");
-        ad.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+        ad.setTitle(R.string.dialog_delete_bookmarks);
+        ad.setMessage(R.string.dialog_confirmation_of_removal_bookmarks);
+        ad.setPositiveButton(R.string.dialog_consent, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int arg1) {
                 if (countOfBookmarks > 0) {
                     removingBookmarks();
-                    Toast.makeText(getBaseContext(), "Закладки очищены",
+                    Toast.makeText(getBaseContext(), R.string.dialog_bookmarks_cleared,
                             Toast.LENGTH_SHORT).show();
                 } else
-                    Toast.makeText(getBaseContext(), "Закладок не найдено",
+                    Toast.makeText(getBaseContext(), R.string.dialog_bookmarks_not_found,
                             Toast.LENGTH_SHORT).show();
             }
         });
-        ad.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+        ad.setNegativeButton(R.string.dialog_denial, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int arg1) {
 
             }
@@ -99,7 +99,7 @@ public class BookmarksActivity extends Activity {
                 books.add(book);
 
         if (books.size() == 0)
-            ((TextView) findViewById(R.id.acBookmarksTvCount)).setText("Закладок не найдено");
+            ((TextView) findViewById(R.id.acBookmarksTvCount)).setText(R.string.dialog_bookmarks_not_found);
 
         adapter = new BookmarksRVAdapter(books, this);
         recyclerView.setAdapter(adapter);

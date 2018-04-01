@@ -3,6 +3,9 @@
 
     <string name="open">Open</string>
     <string name="close">Close</string>
+    
+    <string name="intent_select_file">"Выберите файл"</string>
+    <string name="intent_share">"Share with"</string>
 
     <string name="bookmarks_count">"Количество закладок: "</string>
 
@@ -12,9 +15,54 @@
     <string name="context_menu_properties">"Свойства"</string>
 
     <string name="error_book_is_deleted">"Невозможно открыть, возможно книга была удалена"</string>
+    <string name="error_unsupported_format">"Неподдерживаемый формат"</string>
+    <string name="error_cannot_open_file">"Невозможо открыть файл"</string>
 
     <string name="dialog_delete_book">"Удалить"</string>
     <string name="dialog_confirmation_of_removal_book">"Действительно хотите удалить эту книгу?"</string>
     <string name="dialog_consent">"Да"</string>
     <string name="dialog_denial">"Нет"</string>
+    
+    <string name="dialog_delete_bookmarks">"Очистить закладки"</string>
+    <string name="dialog_confirmation_of_removal_bookmarks">"Действительно хотите очистить закладки?"</string>
+    <string name="dialog_bookmarks_cleared">"Закладки очищены"</string>
+    <string name="dialog_bookmarks_not_found">"Закладок не найдено"</string>
+
+    <string name="dialog_title_delete_statistics">"Очистить статистику"</string>
+    <string name="dialog_confirmation_of_removal_statistics">"Действительно хотите очистить статистику?"</string>
+    <string name="dialog_statistics_cleared">"Статистика очищена"</string>
+    <string name="dialog_statistics_is_empty">"Статистика пуста"</string>
+
+    <string name="dialog_title_add_bookmarks">"Добавить закладку"</string>
+    <string name="dialog_page">"Страница " </string>
+    <string name="bookmark_added">"Закладка добавлена"</string>
+    <string name="bookmarks_does_not_exist">"Закладка уже существует"</string>
+    
+    <string name="dialog_title_goto">"Перейти к"</string>
+    <string name="page_does_not_exist">"Такой страницы не существует"</string>
+    <string name="page_not_entered">"Вы не ввели страницу"</string>
+
+    <string name="tab_local_books_location">"Локальные"</string>
+    <string name="tab_recent_books_location">"Последние"</string>
+
+    <string name="text_viewer_results">"Результатов "</string>
+    <string name="text_viewer_search_has_not_given_any_results">"Поиск не дал результатов"</string>
+    <string name="text_viewer_text_copy_to_buffer">"Текст скопирован в буфер обмена"</string>
+    <string name="text_viewer_text_could_not_copy">"Не удалось скопировать в буфер обмена"</string>
+
+    <string name="dialog_bopb_adt_delete">"Удалить"</string>
+    <string name="dialog_bopb_adt_confirmation_of_removal_bookmark">"Действительно хотите удалить эту закладку"</string>
+
+    <!-- XML FILES -->
+    
+    <string name="ac_properties_read">"Прочитано"</string>
+    <string name="ac_properties_last_activity">"Последняя активность"</string>
+    <string name="ac_properties_size">"Размер"</string>
+    <string name="ac_properties_location">"Расположение"</string>
+
+    <string name="title_statistics">"Статистика"</string>
+
+    <string name="dialog_pdf_viewer_goto_input_placeholder">"Номер страницы"</string>
+    <string name="dialog_pdf_viewer_goto_OK">"ОК"</string>
+    
 </resources>

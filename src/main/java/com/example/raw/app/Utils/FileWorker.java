@@ -24,7 +24,7 @@ import java.util.Date;
 public class FileWorker {
 
     private static final FileWorker INSTANCE = new FileWorker();
-    private final String APP_DIRECTORY = Environment.getExternalStorageDirectory() + "/" + R.string.app_name + "/";
+    private final String APP_DIRECTORY = Environment.getExternalStorageDirectory() + "/" + "Silicate Reader" + "/"; //REMAKE WITH STRINGS.XML
     private final String PICTURES = APP_DIRECTORY + "Pictures/";
     private final String LIST_RECENT_BOOKS = APP_DIRECTORY + "recent_books.json";
     private final String LIST_LOCAL_BOOKS = APP_DIRECTORY + "local_books.json";
@@ -76,12 +76,12 @@ public class FileWorker {
         DecimalFormat f = new DecimalFormat("##.00");
         if (size / 1024 > 1024) {
             size = size / (1024 * 1024);
-            strSize = f.format(size) + " МБ";
+            strSize = f.format(size) + " MB";
         } else if (size > 1024) {
             size = size / 1024;
-            strSize = f.format(size) + " КБ";
+            strSize = f.format(size) + " KB";
         } else
-            strSize = String.valueOf(size) + "Б";
+            strSize = String.valueOf(size) + " B";
 
         return new Book(name, filePath, strSize, lastActivity, extension);
     }
