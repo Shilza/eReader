@@ -101,7 +101,7 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
         bookViewHolder.bookSize.setText(books.get(position).getSize());
 
         Glide.with(context)
-                .load(FileWorker.getInstance().getPicturesPath() + books.get(position).getName()+".png")
+                .load(FileWorker.getInstance().getPicturesPath() + books.get(position).getName())
                 .apply(new RequestOptions().fitCenter().placeholder(R.drawable.e))
                 .into(bookViewHolder.bookCover);
 

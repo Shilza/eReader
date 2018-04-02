@@ -30,7 +30,7 @@ public class PropertiesActivity extends Activity{
     private void initializationUI(){
         ImageView cover =  findViewById(R.id.acPropertiesBookCover);
         Glide.with(this)
-                .load(FileWorker.getInstance().getPicturesPath() + book.getName()+".png")
+                .load(FileWorker.getInstance().getPicturesPath() + book.getName())
                 .apply(new RequestOptions().fitCenter().placeholder(R.drawable.e))
                 .into(cover);
 

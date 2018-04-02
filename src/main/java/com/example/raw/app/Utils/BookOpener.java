@@ -22,11 +22,11 @@ public class BookOpener {
     public void opening(Book book, Context context) {
         if (book.getExtension() == Extensions.PDF) {
             Intent intent = new Intent(context, PDFViewer.class);
-            intent.putExtra("FilePath", book.getFilePath());
+            intent.putExtra("IndexInRecentBooks", FileWorker.getInstance().getRecentBooks().indexOf(book));
             context.startActivity(intent);
         } else if (isSimpleText(book.getExtension())) {
             Intent intent = new Intent(context, SimpleTextViewer.class);
-            intent.putExtra("Text", book.getFilePath());
+            intent.putExtra("Filepath", book.getFilePath());
             context.startActivity(intent);
         }
     }
@@ -34,20 +34,15 @@ public class BookOpener {
     public void opening(Book book, int page, Context context) {
         if (book.getExtension() == Extensions.PDF) {
             Intent intent = new Intent(context, PDFViewer.class);
-            intent.putExtra("FilePath", book.getFilePath());
+            intent.putExtra("IndexInRecentBooks", FileWorker.getInstance().getRecentBooks().indexOf(book));
             intent.putExtra("Page", page);
             context.startActivity(intent);
         }
     }
 
-    public void opening(File file, Extensions extension, Context context) {
-        Book book = FileWorker.getInstance().bookPreparing(file, extension);
-        for (Extensions ext : Extensions.searchableExtensions())
-            if (file.getName().toLowerCase().endsWith(ext.getDescription())) {
-                addToRecentBooks(book);
-                break;
-            }
-
+    public void opening(File file, Context context) throws IllegalArgumentException{
+        Book book = FileWorker.getInstance().bookPreparing(file);
+        addToRecentBooks(book);
         opening(book, context);
     }
 

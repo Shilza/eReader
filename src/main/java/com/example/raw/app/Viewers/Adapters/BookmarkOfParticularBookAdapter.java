@@ -1,4 +1,4 @@
-package com.example.raw.app;
+package com.example.raw.app.Viewers.Adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -14,8 +14,11 @@ import android.widget.TextView;
 
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Entities.Bookmark;
+import com.example.raw.app.ItemClickListener;
+import com.example.raw.app.R;
 import com.example.raw.app.Utils.BookOpener;
 import com.example.raw.app.Utils.FileWorker;
+import com.example.raw.app.Viewers.Activities.BookmarksOfParticularBookActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,7 +36,7 @@ public class BookmarkOfParticularBookAdapter extends RecyclerView.Adapter<Recycl
     private final byte CONTEXT_MENU_REMOVING = 1;
     private final byte GROUP_ID = 4;
 
-    BookmarkOfParticularBookAdapter(Book book, ArrayList<Bookmark> bookmarks, Context context) {
+    public BookmarkOfParticularBookAdapter(Book book, ArrayList<Bookmark> bookmarks, Context context) {
         this.book = book;
         this.bookmarks = bookmarks;
         this.context = context;
@@ -124,7 +127,7 @@ public class BookmarkOfParticularBookAdapter extends RecyclerView.Adapter<Recycl
         });
     }
 
-    void getItemSelected(MenuItem item) {
+    public void getItemSelected(MenuItem item) {
         if (item.getGroupId() != GROUP_ID)
             return;
 

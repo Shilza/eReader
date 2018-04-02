@@ -90,7 +90,7 @@ public class SimpleTextViewer extends Activity {
     }
 
     private void initializationComingData(){
-        comingFilePath = String.valueOf(getIntent().getSerializableExtra("Text"));
+        comingFilePath = String.valueOf(getIntent().getSerializableExtra("Filepath"));
         try {
             comingString = getTextFromFile(comingFilePath);
         } catch (IOException ex) {

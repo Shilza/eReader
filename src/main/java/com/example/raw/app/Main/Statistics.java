@@ -13,16 +13,22 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.raw.app.Entities.Book;
 import com.example.raw.app.R;
+import com.example.raw.app.Utils.FileWorker;
+
+import java.util.ArrayList;
 
 public class Statistics extends Activity {
 
     private AlertDialog.Builder ad;
+    private ArrayList<Book> books;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
+        books = FileWorker.getInstance().getRecentBooks();
 
         initUI();
         createDialog();
@@ -40,8 +46,14 @@ public class Statistics extends Activity {
         String[] list1 = new String[4];
         list1[0] = "13";
         list1[1] = "1318";
-        list1[2] = "9";
-        list1[3] = "3";
+        list1[2] = String.valueOf(books.size() + FileWorker.getInstance().getLocalBooks().size());
+
+        int count = 0;
+        for(Book book : books)
+            if(book.getTotalRead() >= 99)
+                count++;
+
+        list1[3] = String.valueOf(count);
 
         int a = 0;
         for (int i = 0; i < 2; i++) {
@@ -102,10 +114,6 @@ public class Statistics extends Activity {
                 switch (item.getItemId()) {
                     case R.id.acStatisticsActionRemove:
                         ad.show();
-                        break;
-
-                    case R.id.acStatisticsActionByBooks:
-                        //TODO
                         break;
                 }
                 return true;

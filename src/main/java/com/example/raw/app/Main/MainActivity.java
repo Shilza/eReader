@@ -22,14 +22,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.raw.app.Entities.Book;
-import com.example.raw.app.Extensions;
 import com.example.raw.app.Main.Adapters.SearchRVAdapter;
 import com.example.raw.app.Main.Adapters.TabPagerAdapter;
 import com.example.raw.app.R;
-import com.example.raw.app.TabsKeeper;
 import com.example.raw.app.Utils.BookOpener;
-import com.example.raw.app.Utils.FileWorker;
 
 import java.io.File;
 
@@ -108,16 +104,11 @@ public class MainActivity extends AppCompatActivity{
         Uri selectedFile = data.getData();
         File file = new File(getRealPathFromURI(selectedFile));
 
-        boolean isReadable = false;
-        for (Extensions ext : Extensions.values())
-            if (file.getName().endsWith(ext.getDescription())) {
-                BookOpener.getInstance().opening(file, ext,this);
-                isReadable = true;
-                break;
-            }
-
-        if(!isReadable)
+        try{
+            BookOpener.getInstance().opening(file,this);
+        } catch (IllegalArgumentException e){
             Toast.makeText(this, R.string.error_unsupported_format, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private String getRealPathFromURI(Uri contentURI) {

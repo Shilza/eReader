@@ -1,25 +1,21 @@
-package com.example.raw.app;
+package com.example.raw.app.Viewers.Activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.raw.app.Viewers.Adapters.BookmarkOfParticularBookAdapter;
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Entities.Bookmark;
+import com.example.raw.app.R;
 import com.example.raw.app.Utils.FileWorker;
-import com.example.raw.app.Viewers.PDFViewer;
 
 import java.util.ArrayList;
 
@@ -103,13 +99,16 @@ public class BookmarksOfParticularBookActivity extends Activity {
     }
 
     private void setData() {
-        bookmarks = (ArrayList<Bookmark>) getIntent().getSerializableExtra("Bookmarks");
-        String filePath = String.valueOf(getIntent().getSerializableExtra("FilePath"));
+        bookmarks = new ArrayList<>();
 
-        for (Book obj : FileWorker.getInstance().getRecentBooks())
-            if (obj.getFilePath().equals(filePath)) {
-                book = obj;
-                break;
-            }
+        getIntent().getIntArrayExtra("IndexesOfBookmarks");
+        book = FileWorker.getInstance().getRecentBooks().get(
+                getIntent().getIntExtra("IndexInRecentBooks", -1)
+        );
+
+        ArrayList<Integer> array = getIntent().getIntegerArrayListExtra("IndexesOfBookmarks");
+        for(int i : array){
+            bookmarks.add(book.getBookmarks().get(i));
+        }
     }
 }

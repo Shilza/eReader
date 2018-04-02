@@ -12,7 +12,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.raw.app.BookmarksOfParticularBookActivity;
+import com.example.raw.app.Viewers.Activities.BookmarksOfParticularBookActivity;
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Entities.Bookmark;
 import com.example.raw.app.Viewers.Dialogs.BookmarksDialog;
@@ -131,8 +131,8 @@ public class PDFViewer extends Activity
         switch (view.getId()) {
             case R.id.acPDFViewerActionBookmarks:
                 Intent intent = new Intent(this, BookmarksOfParticularBookActivity.class);
-                intent.putExtra("FilePath", book.getFilePath());
-                intent.putExtra("Bookmarks", getBookmarks());
+                intent.putExtra("IndexesOfBookmarks", getBookmarks());
+                intent.putExtra("IndexInRecentBooks", FileWorker.getInstance().getRecentBooks().indexOf(book));
                 startActivity(intent);
                 break;
 
@@ -222,7 +222,7 @@ public class PDFViewer extends Activity
     private void createBookmarksDialog() {
         Bundle args = new Bundle();
         args.putInt("currentPage", pdfView.getCurrentPage());
-        args.putSerializable("book", book);
+        args.putSerializable("IndexInRecentBooks", FileWorker.getInstance().getRecentBooks().indexOf(book));
         BookmarksDialog dialog = new BookmarksDialog();
         dialog.setArguments(args);
         dialog.show(getFragmentManager(), "BookmarksDialog");
@@ -243,28 +243,24 @@ public class PDFViewer extends Activity
         }
     }
 
-    private ArrayList<Bookmark> getBookmarks() {
-        ArrayList<Bookmark> bookmarks = new ArrayList<>();
+    private ArrayList<Integer> getBookmarks() {
+        ArrayList<Integer> bookmarks = new ArrayList<>();
 
-        for (Bookmark bookmark : book.getBookmarks())
-            if (bookmark.getPage() == pdfView.getCurrentPage())
-                bookmarks.add(bookmark);
+        for(int i = 0; i < book.getBookmarks().size(); i++)
+            if (book.getBookmarks().get(i).getPage() == pdfView.getCurrentPage())
+                bookmarks.add(i);
 
         if (bookmarks.size() == 0)
-            bookmarks = book.getBookmarks();
+            for(int i=0; i<book.getBookmarks().size();i++)
+                bookmarks.add(i);
 
         return bookmarks;
     }
 
     private void setBook() {
-        String filePath = String.valueOf(getIntent().getSerializableExtra("FilePath"));
+        int index = getIntent().getIntExtra("IndexInRecentBooks", -1);
         startPage = getIntent().getIntExtra("Page", -1);
-
-        for (Book obj : FileWorker.getInstance().getRecentBooks())
-            if (obj.getFilePath().equals(filePath)) {
-                book = obj;
-                totalRead = book.getTotalRead();
-                break;
-            }
+        book = FileWorker.getInstance().getRecentBooks().get(index);
+        totalRead = book.getTotalRead();
     }
 }

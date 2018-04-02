@@ -15,6 +15,7 @@ public class Book implements Serializable{
     private String size;
     private float totalRead;
     private long lastActivity;
+    private long timeOfReading;
     private Extensions extension;
     private ArrayList<Bookmark> bookmarks;
 
@@ -24,6 +25,7 @@ public class Book implements Serializable{
         this.size = size;
         this.lastActivity = lastActivity;
         this.totalRead = 0;
+        this.timeOfReading = new Date().getTime();
         this.extension = extension;
         this.bookmarks = new ArrayList<>();
     }
@@ -62,6 +64,14 @@ public class Book implements Serializable{
 
     public String getLastActivity(){
         return lastActivityProcessing(lastActivity);
+    }
+
+    public long getTimeOfReading() {
+        return timeOfReading;
+    }
+
+    public void setTimeOfReading(long timeOfReading) {
+        this.timeOfReading = timeOfReading;
     }
 
     public Extensions getExtension() { return extension; }

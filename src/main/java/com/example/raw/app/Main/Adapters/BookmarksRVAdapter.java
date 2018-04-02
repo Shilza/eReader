@@ -186,11 +186,11 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private void mainViewHolderPreparing(MainViewHolder holder, int position){
         holder.bookName.setText(books.get(position).second.getName());
-        holder.bookmarksCount.setText(R.string.bookmarks_count +
+        holder.bookmarksCount.setText(context.getString(R.string.bookmarks_count) +
                 String.valueOf(books.get(position).second.getBookmarks().size()));
 
         Glide.with(context)
-                .load(FileWorker.getInstance().getPicturesPath() + books.get(position).second.getName()+".png")
+                .load(FileWorker.getInstance().getPicturesPath() + books.get(position).second.getName())
                 .apply(new RequestOptions().fitCenter().placeholder(R.drawable.e))
                 .into(holder.bookCover);
 

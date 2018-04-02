@@ -17,6 +17,7 @@ import com.example.raw.app.Entities.Bookmark;
 import com.example.raw.app.Utils.FileWorker;
 import com.example.raw.app.R;
 
+import java.io.File;
 import java.util.Date;
 
 public class BookmarksDialog extends DialogFragment implements View.OnClickListener {
@@ -42,11 +43,7 @@ public class BookmarksDialog extends DialogFragment implements View.OnClickListe
         currentPage = getArguments().getInt("currentPage");
         ((TextView) view.findViewById(R.id.dialogBookmarksAddingTvPage)).setText(getString(R.string.dialog_page) + (currentPage + 1));
 
-        for (Book obj : FileWorker.getInstance().getRecentBooks())
-            if (obj.equals((getArguments().getSerializable("book")))) {
-                book = obj;
-                break;
-            }
+        book = FileWorker.getInstance().getRecentBooks().get(getArguments().getInt("IndexInRecentBooks"));
 
         actionActOk.setOnClickListener(this);
         actionOk.setOnClickListener(this);

@@ -25,7 +25,7 @@
         <activity android:name=".Viewers.SimpleTextViewer" />
         <activity android:name=".Main.Statistics" />
         <activity android:name=".Main.BookmarksActivity" />
-        <activity android:name=".BookmarksOfParticularBookActivity"></activity>
+        <activity android:name=".Viewers.Activities.BookmarksOfParticularBookActivity"></activity>
     </application>
 
 </manifest>

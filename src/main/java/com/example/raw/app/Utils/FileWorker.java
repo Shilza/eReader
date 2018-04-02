@@ -4,10 +4,10 @@ import android.graphics.Bitmap;
 import android.graphics.pdf.PdfRenderer;
 import android.os.Environment;
 import android.os.ParcelFileDescriptor;
+import android.util.Log;
 
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Extensions;
-import com.example.raw.app.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -24,10 +24,11 @@ import java.util.Date;
 public class FileWorker {
 
     private static final FileWorker INSTANCE = new FileWorker();
+
     private final String APP_DIRECTORY = Environment.getExternalStorageDirectory() + "/" + "Silicate Reader" + "/"; //REMAKE WITH STRINGS.XML
     private final String PICTURES = APP_DIRECTORY + "Pictures/";
-    private final String LIST_RECENT_BOOKS = APP_DIRECTORY + "recent_books.json";
-    private final String LIST_LOCAL_BOOKS = APP_DIRECTORY + "local_books.json";
+    private final String LIST_RECENT_BOOKS = APP_DIRECTORY + "recent_books";
+    private final String LIST_LOCAL_BOOKS = APP_DIRECTORY + "local_books";
     private ArrayList<Book> recentBooks;
     private ArrayList<Book> localBooks;
 
@@ -36,7 +37,7 @@ public class FileWorker {
     }
 
     private FileWorker() {
-        checkForExistenceAppDirectory();
+        makeAppDirectory();
         recentBooks = new ArrayList<>();
         localBooks = new ArrayList<>();
 
@@ -44,7 +45,6 @@ public class FileWorker {
             recentBooks = initializeData(recentBooks);
         } catch (Exception ex) {
         }
-
         try {
             localBooks = initializeData(localBooks);
         } catch (Exception ex) {
@@ -64,26 +64,33 @@ public class FileWorker {
         refreshingJSON(localBooks);
     }
 
-    Book bookPreparing(File directory, Extensions extension) {
+    Book bookPreparing(File directory) throws IllegalArgumentException{
         String temp = directory.getName();
 
-        String name = temp.substring(0, temp.toLowerCase().indexOf(extension.getDescription()));
-        String filePath = directory.getAbsolutePath();
-        long lastActivity = directory.lastModified();
+        for (Extensions ext : Extensions.searchableExtensions())
+            if (directory.getName().toLowerCase().endsWith(ext.getDescription())) {
 
-        float size = directory.length();
-        String strSize;
-        DecimalFormat f = new DecimalFormat("##.00");
-        if (size / 1024 > 1024) {
-            size = size / (1024 * 1024);
-            strSize = f.format(size) + " MB";
-        } else if (size > 1024) {
-            size = size / 1024;
-            strSize = f.format(size) + " KB";
-        } else
-            strSize = String.valueOf(size) + " B";
+                String name = temp.substring(0, temp.toLowerCase().indexOf(ext.getDescription()));
 
-        return new Book(name, filePath, strSize, lastActivity, extension);
+                String filePath = directory.getAbsolutePath();
+                long lastActivity = directory.lastModified();
+
+                float size = directory.length();
+                String strSize;
+                DecimalFormat f = new DecimalFormat("##.00");
+                if (size / 1024 > 1024) {
+                    size = size / (1024 * 1024);
+                    strSize = f.format(size) + " MB";
+                } else if (size > 1024) {
+                    size = size / 1024;
+                    strSize = f.format(size) + " KB";
+                } else
+                    strSize = String.valueOf(size) + " B";
+
+                return new Book(name, filePath, strSize, lastActivity, ext);
+            }
+
+       throw new IllegalArgumentException();
     }
 
     public ArrayList<Book> getLocalBooks() {
@@ -136,11 +143,11 @@ public class FileWorker {
         new Thread(new Runnable() {
 
             private void process(ArrayList<Book> list) {
-                checkForExistencePicturesDirectory();
+                makePicturesDirectory();
 
                 for (Book book : list) {
                     try {
-                        File fl = new File(PICTURES + book.getName() + ".png");
+                        File fl = new File(PICTURES + book.getName());
                         if (!fl.exists()) {
                             FileOutputStream out = new FileOutputStream(fl);
                             coverCreation(book.getFilePath()).compress(Bitmap.CompressFormat.PNG, 100, out);
@@ -195,14 +202,14 @@ public class FileWorker {
         return books;
     }
 
-    private void checkForExistenceAppDirectory() {
+    private void makeAppDirectory() {
         File directory = new File(APP_DIRECTORY);
         if (!directory.exists()) {
             directory.mkdir();
         }
     }
 
-    private void checkForExistencePicturesDirectory() {
+    private void makePicturesDirectory() {
         File file = new File(PICTURES);
         if (!file.exists()) {
             file.mkdir();
@@ -219,13 +226,10 @@ public class FileWorker {
         for (File dir : folderEntries) {
             if (dir.isDirectory())
                 searchingFiles(dir);
-            else {
-                for (Extensions ext : Extensions.searchableExtensions())
-                    if (dir.getName().toLowerCase().endsWith(ext.getDescription())) {
-                        bookEntry(bookPreparing(dir, ext));
-                        break;
-                    }
-            }
+            else
+                try {
+                    bookEntry(bookPreparing(dir));
+                } catch (IllegalArgumentException e){}
         }
     }
 
