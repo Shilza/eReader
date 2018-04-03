@@ -24,10 +24,6 @@ public class BookOpener {
             Intent intent = new Intent(context, PDFViewer.class);
             intent.putExtra("IndexInRecentBooks", FileWorker.getInstance().getRecentBooks().indexOf(book));
             context.startActivity(intent);
-        } else if (isSimpleText(book.getExtension())) {
-            Intent intent = new Intent(context, SimpleTextViewer.class);
-            intent.putExtra("Filepath", book.getFilePath());
-            context.startActivity(intent);
         }
     }
 
@@ -40,37 +36,51 @@ public class BookOpener {
         }
     }
 
-    public void opening(File file, Context context) throws IllegalArgumentException{
-        Book book = FileWorker.getInstance().bookPreparing(file);
-        addToRecentBooks(book);
-        opening(book, context);
+    public void opening(File file, Context context) throws IllegalArgumentException {
+        if(!isReadable(file.getName()))
+            throw new IllegalArgumentException();
+
+        if (isSimpleText(file.getName())) {
+            Intent intent = new Intent(context, SimpleTextViewer.class);
+            intent.putExtra("Filepath", file.getAbsolutePath());
+            context.startActivity(intent);
+        } else{
+            Book book = FileWorker.getInstance().bookPreparing(file);
+            addToRecentBooks(book);
+            opening(book, context);
+        }
     }
 
     private void addToRecentBooks(Book book) {
         boolean isBookExistInList = false;
-        for (Book obj : FileWorker.getInstance().getRecentBooks()) {
+        for (Book obj : FileWorker.getInstance().getRecentBooks())
             if (obj.getFilePath().equals(book.getFilePath())) {
                 FileWorker.getInstance().getRecentBooks().remove(obj);
                 isBookExistInList = true;
                 break;
             }
-        }
 
-        if (!isBookExistInList) {
-            for (Book obj : FileWorker.getInstance().getLocalBooks()) {
+        if (!isBookExistInList)
+            for (Book obj : FileWorker.getInstance().getLocalBooks())
                 if (obj.getFilePath().equals(book.getFilePath())) {
                     FileWorker.getInstance().removeBookFromLocalBooks(obj);
                     break;
                 }
-            }
-        }
 
         FileWorker.getInstance().addToRecentBooks(book);
     }
 
-    private boolean isSimpleText(Extensions extension) {
+    private boolean isSimpleText(String filename) {
         for (Extensions ext : Extensions.simpleTextExtensions())
-            if (extension == ext)
+            if (filename.toLowerCase().endsWith(ext.getDescription()))
+                return true;
+
+        return false;
+    }
+
+    private boolean isReadable(String filename){
+        for (Extensions ext : Extensions.values())
+            if (filename.toLowerCase().endsWith(ext.getDescription()))
                 return true;
 
         return false;

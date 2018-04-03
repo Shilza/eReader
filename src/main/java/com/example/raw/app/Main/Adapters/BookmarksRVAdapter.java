@@ -198,7 +198,6 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             @Override
             public void onItemViewClick(int pos, boolean isLongClick) {
                 selectedBook = books.get(pos).second;
-                Toast.makeText(context, selectedBook.getName(), Toast.LENGTH_SHORT).show();
 
                 if(!isLongClick){
                     //CLOSE ALL BOOKMARKS CONTAINERS
@@ -217,7 +216,6 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             @Override
             public void onItemViewClick(int pos, boolean isLongClick) {
                 selectedBook = books.get(pos).second;
-                Toast.makeText(context, selectedBook.getName(), Toast.LENGTH_SHORT).show();
 
                 if(!isLongClick){
                     books.set(pos, new Pair<>(0, books.get(pos).second));

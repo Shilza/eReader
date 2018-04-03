@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/e"
@@ -25,7 +24,8 @@
         <activity android:name=".Viewers.SimpleTextViewer" />
         <activity android:name=".Main.Statistics" />
         <activity android:name=".Main.BookmarksActivity" />
-        <activity android:name=".Viewers.Activities.BookmarksOfParticularBookActivity"></activity>
+        <activity android:name=".Viewers.Activities.BookmarksOfParticularBookActivity" />
+        <activity android:name=".Main.Settings"></activity>
     </application>
 
 </manifest>

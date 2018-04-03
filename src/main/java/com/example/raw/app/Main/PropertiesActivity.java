@@ -39,16 +39,6 @@ public class PropertiesActivity extends Activity{
         ((TextView) findViewById(R.id.acPropertiesLastActivity)).setText(book.getLastActivity());
         ((TextView) findViewById(R.id.acPropertiesBookSize)).setText(book.getSize());
         ((TextView) findViewById(R.id.acPropertiesFilePath)).setText(book.getFilePath());
-
-                /*
-        tvFilePath.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent myIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE, Uri.parse(Environment.getExternalStorageDirectory ()+"/eReader"));
-                startActivityForResult(myIntent, 2);
-            }
-        });
-        */
     }
 
     private String totalReadPreparing(){

@@ -1,5 +1,7 @@
 package com.example.raw.app.Entities;
 
+import android.util.Log;
+
 import com.example.raw.app.Extensions;
 
 import java.io.Serializable;
@@ -25,7 +27,7 @@ public class Book implements Serializable{
         this.size = size;
         this.lastActivity = lastActivity;
         this.totalRead = 0;
-        this.timeOfReading = new Date().getTime();
+        this.timeOfReading = 0;
         this.extension = extension;
         this.bookmarks = new ArrayList<>();
     }
@@ -79,7 +81,7 @@ public class Book implements Serializable{
     private String lastActivityProcessing(long lastActivity){
         SimpleDateFormat sdf;
 
-        if(lastActivity+86400000 > (new Date().getTime())) //60*60*24*1000 one day
+        if(lastActivity+86400000 > (System.currentTimeMillis())) //60*60*24*1000 one day
             sdf = new SimpleDateFormat("h:mm a", Locale.getDefault());
         else
             sdf = new SimpleDateFormat("d MMMM yyyy", Locale.getDefault());

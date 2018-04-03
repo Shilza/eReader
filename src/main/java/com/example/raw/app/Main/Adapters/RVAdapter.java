@@ -111,7 +111,6 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
             @Override
             public void onItemViewClick(int pos, boolean isLongClick) {
                 selectedBook = books.get(pos);
-                Toast.makeText(context, selectedBook.getName(), Toast.LENGTH_SHORT).show();
 
                 if(!isLongClick)
                    clickProcessing();
@@ -144,13 +143,13 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
             public void onClick(DialogInterface dialog, int arg1) {
 
                 //context.deleteFile(selectedBook.getName());
-                Toast.makeText(context, "Вы сделали правильный выбор",
+                Toast.makeText(context, "1",
                         Toast.LENGTH_SHORT).show();
             }
         });
         ad.setNegativeButton(R.string.dialog_denial, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int arg1) {
-                Toast.makeText(context, "Возможно вы правы", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "2", Toast.LENGTH_SHORT).show();
             }
         });
     }

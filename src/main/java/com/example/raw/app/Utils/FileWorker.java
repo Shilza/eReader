@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.pdf.PdfRenderer;
 import android.os.Environment;
 import android.os.ParcelFileDescriptor;
-import android.util.Log;
 
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Extensions;

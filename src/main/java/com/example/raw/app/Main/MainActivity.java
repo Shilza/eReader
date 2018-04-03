@@ -28,6 +28,7 @@ import com.example.raw.app.R;
 import com.example.raw.app.Utils.BookOpener;
 
 import java.io.File;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity{
     private SearchRVAdapter searchRVAdapter;
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity{
                         return true;
 
                     case R.id.acMainActionSettings:
+                        startActivity(new Intent(getBaseContext(), Settings.class));
                         return true;
 
                     case R.id.acMainActionLike:

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,7 +29,6 @@ import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class PDFViewer extends Activity
         implements OnPageChangeListener, OnLoadCompleteListener, OnTapListener, GoToDialog.OnInputListener {
@@ -48,12 +48,13 @@ public class PDFViewer extends Activity
     private boolean isExtraMenuHide = false;
 
     private int startPage;
+    private long startReadingTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdfviewer);
-        setBook();
+        setData();
 
         header = findViewById(R.id.acPDFViewerHeader);
         ibScreenSize = findViewById(R.id.acPDFViewerActionChangeScreenSize);
@@ -170,6 +171,7 @@ public class PDFViewer extends Activity
 
     private void bookmarksProcessing(int curPage){
         int bookmarksCount = 0;
+
         for (Bookmark bookmark : book.getBookmarks())
             if (bookmark.getPage() == curPage)
                 bookmarksCount++;
@@ -185,7 +187,9 @@ public class PDFViewer extends Activity
     }
 
     private void refreshBooksData() {
-        book.setLastActivity(new Date().getTime());
+        book.setLastActivity(System.currentTimeMillis());
+        book.setTimeOfReading(book.getTimeOfReading() + System.currentTimeMillis() - startReadingTime);
+        startReadingTime = System.currentTimeMillis();
         FileWorker.getInstance().refreshingJSON(FileWorker.getInstance().getRecentBooks());
     }
 
@@ -257,10 +261,11 @@ public class PDFViewer extends Activity
         return bookmarks;
     }
 
-    private void setBook() {
-        int index = getIntent().getIntExtra("IndexInRecentBooks", -1);
-        startPage = getIntent().getIntExtra("Page", -1);
+    private void setData() {
+        int index = getIntent().getIntExtra("IndexInRecentBooks", 0);
+        startPage = getIntent().getIntExtra("Page", 0);
         book = FileWorker.getInstance().getRecentBooks().get(index);
         totalRead = book.getTotalRead();
+        startReadingTime = System.currentTimeMillis();
     }
 }
