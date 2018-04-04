@@ -3,6 +3,7 @@ package com.example.raw.app.Viewers.Dialogs;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,10 +61,12 @@ public class BookmarksDialog extends DialogFragment implements View.OnClickListe
                 actionOk.setVisibility(View.GONE);
                 actionAddText.setVisibility(View.GONE);
                 actionActOk.setVisibility(View.VISIBLE);
+
                 input.requestFocus();
                 InputMethodManager imm = (InputMethodManager)
                         getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.showSoftInput(input, InputMethodManager.SHOW_IMPLICIT);
+
                 break;
 
             case R.id.dialogBookmarksAddingActionOk:
@@ -77,22 +80,39 @@ public class BookmarksDialog extends DialogFragment implements View.OnClickListe
     }
 
     private void onActionClick() {
-        boolean isContainsBookmark = false;
 
-        for (Bookmark bookmark : book.getBookmarks())
-            if (bookmark.getPage() == currentPage &&
-                    bookmark.getText().equals(input.getText().toString())) {
-                isContainsBookmark = true;
-                break;
-            }
-
-        if (!isContainsBookmark) {
-            book.addBookmark(new Bookmark(currentPage, new Date().getTime(), input.getText().toString()));
+        if (!isContainsBookmark()) {
+            book.addBookmark(new Bookmark(currentPage, System.currentTimeMillis(), input.getText().toString()));
             Toast.makeText(getActivity(), R.string.bookmark_added, Toast.LENGTH_SHORT).show();
             FileWorker.getInstance().refreshingJSON(FileWorker.getInstance().getRecentBooks());
         } else
             Toast.makeText(getActivity(), R.string.bookmarks_does_not_exist, Toast.LENGTH_SHORT).show();
 
+        removingOfDuplicatesBookmarks();
+
         dismiss();
+    }
+
+    private boolean isContainsBookmark(){
+        String inputData = input.getText().toString();
+
+        for (Bookmark bookmark : book.getBookmarks()){
+            if (bookmark.getPage() == currentPage &&
+                    (bookmark.getText().equals(inputData) || inputData.length() == 0)){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private void removingOfDuplicatesBookmarks(){
+        for (Bookmark bookmark : book.getBookmarks())
+            if (bookmark.getPage() == currentPage && bookmark.getText().length() == 0)
+                for (Bookmark bm : book.getBookmarks())
+                    if (bm.getPage() == currentPage && bm.getText().length() > 0) {
+                        book.getBookmarks().remove(bookmark);
+                        return;
+                    }
     }
 }

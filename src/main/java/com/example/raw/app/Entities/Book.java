@@ -1,13 +1,11 @@
 package com.example.raw.app.Entities;
 
-import android.util.Log;
 
 import com.example.raw.app.Extensions;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Locale;
 
 public class Book implements Serializable{

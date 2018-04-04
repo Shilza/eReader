@@ -263,7 +263,7 @@ public class PDFViewer extends Activity
 
     private void setData() {
         int index = getIntent().getIntExtra("IndexInRecentBooks", 0);
-        startPage = getIntent().getIntExtra("Page", 0);
+        startPage = getIntent().getIntExtra("Page", -1);
         book = FileWorker.getInstance().getRecentBooks().get(index);
         totalRead = book.getTotalRead();
         startReadingTime = System.currentTimeMillis();

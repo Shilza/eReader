@@ -1,8 +1,11 @@
 package com.example.raw.app.Main;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -17,6 +20,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +30,7 @@ import com.example.raw.app.Main.Adapters.SearchRVAdapter;
 import com.example.raw.app.Main.Adapters.TabPagerAdapter;
 import com.example.raw.app.R;
 import com.example.raw.app.Utils.BookOpener;
+import com.example.raw.app.Utils.FileWorker;
 
 import java.io.File;
 import java.util.Set;
@@ -47,6 +52,10 @@ public class MainActivity extends AppCompatActivity{
         initDrawer();
         initTabs();
         initSearch();
+
+        SharedPreferences sharedPref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if(sharedPref.getBoolean(getString(R.string.settings_autoStart), false))
+            BookOpener.getInstance().opening(FileWorker.getInstance().getRecentBooks().get(0), this);
     }
 
     private void initDrawer(){
