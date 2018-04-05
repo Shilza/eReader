@@ -1,7 +1,9 @@
 package com.example.raw.app.Viewers;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +31,8 @@ import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class PDFViewer extends Activity
         implements OnPageChangeListener, OnLoadCompleteListener, OnTapListener, GoToDialog.OnInputListener {
@@ -43,12 +47,15 @@ public class PDFViewer extends Activity
     private View header;
 
     private float totalRead = 0;
-    private boolean isHorizontalOrientation = false;
+    private boolean isHorizontalOrientation;
     private boolean isFullScreen = false;
     private boolean isExtraMenuHide = false;
 
     private int startPage;
     private long startReadingTime;
+
+    //Variable for stabilizing animation for extra menu
+    private volatile boolean isFooterAnimationStarted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +70,13 @@ public class PDFViewer extends Activity
         tvBookmarksCount = findViewById(R.id.acPDFViewerTvBookmarksCount);
         pdfView = findViewById(R.id.pdfView);
         ((TextView) findViewById(R.id.acPDFViewerTvHeader)).setText(book.getName());
+
+        //SETTINGS
+        SharedPreferences sharedPref = getSharedPreferences(
+                getString(R.string.shared_preferences_pfd_viewer), Context.MODE_PRIVATE);
+        isHorizontalOrientation = sharedPref.
+                getBoolean(getString(R.string.shared_preferences_pfd_viewer_orientation),
+                        false);
 
         pdfView.fromFile(new File(book.getFilePath()))
                 .onTap(this)
@@ -93,9 +107,11 @@ public class PDFViewer extends Activity
     }
 
     private void animations() {
-        footerAnimation(isExtraMenuHide);
-        tvHeaderAnimation(isExtraMenuHide);
-        isExtraMenuHide = !isExtraMenuHide;
+        if (!isFooterAnimationStarted) {
+            footerAnimation(isExtraMenuHide);
+            tvHeaderAnimation(isExtraMenuHide);
+            isExtraMenuHide = !isExtraMenuHide;
+        }
     }
 
     @Override
@@ -160,8 +176,19 @@ public class PDFViewer extends Activity
     }
 
     private void footerAnimation(boolean show) {
+        isFooterAnimationStarted = true;
         int value = show ? -footer.getHeight() : footer.getHeight();
         footer.animate().translationYBy(value).setDuration(200).setInterpolator(new AccelerateInterpolator()).start();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    Thread.sleep(200);
+                    isFooterAnimationStarted = false;
+                } catch (Exception e){ }
+            }
+        }).start();
     }
 
     private void tvHeaderAnimation(boolean show) {
@@ -212,6 +239,12 @@ public class PDFViewer extends Activity
                 .swipeHorizontal(isHorizontalOrientation)
                 .scrollHandle(new DefaultScrollHandle(this))
                 .load();
+
+        SharedPreferences sharedPref = getSharedPreferences(
+                getString(R.string.shared_preferences_pfd_viewer), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putBoolean(getString(R.string.shared_preferences_pfd_viewer_orientation), isHorizontalOrientation);
+        editor.apply();
     }
 
     private void createGoToDialog() {

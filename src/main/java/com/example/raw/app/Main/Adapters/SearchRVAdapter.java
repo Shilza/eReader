@@ -91,17 +91,15 @@ public class SearchRVAdapter extends RVAdapter implements Filterable {
         return new SearchRVAdapter.ViewHolder(view);
     }
 
-    private void queryProcessing(String parsedString){
-        if (parsedString.isEmpty())
-            books.clear();
-        else {
-            for (Book obj : FileWorker.getInstance().getRecentBooks())
-                if (obj.getName().toLowerCase().contains(parsedString) && !books.contains(obj))
-                    books.add(obj);
+    private void queryProcessing(String parsedString) {
+        books.clear();
+        for (Book obj : FileWorker.getInstance().getRecentBooks())
+            if (obj.getName().toLowerCase().contains(parsedString) && !books.contains(obj))
+                books.add(obj);
 
-            for (Book obj : FileWorker.getInstance().getLocalBooks())
-                if (obj.getName().toLowerCase().contains(parsedString) && !books.contains(obj))
-                    books.add(obj);
-        }
+        for (Book obj : FileWorker.getInstance().getLocalBooks())
+            if (obj.getName().toLowerCase().contains(parsedString) && !books.contains(obj))
+                books.add(obj);
+
     }
 }

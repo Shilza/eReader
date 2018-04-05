@@ -52,6 +52,9 @@ public class SimpleTextViewer extends Activity {
     private String comingString;
     private String comingFilePath;
 
+    //Variable for stabilizing animation for extra menu
+    private volatile boolean isFooterAnimationStarted = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,8 +113,10 @@ public class SimpleTextViewer extends Activity {
         tvMainText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                footerAnimation(isExtraMenuHide);
-                isExtraMenuHide = !isExtraMenuHide;
+                if(!isFooterAnimationStarted) {
+                    footerAnimation(isExtraMenuHide);
+                    isExtraMenuHide = !isExtraMenuHide;
+                }
 
                 if (isPlusMinusActive) {
                     plusMinus.setVisibility(View.GONE);
@@ -137,6 +142,7 @@ public class SimpleTextViewer extends Activity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String str) {
+
                 if (comingString.toLowerCase().contains(str.toLowerCase())) {
                     lengthOfQueryString = str.length();
                     resultSelected = 0;
@@ -152,12 +158,14 @@ public class SimpleTextViewer extends Activity {
 
                     setSpan(false);
 
-                    Toast toast = Toast.makeText(getBaseContext(), R.string.text_viewer_results + count, Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getBaseContext(), getString(R.string.text_viewer_results) + count, Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                     searchPanel.setVisibility(View.VISIBLE);
                 } else {
                     setSpan(true);
+
+                    searchPanel.setVisibility(View.GONE);
                     Toast.makeText(getBaseContext(), R.string.text_viewer_search_has_not_given_any_results, Toast.LENGTH_SHORT).show();
                 }
 
@@ -191,8 +199,20 @@ public class SimpleTextViewer extends Activity {
     }
 
     private void footerAnimation(boolean show) {
+        isFooterAnimationStarted = true;
         int value = show ? -footer.getHeight() : footer.getHeight();
         footer.animate().translationYBy(value).setDuration(200).setInterpolator(new AccelerateInterpolator()).start();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    Thread.sleep(200);
+                    isFooterAnimationStarted = false;
+                } catch (Exception e){ }
+
+            }
+        }).start();
     }
 
     public void txtViewerSearchPanelOnClick(View view) {

@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity{
         SharedPreferences sharedPref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if(sharedPref.getBoolean(getString(R.string.settings_autoStart), false))
             BookOpener.getInstance().opening(FileWorker.getInstance().getRecentBooks().get(0), this);
+
     }
 
     private void initDrawer(){
