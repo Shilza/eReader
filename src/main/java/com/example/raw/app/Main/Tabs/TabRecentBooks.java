@@ -11,6 +11,7 @@ import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Main.Adapters.RecentBooksRVAdapter;
 import com.example.raw.app.R;
 import com.example.raw.app.Utils.FileWorker;
+import com.example.raw.app.Utils.Repository;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,7 @@ public class TabRecentBooks extends Tab {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(llm);
 
-        ArrayList<Book> books = FileWorker.getInstance().getRecentBooks();
+        ArrayList<Book> books = Repository.getInstance().getRecentBooks();
         adapter = new RecentBooksRVAdapter(books, getActivity());
         recyclerView.setAdapter(adapter);
         locationName = getString(R.string.tab_recent_books_location);

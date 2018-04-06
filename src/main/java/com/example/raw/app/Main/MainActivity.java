@@ -1,6 +1,5 @@
 package com.example.raw.app.Main;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -20,7 +19,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,12 +26,15 @@ import android.widget.Toast;
 
 import com.example.raw.app.Main.Adapters.SearchRVAdapter;
 import com.example.raw.app.Main.Adapters.TabPagerAdapter;
+import com.example.raw.app.Main.Navigation.BookmarksActivity;
+import com.example.raw.app.Main.Navigation.SettingsActivity;
+import com.example.raw.app.Main.Navigation.StatisticsActivity;
 import com.example.raw.app.R;
 import com.example.raw.app.Utils.BookOpener;
-import com.example.raw.app.Utils.FileWorker;
+import com.example.raw.app.Utils.Manager;
+import com.example.raw.app.Utils.Repository;
 
 import java.io.File;
-import java.util.Set;
 
 public class MainActivity extends AppCompatActivity{
     private SearchRVAdapter searchRVAdapter;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Manager.getInstance().initializeData();
         setSupportActionBar((Toolbar) findViewById(R.id.acMainToolbar));
         initDrawer();
         initTabs();
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity{
 
         SharedPreferences sharedPref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if(sharedPref.getBoolean(getString(R.string.settings_autoStart), false))
-            BookOpener.getInstance().opening(FileWorker.getInstance().getRecentBooks().get(0), this);
+            BookOpener.getInstance().opening(Repository.getInstance().getRecentBooks().get(0), this);
 
     }
 
@@ -68,40 +70,40 @@ public class MainActivity extends AppCompatActivity{
 
         ((NavigationView) findViewById(R.id.acMainNavigationView)).setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch(item.getItemId()) {
-                    case R.id.acMainActionOpenBook:
-                        Intent intent = new Intent()
-                                .setType("*/*")
-                                .setAction(Intent.ACTION_GET_CONTENT);
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch(item.getItemId()) {
+                            case R.id.acMainActionOpenBook:
+                                Intent intent = new Intent()
+                                        .setType("*/*")
+                                        .setAction(Intent.ACTION_GET_CONTENT);
 
-                        startActivityForResult(Intent.createChooser(intent, getString(R.string.intent_select_file)), 1);
-                        return true;
+                                startActivityForResult(Intent.createChooser(intent, getString(R.string.intent_select_file)), 1);
+                                return true;
 
-                    case R.id.acMainActionBookmarks:
-                        startActivity(new Intent(getBaseContext(), BookmarksActivity.class));
-                        return true;
+                            case R.id.acMainActionBookmarks:
+                                startActivity(new Intent(getBaseContext(), BookmarksActivity.class));
+                                return true;
 
-                    case R.id.acMainActionStatistics:
-                        startActivity(new Intent(getBaseContext(), Statistics.class));
-                        return true;
+                            case R.id.acMainActionStatistics:
+                                startActivity(new Intent(getBaseContext(), StatisticsActivity.class));
+                                return true;
 
-                    case R.id.acMainActionSettings:
-                        startActivity(new Intent(getBaseContext(), Settings.class));
-                        return true;
+                            case R.id.acMainActionSettings:
+                                startActivity(new Intent(getBaseContext(), SettingsActivity.class));
+                                return true;
 
-                    case R.id.acMainActionLike:
-                        return true;
+                            case R.id.acMainActionLike:
+                                return true;
 
-                    case R.id.acMainActionExit:
-                        android.os.Process.killProcess(android.os.Process.myPid());
-                        return true;
-                }
+                            case R.id.acMainActionExit:
+                                android.os.Process.killProcess(android.os.Process.myPid());
+                                return true;
+                        }
 
-                return false;
-            }
-        });
+                        return false;
+                    }
+                });
     }
 
     @Override
@@ -229,4 +231,3 @@ public class MainActivity extends AppCompatActivity{
         return toggle.onOptionsItemSelected(item);
     }
 }
-

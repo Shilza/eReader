@@ -22,7 +22,7 @@ public class BookOpener {
     public void opening(Book book, Context context) {
         if (book.getExtension() == Extensions.PDF) {
             Intent intent = new Intent(context, PDFViewer.class);
-            intent.putExtra("IndexInRecentBooks", FileWorker.getInstance().getRecentBooks().indexOf(book));
+            intent.putExtra("IndexInRecentBooks", Repository.getInstance().getRecentBooks().indexOf(book));
             context.startActivity(intent);
         }
     }
@@ -30,7 +30,7 @@ public class BookOpener {
     public void opening(Book book, int page, Context context) {
         if (book.getExtension() == Extensions.PDF) {
             Intent intent = new Intent(context, PDFViewer.class);
-            intent.putExtra("IndexInRecentBooks", FileWorker.getInstance().getRecentBooks().indexOf(book));
+            intent.putExtra("IndexInRecentBooks", Repository.getInstance().getRecentBooks().indexOf(book));
             intent.putExtra("Page", page);
             context.startActivity(intent);
         }
@@ -45,7 +45,7 @@ public class BookOpener {
             intent.putExtra("Filepath", file.getAbsolutePath());
             context.startActivity(intent);
         } else{
-            Book book = FileWorker.getInstance().bookPreparing(file);
+            Book book = BookSearcher.getInstance().bookPreparing(file);
             addToRecentBooks(book);
             opening(book, context);
         }
@@ -53,21 +53,21 @@ public class BookOpener {
 
     private void addToRecentBooks(Book book) {
         boolean isBookExistInList = false;
-        for (Book obj : FileWorker.getInstance().getRecentBooks())
+        for (Book obj : Repository.getInstance().getRecentBooks())
             if (obj.getFilePath().equals(book.getFilePath())) {
-                FileWorker.getInstance().getRecentBooks().remove(obj);
+                Repository.getInstance().getRecentBooks().remove(obj);
                 isBookExistInList = true;
                 break;
             }
 
         if (!isBookExistInList)
-            for (Book obj : FileWorker.getInstance().getLocalBooks())
+            for (Book obj : Repository.getInstance().getLocalBooks())
                 if (obj.getFilePath().equals(book.getFilePath())) {
-                    FileWorker.getInstance().removeBookFromLocalBooks(obj);
+                    Repository.getInstance().removeBookFromLocalBooks(obj);
                     break;
                 }
 
-        FileWorker.getInstance().addToRecentBooks(book);
+        Repository.getInstance().addToRecentBooks(book);
     }
 
     private boolean isSimpleText(String filename) {

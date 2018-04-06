@@ -13,6 +13,7 @@ import android.widget.Filterable;
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.R;
 import com.example.raw.app.Utils.FileWorker;
+import com.example.raw.app.Utils.Repository;
 
 import java.util.ArrayList;
 
@@ -93,11 +94,11 @@ public class SearchRVAdapter extends RVAdapter implements Filterable {
 
     private void queryProcessing(String parsedString) {
         books.clear();
-        for (Book obj : FileWorker.getInstance().getRecentBooks())
+        for (Book obj : Repository.getInstance().getRecentBooks())
             if (obj.getName().toLowerCase().contains(parsedString) && !books.contains(obj))
                 books.add(obj);
 
-        for (Book obj : FileWorker.getInstance().getLocalBooks())
+        for (Book obj : Repository.getInstance().getLocalBooks())
             if (obj.getName().toLowerCase().contains(parsedString) && !books.contains(obj))
                 books.add(obj);
 

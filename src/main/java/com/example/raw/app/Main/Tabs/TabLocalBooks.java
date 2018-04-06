@@ -1,6 +1,7 @@
 package com.example.raw.app.Main.Tabs;
 
 import android.os.Bundle;
+import android.support.annotation.UiThread;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +12,10 @@ import android.view.ViewGroup;
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Main.Adapters.LocalBooksRVAdapter;
 import com.example.raw.app.R;
+import com.example.raw.app.Utils.BookSearcher;
 import com.example.raw.app.Utils.FileWorker;
+import com.example.raw.app.Utils.Manager;
+import com.example.raw.app.Utils.Repository;
 
 import java.util.ArrayList;
 
@@ -34,7 +38,7 @@ public class TabLocalBooks extends Tab implements SwipeRefreshLayout.OnRefreshLi
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(llm);
 
-        ArrayList<Book> books = FileWorker.getInstance().getLocalBooks();
+        ArrayList<Book> books = Repository.getInstance().getLocalBooks();
         adapter = new LocalBooksRVAdapter(books, getActivity());
         recyclerView.setAdapter(adapter);
 
@@ -53,16 +57,14 @@ public class TabLocalBooks extends Tab implements SwipeRefreshLayout.OnRefreshLi
         new Thread(new Runnable() {
             @Override
             public void run() {
-                FileWorker.getInstance().localBooksSearching();
-                try{
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            dataSetChanged();
-                            swipeRefreshLayout.setRefreshing(false);
-                        }
-                    });
-                } catch (NullPointerException e){}
+                Repository.getInstance().addUniqueLocalBooks(BookSearcher.getInstance().localBooksSearching());
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        dataSetChanged();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                });
             }
         }).start();
     }

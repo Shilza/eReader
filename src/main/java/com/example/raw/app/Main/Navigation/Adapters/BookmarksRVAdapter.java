@@ -1,4 +1,4 @@
-package com.example.raw.app.Main.Adapters;
+package com.example.raw.app.Main.Navigation.Adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;

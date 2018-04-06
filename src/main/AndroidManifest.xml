@@ -22,10 +22,10 @@
         <activity android:name=".Main.PropertiesActivity" />
         <activity android:name=".Viewers.PDFViewer" />
         <activity android:name=".Viewers.SimpleTextViewer" />
-        <activity android:name=".Main.Statistics" />
-        <activity android:name=".Main.BookmarksActivity" />
+        <activity android:name=".Main.Navigation.StatisticsActivity" />
+        <activity android:name=".Main.Navigation.BookmarksActivity" />
         <activity android:name=".Viewers.Activities.BookmarksOfParticularBookActivity" />
-        <activity android:name=".Main.Settings"></activity>
+        <activity android:name=".Main.Navigation.SettingsActivity"></activity>
     </application>
 
 </manifest>

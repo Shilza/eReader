@@ -86,7 +86,7 @@ public class RecentBooksRVAdapter extends RVAdapter {
 
     private void bookRemoving(Book book) {
         books.remove(book);
-        FileWorker.getInstance().refreshingJSON(books);
+        FileWorker.getInstance().refreshingJSON();
         TabsKeeper.getInstance().notifyDataSetChanged();
     }
 

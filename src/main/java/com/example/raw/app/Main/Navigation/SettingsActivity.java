@@ -1,4 +1,4 @@
-package com.example.raw.app.Main;
+package com.example.raw.app.Main.Navigation;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -18,7 +18,7 @@ import com.example.raw.app.R;
 import java.io.File;
 import java.util.ArrayList;
 
-public class Settings extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +31,6 @@ public class Settings extends AppCompatActivity {
                 finish();
             }
         });
-
 
         String path = "/system/fonts";
         File file = new File(path);

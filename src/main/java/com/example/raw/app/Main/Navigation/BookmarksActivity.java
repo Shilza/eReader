@@ -1,4 +1,4 @@
-package com.example.raw.app.Main;
+package com.example.raw.app.Main.Navigation;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -12,9 +12,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.raw.app.Entities.Book;
-import com.example.raw.app.Main.Adapters.BookmarksRVAdapter;
+import com.example.raw.app.Main.Navigation.Adapters.BookmarksRVAdapter;
 import com.example.raw.app.R;
 import com.example.raw.app.Utils.FileWorker;
+import com.example.raw.app.Utils.Repository;
 
 import java.util.ArrayList;
 
@@ -29,7 +30,7 @@ public class BookmarksActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookmarks);
 
-        for (Book book : FileWorker.getInstance().getRecentBooks())
+        for (Book book : Repository.getInstance().getRecentBooks())
             if (book.getBookmarks().size() != 0)
                 countOfBookmarks++;
 
@@ -50,12 +51,12 @@ public class BookmarksActivity extends Activity {
     }
 
     private void removingBookmarks() {
-        ArrayList<Book> recentBooks = FileWorker.getInstance().getRecentBooks();
+        ArrayList<Book> recentBooks =Repository.getInstance().getRecentBooks();
         for (Book book : recentBooks)
             book.getBookmarks().clear();
         adapter.getBooks().clear();
 
-        FileWorker.getInstance().refreshingJSON(recentBooks);
+        FileWorker.getInstance().refreshingJSON();
         adapter.notifyDataSetChanged();
     }
 
@@ -94,7 +95,7 @@ public class BookmarksActivity extends Activity {
         recyclerView.setLayoutManager(llm);
 
         ArrayList<Book> books = new ArrayList<>();
-        for (Book book : FileWorker.getInstance().getRecentBooks())
+        for (Book book : Repository.getInstance().getRecentBooks())
             if (book.getBookmarks().size() > 0)
                 books.add(book);
 

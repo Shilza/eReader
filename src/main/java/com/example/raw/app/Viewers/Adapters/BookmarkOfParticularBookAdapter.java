@@ -150,7 +150,7 @@ public class BookmarkOfParticularBookAdapter extends RecyclerView.Adapter<Recycl
             public void onClick(DialogInterface dialog, int arg1) {
                 book.getBookmarks().remove(selectedBookmark);
                 bookmarks.remove(selectedBookmark);
-                FileWorker.getInstance().refreshingJSON(FileWorker.getInstance().getRecentBooks());
+                FileWorker.getInstance().refreshingJSON();
                 notifyDataSetChanged();
             }
         });

@@ -1,4 +1,4 @@
-package com.example.raw.app.Main;
+package com.example.raw.app.Main.Navigation;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -21,13 +21,14 @@ import android.widget.Toast;
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.R;
 import com.example.raw.app.Utils.FileWorker;
+import com.example.raw.app.Utils.Repository;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-public class Statistics extends Activity {
+public class StatisticsActivity extends Activity {
 
     private AlertDialog.Builder ad;
     private ArrayList<Book> books;
@@ -37,7 +38,7 @@ public class Statistics extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
-        books = FileWorker.getInstance().getRecentBooks();
+        books = Repository.getInstance().getRecentBooks();
 
         initUI();
         createDialog();
@@ -128,7 +129,7 @@ public class Statistics extends Activity {
         for(Book book : books)
             book.setTimeOfReading(0);
 
-        FileWorker.getInstance().refreshingJSON(books);
+        FileWorker.getInstance().refreshingJSON();
     }
 
     private void createDialog() {
@@ -179,7 +180,7 @@ public class Statistics extends Activity {
         list[0] = f.format(hours);
 
         list[1] = "1318";
-        list[2] = String.valueOf(books.size() + FileWorker.getInstance().getLocalBooks().size());
+        list[2] = String.valueOf(books.size() + Repository.getInstance().getLocalBooks().size());
 
         int countOfReadedBooks = 0;
         for(Book book : books)

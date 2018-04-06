@@ -17,6 +17,7 @@ import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Entities.Bookmark;
 import com.example.raw.app.Utils.FileWorker;
 import com.example.raw.app.R;
+import com.example.raw.app.Utils.Repository;
 
 import java.io.File;
 import java.util.Date;
@@ -44,7 +45,7 @@ public class BookmarksDialog extends DialogFragment implements View.OnClickListe
         currentPage = getArguments().getInt("currentPage");
         ((TextView) view.findViewById(R.id.dialogBookmarksAddingTvPage)).setText(getString(R.string.dialog_page) + (currentPage + 1));
 
-        book = FileWorker.getInstance().getRecentBooks().get(getArguments().getInt("IndexInRecentBooks"));
+        book = Repository.getInstance().getRecentBooks().get(getArguments().getInt("IndexInRecentBooks"));
 
         actionActOk.setOnClickListener(this);
         actionOk.setOnClickListener(this);
@@ -84,7 +85,7 @@ public class BookmarksDialog extends DialogFragment implements View.OnClickListe
         if (!isContainsBookmark()) {
             book.addBookmark(new Bookmark(currentPage, System.currentTimeMillis(), input.getText().toString()));
             Toast.makeText(getActivity(), R.string.bookmark_added, Toast.LENGTH_SHORT).show();
-            FileWorker.getInstance().refreshingJSON(FileWorker.getInstance().getRecentBooks());
+            FileWorker.getInstance().refreshingJSON();
         } else
             Toast.makeText(getActivity(), R.string.bookmarks_does_not_exist, Toast.LENGTH_SHORT).show();
 

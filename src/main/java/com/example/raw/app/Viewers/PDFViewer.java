@@ -15,6 +15,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.raw.app.Utils.Repository;
 import com.example.raw.app.Viewers.Activities.BookmarksOfParticularBookActivity;
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Entities.Bookmark;
@@ -149,7 +150,7 @@ public class PDFViewer extends Activity
             case R.id.acPDFViewerActionBookmarks:
                 Intent intent = new Intent(this, BookmarksOfParticularBookActivity.class);
                 intent.putExtra("IndexesOfBookmarks", getBookmarks());
-                intent.putExtra("IndexInRecentBooks", FileWorker.getInstance().getRecentBooks().indexOf(book));
+                intent.putExtra("IndexInRecentBooks", Repository.getInstance().getRecentBooks().indexOf(book));
                 startActivity(intent);
                 break;
 
@@ -217,7 +218,7 @@ public class PDFViewer extends Activity
         book.setLastActivity(System.currentTimeMillis());
         book.setTimeOfReading(book.getTimeOfReading() + System.currentTimeMillis() - startReadingTime);
         startReadingTime = System.currentTimeMillis();
-        FileWorker.getInstance().refreshingJSON(FileWorker.getInstance().getRecentBooks());
+        FileWorker.getInstance().refreshingJSON();
     }
 
     private void bookSharing() {
@@ -259,7 +260,7 @@ public class PDFViewer extends Activity
     private void createBookmarksDialog() {
         Bundle args = new Bundle();
         args.putInt("currentPage", pdfView.getCurrentPage());
-        args.putSerializable("IndexInRecentBooks", FileWorker.getInstance().getRecentBooks().indexOf(book));
+        args.putSerializable("IndexInRecentBooks", Repository.getInstance().getRecentBooks().indexOf(book));
         BookmarksDialog dialog = new BookmarksDialog();
         dialog.setArguments(args);
         dialog.show(getFragmentManager(), "BookmarksDialog");
@@ -297,7 +298,7 @@ public class PDFViewer extends Activity
     private void setData() {
         int index = getIntent().getIntExtra("IndexInRecentBooks", 0);
         startPage = getIntent().getIntExtra("Page", -1);
-        book = FileWorker.getInstance().getRecentBooks().get(index);
+        book = Repository.getInstance().getRecentBooks().get(index);
         totalRead = book.getTotalRead();
         startReadingTime = System.currentTimeMillis();
     }

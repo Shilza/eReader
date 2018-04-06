@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.raw.app.Utils.Repository;
 import com.example.raw.app.Viewers.Adapters.BookmarkOfParticularBookAdapter;
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Entities.Bookmark;
@@ -68,7 +69,7 @@ public class BookmarksOfParticularBookActivity extends Activity {
         if (bookmarks.size() > 0) {
             book.getBookmarks().removeAll(bookmarks);
             bookmarks.clear();
-            FileWorker.getInstance().refreshingJSON(FileWorker.getInstance().getRecentBooks());
+            FileWorker.getInstance().refreshingJSON();
             adapter.notifyDataSetChanged();
             return true;
         }
@@ -102,7 +103,7 @@ public class BookmarksOfParticularBookActivity extends Activity {
         bookmarks = new ArrayList<>();
 
         getIntent().getIntArrayExtra("IndexesOfBookmarks");
-        book = FileWorker.getInstance().getRecentBooks().get(
+        book = Repository.getInstance().getRecentBooks().get(
                 getIntent().getIntExtra("IndexInRecentBooks", -1)
         );
 

@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.example.raw.app.R;
 import com.example.raw.app.TabsKeeper;
 import com.example.raw.app.Utils.BookOpener;
 import com.example.raw.app.Utils.FileWorker;
+import com.example.raw.app.Utils.Repository;
 
 import java.util.ArrayList;
 
@@ -124,7 +126,7 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
         else {
             Toast.makeText(context, R.string.error_book_is_deleted, Toast.LENGTH_SHORT).show();
             books.remove(selectedBook);
-            FileWorker.getInstance().refreshingJSON(books);
+            FileWorker.getInstance().refreshingJSON();
             TabsKeeper.getInstance().notifyDataSetChanged();
         }
     }
@@ -155,13 +157,13 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
     }
 
     private void clickProcessing(){
-        if(!FileWorker.getInstance().getRecentBooks().contains(selectedBook)){
-            FileWorker.getInstance().addToRecentBooks(selectedBook);
-            FileWorker.getInstance().removeBookFromLocalBooks(selectedBook);
+        if(!Repository.getInstance().getRecentBooks().contains(selectedBook)){
+            Repository.getInstance().addToRecentBooks(selectedBook);
+            Repository.getInstance().removeBookFromLocalBooks(selectedBook);
         } else{
-            Book book = FileWorker.getInstance().getRecentBooks().remove(
-                    FileWorker.getInstance().getRecentBooks().indexOf(selectedBook));
-            FileWorker.getInstance().addToRecentBooks(book);
+            Book book = Repository.getInstance().getRecentBooks().remove(
+                    Repository.getInstance().getRecentBooks().indexOf(selectedBook));
+            Repository.getInstance().addToRecentBooks(book);
         }
 
         TabsKeeper.getInstance().notifyDataSetChanged();
