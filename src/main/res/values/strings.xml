@@ -58,7 +58,7 @@
 
     <string name="title_settings">"Настройки"</string>
     <string name="settings_autoStart">"Автозапуск последней читаемой книги"</string>
-    <string name="settings_fonts">"Шрифт"</string>
+    <string name="settings_fonts">"Шрифт текста"</string>
 
     <string name="dialog_bopb_adt_delete">"Удалить"</string>
     <string name="dialog_bopb_adt_confirmation_of_removal_bookmark">"Действительно хотите удалить эту закладку"</string>

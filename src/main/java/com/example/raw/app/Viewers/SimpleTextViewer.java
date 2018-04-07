@@ -5,9 +5,12 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.BackgroundColorSpan;
@@ -27,6 +30,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.Proxy;
 import java.util.ArrayList;
 
 public class SimpleTextViewer extends Activity {
@@ -124,9 +128,13 @@ public class SimpleTextViewer extends Activity {
                 }
             }
         });
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String font = sharedPref.getString(getString(R.string.settings_fonts), "serif");
+        tvMainText.setTypeface(Typeface.create(font, Typeface.NORMAL));
 
         tvFilename = findViewById(R.id.acSimpleTextViewerFilename);
         tvFilename.setText(new File(comingFilePath).getName());
+
     }
 
     private void searchViewInit() {

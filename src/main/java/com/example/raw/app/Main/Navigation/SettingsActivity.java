@@ -7,15 +7,15 @@ import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.raw.app.Main.Navigation.Adapters.FontsSpinnerAdapter;
 import com.example.raw.app.R;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -32,23 +32,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        String path = "/system/fonts";
-        File file = new File(path);
-        ArrayList<String> items = new ArrayList<>();
-        for(File ff : file.listFiles())
-            items.add(ff.getName());
-
-        Spinner spinner = findViewById(R.id.acSettingsFontsSpinner);
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>
-                (this, android.R.layout.simple_spinner_item,
-                        items);
-        spinnerArrayAdapter.setDropDownViewResource(android.R.layout
-                .simple_spinner_dropdown_item);
-        spinner.setAdapter(spinnerArrayAdapter);
-        /*
-        * Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Kokila.ttf");
-   txtyour.setTypeface(type);
-        * */
+        initSpinner();
 
         LinearLayout layout = findViewById(R.id.acSettingsMainLayout);
 
@@ -72,4 +56,51 @@ public class SettingsActivity extends AppCompatActivity {
 
         layout.addView(view);
     }
+
+    private void initSpinner(){
+        ArrayList<String> items = new ArrayList<>();
+        items.add("serif");
+        items.add("cursive");
+        items.add("monospace");
+        items.add("sans-serif");
+        items.add("sans-serif-black");
+        items.add("sans-serif-condensed");
+        items.add("sans-serif-condensed-light");
+        items.add("sans-serif-light");
+        items.add("sans-serif-medium");
+        items.add("sans-serif-smallcaps");
+        items.add("sans-serif-thin");
+        items.add("serif-monospace");
+
+        Spinner spinner = findViewById(R.id.acSettingsFontsSpinner);
+
+        FontsSpinnerAdapter adapter = new FontsSpinnerAdapter(
+                this,
+                android.R.layout.simple_spinner_item,
+                items
+        );
+        adapter.setDropDownViewResource(android.R.layout
+                .simple_spinner_dropdown_item);
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String defaultFont = sharedPref.getString(getString(R.string.settings_fonts), items.get(0));
+
+        spinner.setAdapter(adapter);
+        spinner.setSelection(adapter.getPosition(defaultFont));
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                Object item = parent.getItemAtPosition(pos);
+
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString(getString(R.string.settings_fonts), item.toString());
+                editor.apply();
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+    }
+
 }
+

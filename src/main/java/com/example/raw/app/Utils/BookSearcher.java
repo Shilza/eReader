@@ -12,24 +12,22 @@ import java.util.ArrayList;
 
 public class BookSearcher {
 
-    private static final  BookSearcher INSTANCE = new BookSearcher();
+    private static final BookSearcher INSTANCE = new BookSearcher();
 
-    public static  BookSearcher getInstance() {
+    public static BookSearcher getInstance() {
         return INSTANCE;
     }
 
     private ArrayList<Book> books;
 
-    private BookSearcher(){
+    private BookSearcher() {
         books = new ArrayList<>();
     }
 
     public ArrayList<Book> localBooksSearching() {
-        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-            for (File f : new File("/storage").listFiles())
-                if (f.getName().contains("sdcard"))
-                    searchingFiles(f);
-        }
+        for (File f : new File("/storage").listFiles())
+            if (f.getName().contains("sdcard"))
+                searchingFiles(f);
 
         return new ArrayList<>(books);
     }
@@ -43,11 +41,12 @@ public class BookSearcher {
             else
                 try {
                     books.add(bookPreparing(dir));
-                } catch (IllegalArgumentException e) {}
+                } catch (IllegalArgumentException e) {
+                }
         }
     }
 
-    Book bookPreparing(File directory) throws IllegalArgumentException{
+    Book bookPreparing(File directory) throws IllegalArgumentException {
         String temp = directory.getName();
 
         for (Extensions ext : Extensions.searchableExtensions())
