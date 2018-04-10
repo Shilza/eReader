@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorFooterButtons">#838181</color>
     <color name="colorStandardBackground">#F0F0F0</color>
+    <color name="colorLaunch">#fef2f2</color>
 </resources>

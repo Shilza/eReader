@@ -36,6 +36,7 @@ public class Manager {
         }
 
         FileWorker.getInstance().refreshingJSON();
+        creatingCovers();
     }
 
 
