@@ -15,6 +15,7 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.BackgroundColorSpan;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -96,7 +97,7 @@ public class SimpleTextViewer extends Activity {
         }
     }
 
-    private void initializationComingData(){
+    private void initializationComingData() {
         comingFilePath = String.valueOf(getIntent().getSerializableExtra("Filepath"));
         try {
             comingString = getTextFromFile(comingFilePath);
@@ -105,7 +106,7 @@ public class SimpleTextViewer extends Activity {
         }
     }
 
-    private void initializationUI(){
+    private void initializationUI() {
         footer = findViewById(R.id.acSimpleTextViewerFooter);
         plusMinus = findViewById(R.id.acSimpleTextViewerTextSizeChangingLayout);
         plusMinus.setVisibility(View.GONE);
@@ -117,7 +118,8 @@ public class SimpleTextViewer extends Activity {
         tvMainText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!isFooterAnimationStarted) {
+
+                if (!isFooterAnimationStarted) {
                     footerAnimation(isExtraMenuHide);
                     isExtraMenuHide = !isExtraMenuHide;
                 }
@@ -134,7 +136,6 @@ public class SimpleTextViewer extends Activity {
 
         tvFilename = findViewById(R.id.acSimpleTextViewerFilename);
         tvFilename.setText(new File(comingFilePath).getName());
-
     }
 
     private void searchViewInit() {
@@ -150,18 +151,20 @@ public class SimpleTextViewer extends Activity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String str) {
+                str = str.toLowerCase();
 
-                if (comingString.toLowerCase().contains(str.toLowerCase())) {
+                if (comingString.toLowerCase().contains(str)) {
                     lengthOfQueryString = str.length();
                     resultSelected = 0;
 
                     searchResultsList.clear();
-                    searchResultsList.add(comingString.indexOf(str));
+                    searchResultsList.add(comingString.toLowerCase().indexOf(str));
                     int count = 0;
 
                     while (searchResultsList.get(searchResultsList.size() - 1) >= 0) {
                         count++;
-                        searchResultsList.add(comingString.indexOf(str, searchResultsList.get(searchResultsList.size() - 1) + 1));
+                        searchResultsList.add(comingString.toLowerCase().indexOf(
+                                str, searchResultsList.get(searchResultsList.size() - 1) + 1));
                     }
 
                     setSpan(false);
@@ -214,10 +217,11 @@ public class SimpleTextViewer extends Activity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                try{
+                try {
                     Thread.sleep(200);
                     isFooterAnimationStarted = false;
-                } catch (Exception e){ }
+                } catch (InterruptedException e) {
+                }
 
             }
         }).start();
@@ -232,6 +236,26 @@ public class SimpleTextViewer extends Activity {
                     resultSelected = searchResultsList.size() - 2;
 
                 setSpan(false);
+
+                tvMainText.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        int tvHeight = getResources().getDisplayMetrics().heightPixels - tvFilename.getHeight();
+                        //приблизительное количество сиволов в строке
+                        int countOfSymbols = tvMainText.length() / tvMainText.getLineCount();
+                        //строка, в которой находится нужный текст(приблизительно)
+                        int line = searchResultsList.get(resultSelected) / countOfSymbols;
+                        //высота одной строки
+                        int heightOfLine = tvHeight /
+                                (tvMainText.getHeight()/tvMainText.getLineCount());
+                        if(heightOfLine*line > tvHeight){
+                            //TODO
+                            //??????
+                            //tvMainText.setVerticalScrollbarPosition(1000);
+                        }
+                    }
+                });
+
                 break;
 
             case R.id.acSimpleTextViewerSearchNavigation:
@@ -249,21 +273,21 @@ public class SimpleTextViewer extends Activity {
         }
     }
 
-    private void increaseTextSize(){
+    private void increaseTextSize() {
         DisplayMetrics metrics;
         metrics = getApplicationContext().getResources().getDisplayMetrics();
         float textSize = tvMainText.getTextSize() / metrics.density + 2;
         tvMainText.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
     }
 
-    private void reduceTextSize(){
+    private void reduceTextSize() {
         DisplayMetrics metrics;
         metrics = getApplicationContext().getResources().getDisplayMetrics();
         float textSize = tvMainText.getTextSize() / metrics.density - (tvMainText.getTextSize() / metrics.density) / 10;
         tvMainText.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
     }
 
-    private void startSearch(){
+    private void startSearch() {
         if (isPlusMinusActive) {
             plusMinus.setVisibility(View.GONE);
             isPlusMinusActive = !isPlusMinusActive;
