@@ -19,8 +19,11 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +47,7 @@ public class SimpleTextViewer extends Activity {
     private LinearLayout plusMinus;
     private LinearLayout searchPanel;
     private SearchView searchView;
+    private ScrollView mainTextScroll;
 
     private SpannableStringBuilder sb;
     private BackgroundColorSpan bcs;
@@ -113,6 +117,11 @@ public class SimpleTextViewer extends Activity {
 
         searchViewInit();
 
+        mainTextScroll = findViewById(R.id.acSimpleTextViewerMainTextScrollView);
+
+        tvFilename = findViewById(R.id.acSimpleTextViewerFilename);
+        tvFilename.setText(new File(comingFilePath).getName());
+
         tvMainText = findViewById(R.id.acSimpleTextViewerMainTextView);
         tvMainText.setText(comingString);
         tvMainText.setOnClickListener(new View.OnClickListener() {
@@ -134,8 +143,8 @@ public class SimpleTextViewer extends Activity {
         String font = sharedPref.getString(getString(R.string.settings_fonts), "serif");
         tvMainText.setTypeface(Typeface.create(font, Typeface.NORMAL));
 
-        tvFilename = findViewById(R.id.acSimpleTextViewerFilename);
-        tvFilename.setText(new File(comingFilePath).getName());
+        Float fontSize = sharedPref.getFloat(getString(R.string.settings_font_size), 12);
+        tvMainText.setTextSize(fontSize);
     }
 
     private void searchViewInit() {
@@ -168,6 +177,7 @@ public class SimpleTextViewer extends Activity {
                     }
 
                     setSpan(false);
+                    changeScrollBarPosition();
 
                     Toast toast = Toast.makeText(getBaseContext(), getString(R.string.text_viewer_results) + count, Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
@@ -236,25 +246,7 @@ public class SimpleTextViewer extends Activity {
                     resultSelected = searchResultsList.size() - 2;
 
                 setSpan(false);
-
-                tvMainText.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        int tvHeight = getResources().getDisplayMetrics().heightPixels - tvFilename.getHeight();
-                        //приблизительное количество сиволов в строке
-                        int countOfSymbols = tvMainText.length() / tvMainText.getLineCount();
-                        //строка, в которой находится нужный текст(приблизительно)
-                        int line = searchResultsList.get(resultSelected) / countOfSymbols;
-                        //высота одной строки
-                        int heightOfLine = tvHeight /
-                                (tvMainText.getHeight()/tvMainText.getLineCount());
-                        if(heightOfLine*line > tvHeight){
-                            //TODO
-                            //??????
-                            //tvMainText.setVerticalScrollbarPosition(1000);
-                        }
-                    }
-                });
+                changeScrollBarPosition();
 
                 break;
 
@@ -269,8 +261,29 @@ public class SimpleTextViewer extends Activity {
                     resultSelected = 0;
 
                 setSpan(false);
+                changeScrollBarPosition();
+
                 break;
         }
+    }
+
+    private void changeScrollBarPosition(){
+        tvMainText.post(new Runnable() {
+            @Override
+            public void run() {
+                //value 100 just to aligning
+                int tvHeight = getResources().getDisplayMetrics().heightPixels - 100;
+                //Approximate number of symbols in line
+                int countOfSymbols = tvMainText.length() / tvMainText.getLineCount();
+                //The line in which the text is located (approximately)
+                int line = searchResultsList.get(resultSelected) / countOfSymbols;
+                //Height of one line
+                int heightOfLine = tvMainText.getHeight() / tvMainText.getLineCount();
+                //if search text in field of vision
+                if(heightOfLine*line < mainTextScroll.getScrollY() || heightOfLine*line > mainTextScroll.getScrollY()+tvHeight)
+                    mainTextScroll.smoothScrollTo(0, heightOfLine*line);
+            }
+        });
     }
 
     private void increaseTextSize() {

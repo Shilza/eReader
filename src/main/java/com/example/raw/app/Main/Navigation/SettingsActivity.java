@@ -8,6 +8,8 @@ import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -32,7 +34,8 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        initSpinner();
+        initFontsSpinner();
+        initFontSizeSpinner();
 
         LinearLayout layout = findViewById(R.id.acSettingsMainLayout);
 
@@ -57,7 +60,35 @@ public class SettingsActivity extends AppCompatActivity {
         layout.addView(view);
     }
 
-    private void initSpinner(){
+    private void initFontSizeSpinner(){
+        Float[] data = {6f, 8f, 10f, 12f, 14f, 16f, 18f, 20f, 22f, 24f, 26f, 28f, 36f, 48f, 72f};
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        Float defaultFontSize = sharedPref.getFloat(getString(R.string.settings_font_size), data[3]);
+
+        ArrayAdapter<Float> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, data);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Spinner spinner = findViewById(R.id.acSettingsFontSizeSpinner);
+        spinner.setAdapter(adapter);
+        spinner.setSelection(adapter.getPosition(defaultFontSize));
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Object item = parent.getItemAtPosition(position);
+
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putFloat(getString(R.string.settings_font_size), (float)item);
+                editor.apply();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+    }
+
+    private void initFontsSpinner(){
         ArrayList<String> items = new ArrayList<>();
         items.add("serif");
         items.add("cursive");
@@ -89,8 +120,8 @@ public class SettingsActivity extends AppCompatActivity {
         spinner.setSelection(adapter.getPosition(defaultFont));
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                Object item = parent.getItemAtPosition(pos);
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Object item = parent.getItemAtPosition(position);
 
                 SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor editor = sharedPref.edit();

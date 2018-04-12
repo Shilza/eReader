@@ -11,7 +11,7 @@
     <TextView
         android:id="@+id/acSimpleTextViewerFilename"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="30dp"
         android:background="@color/colorPrimary"
         android:ellipsize="end"
         android:gravity="start|center"
@@ -20,7 +20,7 @@
         android:paddingStart="15dp"
         android:singleLine="true"
         android:textColor="@android:color/white"
-        android:textSize="20sp" />
+        android:textSize="16sp" />
 
     <android.widget.SearchView
         android:id="@+id/acSimpleTextViewerSearchView"
@@ -29,9 +29,10 @@
         android:theme="@style/AppTheme" />
 
     <ScrollView
+        android:id="@+id/acSimpleTextViewerMainTextScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="40dp">
 
         <TextView
             android:id="@+id/acSimpleTextViewerMainTextView"
