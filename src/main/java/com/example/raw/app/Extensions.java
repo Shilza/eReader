@@ -3,6 +3,7 @@ package com.example.raw.app;
 public enum Extensions {
     PDF(".pdf"),
     //FB2(".fb2"),
+    EPUB(".epub"),
     TXT(".txt"),
     XML(".xml"),
     HTML(".html"),
@@ -15,8 +16,9 @@ public enum Extensions {
     }
 
     public static Extensions[] searchableExtensions() {
-        Extensions[] arr = new Extensions[1];
+        Extensions[] arr = new Extensions[2];
         arr[0] = PDF;
+        arr[1] = EPUB;
         return arr;
     }
 

@@ -52,6 +52,7 @@ import com.example.raw.app.Utils.Manager;
 import com.example.raw.app.Utils.Repository;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
@@ -78,7 +79,6 @@ public class MainActivity extends AppCompatActivity{
         SharedPreferences sharedPref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if(sharedPref.getBoolean(getString(R.string.settings_autoStart), false))
             BookOpener.getInstance().opening(Repository.getInstance().getRecentBooks().get(0), this);
-
     }
 
     private void initDrawer(){
