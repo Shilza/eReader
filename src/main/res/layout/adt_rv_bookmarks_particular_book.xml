@@ -31,7 +31,6 @@
             android:id="@+id/acBmOfPartBookmarkText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="7"
             android:paddingBottom="8dp"
             android:paddingTop="5dp"
             android:scrollbars="vertical"

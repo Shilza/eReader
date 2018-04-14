@@ -25,8 +25,13 @@ public class BookSearcher {
     }
 
     public ArrayList<Book> localBooksSearching() {
+
+        //internal memory search
+        searchingFiles(Environment.getExternalStorageDirectory());
+
+        //SD card search
         for (File f : new File("/storage").listFiles())
-            if (f.getName().contains("sdcard"))
+            if (f.getName().contains("sdcard1"))
                 searchingFiles(f);
 
         return new ArrayList<>(books);

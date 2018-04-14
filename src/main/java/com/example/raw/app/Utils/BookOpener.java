@@ -5,10 +5,8 @@ import android.content.Intent;
 
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Extensions;
-import com.example.raw.app.Viewers.EPUBViewer;
 import com.example.raw.app.Viewers.PDFViewer;
 import com.example.raw.app.Viewers.SimpleTextViewer;
-import com.folioreader.util.FolioReader;
 
 import java.io.File;
 
@@ -26,9 +24,6 @@ public class BookOpener {
             Intent intent = new Intent(context, PDFViewer.class);
             intent.putExtra("IndexInRecentBooks", Repository.getInstance().getRecentBooks().indexOf(book));
             context.startActivity(intent);
-        }
-        else if(book.getExtension() == Extensions.EPUB){
-            context.startActivity(new Intent(context, EPUBViewer.class).putExtra("Filepath", book.getFilePath()));
         }
     }
 

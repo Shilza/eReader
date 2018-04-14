@@ -16,9 +16,8 @@ public enum Extensions {
     }
 
     public static Extensions[] searchableExtensions() {
-        Extensions[] arr = new Extensions[2];
+        Extensions[] arr = new Extensions[1];
         arr[0] = PDF;
-        arr[1] = EPUB;
         return arr;
     }
 

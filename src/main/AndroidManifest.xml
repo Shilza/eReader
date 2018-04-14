@@ -30,7 +30,6 @@
         <activity android:name=".Viewers.Activities.BookmarksOfParticularBookActivity" />
         <activity android:name=".Main.Navigation.SettingsActivity" />
         <activity android:name=".Curl.CurlActivity" />
-        <activity android:name=".Viewers.EPUBViewer"></activity>
     </application>
 
 </manifest>

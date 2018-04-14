@@ -42,5 +42,4 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:27.1.0'
     compile 'com.github.barteksc:android-pdf-viewer:3.0.0-beta.5'
     compile 'com.google.code.gson:gson:2.8.0'
-    compile 'com.folioreader:folioreader:0.3.3'
 }
