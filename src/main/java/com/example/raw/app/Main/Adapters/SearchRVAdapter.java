@@ -67,6 +67,18 @@ public class SearchRVAdapter extends RVAdapter implements Filterable {
                 books = (ArrayList<Book>) filterResults.values;
                 notifyDataSetChanged();
             }
+
+            private void queryProcessing(String parsedString) {
+                books.clear();
+                for (Book obj : Repository.getInstance().getRecentBooks())
+                    if (obj.getName().toLowerCase().contains(parsedString) && !books.contains(obj))
+                        books.add(obj);
+
+                for (Book obj : Repository.getInstance().getLocalBooks())
+                    if (obj.getName().toLowerCase().contains(parsedString) && !books.contains(obj))
+                        books.add(obj);
+
+            }
         };
     }
 
@@ -90,17 +102,5 @@ public class SearchRVAdapter extends RVAdapter implements Filterable {
     public SearchRVAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adt_rv_main_tabs, viewGroup, false);
         return new SearchRVAdapter.ViewHolder(view);
-    }
-
-    private void queryProcessing(String parsedString) {
-        books.clear();
-        for (Book obj : Repository.getInstance().getRecentBooks())
-            if (obj.getName().toLowerCase().contains(parsedString) && !books.contains(obj))
-                books.add(obj);
-
-        for (Book obj : Repository.getInstance().getLocalBooks())
-            if (obj.getName().toLowerCase().contains(parsedString) && !books.contains(obj))
-                books.add(obj);
-
     }
 }
