@@ -30,12 +30,15 @@ public abstract class Tab extends Fragment {
                                       Bundle savedInstanceState);
 
     public void dataSetChanged() {
+        changeLocationText();
+        adapter.notifyDataSetChanged();
+    }
+
+    public void changeLocationText(){
         if (adapter.getItemCount() == 0)
             tvLocation.setText(locationName);
         else
             tvLocation.setText("");
-
-        adapter.notifyDataSetChanged();
     }
 
     @Override

@@ -14,6 +14,7 @@ import com.example.raw.app.Entities.Book;
 import com.example.raw.app.R;
 import com.example.raw.app.TabsKeeper;
 import com.example.raw.app.Utils.FileWorker;
+import com.example.raw.app.Utils.Repository;
 
 import java.util.ArrayList;
 
@@ -85,9 +86,10 @@ public class RecentBooksRVAdapter extends RVAdapter {
     }
 
     private void bookRemoving(Book book) {
+        int position = books.indexOf(book);
         books.remove(book);
         FileWorker.getInstance().refreshingJSON();
-        TabsKeeper.getInstance().notifyDataSetChanged();
+        TabsKeeper.getInstance().notifyItemRemoved(position);
     }
 
     private void initAlertDialog() {

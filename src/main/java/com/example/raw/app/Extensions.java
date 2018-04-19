@@ -2,8 +2,6 @@ package com.example.raw.app;
 
 public enum Extensions {
     PDF(".pdf"),
-    //FB2(".fb2"),
-    EPUB(".epub"),
     TXT(".txt"),
     XML(".xml"),
     HTML(".html"),

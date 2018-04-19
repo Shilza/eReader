@@ -1,16 +1,8 @@
 package com.example.raw.app.Main;
 
-
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
@@ -27,19 +19,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.text.Layout;
-import android.text.StaticLayout;
-import android.text.TextPaint;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.raw.app.Curl.CurlActivity;
-import com.example.raw.app.Curl.CurlPage;
-import com.example.raw.app.Curl.CurlView;
 import com.example.raw.app.Main.Adapters.SearchRVAdapter;
 import com.example.raw.app.Main.Adapters.TabPagerAdapter;
 import com.example.raw.app.Main.Navigation.BookmarksActivity;
@@ -47,14 +32,10 @@ import com.example.raw.app.Main.Navigation.SettingsActivity;
 import com.example.raw.app.Main.Navigation.StatisticsActivity;
 import com.example.raw.app.R;
 import com.example.raw.app.Utils.BookOpener;
-import com.example.raw.app.Utils.FileWorker;
 import com.example.raw.app.Utils.Manager;
 import com.example.raw.app.Utils.Repository;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.RandomAccessFile;
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity{
 

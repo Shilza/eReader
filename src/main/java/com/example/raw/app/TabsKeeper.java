@@ -27,4 +27,8 @@ final public class TabsKeeper {
         recentBooks.dataSetChanged();
         localBooks.dataSetChanged();
     }
+
+    public void notifyItemRemoved(int position){
+        recentBooks.notifyItemRemoved(position);
+    }
 }
