@@ -30,6 +30,7 @@ public class FileWorker {
 
     private FileWorker() {
         makeAppDirectory();
+        makePicturesDirectory();
     }
 
     public String getPicturesPath() {

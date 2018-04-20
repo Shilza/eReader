@@ -20,8 +20,7 @@ import java.util.ArrayList;
 public class SearchRVAdapter extends RVAdapter implements Filterable {
 
     private final byte CONTEXT_MENU_OPEN = 0;
-    private final byte CONTEXT_MENU_DELETE = 1;
-    private final byte CONTEXT_MENU_PROPERTIES = 2;
+    private final byte CONTEXT_MENU_PROPERTIES = 1;
     private final byte GROUP_ID = 2;
 
     public SearchRVAdapter(Context context) {
@@ -36,11 +35,6 @@ public class SearchRVAdapter extends RVAdapter implements Filterable {
         switch (item.getItemId()) {
             case CONTEXT_MENU_OPEN:
                 bookOpening();
-                break;
-
-            case CONTEXT_MENU_DELETE:
-                //TODO
-                ad.show();
                 break;
 
             case CONTEXT_MENU_PROPERTIES:
@@ -93,7 +87,6 @@ public class SearchRVAdapter extends RVAdapter implements Filterable {
 
             menu.setHeaderTitle(selectedBook.getName());
             menu.add(GROUP_ID, CONTEXT_MENU_OPEN, 0, R.string.context_menu_open);
-            menu.add(GROUP_ID, CONTEXT_MENU_DELETE, 0, R.string.context_menu_delete);
             menu.add(GROUP_ID, CONTEXT_MENU_PROPERTIES, 0, R.string.context_menu_properties);
         }
     }

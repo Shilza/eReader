@@ -3,7 +3,6 @@ package com.example.raw.app.Viewers.Dialogs;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +18,6 @@ import com.example.raw.app.Utils.FileWorker;
 import com.example.raw.app.R;
 import com.example.raw.app.Utils.Repository;
 
-import java.io.File;
-import java.util.Date;
 
 public class BookmarksDialog extends DialogFragment implements View.OnClickListener {
 
@@ -94,12 +91,12 @@ public class BookmarksDialog extends DialogFragment implements View.OnClickListe
         dismiss();
     }
 
-    private boolean isContainsBookmark(){
+    private boolean isContainsBookmark() {
         String inputData = input.getText().toString();
 
-        for (Bookmark bookmark : book.getBookmarks()){
+        for (Bookmark bookmark : book.getBookmarks()) {
             if (bookmark.getPage() == currentPage &&
-                    (bookmark.getText().equals(inputData) || inputData.length() == 0)){
+                    (bookmark.getText().equals(inputData) || inputData.length() == 0)) {
                 return true;
             }
         }
@@ -107,7 +104,7 @@ public class BookmarksDialog extends DialogFragment implements View.OnClickListe
         return false;
     }
 
-    private void removingOfDuplicatesBookmarks(){
+    private void removingOfDuplicatesBookmarks() {
         for (Bookmark bookmark : book.getBookmarks())
             if (bookmark.getPage() == currentPage && bookmark.getText().length() == 0)
                 for (Bookmark bm : book.getBookmarks())

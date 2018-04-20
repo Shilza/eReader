@@ -14,7 +14,6 @@ import com.example.raw.app.Entities.Book;
 import com.example.raw.app.R;
 import com.example.raw.app.TabsKeeper;
 import com.example.raw.app.Utils.FileWorker;
-import com.example.raw.app.Utils.Repository;
 
 import java.util.ArrayList;
 
@@ -24,8 +23,7 @@ public class RecentBooksRVAdapter extends RVAdapter {
 
     private final byte CONTEXT_MENU_OPEN = 0;
     private final byte CONTEXT_MENU_DELETE_FROM_LIST = 1;
-    private final byte CONTEXT_MENU_DELETE = 2;
-    private final byte CONTEXT_MENU_PROPERTIES = 3;
+    private final byte CONTEXT_MENU_PROPERTIES = 2;
     private final byte GROUP_ID = 1;
 
     public RecentBooksRVAdapter(ArrayList<Book> books, Context context) {
@@ -47,12 +45,6 @@ public class RecentBooksRVAdapter extends RVAdapter {
                 deleteFromListDialog.show();
                 break;
 
-            case CONTEXT_MENU_DELETE:
-                //TODO
-                ad.show();
-                //bookRemoving(selectedBook);
-                break;
-
             case CONTEXT_MENU_PROPERTIES:
                 openProperties();
                 break;
@@ -72,10 +64,8 @@ public class RecentBooksRVAdapter extends RVAdapter {
             menu.setHeaderTitle(selectedBook.getName());
             menu.add(GROUP_ID, CONTEXT_MENU_OPEN, 0, R.string.context_menu_open);
             menu.add(GROUP_ID, CONTEXT_MENU_DELETE_FROM_LIST, 0, R.string.context_menu_delete_from_list);
-            menu.add(GROUP_ID, CONTEXT_MENU_DELETE, 0, R.string.context_menu_delete);
             menu.add(GROUP_ID, CONTEXT_MENU_PROPERTIES, 0, R.string.context_menu_properties);
         }
-
     }
 
     @NonNull

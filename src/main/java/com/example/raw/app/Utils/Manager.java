@@ -39,14 +39,11 @@ public class Manager {
         creatingCovers();
     }
 
-
     private void creatingCovers() {
         new Thread(new Runnable() {
 
             private void process(ArrayList<Book> list) {
-                FileWorker.getInstance().makePicturesDirectory();
-
-                for (Book book : list) {
+                for (Book book : list)
                     try {
                         File fl = new File(FileWorker.getInstance().getPicturesPath() + book.getName());
                         if (!fl.exists()) {
@@ -56,7 +53,6 @@ public class Manager {
                         }
                     } catch (Exception e) {
                     }
-                }
             }
 
             @Override
@@ -71,7 +67,8 @@ public class Manager {
         Bitmap bitmap = null;
 
         try {
-            PdfRenderer rend = new PdfRenderer(ParcelFileDescriptor.open(new File(filePath), ParcelFileDescriptor.MODE_READ_ONLY));
+            PdfRenderer rend = new PdfRenderer(ParcelFileDescriptor.open(
+                    new File(filePath), ParcelFileDescriptor.MODE_READ_ONLY));
             PdfRenderer.Page page = rend.openPage(0);
             bitmap = Bitmap.createBitmap(page.getWidth(), page.getHeight(),
                     Bitmap.Config.ARGB_8888);

@@ -1,7 +1,6 @@
 package com.example.raw.app.Main.Tabs;
 
 import android.os.Bundle;
-import android.support.annotation.UiThread;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,8 +12,6 @@ import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Main.Adapters.LocalBooksRVAdapter;
 import com.example.raw.app.R;
 import com.example.raw.app.Utils.BookSearcher;
-import com.example.raw.app.Utils.FileWorker;
-import com.example.raw.app.Utils.Manager;
 import com.example.raw.app.Utils.Repository;
 
 import java.util.ArrayList;

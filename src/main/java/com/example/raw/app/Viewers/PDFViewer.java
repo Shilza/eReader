@@ -93,7 +93,7 @@ public class PDFViewer extends Activity
         if (startPage == -1)
             pdfView.jumpTo((int) (pdfView.getPageCount() * totalRead), true);
         else
-            pdfView.jumpTo(startPage, true);
+            pdfView.jumpTo(startPage,true);
     }
 
     @Override
@@ -107,19 +107,11 @@ public class PDFViewer extends Activity
         pdfView.jumpTo(value);
     }
 
-    private void animations() {
-        if (!isFooterAnimationStarted) {
-            footerAnimation(isExtraMenuHide);
-            tvHeaderAnimation(isExtraMenuHide);
-            isExtraMenuHide = !isExtraMenuHide;
-        }
-    }
-
     @Override
     public void onPageChanged(int curPage, int count) {
         book.setTotalRead((float) curPage / (float) count);
         refreshBooksData();
-        bookmarksProcessing(curPage);
+        bookmarksProcessing();
     }
 
     @Override
@@ -176,6 +168,14 @@ public class PDFViewer extends Activity
         }
     }
 
+    private void animations() {
+        if (!isFooterAnimationStarted) {
+            footerAnimation(isExtraMenuHide);
+            tvHeaderAnimation(isExtraMenuHide);
+            isExtraMenuHide = !isExtraMenuHide;
+        }
+    }
+
     private void footerAnimation(boolean show) {
         isFooterAnimationStarted = true;
         int value = show ? -footer.getHeight() : footer.getHeight();
@@ -197,11 +197,11 @@ public class PDFViewer extends Activity
         header.animate().translationYBy(value).setDuration(200).setInterpolator(new AccelerateInterpolator()).start();
     }
 
-    private void bookmarksProcessing(int curPage){
+    private void bookmarksProcessing(){
         int bookmarksCount = 0;
 
         for (Bookmark bookmark : book.getBookmarks())
-            if (bookmark.getPage() == curPage)
+            if (bookmark.getPage() == pdfView.getCurrentPage())
                 bookmarksCount++;
 
         if (bookmarksCount > 0) {

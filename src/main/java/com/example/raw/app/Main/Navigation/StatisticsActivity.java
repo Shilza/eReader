@@ -3,12 +3,9 @@ package com.example.raw.app.Main.Navigation;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.speech.tts.TextToSpeech;
-import android.speech.tts.Voice;
-import android.util.Log;
-import android.util.TimeUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +23,6 @@ import com.example.raw.app.Utils.Repository;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 public class StatisticsActivity extends Activity {
 
@@ -57,17 +53,17 @@ public class StatisticsActivity extends Activity {
     private void initUI() {
         TableLayout table = findViewById(R.id.acStatisticsTableLayout);
 
-        String[] list = new String[6];
-        list[0] = getString(R.string.statistics_hours_of_read);
-        list[1] = getString(R.string.statistics_pages);
-        list[2] = getString(R.string.statistics_books_total);
-        list[3] = getString(R.string.statistics_books_readed);
-        list[4] = getString(R.string.statistics_read);
-        list[5] = getString(R.string.statistic_bookmarks);
+        String[] listOfItems = new String[6];
+        listOfItems[0] = getString(R.string.statistics_hours_of_read);
+        listOfItems[1] = getString(R.string.statistics_pages);
+        listOfItems[2] = getString(R.string.statistics_books_total);
+        listOfItems[3] = getString(R.string.statistics_books_readed);
+        listOfItems[4] = getString(R.string.statistics_read);
+        listOfItems[5] = getString(R.string.statistic_bookmarks);
 
-        String[] list1 = initParams();
+        String[] listOfValues = initStatisticsParams();
 
-        int index = 0;
+        int listItemIndex = 0;
         for (int i = 0; i < 3; i++) {
             TableRow row = new TableRow(this);
             row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
@@ -75,16 +71,17 @@ public class StatisticsActivity extends Activity {
 
             for (int j = 0; j < 2; j++) {
                 View cardView = LayoutInflater.from(this).inflate(R.layout.statistics_item, row, false);
-                cardView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
+                if (i == 0)
+                    cardView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
 
-                    }
-                });
-                ((TextView) cardView.findViewById(R.id.acStatisticsItemCount)).setText(list1[index]);
-                ((TextView) cardView.findViewById(R.id.acStatisticsItemDescription)).setText(list[index]);
+                        }
+                    });
+                ((TextView) cardView.findViewById(R.id.acStatisticsItemCount)).setText(listOfValues[listItemIndex]);
+                ((TextView) cardView.findViewById(R.id.acStatisticsItemDescription)).setText(listOfItems[listItemIndex]);
                 row.addView(cardView, j);
-                index++;
+                listItemIndex++;
             }
             table.addView(row, i);
         }
@@ -96,7 +93,6 @@ public class StatisticsActivity extends Activity {
 
     public void statisticsOnClick(View view) {
         switch (view.getId()) {
-
             case R.id.acStatisticsActionBack:
                 finish();
                 break;
@@ -163,13 +159,12 @@ public class StatisticsActivity extends Activity {
                         Toast.makeText(getBaseContext(), "Этот язык не поддерживается", Toast.LENGTH_SHORT).show();
                     else
                         mTTS.speak("Меня всегда огорчало, что в Android не было синтезатора речи на русском. Изначально выбор языков был ограничен английским, испанским, французским, немецким и итальянским. Существовали отдельные коммерческие движки, а также производители могли добавить в свои устройства какой-нибудь движок с нужным языком, видимо договорившись с разработчиком. Но хотелось поддержки из коробки от самой «корпорации добра", TextToSpeech.QUEUE_FLUSH, null);
-                    //mTTS.speak("Deborah was angry at her son. Her son didn't listen to her. Her son was 16 years old. Her son thought he knew everything. Her son yelled at Deborah. He told her he didn't have to do anything. He didn't have to listen to her. He didn't have to go to school. He didn't have to do his homework. He didn't have to study. He was 16. He could do anything he wanted to do. What could Deborah do? She wasn't married. She was divorced. She could not control her son. He would listen to his father. But his father was not there. His father lived in another city.", TextToSpeech.QUEUE_FLUSH, null);
                 }
             }
         });
     }
 
-    private String[] initParams(){
+    private String[] initStatisticsParams(){
         String[] list =  new String[6];
 
         float hours = allReadingTime();

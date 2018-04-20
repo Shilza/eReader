@@ -30,6 +30,7 @@
         <activity android:name=".Viewers.Activities.BookmarksOfParticularBookActivity" />
         <activity android:name=".Main.Navigation.SettingsActivity" />
         <activity android:name=".Curl.CurlActivity" />
+        <activity android:name=".Main.Navigation.StatisticsGraph"></activity>
     </application>
 
 </manifest>

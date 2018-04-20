@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Main.Adapters.RecentBooksRVAdapter;
 import com.example.raw.app.R;
-import com.example.raw.app.Utils.FileWorker;
 import com.example.raw.app.Utils.Repository;
 
 import java.util.ArrayList;

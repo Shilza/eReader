@@ -10,7 +10,6 @@
     <string name="bookmarks_count">"Количество закладок: "</string>
 
     <string name="context_menu_open">"Открыть"</string>
-    <string name="context_menu_delete">"Удалить"</string>
     <string name="context_menu_delete_from_list">"Удалить из списка"</string>
     <string name="context_menu_properties">"Свойства"</string>
 

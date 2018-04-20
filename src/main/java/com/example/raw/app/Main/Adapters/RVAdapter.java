@@ -32,15 +32,15 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
     ArrayList<Book> books;
     Context context;
     Book selectedBook;
-    AlertDialog.Builder ad;
 
     RVAdapter(ArrayList<Book> books, Context context){
         this.books = books;
         this.context = context;
-        initAlertDialog();
     }
 
-    public abstract class BookViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener ,View.OnCreateContextMenuListener, View.OnClickListener{
+    public abstract class BookViewHolder extends RecyclerView.ViewHolder
+            implements View.OnLongClickListener ,View.OnCreateContextMenuListener, View.OnClickListener{
+
         private TextView bookName;
         private TextView bookSize;
         private TextView bookLastActivity;
@@ -134,25 +134,6 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
         Intent intent = new Intent(context, PropertiesActivity.class);
         intent.putExtra("Book", selectedBook);
         context.startActivity(intent);
-    }
-
-    private void initAlertDialog(){
-        ad = new AlertDialog.Builder(context);
-        ad.setTitle(R.string.dialog_delete_book);
-        ad.setMessage(R.string.dialog_confirmation_of_removal_book);
-        ad.setPositiveButton(R.string.dialog_consent, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int arg1) {
-
-                //context.deleteFile(selectedBook.getName());
-                Toast.makeText(context, "1",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-        ad.setNegativeButton(R.string.dialog_denial, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int arg1) {
-                Toast.makeText(context, "2", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     private void clickProcessing(){

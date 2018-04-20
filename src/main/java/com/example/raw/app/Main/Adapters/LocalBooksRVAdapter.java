@@ -2,14 +2,12 @@ package com.example.raw.app.Main.Adapters;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.raw.app.Main.PropertiesActivity;
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.R;
 
@@ -18,8 +16,7 @@ import java.util.ArrayList;
 public class LocalBooksRVAdapter extends RVAdapter {
 
     private final byte CONTEXT_MENU_OPEN = 0;
-    private final byte CONTEXT_MENU_DELETE = 1;
-    private final byte CONTEXT_MENU_PROPERTIES = 2;
+    private final byte CONTEXT_MENU_PROPERTIES = 1;
     private final byte GROUP_ID = 0;
 
     public LocalBooksRVAdapter(ArrayList<Book> books, Context context) {
@@ -34,10 +31,6 @@ public class LocalBooksRVAdapter extends RVAdapter {
         switch (item.getItemId()) {
             case CONTEXT_MENU_OPEN:
                 bookOpening();
-                break;
-
-            case CONTEXT_MENU_DELETE:
-                ad.show();
                 break;
 
             case CONTEXT_MENU_PROPERTIES:
@@ -58,7 +51,6 @@ public class LocalBooksRVAdapter extends RVAdapter {
 
             menu.setHeaderTitle(selectedBook.getName());
             menu.add(GROUP_ID, CONTEXT_MENU_OPEN, 0, R.string.context_menu_open);
-            menu.add(GROUP_ID, CONTEXT_MENU_DELETE, 0, R.string.context_menu_delete);
             menu.add(GROUP_ID, CONTEXT_MENU_PROPERTIES, 0, R.string.context_menu_properties);
         }
     }

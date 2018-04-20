@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
-    private ArrayList<Pair<Integer, Book>> books;
+    private ArrayList<Pair<Book, Integer>> books;
     private Context context;
     private Book selectedBook;
     private AlertDialog.Builder ad;
@@ -40,7 +40,7 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public BookmarksRVAdapter(ArrayList<Book> books, Context context){
         this.books = new ArrayList<>();
         for(Book book : books)
-            this.books.add(new Pair<>(0, book));
+            this.books.add(new Pair<>(book, 0));
 
         this.context = context;
         iniRemovingBookmarksDialog();
@@ -124,7 +124,7 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return books.size();
     }
 
-    public ArrayList<Pair<Integer, Book>> getBooks(){
+    public ArrayList<Pair<Book, Integer>> getBooks(){
         return books;
     }
 
@@ -154,7 +154,7 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemViewType(int position) {
-        return books.get(position).first == 0 ?  0 : 1;
+        return books.get(position).second == 0 ?  0 : 1;
     }
 
     public class ExtendedViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener{
@@ -185,26 +185,26 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     private void mainViewHolderPreparing(MainViewHolder holder, int position){
-        holder.bookName.setText(books.get(position).second.getName());
+        holder.bookName.setText(books.get(position).first.getName());
         holder.bookmarksCount.setText(context.getString(R.string.bookmarks_count) +
-                String.valueOf(books.get(position).second.getBookmarks().size()));
+                String.valueOf(books.get(position).first.getBookmarks().size()));
 
         Glide.with(context)
-                .load(FileWorker.getInstance().getPicturesPath() + books.get(position).second.getName())
+                .load(FileWorker.getInstance().getPicturesPath() + books.get(position).first.getName())
                 .apply(new RequestOptions().fitCenter().placeholder(R.drawable.e))
                 .into(holder.bookCover);
 
         holder.setOnLongClickListener(new ItemClickListener() {
             @Override
             public void onItemViewClick(int pos, boolean isLongClick) {
-                selectedBook = books.get(pos).second;
+                selectedBook = books.get(pos).first;
 
                 if(!isLongClick){
                     //CLOSE ALL BOOKMARKS CONTAINERS
-                    for(int i=0; i< books.size(); i++)
-                        books.set(i, new Pair<>(0, books.get(i).second));
+                    for(int i=0; i < books.size(); i++)
+                        books.set(i, new Pair<>(books.get(i).first, 0));
 
-                    books.set(pos, new Pair<>(1, books.get(pos).second));
+                    books.set(pos, new Pair<>(books.get(pos).first, 1));
                     notifyDataSetChanged();
                 }
             }
@@ -215,16 +215,16 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         holder.setOnLongClickListener(new ItemClickListener() {
             @Override
             public void onItemViewClick(int pos, boolean isLongClick) {
-                selectedBook = books.get(pos).second;
+                selectedBook = books.get(pos).first;
 
                 if(!isLongClick){
-                    books.set(pos, new Pair<>(0, books.get(pos).second));
+                    books.set(pos, new Pair<>(books.get(pos).first, 0));
                     notifyDataSetChanged();
                 }
             }
         });
 
-        BookmarkPreviewRVAdapter bookmarkAdapter = new BookmarkPreviewRVAdapter(books.get(position).second, context);
+        BookmarkPreviewRVAdapter bookmarkAdapter = new BookmarkPreviewRVAdapter(books.get(position).first, context);
         rvBookmarkPreview.setAdapter(bookmarkAdapter);
     }
 
@@ -236,7 +236,7 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             public void onClick(DialogInterface dialog, int arg1) {
                 selectedBook.getBookmarks().clear();
 
-                for(Pair<Integer, Book> pair : books)
+                for(Pair<Book, Integer> pair : books)
                     if(pair.second.equals(selectedBook)){
                         books.remove(pair);
                         break;

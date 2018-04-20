@@ -31,7 +31,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.Proxy;
 import java.util.ArrayList;
 
 public class SimpleTextViewer extends Activity {
@@ -269,8 +268,8 @@ public class SimpleTextViewer extends Activity {
         tvMainText.post(new Runnable() {
             @Override
             public void run() {
-                //value 100 just to aligning
-                int tvHeight = getResources().getDisplayMetrics().heightPixels - 100;
+                //value 200 just to aligning
+                int tvHeight = getResources().getDisplayMetrics().heightPixels - 200;
                 //Approximate number of symbols in line
                 int countOfSymbols = tvMainText.length() / tvMainText.getLineCount();
                 //The line in which the text is located (approximately)
