@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,7 +22,7 @@ import com.example.raw.app.Viewers.Dialogs.BookmarksDialog;
 import com.example.raw.app.Viewers.Dialogs.GoToDialog;
 import com.example.raw.app.Utils.FileWorker;
 import com.example.raw.app.R;
-import com.example.raw.app.TabsKeeper;
+import com.example.raw.app.Main.RVMediator;
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
@@ -32,8 +31,6 @@ import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class PDFViewer extends Activity
         implements OnPageChangeListener, OnLoadCompleteListener, OnTapListener, GoToDialog.OnInputListener {
@@ -133,7 +130,7 @@ public class PDFViewer extends Activity
     @Override
     public void onBackPressed() {
         refreshBooksData();
-        TabsKeeper.getInstance().notifyDataSetChanged();
+        RVMediator.getInstance().notifyDataSetChanged();
         finish();
     }
 

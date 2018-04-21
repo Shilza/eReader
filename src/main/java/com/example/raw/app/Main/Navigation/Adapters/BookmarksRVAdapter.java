@@ -25,7 +25,7 @@ import com.example.raw.app.Utils.FileWorker;
 
 import java.util.ArrayList;
 
-public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ArrayList<Pair<Book, Integer>> books;
     private Context context;
@@ -37,16 +37,17 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private final byte CONTEXT_MENU_REMOVING = 0;
     private final byte GROUP_ID = 3;
 
-    public BookmarksRVAdapter(ArrayList<Book> books, Context context){
+    public BookmarksRVAdapter(ArrayList<Book> books, Context context) {
         this.books = new ArrayList<>();
-        for(Book book : books)
+        for (Book book : books)
             this.books.add(new Pair<>(book, 0));
 
         this.context = context;
         iniRemovingBookmarksDialog();
     }
 
-    public class MainViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener ,View.OnCreateContextMenuListener, View.OnClickListener{
+    public class MainViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener,
+            View.OnCreateContextMenuListener, View.OnClickListener {
 
         private TextView bookName;
         private TextView bookmarksCount;
@@ -74,17 +75,17 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             menu.add(GROUP_ID, CONTEXT_MENU_REMOVING, 0, "Очистить закладки");
         }
 
-        private void setOnLongClickListener(ItemClickListener listener){
+        private void setOnLongClickListener(ItemClickListener listener) {
             this.itemClickListener = listener;
         }
 
         @Override
-        public void onClick(View view){
+        public void onClick(View view) {
             this.itemClickListener.onItemViewClick(getLayoutPosition(), false);
         }
 
         @Override
-        public boolean onLongClick(View view){
+        public boolean onLongClick(View view) {
             this.itemClickListener.onItemViewClick(getLayoutPosition(), true);
             return false;
         }
@@ -97,23 +98,21 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType){
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
 
-        RecyclerView.ViewHolder viewHolder = null;
+        RecyclerView.ViewHolder viewHolder;
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
 
-        switch (viewType) {
-            case 0:
-                View v1 = inflater.inflate(R.layout.adt_rv_bookmarks, viewGroup, false);
-                viewHolder = new MainViewHolder(v1);
-                break;
+        if (viewType == 0) {
+            View v1 = inflater.inflate(R.layout.adt_rv_bookmarks, viewGroup, false);
+            viewHolder = new MainViewHolder(v1);
+        } else {
+            View v2 = inflater.inflate(R.layout.adt_rv_bookmarks_preview, viewGroup, false);
+            viewHolder = new ExtendedViewHolder(v2);
 
-            case 1:
-                View v2 = inflater.inflate(R.layout.adt_rv_bookmarks_preview, viewGroup, false);
-                viewHolder = new ExtendedViewHolder(v2);
-                rvBookmarkPreview = v2.findViewById(R.id.acBookmarksPreviewRecyclerView);
-                rvBookmarkPreview.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-                break;
+            rvBookmarkPreview = v2.findViewById(R.id.acBookmarksPreviewRecyclerView);
+            rvBookmarkPreview.setLayoutManager(
+                    new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         }
 
         return viewHolder;
@@ -124,15 +123,15 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return books.size();
     }
 
-    public ArrayList<Pair<Book, Integer>> getBooks(){
+    public ArrayList<Pair<Book, Integer>> getBooks() {
         return books;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        switch (holder.getItemViewType()){
+        switch (holder.getItemViewType()) {
             case 0:
-                mainViewHolderPreparing((MainViewHolder)holder, position);
+                mainViewHolderPreparing((MainViewHolder) holder, position);
                 break;
 
             case 1:
@@ -141,11 +140,11 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
-    public void getItemSelected(MenuItem item){
-        if(item.getGroupId() != GROUP_ID)
+    public void getItemSelected(MenuItem item) {
+        if (item.getGroupId() != GROUP_ID)
             return;
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case CONTEXT_MENU_REMOVING:
                 ad.show();
                 break;
@@ -154,10 +153,10 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemViewType(int position) {
-        return books.get(position).second == 0 ?  0 : 1;
+        return books.get(position).second == 0 ? 0 : 1;
     }
 
-    public class ExtendedViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener{
+    public class ExtendedViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
 
         ItemClickListener itemClickListener;
 
@@ -168,23 +167,23 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             itemView.setOnClickListener(this);
         }
 
-        private void setOnLongClickListener(ItemClickListener listener){
+        private void setOnLongClickListener(ItemClickListener listener) {
             this.itemClickListener = listener;
         }
 
         @Override
-        public void onClick(View view){
+        public void onClick(View view) {
             this.itemClickListener.onItemViewClick(getLayoutPosition(), false);
         }
 
         @Override
-        public boolean onLongClick(View view){
+        public boolean onLongClick(View view) {
             this.itemClickListener.onItemViewClick(getLayoutPosition(), true);
             return false;
         }
     }
 
-    private void mainViewHolderPreparing(MainViewHolder holder, int position){
+    private void mainViewHolderPreparing(MainViewHolder holder, int position) {
         holder.bookName.setText(books.get(position).first.getName());
         holder.bookmarksCount.setText(context.getString(R.string.bookmarks_count) +
                 String.valueOf(books.get(position).first.getBookmarks().size()));
@@ -199,9 +198,9 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             public void onItemViewClick(int pos, boolean isLongClick) {
                 selectedBook = books.get(pos).first;
 
-                if(!isLongClick){
+                if (!isLongClick) {
                     //CLOSE ALL BOOKMARKS CONTAINERS
-                    for(int i=0; i < books.size(); i++)
+                    for (int i = 0; i < books.size(); i++)
                         books.set(i, new Pair<>(books.get(i).first, 0));
 
                     books.set(pos, new Pair<>(books.get(pos).first, 1));
@@ -211,13 +210,13 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         });
     }
 
-    private void extendedViewHolderPreparing(ExtendedViewHolder holder, int position){
+    private void extendedViewHolderPreparing(ExtendedViewHolder holder, int position) {
         holder.setOnLongClickListener(new ItemClickListener() {
             @Override
             public void onItemViewClick(int pos, boolean isLongClick) {
                 selectedBook = books.get(pos).first;
 
-                if(!isLongClick){
+                if (!isLongClick) {
                     books.set(pos, new Pair<>(books.get(pos).first, 0));
                     notifyDataSetChanged();
                 }
@@ -228,7 +227,7 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         rvBookmarkPreview.setAdapter(bookmarkAdapter);
     }
 
-    private void iniRemovingBookmarksDialog(){
+    private void iniRemovingBookmarksDialog() {
         ad = new AlertDialog.Builder(context);
         ad.setTitle("Удалить");
         ad.setMessage("Действительно хотите удалить все закладки этой книги?");
@@ -236,8 +235,8 @@ public class BookmarksRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             public void onClick(DialogInterface dialog, int arg1) {
                 selectedBook.getBookmarks().clear();
 
-                for(Pair<Book, Integer> pair : books)
-                    if(pair.second.equals(selectedBook)){
+                for (Pair<Book, Integer> pair : books)
+                    if (pair.second.equals(selectedBook)) {
                         books.remove(pair);
                         break;
                     }

@@ -38,7 +38,7 @@ public class Repository {
     public void addToRecentBooks(Book book) {
         if (FileWorker.getInstance().isBookExist(book.getFilePath())) {
             book.setLastActivity(System.currentTimeMillis());
-            recentBooks.add(0, book);
+            recentBooks.add(positionInRecentBooks(), book);
             FileWorker.getInstance().refreshingJSON();
         }
     }
@@ -53,5 +53,17 @@ public class Repository {
     public void removeBookFromLocalBooks(Book book) {
         localBooks.remove(book);
         FileWorker.getInstance().refreshingJSON();
+    }
+
+    private int positionInRecentBooks(){
+        for(Book book : recentBooks)
+            if(book.isAffixed())
+                return 1;
+        return 0;
+    }
+
+    public void unfix(){
+        for(Book book : recentBooks)
+            book.setAffixed(false);
     }
 }

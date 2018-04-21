@@ -19,8 +19,6 @@ import java.util.ArrayList;
 
 public class SearchRVAdapter extends RVAdapter implements Filterable {
 
-    private final byte CONTEXT_MENU_OPEN = 0;
-    private final byte CONTEXT_MENU_PROPERTIES = 1;
     private final byte GROUP_ID = 2;
 
     public SearchRVAdapter(Context context) {

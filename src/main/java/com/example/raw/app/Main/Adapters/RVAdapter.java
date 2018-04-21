@@ -1,8 +1,6 @@
 package com.example.raw.app.Main.Adapters;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -19,8 +17,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.ItemClickListener;
 import com.example.raw.app.Main.PropertiesActivity;
+import com.example.raw.app.Main.RVMediator;
 import com.example.raw.app.R;
-import com.example.raw.app.TabsKeeper;
 import com.example.raw.app.Utils.BookOpener;
 import com.example.raw.app.Utils.FileWorker;
 import com.example.raw.app.Utils.Repository;
@@ -33,13 +31,17 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
     Context context;
     Book selectedBook;
 
-    RVAdapter(ArrayList<Book> books, Context context){
+    final byte CONTEXT_MENU_OPEN = 0;
+    final byte CONTEXT_MENU_PROPERTIES = 1;
+
+    RVAdapter(ArrayList<Book> books, Context context) {
         this.books = books;
         this.context = context;
+        ;
     }
 
     public abstract class BookViewHolder extends RecyclerView.ViewHolder
-            implements View.OnLongClickListener ,View.OnCreateContextMenuListener, View.OnClickListener{
+            implements View.OnLongClickListener, View.OnCreateContextMenuListener, View.OnClickListener {
 
         private TextView bookName;
         private TextView bookSize;
@@ -63,19 +65,19 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
 
         @Override
         public abstract void onCreateContextMenu(ContextMenu menu, View view,
-                                        ContextMenu.ContextMenuInfo menuInfo);
+                                                 ContextMenu.ContextMenuInfo menuInfo);
 
-        private void setOnLongClickListener(ItemClickListener listener){
+        private void setOnLongClickListener(ItemClickListener listener) {
             this.itemClickListener = listener;
         }
 
         @Override
-        public void onClick(View view){
+        public void onClick(View view) {
             this.itemClickListener.onItemViewClick(getLayoutPosition(), false);
         }
 
         @Override
-        public boolean onLongClick(View view){
+        public boolean onLongClick(View view) {
             this.itemClickListener.onItemViewClick(getLayoutPosition(), true);
             return false;
         }
@@ -113,40 +115,51 @@ public abstract class RVAdapter extends RecyclerView.Adapter<RVAdapter.BookViewH
             public void onItemViewClick(int pos, boolean isLongClick) {
                 selectedBook = books.get(pos);
 
-                if(!isLongClick)
-                   clickProcessing();
+                if (!isLongClick)
+                    clickProcessing();
             }
         });
     }
 
-    void bookOpening(){
-        if(FileWorker.getInstance().isBookExist(selectedBook.getFilePath()))
+    void bookOpening() {
+        if (FileWorker.getInstance().isBookExist(selectedBook.getFilePath()))
             BookOpener.getInstance().opening(selectedBook, context);
         else {
             Toast.makeText(context, R.string.error_book_is_deleted, Toast.LENGTH_SHORT).show();
             books.remove(selectedBook);
+
             FileWorker.getInstance().refreshingJSON();
-            TabsKeeper.getInstance().notifyDataSetChanged();
+            RVMediator.getInstance().notifyDataSetChanged();
         }
     }
 
-    void openProperties(){
+    void openProperties() {
         Intent intent = new Intent(context, PropertiesActivity.class);
         intent.putExtra("Book", selectedBook);
         context.startActivity(intent);
     }
 
-    private void clickProcessing(){
-        if(!Repository.getInstance().getRecentBooks().contains(selectedBook)){
+    void moveBookToTheFirstPlace() {
+        Repository.getInstance().unfix();
+        selectedBook.setAffixed(true);
+
+        Book book = Repository.getInstance().getRecentBooks().remove(
+                Repository.getInstance().getRecentBooks().indexOf(selectedBook));
+        Repository.getInstance().addToRecentBooks(book);
+    }
+
+    private void clickProcessing() {
+        if (!Repository.getInstance().getRecentBooks().contains(selectedBook)) {
             Repository.getInstance().addToRecentBooks(selectedBook);
             Repository.getInstance().removeBookFromLocalBooks(selectedBook);
-        } else{
+        } else {
             Book book = Repository.getInstance().getRecentBooks().remove(
                     Repository.getInstance().getRecentBooks().indexOf(selectedBook));
             Repository.getInstance().addToRecentBooks(book);
         }
 
-        TabsKeeper.getInstance().notifyDataSetChanged();
+        RVMediator.getInstance().notifyDataSetChanged();
         bookOpening();
     }
+
 }

@@ -10,8 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.raw.app.Main.Adapters.RVAdapter;
-import com.example.raw.app.TabsKeeper;
-
+import com.example.raw.app.Main.RVMediator;
 
 public abstract class Tab extends Fragment {
 
@@ -22,16 +21,21 @@ public abstract class Tab extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TabsKeeper.getInstance().setTab(this);
+        RVMediator.getInstance().setTab(this);
     }
 
     @Override
     public abstract View onCreateView(LayoutInflater inflater, ViewGroup container,
                                       Bundle savedInstanceState);
 
-    public void dataSetChanged() {
+    public void notifyDataSetChanged() {
         changeLocationText();
         adapter.notifyDataSetChanged();
+    }
+
+    public void notifyItemRemoved(int position){
+        changeLocationText();
+        adapter.notifyItemRemoved(position);
     }
 
     public void changeLocationText(){

@@ -23,11 +23,6 @@
         android:title="Настройки" />
 
     <item
-        android:id="@+id/acMainActionLike"
-        android:icon="@drawable/ic_like_black"
-        android:title="Оценить приложение" />
-
-    <item
         android:id="@+id/acMainActionExit"
         android:icon="@drawable/ic_exit_black"
         android:title="Выход" />

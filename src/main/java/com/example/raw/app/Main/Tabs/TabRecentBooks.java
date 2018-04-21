@@ -38,9 +38,4 @@ public class TabRecentBooks extends Tab {
 
         return view;
     }
-
-    public void notifyItemRemoved(int position){
-        changeLocationText();
-        adapter.notifyItemRemoved(position);
-    }
 }

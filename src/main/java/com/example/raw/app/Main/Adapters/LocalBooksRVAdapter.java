@@ -15,8 +15,6 @@ import java.util.ArrayList;
 
 public class LocalBooksRVAdapter extends RVAdapter {
 
-    private final byte CONTEXT_MENU_OPEN = 0;
-    private final byte CONTEXT_MENU_PROPERTIES = 1;
     private final byte GROUP_ID = 0;
 
     public LocalBooksRVAdapter(ArrayList<Book> books, Context context) {

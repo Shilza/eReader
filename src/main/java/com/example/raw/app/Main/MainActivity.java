@@ -24,7 +24,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.raw.app.Curl.CurlActivity;
 import com.example.raw.app.Main.Adapters.SearchRVAdapter;
 import com.example.raw.app.Main.Adapters.TabPagerAdapter;
 import com.example.raw.app.Main.Navigation.BookmarksActivity;
@@ -92,10 +91,6 @@ public class MainActivity extends AppCompatActivity{
 
                             case R.id.acMainActionSettings:
                                 startActivity(new Intent(getBaseContext(), SettingsActivity.class));
-                                return true;
-
-                            case R.id.acMainActionLike:
-                                startActivity(new Intent(getBaseContext(), CurlActivity.class));
                                 return true;
 
                             case R.id.acMainActionExit:

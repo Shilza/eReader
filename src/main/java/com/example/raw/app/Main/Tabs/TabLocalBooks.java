@@ -58,7 +58,8 @@ public class TabLocalBooks extends Tab implements SwipeRefreshLayout.OnRefreshLi
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        dataSetChanged();
+                        changeLocationText();
+                        adapter.notifyDataSetChanged();
                         swipeRefreshLayout.setRefreshing(false);
                     }
                 });

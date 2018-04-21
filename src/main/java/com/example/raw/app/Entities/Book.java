@@ -16,6 +16,8 @@ public class Book implements Serializable{
     private float totalRead;
     private long lastActivity;
     private long timeOfReading;
+
+    private boolean isAffixed;
     private Extensions extension;
     private ArrayList<Bookmark> bookmarks;
 
@@ -24,10 +26,11 @@ public class Book implements Serializable{
         this.filePath = filePath;
         this.size = size;
         this.lastActivity = lastActivity;
-        this.totalRead = 0;
-        this.timeOfReading = 0;
         this.extension = extension;
         this.bookmarks = new ArrayList<>();
+        this.totalRead = 0;
+        this.timeOfReading = 0;
+        this.isAffixed = false;
     }
 
     public ArrayList<Bookmark> getBookmarks() {
@@ -44,6 +47,14 @@ public class Book implements Serializable{
 
     public void setTotalRead(float totalRead){
         this.totalRead = totalRead;
+    }
+
+    public void setAffixed(boolean affixed) {
+        isAffixed = affixed;
+    }
+
+    public boolean isAffixed() {
+        return isAffixed;
     }
 
     public String getName(){
