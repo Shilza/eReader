@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -18,7 +17,7 @@ import com.example.raw.app.Utils.FileWorker;
 
 import java.util.ArrayList;
 
-public class RecentBooksRVAdapter extends RVAdapter {
+public class RecentBooksRVAdapter extends BookRVAdapter {
 
     private AlertDialog.Builder deleteFromListDialog;
 

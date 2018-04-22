@@ -13,6 +13,7 @@ import com.example.raw.app.Entities.Bookmark;
 import com.example.raw.app.ItemClickListener;
 import com.example.raw.app.Main.Navigation.BookmarksActivity;
 import com.example.raw.app.R;
+import com.example.raw.app.RVViewHolder;
 import com.example.raw.app.Utils.BookOpener;
 
 import java.util.ArrayList;
@@ -29,34 +30,20 @@ public class BookmarkPreviewRVAdapter extends RecyclerView.Adapter<BookmarkPrevi
         this.context = context;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener{
+    public class ViewHolder extends RVViewHolder {
         TextView page;
         TextView text;
-        ItemClickListener itemClickListener;
 
         ViewHolder(final View itemView) {
             super(itemView);
 
             page = itemView.findViewById(R.id.acBookmarksPreviewPage);
             text = itemView.findViewById(R.id.acBookmarksPreviewText);
-
-            itemView.setOnLongClickListener(this);
-            itemView.setOnClickListener(this);
-        }
-
-        private void setOnLongClickListener(ItemClickListener listener){
-            this.itemClickListener = listener;
         }
 
         @Override
         public void onClick(View view){
-            this.itemClickListener.onItemViewClick(getLayoutPosition(), false);
-        }
-
-        @Override
-        public boolean onLongClick(View view){
-            this.itemClickListener.onItemViewClick(getLayoutPosition(), true);
-            return false;
+            BookOpener.getInstance().opening(book, bookmarks.get(getLayoutPosition()).getPage(), context);
         }
     }
 
@@ -81,14 +68,6 @@ public class BookmarkPreviewRVAdapter extends RecyclerView.Adapter<BookmarkPrevi
         int page = bookmarks.get(position).getPage()+1;
         holder.page.setText(String.valueOf(page));
         holder.text.setText(bookmarks.get(position).getText());
-
-        holder.setOnLongClickListener(new ItemClickListener() {
-            @Override
-            public void onItemViewClick(int pos, boolean isLongClick) {
-                ((BookmarksActivity) context).finish();
-                BookOpener.getInstance().opening(book, bookmarks.get(pos).getPage(), context);
-            }
-        });
     }
 
 }

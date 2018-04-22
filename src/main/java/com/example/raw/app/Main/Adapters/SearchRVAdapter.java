@@ -12,17 +12,16 @@ import android.widget.Filterable;
 
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.R;
-import com.example.raw.app.Utils.FileWorker;
 import com.example.raw.app.Utils.Repository;
 
 import java.util.ArrayList;
 
-public class SearchRVAdapter extends RVAdapter implements Filterable {
+public class SearchRVAdapter extends BookRVAdapter implements Filterable {
 
     private final byte GROUP_ID = 2;
 
     public SearchRVAdapter(Context context) {
-        super(new ArrayList<Book>(), context);
+        super(new ArrayList<>(), context);
     }
 
     @Override
@@ -30,15 +29,7 @@ public class SearchRVAdapter extends RVAdapter implements Filterable {
         if (item.getGroupId() != GROUP_ID)
             return;
 
-        switch (item.getItemId()) {
-            case CONTEXT_MENU_OPEN:
-                bookOpening();
-                break;
-
-            case CONTEXT_MENU_PROPERTIES:
-                openProperties();
-                break;
-        }
+        itemSelectedProcessing(item);
     }
 
     @Override
@@ -74,7 +65,7 @@ public class SearchRVAdapter extends RVAdapter implements Filterable {
         };
     }
 
-    class ViewHolder extends RVAdapter.BookViewHolder {
+    class ViewHolder extends BookRVAdapter.BookViewHolder {
         ViewHolder(View view) {
             super(view);
         }

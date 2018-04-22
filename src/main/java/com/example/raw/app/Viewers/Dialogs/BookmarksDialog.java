@@ -31,7 +31,7 @@ public class BookmarksDialog extends DialogFragment implements View.OnClickListe
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_adding_bookmarks, container, false);
-        getDialog().setTitle(R.string.dialog_title_add_bookmarks);
+        getDialog().setTitle(R.string.dialog_title_add_bookmark);
 
         actionOk = view.findViewById(R.id.dialogBookmarksAddingActionOk);
         actionActOk = view.findViewById(R.id.dialogBookmarksAddingActionAltOk);

@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/dialogBookmarksAddingTvPage"
         android:background="@android:color/transparent"
-        android:text="Добавить текст"
+        android:text="@string/dialog_add_text"
         android:textColor="#33bbff" />
 
     <EditText
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/dialogBookmarksAddingActionAddText"
         android:background="@android:color/transparent"
-        android:text="ОК"
+        android:text="@string/dialog_ok"
         android:textColor="#33bbff"
         android:textSize="18sp" />
 
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/dialogBookmarksAddingEditText"
         android:background="@android:color/transparent"
-        android:text="ОК"
+        android:text="@string/dialog_ok"
         android:textColor="#33bbff"
         android:textSize="18sp" />
 

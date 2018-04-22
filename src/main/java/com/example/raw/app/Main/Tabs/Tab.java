@@ -9,12 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.raw.app.Main.Adapters.RVAdapter;
+import com.example.raw.app.Main.Adapters.BookRVAdapter;
 import com.example.raw.app.Main.RVMediator;
 
 public abstract class Tab extends Fragment {
 
-    RVAdapter adapter;
+    BookRVAdapter adapter;
     TextView tvLocation;
     String locationName;
 

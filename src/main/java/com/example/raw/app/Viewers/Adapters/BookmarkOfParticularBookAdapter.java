@@ -16,6 +16,8 @@ import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Entities.Bookmark;
 import com.example.raw.app.ItemClickListener;
 import com.example.raw.app.R;
+import com.example.raw.app.RVContextViewHolder;
+import com.example.raw.app.RVViewHolder;
 import com.example.raw.app.Utils.BookOpener;
 import com.example.raw.app.Utils.FileWorker;
 import com.example.raw.app.Viewers.Activities.BookmarksOfParticularBookActivity;
@@ -43,12 +45,11 @@ public class BookmarkOfParticularBookAdapter extends RecyclerView.Adapter<Recycl
         initAlertDialog();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnCreateContextMenuListener, View.OnClickListener {
+    public class ViewHolder extends RVContextViewHolder{
 
         TextView tvPage;
         TextView tvText;
         TextView tvDate;
-        ItemClickListener itemClickListener;
 
         ViewHolder(final View itemView) {
             super(itemView);
@@ -56,10 +57,6 @@ public class BookmarkOfParticularBookAdapter extends RecyclerView.Adapter<Recycl
             tvPage = itemView.findViewById(R.id.acBmOfPartBookmarkPage);
             tvText = itemView.findViewById(R.id.acBmOfPartBookmarkText);
             tvDate = itemView.findViewById(R.id.acBmOfPartBookmarkDate);
-
-            itemView.setOnCreateContextMenuListener(this);
-            itemView.setOnLongClickListener(this);
-            itemView.setOnClickListener(this);
         }
 
         @Override
@@ -68,21 +65,6 @@ public class BookmarkOfParticularBookAdapter extends RecyclerView.Adapter<Recycl
 
             menu.add(GROUP_ID, CONTEXT_MENU_GOTO, 0, "Перейти");
             menu.add(GROUP_ID, CONTEXT_MENU_REMOVING, 0, "Удалить закладку");
-        }
-
-        private void setOnLongClickListener(ItemClickListener listener) {
-            this.itemClickListener = listener;
-        }
-
-        @Override
-        public void onClick(View view) {
-            this.itemClickListener.onItemViewClick(getLayoutPosition(), false);
-        }
-
-        @Override
-        public boolean onLongClick(View view) {
-            this.itemClickListener.onItemViewClick(getLayoutPosition(), true);
-            return false;
         }
     }
 

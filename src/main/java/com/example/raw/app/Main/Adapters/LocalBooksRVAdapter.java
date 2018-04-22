@@ -13,7 +13,7 @@ import com.example.raw.app.R;
 
 import java.util.ArrayList;
 
-public class LocalBooksRVAdapter extends RVAdapter {
+public class LocalBooksRVAdapter extends BookRVAdapter {
 
     private final byte GROUP_ID = 0;
 
@@ -26,18 +26,10 @@ public class LocalBooksRVAdapter extends RVAdapter {
         if (item.getGroupId() != GROUP_ID)
             return;
 
-        switch (item.getItemId()) {
-            case CONTEXT_MENU_OPEN:
-                bookOpening();
-                break;
-
-            case CONTEXT_MENU_PROPERTIES:
-                openProperties();
-                break;
-        }
+        itemSelectedProcessing(item);
     }
 
-    class LocalBooksViewHolder extends RVAdapter.BookViewHolder {
+    class LocalBooksViewHolder extends BookRVAdapter.BookViewHolder {
 
         LocalBooksViewHolder(View view){
             super(view);
