@@ -36,6 +36,7 @@ import com.example.raw.app.Utils.Repository;
 
 import java.io.File;
 
+
 public class MainActivity extends AppCompatActivity{
 
     private SearchRVAdapter searchRVAdapter;
@@ -46,12 +47,15 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        setContentView(R.layout.activity_main);
+
         Manager.getInstance().initializeData();
-        setSupportActionBar((Toolbar) findViewById(R.id.acMainToolbar));
+        setSupportActionBar(findViewById(R.id.acMainToolbar));
         initDrawer();
         initTabs();
         initSearch();
@@ -59,6 +63,7 @@ public class MainActivity extends AppCompatActivity{
         SharedPreferences sharedPref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if(sharedPref.getBoolean(getString(R.string.settings_autoStart), false))
             BookOpener.getInstance().opening(Repository.getInstance().getRecentBooks().get(0), this);
+
     }
 
     private void initDrawer(){
@@ -227,4 +232,95 @@ public class MainActivity extends AppCompatActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         return toggle.onOptionsItemSelected(item);
     }
+
+
+
+
+
+
+
+
+
+
+    //    private MediaRecorder mediaRecorder;
+//    private MediaPlayer mediaPlayer;
+//    private String fileName;
+//
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.sas);
+//
+//        fileName = FileWorker.getInstance().getPicturesPath() + "/record.3gpp";
+//    }
+//
+//    public void recordStart(View v) {
+//        try {
+//            releaseRecorder();
+//
+//            File outFile = new File(fileName);
+//            if (outFile.exists()) {
+//                outFile.delete();
+//            }
+//
+//            mediaRecorder = new MediaRecorder();
+//            mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+//            mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+//            mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+//            mediaRecorder.setOutputFile(fileName);
+//            mediaRecorder.setAudioChannels(1);
+//            mediaRecorder.setAudioEncodingBitRate(128000);
+//            mediaRecorder.setAudioSamplingRate(44100);
+//            mediaRecorder.prepare();
+//            mediaRecorder.start();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
+//
+//    public void recordStop(View v) {
+//        if (mediaRecorder != null) {
+//            mediaRecorder.stop();
+//        }
+//    }
+//
+//    public void playStart(View v) {
+//        try {
+//            releasePlayer();
+//            mediaPlayer = new MediaPlayer();
+//            mediaPlayer.setDataSource(fileName);
+//            mediaPlayer.prepare();
+//            mediaPlayer.start();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    public void playStop(View v) {
+//        if (mediaPlayer != null) {
+//            mediaPlayer.stop();
+//        }
+//    }
+//
+//    private void releaseRecorder() {
+//        if (mediaRecorder != null) {
+//            mediaRecorder.release();
+//            mediaRecorder = null;
+//        }
+//    }
+//
+//    private void releasePlayer() {
+//        if (mediaPlayer != null) {
+//            mediaPlayer.release();
+//            mediaPlayer = null;
+//        }
+//    }
+//
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        releasePlayer();
+//        releaseRecorder();
+//    }
 }

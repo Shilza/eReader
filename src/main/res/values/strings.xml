@@ -35,8 +35,8 @@
     <string name="dialog_statistics_cleared">"Статистика очищена"</string>
 
     <string name="dialog_title_add_bookmark">"Добавить закладку"</string>
-    <string name="dialog_add_text">"Добавить текст"</string>
     <string name="dialog_ok">"OK"</string>
+    <string name="text">"Текст"</string>
     <string name="dialog_page">"Страница " </string>
     <string name="bookmark_added">"Закладка добавлена"</string>
     <string name="bookmarks_does_not_exist">"Закладка уже существует"</string>
