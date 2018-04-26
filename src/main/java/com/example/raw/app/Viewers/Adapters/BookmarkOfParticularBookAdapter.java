@@ -17,7 +17,6 @@ import com.example.raw.app.Entities.Bookmark;
 import com.example.raw.app.ItemClickListener;
 import com.example.raw.app.R;
 import com.example.raw.app.RVContextViewHolder;
-import com.example.raw.app.RVViewHolder;
 import com.example.raw.app.Utils.BookOpener;
 import com.example.raw.app.Utils.FileWorker;
 import com.example.raw.app.Viewers.Activities.BookmarksOfParticularBookActivity;

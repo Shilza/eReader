@@ -48,6 +48,30 @@
             android:layout_height="60dp">
 
             <TextView
+                android:id="@+id/acSettingsItemText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="15dp"
+                />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/acSettingsItemSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:theme="@style/SwitchCompatTheme"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -82,6 +106,28 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="20dp"/>
         </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="15dp"
+                android:text="@string/settings_font_color"/>
+
+            <Button
+                android:id="@+id/acSettingsColorButton"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"/>
+        </RelativeLayout>
     </LinearLayout>
+
+
 
 </RelativeLayout>

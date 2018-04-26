@@ -20,58 +20,11 @@
         android:maxHeight="180dp"
         android:minHeight="60dp"/>
 
-    <ImageView
-        android:id="@+id/dialogBookmarksAddingImage"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:layout_below="@id/dialogBookmarksAddingEditText"
-        android:layout_marginBottom="6dp"/>
-
-    <ImageButton
-        android:id="@+id/dialogBookmarksAddingCloseImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@id/dialogBookmarksAddingEditText"
-        android:src="@drawable/ic_close_black_24dp"/>
-
-    <LinearLayout
-        android:id="@+id/dialogBookmarksButtonsLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/dialogBookmarksAddingImage"
-        android:orientation="horizontal"
-        >
-
-        <ImageButton
-            android:id="@+id/dialogBookmarksAddingImageSelect"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/ic_image_black_24dp"
-            />
-        <ImageButton
-            android:id="@+id/dialogBookmarksAddingImageDraw"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/ic_brush_black_24dp"
-            />
-        <ImageButton
-            android:id="@+id/dialogBookmarksAddingRecord"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/ic_record_voice_over_black_24dp"
-            />
-
-    </LinearLayout>
-
     <Button
         android:id="@+id/dialogBookmarksAddingActionOk"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/dialogBookmarksButtonsLayout"
+        android:layout_below="@id/dialogBookmarksAddingEditText"
         android:background="@android:color/transparent"
         android:text="@string/dialog_ok"
         android:textColor="#33bbff"

@@ -1,6 +1,5 @@
 package com.example.raw.app.Entities;
 
-
 import com.example.raw.app.Extensions;
 
 import java.io.Serializable;

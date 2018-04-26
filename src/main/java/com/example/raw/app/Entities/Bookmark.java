@@ -1,6 +1,5 @@
 package com.example.raw.app.Entities;
 
-
 import java.io.Serializable;
 
 public class Bookmark implements Serializable{

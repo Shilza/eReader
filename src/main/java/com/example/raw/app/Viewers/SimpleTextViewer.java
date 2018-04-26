@@ -142,6 +142,10 @@ public class SimpleTextViewer extends Activity {
 
         Float fontSize = sharedPref.getFloat(getString(R.string.settings_font_size), 12);
         tvMainText.setTextSize(fontSize);
+
+        //defValue colorBlack
+        int fontColor = sharedPref.getInt(getString(R.string.settings_font_color), -16777216);
+        tvMainText.setTextColor(fontColor);
     }
 
     private void searchViewInit() {

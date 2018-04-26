@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Entities.Bookmark;
-import com.example.raw.app.ItemClickListener;
-import com.example.raw.app.Main.Navigation.BookmarksActivity;
 import com.example.raw.app.R;
 import com.example.raw.app.RVViewHolder;
 import com.example.raw.app.Utils.BookOpener;

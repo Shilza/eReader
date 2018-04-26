@@ -1,26 +1,28 @@
 package com.example.raw.app.Main.Navigation;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.v7.widget.SwitchCompat;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.raw.app.Main.Navigation.Adapters.FontsSpinnerAdapter;
 import com.example.raw.app.R;
+import com.pes.androidmaterialcolorpickerdialog.ColorPicker;
+import com.pes.androidmaterialcolorpickerdialog.ColorPickerCallback;
 
 import java.util.ArrayList;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends Activity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +38,13 @@ public class SettingsActivity extends AppCompatActivity {
 
         initFontsSpinner();
         initFontSizeSpinner();
-
-        LinearLayout layout = findViewById(R.id.acSettingsMainLayout);
+        colorPickerInit();
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         boolean autoStart = sharedPref.getBoolean(getString(R.string.settings_autoStart), false);
 
-        View view = LayoutInflater.from(this).inflate(R.layout.settings_switch_item, layout, false);
-        ((TextView) view.findViewById(R.id.acSettingsItemText)).setText(R.string.settings_autoStart);
-        SwitchCompat switchCompat = view.findViewById(R.id.acSettingsItemSwitch);
+        ((TextView)findViewById(R.id.acSettingsItemText)).setText(R.string.settings_autoStart);
+        SwitchCompat switchCompat = findViewById(R.id.acSettingsItemSwitch);
 
         switchCompat.setChecked(autoStart);
         switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -57,7 +57,6 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        layout.addView(view);
     }
 
     private void initFontSizeSpinner(){
@@ -133,5 +132,36 @@ public class SettingsActivity extends AppCompatActivity {
         });
     }
 
+    private void colorPickerInit(){
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        //defValue color black
+        int fontColor = sharedPref.getInt(getString(R.string.settings_font_color), -16777216);
+        Button colorPickerButton = findViewById(R.id.acSettingsColorButton);
+        colorPickerButton.setBackgroundColor(fontColor);
+
+        ColorPicker cp = new ColorPicker(this);
+        cp.setCallback(new ColorPickerCallback() {
+            @Override
+            public void onColorChosen(@ColorInt int color) {
+                colorPickerButton.setBackgroundColor(color);
+                Log.d("Saas", ""+color);
+
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putInt(getString(R.string.settings_font_color), color);
+                editor.apply();
+
+                cp.dismiss();
+            }
+        });
+
+        colorPickerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cp.show();
+            }
+        });
+    }
 }
 

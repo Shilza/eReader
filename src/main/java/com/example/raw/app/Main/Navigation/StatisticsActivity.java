@@ -3,7 +3,6 @@ package com.example.raw.app.Main.Navigation;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
@@ -22,13 +21,11 @@ import com.example.raw.app.Utils.Repository;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class StatisticsActivity extends Activity {
 
     private AlertDialog.Builder ad;
     private ArrayList<Book> books;
-    private TextToSpeech mTTS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,16 +35,6 @@ public class StatisticsActivity extends Activity {
 
         initUI();
         createDialog();
-        createSpeech();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mTTS != null) {
-            mTTS.stop();
-            mTTS.shutdown();
-        }
     }
 
     private void initUI() {
@@ -145,25 +132,6 @@ public class StatisticsActivity extends Activity {
         });
     }
 
-    private void createSpeech(){
-        mTTS = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if (status == TextToSpeech.SUCCESS) {
-
-                    Locale locale = new Locale("ru");
-                    int result = mTTS.setLanguage(locale);
-
-                    if (result == TextToSpeech.LANG_MISSING_DATA
-                            || result == TextToSpeech.LANG_NOT_SUPPORTED)
-                        Toast.makeText(getBaseContext(), "Этот язык не поддерживается", Toast.LENGTH_SHORT).show();
-                    else
-                        mTTS.speak("Меня всегда огорчало, что в Android не было синтезатора речи на русском. Изначально выбор языков был ограничен английским, испанским, французским, немецким и итальянским. Существовали отдельные коммерческие движки, а также производители могли добавить в свои устройства какой-нибудь движок с нужным языком, видимо договорившись с разработчиком. Но хотелось поддержки из коробки от самой «корпорации добра", TextToSpeech.QUEUE_FLUSH, null);
-                }
-            }
-        });
-    }
-
     private String[] initStatisticsParams(){
         String[] list =  new String[6];
 
@@ -184,6 +152,7 @@ public class StatisticsActivity extends Activity {
 
         list[3] = String.valueOf(countOfReadedBooks);
         list[4] = String.valueOf(books.size());
+
         int bookmarksCount = 0;
         for(Book book : books)
             if(book.getBookmarks().size() > 0)

@@ -1,6 +1,5 @@
 package com.example.raw.app.Main;
 
-
 import com.example.raw.app.Main.Tabs.Tab;
 import com.example.raw.app.Main.Tabs.TabLocalBooks;
 import com.example.raw.app.Main.Tabs.TabRecentBooks;
@@ -24,7 +23,6 @@ public class RVMediator {
         else if (tab.getClass().equals(TabRecentBooks.class))
             tabRecentBooks = (TabRecentBooks) tab;
     }
-
 
     public void notifyDataSetChanged(){
         tabLocalBooks.notifyDataSetChanged();
