@@ -47,8 +47,6 @@ public class MainActivity extends AppCompatActivity{
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
 
         setContentView(R.layout.activity_main);
 
@@ -58,10 +56,14 @@ public class MainActivity extends AppCompatActivity{
         initTabs();
         initSearch();
 
-        SharedPreferences sharedPref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        if(sharedPref.getBoolean(getString(R.string.settings_autoStart), false))
-            BookOpener.getInstance().opening(Repository.getInstance().getRecentBooks().get(0), this);
-
+        Uri data = getIntent().getData();
+        if (data != null)
+            bookOpening(data);
+        else {
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            if (sharedPref.getBoolean(getString(R.string.settings_autoStart), false))
+                BookOpener.getInstance().opening(Repository.getInstance().getRecentBooks().get(0), this);
+        }
     }
 
     private void initDrawer(){
@@ -111,11 +113,10 @@ public class MainActivity extends AppCompatActivity{
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == 1 && resultCode == RESULT_OK)
-            bookOpening(data);
+            bookOpening(data.getData());
     }
 
-    private void bookOpening(Intent data){
-        Uri selectedFile = data.getData();
+    private void bookOpening(Uri selectedFile){
         File file = new File(getRealPathFromURI(selectedFile));
 
         try{

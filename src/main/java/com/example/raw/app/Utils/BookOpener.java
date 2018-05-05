@@ -27,6 +27,7 @@ public class BookOpener {
         }
     }
 
+
     public void opening(Book book, int page, Context context) {
         if (book.getExtension() == Extensions.PDF) {
             Intent intent = new Intent(context, PDFViewer.class);

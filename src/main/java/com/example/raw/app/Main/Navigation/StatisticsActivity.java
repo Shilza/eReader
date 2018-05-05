@@ -142,7 +142,11 @@ public class StatisticsActivity extends Activity {
         DecimalFormat f = new DecimalFormat(pattern);
         list[0] = f.format(hours);
 
-        list[1] = "1318";
+        int browsPagesCount = 0;
+        for(Book book : books)
+            browsPagesCount+= book.getCountOfBrowsePages();
+        list[1] = String.valueOf(browsPagesCount);
+
         list[2] = String.valueOf(books.size() + Repository.getInstance().getLocalBooks().size());
 
         int countOfReadedBooks = 0;

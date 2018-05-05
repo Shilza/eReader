@@ -2,7 +2,7 @@ package com.example.raw.app.Main.Adapters;
 
 import android.view.MenuItem;
 
-public interface Select {
+public interface ContextMenuSelect {
     byte CONTEXT_MENU_OPEN = 0;
     byte CONTEXT_MENU_PROPERTIES = 1;
 

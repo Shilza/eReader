@@ -25,7 +25,7 @@ import com.example.raw.app.Utils.Repository;
 
 import java.util.ArrayList;
 
-public abstract class BookRVAdapter extends RecyclerView.Adapter<BookRVAdapter.BookViewHolder> implements Select {
+public abstract class BookRVAdapter extends RecyclerView.Adapter<BookRVAdapter.BookViewHolder> implements ContextMenuSelect {
 
     ArrayList<Book> books;
     Context context;

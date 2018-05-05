@@ -15,6 +15,7 @@ public class Book implements Serializable{
     private float totalRead;
     private long lastActivity;
     private long timeOfReading;
+    private int countOfBrowsePages;
 
     private boolean isAffixed;
     private Extensions extension;
@@ -29,6 +30,7 @@ public class Book implements Serializable{
         this.bookmarks = new ArrayList<>();
         this.totalRead = 0;
         this.timeOfReading = 0;
+        this.countOfBrowsePages = 0;
         this.isAffixed = false;
     }
 
@@ -52,8 +54,16 @@ public class Book implements Serializable{
         isAffixed = affixed;
     }
 
+    public void setCountOfBrowsePages(int countOfBrowsePages) {
+        this.countOfBrowsePages = countOfBrowsePages;
+    }
+
     public boolean isAffixed() {
         return isAffixed;
+    }
+
+    public int getCountOfBrowsePages() {
+        return countOfBrowsePages;
     }
 
     public String getName(){

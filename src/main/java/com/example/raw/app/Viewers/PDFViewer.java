@@ -44,7 +44,6 @@ public class PDFViewer extends Activity
     private View footer;
     private View header;
 
-    private float totalRead = 0;
     private boolean isHorizontalOrientation;
     private boolean isFullScreen = false;
     private boolean isExtraMenuHide = false;
@@ -88,9 +87,9 @@ public class PDFViewer extends Activity
     @Override
     public void loadComplete(int pageCount) {
         if (startPage == -1)
-            pdfView.jumpTo((int) (pdfView.getPageCount() * totalRead), true);
+            pdfView.jumpTo((int) (pdfView.getPageCount() * book.getTotalRead()), true);
         else
-            pdfView.jumpTo(startPage,true);
+            pdfView.jumpTo(startPage, true);
     }
 
     @Override
@@ -214,6 +213,7 @@ public class PDFViewer extends Activity
     private void refreshBooksData() {
         book.setLastActivity(System.currentTimeMillis());
         book.setTimeOfReading(book.getTimeOfReading() + System.currentTimeMillis() - startReadingTime);
+        book.setCountOfBrowsePages(book.getCountOfBrowsePages()+1);
         startReadingTime = System.currentTimeMillis();
         FileWorker.getInstance().refreshingJSON();
     }
@@ -296,7 +296,6 @@ public class PDFViewer extends Activity
         int index = getIntent().getIntExtra("IndexInRecentBooks", 0);
         startPage = getIntent().getIntExtra("Page", -1);
         book = Repository.getInstance().getRecentBooks().get(index);
-        totalRead = book.getTotalRead();
         startReadingTime = System.currentTimeMillis();
     }
 }
