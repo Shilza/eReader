@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Main.SplashScreenActivity"
+            android:name=".GUI.Main.SplashScreenActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Main.MainActivity">
+        <activity android:name=".GUI.Main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -40,13 +40,13 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-        <activity android:name=".Main.PropertiesActivity" />
-        <activity android:name=".Viewers.PDFViewer" />
-        <activity android:name=".Viewers.SimpleTextViewer" />
-        <activity android:name=".Main.Navigation.StatisticsActivity" />
-        <activity android:name=".Main.Navigation.BookmarksActivity" />
-        <activity android:name=".Viewers.Activities.BookmarksOfParticularBookActivity" />
-        <activity android:name=".Main.Navigation.SettingsActivity" />
+        <activity android:name=".GUI.Main.PropertiesActivity" />
+        <activity android:name=".GUI.Viewers.PDFViewer" />
+        <activity android:name=".GUI.Viewers.SimpleTextViewer" />
+        <activity android:name=".GUI.Main.Navigation.StatisticsActivity" />
+        <activity android:name=".GUI.Main.Navigation.BookmarksActivity" />
+        <activity android:name=".GUI.Viewers.Activities.BookmarksOfParticularBookActivity" />
+        <activity android:name=".GUI.Main.Navigation.SettingsActivity" />
     </application>
 
 </manifest>

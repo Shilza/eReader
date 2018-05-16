@@ -5,8 +5,8 @@ import android.content.Intent;
 
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Extensions;
-import com.example.raw.app.Viewers.PDFViewer;
-import com.example.raw.app.Viewers.SimpleTextViewer;
+import com.example.raw.app.GUI.Viewers.PDFViewer;
+import com.example.raw.app.GUI.Viewers.SimpleTextViewer;
 
 import java.io.File;
 

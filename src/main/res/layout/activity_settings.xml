@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.raw.app.Main.Navigation.SettingsActivity">
+    tools:context=".GUI.Main.Navigation.SettingsActivity">
 
     <RelativeLayout
         android:id="@+id/acSettingsHeaderLayout"

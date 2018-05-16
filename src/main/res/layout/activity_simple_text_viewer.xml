@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:menu="@menu/menu_txt_viewer"
-    tools:context="com.example.raw.app.Viewers.SimpleTextViewer">
+    tools:context=".GUI.Viewers.SimpleTextViewer">
 
     <TextView
         android:id="@+id/acSimpleTextViewerFilename"

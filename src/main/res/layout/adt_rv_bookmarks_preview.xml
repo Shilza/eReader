@@ -10,7 +10,7 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    tools:context="com.example.raw.app.Main.Navigation.BookmarksActivity">
+    tools:context=".GUI.Main.Navigation.BookmarksActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/acBookmarksPreviewRecyclerView"
