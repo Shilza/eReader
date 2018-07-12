@@ -1,6 +1,7 @@
 package com.example.raw.app.Utils;
 
 import android.os.Environment;
+import android.util.Log;
 
 import com.example.raw.app.Entities.Book;
 import com.google.gson.Gson;
@@ -19,7 +20,8 @@ public class FileWorker {
 
     private static final FileWorker INSTANCE = new FileWorker();
 
-    private final String APP_DIRECTORY = Environment.getExternalStorageDirectory() + "/" + "Silicate Reader" + "/"; //REMAKE WITH STRINGS.XML
+    private final String APP_DIRECTORY = Environment.getExternalStorageDirectory()
+            + "/" + "Silicate Reader" + "/"; //REMAKE WITH STRINGS.XML
     private final String PICTURES = APP_DIRECTORY + "Pictures/";
     private final String LIST_RECENT_BOOKS = APP_DIRECTORY + "recent_books";
     private final String LIST_LOCAL_BOOKS = APP_DIRECTORY + "local_books";

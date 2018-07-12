@@ -11,7 +11,6 @@ public class Repository {
     private ArrayList<Book> recentBooks;
     private ArrayList<Book> localBooks;
 
-
     public static Repository getInstance() {
         return INSTANCE;
     }

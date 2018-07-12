@@ -27,7 +27,7 @@ public class ContentManager {
         try {
             Repository.getInstance().setRecentBooks(FileWorker.getInstance().initializeRecentBooks());
         } catch (FileNotFoundException ex) {
-            Repository.getInstance().setRecentBooks(new ArrayList<Book>());
+            Repository.getInstance().setRecentBooks(new ArrayList<>());
         }
         try {
             Repository.getInstance().setLocalBooks(FileWorker.getInstance().initializeLocalBooks());

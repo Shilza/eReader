@@ -1,6 +1,7 @@
 package com.example.raw.app.Utils;
 
 import android.os.Environment;
+import android.util.Log;
 
 import com.example.raw.app.Entities.Book;
 import com.example.raw.app.Extensions;
@@ -29,17 +30,16 @@ public class BookSearcher {
         searchingFiles(Environment.getExternalStorageDirectory());
 
         //SD card search
-        for (File f : new File("/storage").listFiles())
-            if (f.getName().contains("sdcard1"))
+        for (File f : new File("/storage").listFiles()) {
+            if (f.listFiles() != null && f.getName().contains("sdcard1"))
                 searchingFiles(f);
+        }
 
         return new ArrayList<>(books);
     }
 
     private void searchingFiles(File directory) {
-        File[] folderEntries = directory.listFiles();
-
-        for (File dir : folderEntries) {
+        for (File dir : directory.listFiles()) {
             if (dir.isDirectory())
                 searchingFiles(dir);
             else
@@ -54,7 +54,7 @@ public class BookSearcher {
         String temp = directory.getName();
 
         for (Extensions ext : Extensions.searchableExtensions())
-            if (directory.getName().toLowerCase().endsWith(ext.getDescription())) {
+            if (temp.toLowerCase().endsWith(ext.getDescription())) {
 
                 String name = temp.substring(0, temp.toLowerCase().indexOf(ext.getDescription()));
 
